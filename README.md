@@ -5,9 +5,8 @@
  - First commit
  - Added all the code 
  - Support:
-
- 1. *Window support*: Add a window using only one class.
- 2. *Sandbox application* : For testing purposes.
+ **** *Window support*: Add a window using only one class.
+ **** *Sandbox application* : For testing purposes.
 
 **Bugs:**
 - I am getting an error on compilation
