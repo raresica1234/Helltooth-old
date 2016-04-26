@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{687d79ad-e309-4e34-9da3-0225d8288686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sandbox">
+      <UniqueIdentifier>{e3154ff9-0e56-45ef-96cc-2565577c4b68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sandbox.cpp">
+      <Filter>src\sandbox</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sandbox.h">
+      <Filter>src\sandbox</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
