@@ -1,8 +1,7 @@
 #pragma once
 
-#include <GLFW\glfw3.h>
-#include <GL\GL.h>
 #include <iostream>
+#include <GLFW/glfw3.h>
 
 namespace ht { namespace graphics {
 
@@ -17,12 +16,13 @@ namespace ht { namespace graphics {
 			Window(const char *title, const int &width, const int &height);
 			~Window();
 			bool closed() const;
-			void update() const;
+			void update();
 			void clear() const;
+
+			inline int getWidth() const { return m_Width; }
+			inline int getHeight() const { return m_Height; }
+
 		private:
 			bool init();
 		};
-
-
-	
-}}
+} }

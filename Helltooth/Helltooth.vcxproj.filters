@@ -15,16 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Helltooth.h">
+    <ClInclude Include="src\Helltooth.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="window.h">
+    <ClInclude Include="src\graphics\window.h">
       <Filter>src\Helltooth\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\maths\vec2.h" />
+    <ClInclude Include="src\maths\vec3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="window.cpp">
+    <ClCompile Include="src\graphics\window.cpp">
       <Filter>src\Helltooth\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\maths\vec2.cpp" />
+    <ClCompile Include="src\maths\vec3.cpp" />
   </ItemGroup>
 </Project>

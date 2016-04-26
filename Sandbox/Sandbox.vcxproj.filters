@@ -9,15 +9,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sandbox.cpp">
-      <Filter>src\sandbox</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sandbox\sandbox.cpp">
+      <Filter>src\sandbox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sandbox.h">
+    <ClInclude Include="src\sandbox\sandbox.h">
       <Filter>src\sandbox</Filter>
     </ClInclude>
   </ItemGroup>

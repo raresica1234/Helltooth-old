@@ -88,7 +88,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Helltooth;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Helltooth.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Helltooth.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,11 +130,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="sandbox.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\sandbox\sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sandbox.h" />
+    <ClInclude Include="src\sandbox\sandbox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
