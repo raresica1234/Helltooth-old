@@ -7,7 +7,6 @@
  - Support:
 
  > *Window support*: Add a window using only one class.
- 
  > *Sandbox application* : For testing purposes.
 
 **Bugs:**
