@@ -3,6 +3,7 @@
 using namespace sandbox;
 using namespace ht;
 using namespace graphics;
+using namespace utils;
 
 Sandbox::Sandbox() {
 	std::cout << "SandBox constructed!" <<std::endl;
@@ -30,6 +31,8 @@ void Sandbox::update() const{
 		glVertex2f(0.5f, -0.5f);
 		glEnd();
 		m_Window->update();
+		if (Input::getKey(GLFW_KEY_A))
+			std::cout << "Pressed!" << std::endl;
 	}
 }
 

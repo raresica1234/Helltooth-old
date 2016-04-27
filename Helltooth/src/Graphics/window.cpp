@@ -53,8 +53,7 @@ namespace ht {	namespace graphics {
 		void Window::update() {
 			glfwPollEvents();
 			glfwSwapBuffers(m_Window);
-			if (utils::Input::getKey(GLFW_KEY_A))
-				std::cout << "Pressed!" << std::endl;
+			
 		}
 
 		bool Window::closed() const {

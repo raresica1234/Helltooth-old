@@ -1,5 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 #ifndef MAX_KEYS
 #define MAX_KEYS	 1000
@@ -33,8 +34,10 @@ namespace ht { namespace utils {
 		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 	
 		inline static bool getKey(unsigned int const &a) {
-			if (a <= MAX_KEYS)
-				return Input::m_Keys[a]; }
+			//if (a <= MAX_KEYS)
+				return Input::m_Keys[a]; 
+			return false;
+		}
 
 	};
 
