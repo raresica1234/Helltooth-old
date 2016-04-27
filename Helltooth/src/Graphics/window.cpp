@@ -19,7 +19,7 @@ namespace ht {	namespace graphics {
 
 		bool Window::init() {
 			if (!glfwInit()) {
-				std::cout << "Couldn't initialize GLFW!" << std::endl;
+				std::cout << "Could not initialize GLFW!" << std::endl;
 				return false;
 			}
 
@@ -32,8 +32,13 @@ namespace ht {	namespace graphics {
 			glfwMakeContextCurrent(m_Window);
 			glfwSetWindowSizeCallback(m_Window, windowResize);
 
-			std::cout << "GLFW Version: " << glfwGetVersion << std::endl;
+			if (glewInit() != GLEW_OK) {
+				std::cout << "Could not initialize GLEW!" << std::endl;
+				return false;
+			}
 			std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+			std::cout << "GLFW Version: " << glfwGetVersion << std::endl;
+			std::cout << "GLEW  Version: " << GLEW_VERSION << std::endl;
 
 			return true;
 		}
