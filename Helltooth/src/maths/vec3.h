@@ -3,9 +3,8 @@
 
 namespace ht {	namespace maths {
 
-		class vec3 {
+		struct vec3 {
 
-		public:
 			float x;
 			float y;
 			float z;

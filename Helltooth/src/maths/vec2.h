@@ -3,9 +3,7 @@
 
 namespace ht {	namespace maths {
 
-	class vec2 {
-
-	public:
+	struct vec2 {
 		float x;
 		float y;
 

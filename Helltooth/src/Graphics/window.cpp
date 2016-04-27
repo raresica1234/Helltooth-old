@@ -39,7 +39,7 @@ namespace ht {	namespace graphics {
 			std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 			std::cout << "GLFW Version: " << glfwGetVersion << std::endl;
 			std::cout << "GLEW  Version: " << GLEW_VERSION << std::endl;
-
+			glfwSetKeyCallback(m_Window, utils::Input::key_callback);
 			return true;
 		}
 

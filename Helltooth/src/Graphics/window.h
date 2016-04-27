@@ -13,6 +13,7 @@ namespace ht { namespace graphics {
 			int m_Height;
 			GLFWwindow *m_Window;
 			bool m_Closed;
+			
 		public:
 			Window(const char *title, const int &width, const int &height);
 			~Window();

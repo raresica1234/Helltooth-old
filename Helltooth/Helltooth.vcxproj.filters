@@ -23,6 +23,9 @@
     </ClInclude>
     <ClInclude Include="src\maths\vec2.h" />
     <ClInclude Include="src\maths\vec3.h" />
+    <ClInclude Include="src\maths\vec4.h" />
+    <ClInclude Include="src\maths\mat4.h" />
+    <ClInclude Include="src\utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\window.cpp">
@@ -30,5 +33,8 @@
     </ClCompile>
     <ClCompile Include="src\maths\vec2.cpp" />
     <ClCompile Include="src\maths\vec3.cpp" />
+    <ClCompile Include="src\maths\vec4.cpp" />
+    <ClCompile Include="src\maths\mat4.cpp" />
+    <ClCompile Include="src\utils\input.cpp" />
   </ItemGroup>
 </Project>
