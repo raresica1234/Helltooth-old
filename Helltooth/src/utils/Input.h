@@ -9,6 +9,7 @@
 #define MAX_BUTTONS	 8
 #endif
 
+
 namespace ht { namespace utils {
 
 	class Input {
@@ -18,10 +19,23 @@ namespace ht { namespace utils {
 		static bool m_Buttons[MAX_BUTTONS];
 		static double mouseX, mouseY;
 	public:
-		static friend void init();
+		inline static void init() {
+			for (int i = 0; i < MAX_KEYS; i++) {
+				Input::m_Keys[i] = false;
+			}
+			for (int i = 0; i < MAX_BUTTONS; i++) {
+				Input::m_Buttons[i] = false;
+			}
+		}
+
 		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+	
+		inline static bool getKey(unsigned int const &a) {
+			if (a <= MAX_KEYS)
+				return Input::m_Keys[a]; }
+
 	};
 
 
