@@ -26,6 +26,7 @@
     <ClInclude Include="src\maths\vec4.h" />
     <ClInclude Include="src\maths\mat4.h" />
     <ClInclude Include="src\utils\Input.h" />
+    <ClInclude Include="src\graphics\shaders\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\window.cpp">
@@ -36,5 +37,6 @@
     <ClCompile Include="src\maths\vec4.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\utils\input.cpp" />
+    <ClCompile Include="src\graphics\shaders\ShaderProgram.cpp" />
   </ItemGroup>
 </Project>

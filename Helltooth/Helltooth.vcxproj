@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\Helltooth.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\maths\mat4.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="src\utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\mat4.cpp" />
     <ClCompile Include="src\maths\vec2.cpp" />
