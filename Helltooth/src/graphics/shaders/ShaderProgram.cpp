@@ -10,7 +10,6 @@ namespace ht { namespace graphics {
 	ShaderProgram::~ShaderProgram() {}
 
 	void ShaderProgram::init() {
-		programID = glCreateShaderProgramv(GL_);
 	}
 
 
