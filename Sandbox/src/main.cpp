@@ -5,6 +5,6 @@ using namespace sandbox;
 void main() {
 
 	Sandbox sandbox;
-
 	sandbox.update();
+
 }

@@ -5,6 +5,7 @@
 #include "vec4.h"
 #include "vec3.h"
 #include "vec2.h"
+#include "maths.h"
 
 namespace ht { namespace maths {
 
@@ -17,8 +18,8 @@ namespace ht { namespace maths {
 		
 		mat4();
 
-		static mat4 createProjection(const int &FOV, const int &NEAR_PLANE, const int &FAR_PLANE, const int &WIDTH, const int &HEIGHT);
-		static mat4 createOrthographic(const int &left, const int &right, const int &top, const int &bottom, const int &far, const int &near);
+		static mat4 createProjection(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const int &WIDTH, const int &HEIGHT);
+		static mat4 createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &far, const float &near);
 		static mat4 createIdentity();
 
 		void translate(const vec3 &translation);

@@ -8,24 +8,25 @@ namespace ht { namespace maths {
 		}
 	}
 
-	mat4 mat4::createProjection(const int &FOV, const int &NEAR_PLANE, const int &FAR_PLANE, const int &WIDTH, const int &HEIGHT) {
-		float aspectRatio = (float) WIDTH / HEIGHT;
-		float halftan = tanh(FOV * (float)(3.14159265358979323846 / 180.f));
-		float zm = (float)FAR_PLANE - NEAR_PLANE;
-		float zp = (float)FAR_PLANE + NEAR_PLANE;
+	mat4 mat4::createProjection(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const int &WIDTH, const int &HEIGHT) {
+		mat4 result = mat4::createIdentity();
+		float aspectRatio = WIDTH / HEIGHT;
+		float q = 1.0f / tan(toRadians(0.5f * FOV));
+		float a = q / aspectRatio;
 
-		mat4 result = mat4();
-		
-		result.elements[0 + 0 * 4] = (1.0f / halftan) / aspectRatio;
-		result.elements[1 + 1 * 4] = (1.0f / halftan);
-		result.elements[2 + 2 * 4] = -zp / zm;
-		result.elements[3 + 2 * 4] = -(2 * FAR_PLANE*NEAR_PLANE) / zm;
-		result.elements[2 + 3 * 4] = -1;
+		float b = (NEAR_PLANE + FAR_PLANE) / (NEAR_PLANE - FAR_PLANE);
+		float c = (2.0f * NEAR_PLANE * FAR_PLANE) / (NEAR_PLANE - FAR_PLANE);
+
+		result.elements[0 + 0 * 4] = a;
+		result.elements[1 + 1 * 4] = q;
+		result.elements[2 + 2 * 4] = b;
+		result.elements[3 + 2 * 4] = -1.0f;
+		result.elements[2 + 3 * 4] = c;
 
 		return result;
 	}
 
-	mat4 mat4::createOrthographic(const int &left, const int &right, const int &top, const int &bottom, const int &far, const int &near) {
+	mat4 mat4::createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &far, const float &near) {
 		mat4 result = createIdentity();
 
 		result.elements[0 + 0 * 4] = (float) 2 / (right - left);

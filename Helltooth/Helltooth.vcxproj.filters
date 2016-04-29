@@ -27,6 +27,8 @@
     <ClInclude Include="src\maths\mat4.h" />
     <ClInclude Include="src\utils\Input.h" />
     <ClInclude Include="src\graphics\shaders\ShaderProgram.h" />
+    <ClInclude Include="src\utils\FileUtils.h" />
+    <ClInclude Include="src\maths\maths.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\window.cpp">
