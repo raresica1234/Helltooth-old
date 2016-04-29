@@ -3,25 +3,22 @@
 namespace ht { namespace maths {
 
 	mat4::mat4() {
-		for (int i = 0; i < (sizeof(elements) / sizeof(float)); i++) {
-			elements[i] = 0;
-		}
+		memset(elements, 0, sizeof(elements));
 	}
 
 	mat4 mat4::createProjection(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const int &WIDTH, const int &HEIGHT) {
-		mat4 result = mat4::createIdentity();
+		mat4 result = mat4();
 		float aspectRatio = WIDTH / HEIGHT;
-		float q = 1.0f / tan(toRadians(0.5f * FOV));
-		float a = q / aspectRatio;
+		float tanHalf = tanh(FOV / 2);
 
-		float b = (NEAR_PLANE + FAR_PLANE) / (NEAR_PLANE - FAR_PLANE);
-		float c = (2.0f * NEAR_PLANE * FAR_PLANE) / (NEAR_PLANE - FAR_PLANE);
+		result.elements[0 + 0 * 4] = 1.0f / (tanHalf * aspectRatio);
+		result.elements[1 + 1 * 4] = 1.0f / tanHalf;
+		result.elements[2 + 2 * 4] = -(FAR_PLANE + NEAR_PLANE) / (FAR_PLANE - NEAR_PLANE);
+		result.elements[3 + 2 * 4] = -1;
+		result.elements[2 + 3 * 4] = -(2 * FAR_PLANE * NEAR_PLANE) / (FAR_PLANE - NEAR_PLANE);
+		result.elements[3 + 3 * 4] = 0;
 
-		result.elements[0 + 0 * 4] = a;
-		result.elements[1 + 1 * 4] = q;
-		result.elements[2 + 2 * 4] = b;
-		result.elements[3 + 2 * 4] = -1.0f;
-		result.elements[2 + 3 * 4] = c;
+
 
 		return result;
 	}

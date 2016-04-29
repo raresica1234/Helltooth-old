@@ -14,7 +14,8 @@ Sandbox::Sandbox() {
 
 void Sandbox::update(){
 	program->start();
-	program->uniformMat4("projectionMatrix", mat4::createProjection(70, 0.0001f, 1000.0f, WIDTH, HEIGHT));
+	mat4 projectionMatrix = mat4::createProjection(70, 0.1f, 1000.0f, WIDTH, HEIGHT);
+	program->uniformMat4("projectionMatrix", projectionMatrix);
 	
 	while (!m_Window->closed()) {
 		m_Window->clear();
