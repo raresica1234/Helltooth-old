@@ -7,13 +7,12 @@ namespace ht {	namespace graphics {
 		glGenVertexArrays(1, &vaoID);
 	}
 
-	void Renderable3D::init() {
+	void Renderable3D::bindVAO() {
 		glBindVertexArray(vaoID);
-		glEnableVertexAttribArray(0);
+	}
 
-		for (GLuint vbo : vbos) {
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		}
+	void Renderable3D::unbindVAO() {
+		glBindVertexArray(0);
 	}
 
 	void Renderable3D::addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type) {
@@ -54,24 +53,29 @@ namespace ht {	namespace graphics {
 		glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 		
 		glEnableVertexAttribArray(number);
-		glVertexAttribPointer(number, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(number, count, GL_FLOAT, GL_FALSE, count * sizeof(float), 0);
+
+		glEnableVertexAttribArray(number);
+
 	}
 
 	void Renderable3D::storeIndices(const GLint *data, const GLsizei &dataSize) {
 		glGenBuffers(1, &ibo);
 
-		glBindBuffer(GL_INDEX_ARRAY, ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
 	}
 
 	void Renderable3D::flush() {
+		bindVAO();
 		if (usingIndices) {
 			glDrawElements(GL_TRIANGLES, 3, GL_INT, nullptr);
 		}
 		else {
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 		}
+		unbindVAO();
 	}
 
 	Renderable3D::~Renderable3D() {

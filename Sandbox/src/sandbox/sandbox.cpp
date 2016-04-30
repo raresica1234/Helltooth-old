@@ -24,14 +24,18 @@ void Sandbox::update(){
 		0,1,2
 	};
 
+	renderable3D->bindVAO();
+
 	renderable3D->addBufferData(data, sizeof(data), RENDERABLE_3DCOORDS);
-	renderable3D->addBufferData(indices, sizeof(data));
+	renderable3D->addBufferData(indices, sizeof(indices));
+
+	renderable3D->unbindVAO();
 
 	program->start();
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	program->uniformMat4("projectionMatrix", projectionMatrix);
 
-	renderable3D->init();
+	
 
 	vec2 position;
 	while (!m_Window->closed()) {
@@ -41,6 +45,7 @@ void Sandbox::update(){
 
 		m_Window->update();
 	}
+	program->stop();
 }
 
 Sandbox::~Sandbox() {

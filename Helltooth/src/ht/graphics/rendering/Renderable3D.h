@@ -28,7 +28,8 @@ namespace ht { namespace graphics {
 		Renderable3D();
 		~Renderable3D();
 
-		void init();
+		void bindVAO();
+		void unbindVAO();
 
 		void flush();
 
