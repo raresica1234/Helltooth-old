@@ -46,7 +46,6 @@ namespace ht {	namespace graphics {
 		GLuint vboID;
 
 		glGenBuffers(1, &vboID);
-
 		vbos.push_back(vboID);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
@@ -61,7 +60,9 @@ namespace ht {	namespace graphics {
 
 	void Renderable3D::storeIndices(const GLint *data, const GLsizei &dataSize) {
 		glGenBuffers(1, &ibo);
+		indices = data;
 
+		std::cout << "dataSize " << dataSize << std::endl;
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
@@ -70,7 +71,7 @@ namespace ht {	namespace graphics {
 	void Renderable3D::flush() {
 		bindVAO();
 		if (usingIndices) {
-			glDrawElements(GL_TRIANGLES, 3, GL_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*) 0);
 		}
 		else {
 			glDrawArrays(GL_TRIANGLES, 0, 3);

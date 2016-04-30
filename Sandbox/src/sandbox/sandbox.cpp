@@ -21,7 +21,7 @@ void Sandbox::update(){
 	};
 
 	GLint indices[] = {
-		0,1,2
+		0,2,1
 	};
 
 	renderable3D->bindVAO();

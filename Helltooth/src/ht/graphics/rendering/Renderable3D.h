@@ -18,6 +18,8 @@ namespace ht { namespace graphics {
 		GLuint vaoID;
 		unsigned int vboNumber;
 
+		const GLint *indices;
+
 		std::vector<GLuint> vbos;
 
 		GLuint ibo;
