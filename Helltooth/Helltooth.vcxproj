@@ -127,25 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\graphics\shaders\ShaderProgram.h" />
-    <ClInclude Include="src\Helltooth.h" />
-    <ClInclude Include="src\graphics\window.h" />
-    <ClInclude Include="src\maths\mat4.h" />
-    <ClInclude Include="src\maths\maths.h" />
-    <ClInclude Include="src\maths\vec2.h" />
-    <ClInclude Include="src\maths\vec3.h" />
-    <ClInclude Include="src\maths\vec4.h" />
-    <ClInclude Include="src\utils\FileUtils.h" />
-    <ClInclude Include="src\utils\Input.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Renderable3D.h" />
+    <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
+    <ClInclude Include="src\ht\Helltooth.h" />
+    <ClInclude Include="src\ht\graphics\window.h" />
+    <ClInclude Include="src\ht\maths\mat4.h" />
+    <ClInclude Include="src\ht\maths\maths.h" />
+    <ClInclude Include="src\ht\maths\vec2.h" />
+    <ClInclude Include="src\ht\maths\vec3.h" />
+    <ClInclude Include="src\ht\maths\vec4.h" />
+    <ClInclude Include="src\ht\utils\FileUtils.h" />
+    <ClInclude Include="src\ht\utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\shaders\ShaderProgram.cpp" />
-    <ClCompile Include="src\graphics\window.cpp" />
-    <ClCompile Include="src\maths\mat4.cpp" />
-    <ClCompile Include="src\maths\vec2.cpp" />
-    <ClCompile Include="src\maths\vec3.cpp" />
-    <ClCompile Include="src\maths\vec4.cpp" />
-    <ClCompile Include="src\utils\input.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Renderable3D.cpp" />
+    <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
+    <ClCompile Include="src\ht\graphics\window.cpp" />
+    <ClCompile Include="src\ht\maths\mat4.cpp" />
+    <ClCompile Include="src\ht\maths\vec2.cpp" />
+    <ClCompile Include="src\ht\maths\vec3.cpp" />
+    <ClCompile Include="src\ht\maths\vec4.cpp" />
+    <ClCompile Include="src\ht\utils\input.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
