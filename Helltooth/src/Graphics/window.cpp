@@ -44,6 +44,10 @@ namespace ht {	namespace graphics {
 
 			glfwSetKeyCallback(m_Window, utils::key_callback);
 
+			glLoadIdentity();
+			glMatrixMode(GL_PROJECTION);
+			glEnable(GL_DEPTH_TEST);
+
 			return true;
 		}
 

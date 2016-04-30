@@ -3,42 +3,47 @@
 namespace ht { namespace maths {
 
 	mat4::mat4() {
-		memset(elements, 0, sizeof(elements));
+		memset(&elements, 0, sizeof(elements));
 	}
 
-	mat4 mat4::createProjection(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const int &WIDTH, const int &HEIGHT) {
-		mat4 result = mat4();
-		float aspectRatio = WIDTH / HEIGHT;
-		float tanHalf = tanh(FOV / 2);
+	mat4 mat4::createPerspective(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const float &ASPECT_RATIO) {
 
-		result.elements[0 + 0 * 4] = 1.0f / (tanHalf * aspectRatio);
+		mat4 result;
+
+		float tanHalf = tanh(FOV / 2.0f);
+
+		result.elements[0 + 0 * 4] = 1.0f / (tanHalf * ASPECT_RATIO);
 		result.elements[1 + 1 * 4] = 1.0f / tanHalf;
 		result.elements[2 + 2 * 4] = -(FAR_PLANE + NEAR_PLANE) / (FAR_PLANE - NEAR_PLANE);
-		result.elements[3 + 2 * 4] = -1;
-		result.elements[2 + 3 * 4] = -(2 * FAR_PLANE * NEAR_PLANE) / (FAR_PLANE - NEAR_PLANE);
-		result.elements[3 + 3 * 4] = 0;
-
-
+		result.elements[3 + 2 * 4] = -1.0f;
+		result.elements[2 + 3 * 4] = -(2.0f * FAR_PLANE * NEAR_PLANE) / (FAR_PLANE - NEAR_PLANE);
+		result.elements[3 + 3 * 4] = 0.0f;
 
 		return result;
 	}
 
-	mat4 mat4::createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &far, const float &near) {
+	mat4 mat4::createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &near, const float &far) {
 		mat4 result = createIdentity();
 
-		result.elements[0 + 0 * 4] = (float) 2 / (right - left);
-		result.elements[1 + 1 * 4] = (float) 2 / (top - bottom);
-		result.elements[2 + 2 * 4] = (float) -2 / (far - near);
+		float xdist = right - left;
+		float ydist = top - bottom;
+		float zdist = far - near;
 
-		result.elements[0 + 3 * 4] = (float) (left + right) / (left - right);
-		result.elements[1 + 3 * 4] = (float) (bottom + top) / (bottom - top);
-		result.elements[2 + 3 * 4] = (float) (far + near) / (far - near);
+		result.elements[0 + 0 * 4] = (2.0f * near) / xdist;
+		result.elements[1 + 1 * 4] = (2.0f * near) / ydist;
+
+		result.elements[2 + 0 * 4] = (right + left) / xdist;
+		result.elements[2 + 1 * 4] = (top + bottom) / ydist;
+		result.elements[2 + 2 * 4] = -(far + near) / zdist;
+		result.elements[2 + 3 * 4] = -1.0f;
+
+		result.elements[3 + 2 * 4] = -(2.0f * far * near) / zdist;
+		result.elements[3 + 3 * 4] = 0;
 
 		return result;
 	}
 
 	mat4 mat4::createIdentity() {
-		//TODO: Suspicious looking memory leak.
 		mat4 result = mat4();
 		result.elements[0 + 0 * 4] = 1;
 		result.elements[1 + 1 * 4] = 1;
@@ -87,7 +92,6 @@ namespace ht { namespace maths {
 			elements[0 + 1 * 4] = s;
 			elements[1 + 1 * 4] = c;
 		}
-		delete &identity;
 	}
 
 	mat4 operator*(mat4 left, const mat4 &right) {

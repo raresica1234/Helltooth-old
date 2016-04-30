@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#include <GL/glew.h>
+
 #include "vec4.h"
 #include "vec3.h"
 #include "vec2.h"
@@ -12,14 +14,14 @@ namespace ht { namespace maths {
 	struct mat4 {
 
 		union {
-			float elements[4 * 4];
+			GLfloat elements[4 * 4];
 			vec4 columns[4];
 		};
 		
 		mat4();
 
-		static mat4 createProjection(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const int &WIDTH, const int &HEIGHT);
-		static mat4 createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &far, const float &near);
+		static mat4 createPerspective(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const float &ASPECT_RATIO);
+		static mat4 createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &near, const float &far);
 		static mat4 createIdentity();
 
 		void translate(const vec3 &translation);
@@ -35,6 +37,15 @@ namespace ht { namespace maths {
 		vec4 operator*=(const vec4 &other);
 		vec3 operator*=(const vec3 &other);
 		vec2 operator*=(const vec2 &other);
+
+		inline void print() const {
+			std::cout << std::endl;
+			for (int i = 1; i <= 16; i++) {
+				std::cout << elements[i - 1] << " ";
+				if (i % 4 == 0)
+					std::cout << std::endl;
+			}
+		}
 	};
 
 } }

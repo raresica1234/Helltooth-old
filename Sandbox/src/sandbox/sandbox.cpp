@@ -14,7 +14,7 @@ Sandbox::Sandbox() {
 
 void Sandbox::update(){
 	program->start();
-	mat4 projectionMatrix = mat4::createProjection(70, 0.1f, 1000.0f, WIDTH, HEIGHT);
+	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	program->uniformMat4("projectionMatrix", projectionMatrix);
 	
 	while (!m_Window->closed()) {
@@ -24,20 +24,19 @@ void Sandbox::update(){
 			
 		if (Input::getKey(GLFW_KEY_W))
 			z -= 0.001f;
-
+		std::cout << z << std::endl;
 		glColor3f(0.0, 1.0, 1.0);
 		glBegin(GL_TRIANGLES);
 		glVertex3f(-0.5f ,-0.5f , z);
 		glVertex3f( 0.0f , 0.5f , z);
 		glVertex3f( 0.5f ,-0.5f , z);
 		glEnd();
-		std::cout << z << std::endl;
 		m_Window->update();
 	}
 }
 
 Sandbox::~Sandbox() {
-	std::cout << "SandBox deconstructed!"<<std::endl;
+	std::cout << "SandBox deconstructed!"<< std::endl;
 	delete m_Window;
 	delete program;
 }
