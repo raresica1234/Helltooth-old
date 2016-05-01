@@ -30,6 +30,7 @@
       <Filter>src\Helltooth\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\ht\graphics\rendering\Renderable3D.h" />
+    <ClInclude Include="src\ht\utils\FpsCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />

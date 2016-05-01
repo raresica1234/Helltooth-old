@@ -11,13 +11,16 @@ Sandbox::Sandbox() {
 	glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
 	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 	renderable3D = new Renderable3D();
+
+	unsigned int fps = 60;
+	counter = new FpsCounter(&fps, update, render);
 }
 
-void Sandbox::update(){
+void Sandbox::init() {
 	GLfloat data[] = {
 		-0.5f, -0.5f, -0.5f,
-		 0.0f,  0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f
+		0.0f,  0.5f, -0.5f,
+		0.5f, -0.5f, -0.5f
 	};
 
 	GLint indices[] = {
@@ -35,21 +38,32 @@ void Sandbox::update(){
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	program->uniformMat4("projectionMatrix", projectionMatrix);
 
-	
+}
 
-	vec2 position;
+void Sandbox::start() {
 	while (!m_Window->closed()) {
 		m_Window->clear();
-		
-		renderable3D->flush();
+
+		counter->updateCounter();
 
 		m_Window->update();
 	}
-	program->stop();
+}
+
+void Sandbox::update(){
+	
+	//update
+
+}
+
+void Sandbox::render() {
+	renderable3D->flush;
 }
 
 Sandbox::~Sandbox() {
 	std::cout << "SandBox deconstructed!"<< std::endl;
+
+	delete counter;
 	delete renderable3D;
 	delete program;
 	delete m_Window;

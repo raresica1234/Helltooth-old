@@ -137,6 +137,7 @@
     <ClInclude Include="src\ht\maths\vec3.h" />
     <ClInclude Include="src\ht\maths\vec4.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
+    <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
