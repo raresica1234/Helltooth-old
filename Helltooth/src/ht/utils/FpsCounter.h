@@ -3,26 +3,24 @@
 #include <Windows.h>
 #include <iostream>
 
+
+
 namespace ht { namespace utils {
 
 	class FpsCounter {
 
 	private:
 		unsigned int ups, fps, MAX_UPS;
-
+		
 		float updateTick;
 		float time = 0.0f;
 
 		unsigned __int64 currentTime, lastTime;
-
-		void(*update(void));
-		void(*render(void));
-
+		
 	public:
-		FpsCounter(unsigned int &MAX_UPS, void(*update(void)), void(*render(void))) {
+
+		FpsCounter(unsigned int &MAX_UPS) {
 			this->MAX_UPS = MAX_UPS;
-			this->update = update;
-			this->render = render;
 
 			ups = 0;
 			fps = 0;
@@ -30,29 +28,37 @@ namespace ht { namespace utils {
 
 			lastTime = getTime();
 		}
+
 		~FpsCounter() {
 		}
 		
-		void updateCounter() {
-			currentTime = getTime();
+		void init() {
+			lastTime = getTime();
+		}
 
+		bool update() {
+			currentTime = getTime();
 			if (currentTime - time >= updateTick) {
-				update();
 				ups++;
 				time += updateTick;
+				return true;
 			}
+			return false;
+			
+		}
 
-			render();
+		void render() {
 			fps++;
+		}
 
-			if ((lastTime - currentTime) > 1) {
+		void show() {
+			if ((currentTime - lastTime) > 1) {
 				std::cout << "fps " << fps << " ups " << ups << std::endl;
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;
 				time = 0.0f;
 			}
-
 		}
 
 		unsigned __int64 getTime() {

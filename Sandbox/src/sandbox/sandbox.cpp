@@ -12,8 +12,8 @@ Sandbox::Sandbox() {
 	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 	renderable3D = new Renderable3D();
 
-	unsigned int fps = 60;
-	counter = new FpsCounter(&fps, update, render);
+	unsigned int max_ups = 60;
+	counter = new FpsCounter(max_ups);
 }
 
 void Sandbox::init() {
@@ -37,14 +37,24 @@ void Sandbox::init() {
 	program->start();
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	program->uniformMat4("projectionMatrix", projectionMatrix);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	counter->init();
 
 }
 
 void Sandbox::start() {
+	init();
 	while (!m_Window->closed()) {
 		m_Window->clear();
 
-		counter->updateCounter();
+		if(counter->update())
+			update();
+
+		counter->render();
+		render();
+
+		counter->show();
 
 		m_Window->update();
 	}
@@ -57,7 +67,7 @@ void Sandbox::update(){
 }
 
 void Sandbox::render() {
-	renderable3D->flush;
+	renderable3D->flush();
 }
 
 Sandbox::~Sandbox() {
