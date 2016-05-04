@@ -26,7 +26,7 @@ namespace ht { namespace maths {
 
 		void translate(const vec3 &translation);
 		void scale(const vec3 &scale);
-		void rotate(const float &angle, const vec3 &axis);
+		void rotate(const vec3 &axis);
 
 		friend mat4 operator*(mat4 left, const mat4 &right);
 		friend vec4 operator*(mat4 left, const vec4 &right);

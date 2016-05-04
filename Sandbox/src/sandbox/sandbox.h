@@ -1,5 +1,8 @@
 #pragma once
 
+#define API_MODE 2
+#define API_TYPE 1
+
 #include <stdio.h>
 #include <iostream>
 #include <Windows.h>
@@ -14,9 +17,12 @@ namespace sandbox{
 	private:
 		ht::graphics::Window* m_Window;
 		ht::graphics::ShaderProgram* program;
-		ht::graphics::Renderable3D *renderable3D;
+		ht::graphics::Renderable *renderable3D;
+		ht::graphics::Cube *cube;
 
 		ht::utils::FpsCounter *counter;
+
+		ht::maths::mat4 view;
 
 		float z = 0;
 	public:

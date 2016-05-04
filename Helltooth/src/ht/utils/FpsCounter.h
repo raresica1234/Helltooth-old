@@ -15,8 +15,28 @@ namespace ht { namespace utils {
 		float updateTick;
 		float time = 0.0f;
 
+		__int64 freq;
+		__int64 begin;
+
 		unsigned __int64 currentTime, lastTime;
-		
+	private:
+		inline void restart() {
+			begin = getCounter();
+		}
+
+		inline float getElapsedTime() {
+			return (float)(getCounter() - begin) / freq;
+		};
+
+		inline bool isOver(float secs) {
+			if (secs >= getElapsedTime()) {
+				restart(); 
+				return true; 
+			} 
+			return false; 
+		};
+
+
 	public:
 
 		FpsCounter(unsigned int &MAX_UPS) {
@@ -27,6 +47,8 @@ namespace ht { namespace utils {
 			updateTick = 1.0f / MAX_UPS;
 
 			lastTime = getTime();
+			freq = getFrequency();
+			restart();
 		}
 
 		~FpsCounter() {
@@ -38,7 +60,7 @@ namespace ht { namespace utils {
 
 		bool update() {
 			currentTime = getTime();
-			if (currentTime - time >= updateTick) {
+			if (getElapsedTime() - time >= updateTick) {
 				ups++;
 				time += updateTick;
 				return true;
@@ -57,7 +79,6 @@ namespace ht { namespace utils {
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;
-				time = 0.0f;
 			}
 		}
 
@@ -68,6 +89,22 @@ namespace ht { namespace utils {
 			QueryPerformanceFrequency(&frequency);
 
 			return time.QuadPart / frequency.QuadPart;
+		}
+
+		unsigned __int64 getCounter() {
+			LARGE_INTEGER time;
+
+			QueryPerformanceCounter(&time);
+
+			return time.QuadPart;
+		}
+
+		unsigned __int64 getFrequency() {
+			LARGE_INTEGER time;
+
+			QueryPerformanceFrequency(&time);
+
+			return time.QuadPart;
 		}
 
 	};

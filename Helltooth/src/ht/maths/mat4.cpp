@@ -54,9 +54,9 @@ namespace ht { namespace maths {
 
 
 	void mat4::translate(const vec3 &translation) {
-		elements[3 + 0 * 4] = translation.x;
-		elements[3 + 1 * 4] = translation.y;
-		elements[3 + 2 * 4] = translation.z;
+		elements[0 + 3 * 4] = translation.x;
+		elements[1 + 3 * 4] = translation.y;
+		elements[2 + 3 * 4] = translation.z;
 	}
 
 	void mat4::scale(const vec3 &scale) {
@@ -65,33 +65,34 @@ namespace ht { namespace maths {
 		elements[2 + 2 * 4] = scale.z;
 	}
 
-	void mat4::rotate(const float &angle, const vec3 &axis) {
-		float s = (float) sin(angle * (float)(3.14159265358979323846 / 180.f));
-		float c = (float) cos(angle * (float)(3.14159265358979323846 / 180.f));
-		
-		mat4 identity = mat4::createIdentity();
+	void mat4::rotate(const vec3 &axis) {
+		mat4 x = mat4::createIdentity();
+		mat4 y = mat4::createIdentity();
+		mat4 z = mat4::createIdentity();
 
-		for (int i = 0; i < sizeof(elements) / sizeof(float); i++)
-			this->elements[i] = identity.elements[i];
+		float xcos = cosf((float)toRadians(axis.x));
+		float xsin = sinf((float)toRadians(axis.x));
+		float ycos = cosf((float)toRadians(axis.y));
+		float ysin = sinf((float)toRadians(axis.y));
+		float zcos = cosf((float)toRadians(axis.z));
+		float zsin = sinf((float)toRadians(axis.z));
 
-		if (axis.x > 0) {
-			elements[1 + 1 * 4] = c;
-			elements[2 + 1 * 4] = -s;
-			elements[1 + 2 * 4] = s;
-			elements[2 + 2 * 4] = c;
-		}
-		else if (axis.y > 0) {
-			elements[0 + 0 * 4] = c;
-			elements[2 + 0 * 4] = s;
-			elements[0 + 2 * 4] = -s;
-			elements[2 + 2 * 4] = c;
-		}
-		else if (axis.z > 0) {
-			elements[0 + 0 * 4] = c;
-			elements[1 + 0 * 4] = -s;
-			elements[0 + 1 * 4] = s;
-			elements[1 + 1 * 4] = c;
-		}
+		x.elements[1 + 1 * 4] = xcos;
+		x.elements[1 + 2 * 4] = -xsin;
+		x.elements[2 + 1 * 4] = xsin;
+		x.elements[2 + 2 * 4] = xcos;
+
+		y.elements[0 + 0 * 4] = ycos;
+		y.elements[0 + 2 * 4] = -ysin;
+		y.elements[2 + 0 * 4] = ysin;
+		y.elements[2 + 2 * 4] = ycos;
+
+		z.elements[0 + 0 * 4] = zcos;
+		z.elements[0 + 1 * 4] = -zsin;
+		z.elements[1 + 0 * 4] = zsin;
+		z.elements[1 + 1 * 4] = zcos;
+
+		*this = (x * y * z);
 	}
 
 	mat4 operator*(mat4 left, const mat4 &right) {

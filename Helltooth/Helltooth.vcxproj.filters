@@ -29,8 +29,12 @@
     <ClInclude Include="src\ht\graphics\window.h">
       <Filter>src\Helltooth\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\ht\graphics\rendering\Renderable3D.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Entity.h" />
+    <ClInclude Include="src\ht\graphics\API.h" />
+    <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
+    <ClInclude Include="src\ht\graphics\rendering\model\Pyramid.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -42,6 +46,7 @@
     <ClCompile Include="src\ht\graphics\window.cpp">
       <Filter>src\Helltooth\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\ht\graphics\rendering\Renderable3D.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Entity.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
   </ItemGroup>
 </Project>
