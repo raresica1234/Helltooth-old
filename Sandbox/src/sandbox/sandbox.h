@@ -25,6 +25,10 @@ namespace sandbox{
 		ht::maths::mat4 view;
 
 		float z = 0;
+
+		unsigned int TYPE = API_OPENGL;
+		unsigned int MODE = API_MODE_3D;
+
 	public:
 		Sandbox();
 		~Sandbox();

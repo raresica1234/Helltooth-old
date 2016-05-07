@@ -128,7 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\graphics\API.h" />
-    <ClInclude Include="src\ht\graphics\rendering\Entity.h" />
+    <ClInclude Include="src\ht\graphics\Camera.h" />
+    <ClInclude Include="src\ht\graphics\rendering\BatchRenderer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Pyramid.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
@@ -145,7 +147,9 @@
     <ClInclude Include="src\ht\utils\Input.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ht\graphics\rendering\Entity.cpp" />
+    <ClCompile Include="src\ht\graphics\API.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\window.cpp" />

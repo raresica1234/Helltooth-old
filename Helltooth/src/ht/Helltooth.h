@@ -7,7 +7,7 @@
 #include "graphics/shaders/ShaderProgram.h"
 
 #include "graphics/rendering/Renderable.h"
-#include "graphics/rendering/Entity.h"
+#include "graphics/rendering/Entity3D.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Pyramid.h"

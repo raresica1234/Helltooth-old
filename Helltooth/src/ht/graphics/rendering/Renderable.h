@@ -33,10 +33,10 @@ namespace ht { namespace graphics {
 		Renderable();
 		~Renderable();
 
-		void bindVAO();
-		void unbindVAO();
+		void bindVAO() const;
+		void unbindVAO() const;
 
-		void flush();
+		void flush() const;
 
 		void addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type);
 		void addBufferData(const GLint *data, const GLsizei &dataSize);

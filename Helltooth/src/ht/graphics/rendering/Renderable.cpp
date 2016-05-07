@@ -7,23 +7,24 @@ namespace ht {	namespace graphics {
 		glGenVertexArrays(1, &vaoID);
 	}
 
-	void Renderable::bindVAO() {
+	void Renderable::bindVAO() const {
 		glBindVertexArray(vaoID);
 	}
 
-	void Renderable::unbindVAO() {
+	void Renderable::unbindVAO() const {
 		glBindVertexArray(0);
 	}
 
 	void Renderable::addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type) {
 		switch (type) {
 		case RENDERABLE_COORDS:
-#if API_MODE == API_MODE_2D
-			storeDataInAttribNumber(0, 2, dataSize, data);
-#else
-			storeDataInAttribNumber(0, 3, dataSize, data);
-#endif
+			if(API::is3D())
+				storeDataInAttribNumber(0, 3, dataSize, data);
+			else
+				storeDataInAttribNumber(0, 2, dataSize, data);
+			
 			vertexSize = dataSize / sizeof(GLfloat);
+
 			return;
 		case RENDERABLE_TEXTURE:
 			storeDataInAttribNumber(1, 2, dataSize, data);
@@ -75,7 +76,7 @@ namespace ht {	namespace graphics {
 
 	}
 
-	void Renderable::flush() {
+	void Renderable::flush() const {
 		bindVAO();
 		if (usingIndices) {
 			glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*) 0);
@@ -96,6 +97,8 @@ namespace ht {	namespace graphics {
 		for (GLuint vbo : vbos) {
 			glDeleteBuffers(1, &vbo);
 		}
+
+		glDeleteBuffers(1, &ibo);
 
 	}
 } }

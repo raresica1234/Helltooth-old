@@ -8,11 +8,13 @@ using namespace graphics;
 using namespace utils;
 
 Sandbox::Sandbox() {
-	
 	std::cout << "SandBox constructed!" << std::endl;
+	
 	m_Window = new Window("First Window!", WIDTH, HEIGHT);
 
 	glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
+
+	API::API(TYPE, MODE);
 
 	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 
@@ -39,7 +41,7 @@ void Sandbox::init() {
 	program->uniformMat4("modelMatrix", model);
 	program->uniformMat4("viewMatrix", view);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	counter->init();
 	
@@ -64,7 +66,7 @@ void Sandbox::start() {
 
 void Sandbox::update(){
 	++z;
-	view.rotate(vec3(z, z, z));
+	view.rotate(vec3(z, 0, 0));
 	program->uniformMat4("viewMatrix", view);
 
 }
