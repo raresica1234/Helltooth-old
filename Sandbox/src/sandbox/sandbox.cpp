@@ -16,10 +16,26 @@ Sandbox::Sandbox() {
 
 	API::API(TYPE, MODE);
 
+
 	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 
 	renderable3D = new Renderable();
 	cube = new Cube(renderable3D);
+	
+	program->start();
+
+	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
+	view = mat4::createIdentity();
+
+	program->uniformMat4("projectionMatrix", projectionMatrix);
+
+	program->uniformMat4("viewMatrix", view);
+
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	program->stop();
+
+	renderer = new BatchRenderer(renderable3D, program);
 
 
 	unsigned int max_ups = 60;
@@ -27,24 +43,21 @@ Sandbox::Sandbox() {
 }
 
 void Sandbox::init() {
-	program->start();
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distributionPOS(-20, 20);
+	std::uniform_int_distribution<int> distributionPOSz(15, 250);
+	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
-	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
-	mat4 model = mat4::createIdentity();
-	view = mat4::createIdentity();
+	for (int i = 0; i < 5000; i++) {
+		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
+		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
+		renderer->addEntity(entity);
+	}
+	
 
-	model.translate(vec3(0, 0, -5.0f));
-	view.rotate(vec3(z, z, z));
-
-
-	program->uniformMat4("projectionMatrix", projectionMatrix);
-	program->uniformMat4("modelMatrix", model);
-	program->uniformMat4("viewMatrix", view);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	renderer->prepare();
 
 	counter->init();
-	
 }
 
 void Sandbox::start() {
@@ -65,22 +78,23 @@ void Sandbox::start() {
 }
 
 void Sandbox::update(){
-	++z;
-	view.rotate(vec3(z, 0, 0));
-	program->uniformMat4("viewMatrix", view);
 
 }
 
 void Sandbox::render() {
-	renderable3D->flush();
+	renderer->render();
 }
 
 Sandbox::~Sandbox() {
 	std::cout << "SandBox deconstructed!"<< std::endl;
 
-	delete cube;
 	delete counter;
+
 	delete renderable3D;
+	delete cube;
+
 	delete program;
+	delete renderer;
+
 	delete m_Window;
 }

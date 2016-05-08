@@ -8,6 +8,7 @@
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
+#include "graphics/rendering/BatchRenderer.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Pyramid.h"

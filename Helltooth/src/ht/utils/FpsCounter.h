@@ -74,7 +74,7 @@ namespace ht { namespace utils {
 		}
 
 		void show() {
-			if ((currentTime - lastTime) > 1) {
+			if ((currentTime - lastTime) > 0.5) {
 				std::cout << "fps " << fps << " ups " << ups << std::endl;
 				ups = 0;
 				fps = 0;

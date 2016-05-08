@@ -3,6 +3,7 @@
 #define API_MODE 2
 #define API_TYPE 1
 
+#include <random>
 #include <stdio.h>
 #include <iostream>
 #include <Windows.h>
@@ -17,12 +18,17 @@ namespace sandbox{
 	private:
 		ht::graphics::Window* m_Window;
 		ht::graphics::ShaderProgram* program;
+
 		ht::graphics::Renderable *renderable3D;
 		ht::graphics::Cube *cube;
+
+		ht::graphics::BatchRenderer *renderer;
 
 		ht::utils::FpsCounter *counter;
 
 		ht::maths::mat4 view;
+
+		
 
 		float z = 0;
 
@@ -36,7 +42,7 @@ namespace sandbox{
 		void init();
 		void start();
 
-		void update(void);
-		void render(void);
+		void update();
+		void render();
 	};
 };
