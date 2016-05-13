@@ -18,10 +18,16 @@ namespace ht { namespace graphics {
 	class Renderable {
 	private:
 		GLuint vaoID;
-		unsigned int vboNumber;
 
 		GLsizei indicesSize;
 		GLsizei vertexSize;
+		GLsizei normalSize;
+		GLsizei textureSize;
+
+		const GLfloat *positions;
+		const GLint *indices;
+		const GLfloat *normals;
+		const GLfloat *textureCoords;
 
 		std::vector<GLuint> vbos;
 
@@ -40,6 +46,30 @@ namespace ht { namespace graphics {
 
 		void addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type);
 		void addBufferData(const GLint *data, const GLsizei &dataSize);
+
+		inline const GLfloat* getPositions() {
+			return positions;
+		}
+
+		inline const GLint* getIndices() {
+			return indices;
+		}
+
+		inline const GLfloat *getNormals() {
+			return normals;
+		}
+
+		inline const GLfloat *getTextureCoords() {
+			return textureCoords;
+		}
+	
+		inline const GLsizei getVertexSize() {
+			return vertexSize;
+		}
+
+		inline const GLsizei getIndicesCount() {
+			return indicesSize;
+		}
 
 	protected:
 		void storeDataInAttribNumber(const unsigned int &number, const unsigned int &count, const GLsizei &dataSize, const GLfloat *data);

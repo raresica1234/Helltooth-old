@@ -3,7 +3,7 @@
 namespace ht {	namespace graphics {
 
 	Renderable::Renderable()
-		: vboNumber(0), usingIndices(false)	{
+		: usingIndices(false)	{
 		glGenVertexArrays(1, &vaoID);
 	}
 
@@ -24,17 +24,21 @@ namespace ht {	namespace graphics {
 				storeDataInAttribNumber(0, 2, dataSize, data);
 			
 			vertexSize = dataSize / sizeof(GLfloat);
-
+			positions = data;
 			return;
 		case RENDERABLE_TEXTURE:
 			storeDataInAttribNumber(1, 2, dataSize, data);
-			vboNumber++;
+			textureCoords = data;
+			textureSize = dataSize / sizeof(GLfloat);
 			return;
 		case RENDERABLE_NORMAL:
 			storeDataInAttribNumber(2, 3, dataSize, data);
+			normals = data;
+			normalSize = dataSize / sizeof(GLfloat);
 			return;
 		case RENDERABLE_COLOR:
 			storeDataInAttribNumber(3, 4, dataSize, data);
+			//TODO: colors;
 			return;
 		default:
 			//FATAL ERROR ( logging system)
@@ -99,6 +103,11 @@ namespace ht {	namespace graphics {
 		}
 
 		glDeleteBuffers(1, &ibo);
+
+		delete positions;
+		delete normals;
+		delete indices;
+		delete textureCoords;
 
 	}
 } }

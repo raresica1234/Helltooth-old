@@ -38,14 +38,18 @@ Sandbox::Sandbox() {
 	renderer = new BatchRenderer(renderable3D, program);
 
 
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	
+
 	unsigned int max_ups = 60;
 	counter = new FpsCounter(max_ups);
 }
 
 void Sandbox::init() {
 	std::default_random_engine generator;
-	std::uniform_int_distribution<int> distributionPOS(-20, 20);
-	std::uniform_int_distribution<int> distributionPOSz(15, 250);
+	std::uniform_int_distribution<int> distributionPOS(-50, 50);
+	std::uniform_int_distribution<int> distributionPOSz(10, 250);
 	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
 	for (int i = 0; i < 5000; i++) {
@@ -70,6 +74,7 @@ void Sandbox::start() {
 
 		counter->render();
 		render();
+
 
 		counter->show();
 

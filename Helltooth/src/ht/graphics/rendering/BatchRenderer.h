@@ -14,11 +14,30 @@ namespace ht { namespace graphics {
 		std::vector<Entity3D> entities;
 
 		Renderable *renderable;
+		Renderable *object;
 
 		ShaderProgram *program;
 
+		vec3 *objectPositions;
+		const GLint *objectIndices;
+
+		GLsizei objectPositionCount;
+
+		unsigned int entityCount = 0;
+
+		GLfloat *positions;
+		GLsizei positionSize;
+
+		GLint *indices;
+		GLsizei indicesSize;
+
+		GLfloat *normals;
+		GLfloat *textureCoords;
+
+		bool changed;
+
 	public:
-		BatchRenderer(Renderable *renderable, ShaderProgram *program);
+		BatchRenderer(Renderable *object, ShaderProgram *program);
 		
 		~BatchRenderer();
 
@@ -29,6 +48,8 @@ namespace ht { namespace graphics {
 		
 		void render() const;
 
+	protected:
+		void reInit();
 
 
 	};

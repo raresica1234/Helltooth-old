@@ -77,8 +77,8 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\STBI\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\STBI\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -90,7 +90,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;stbi_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
