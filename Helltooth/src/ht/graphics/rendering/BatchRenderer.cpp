@@ -4,7 +4,8 @@
 
 namespace ht { namespace graphics {
 
-	BatchRenderer::BatchRenderer(Renderable *object, ShaderProgram *program) {
+	BatchRenderer::BatchRenderer(Renderable *object, ShaderProgram *program)
+	{
 		this->object = object;
 		this->program = program;
 
@@ -21,20 +22,25 @@ namespace ht { namespace graphics {
 	}
 
 
-	BatchRenderer::~BatchRenderer() {
+	BatchRenderer::~BatchRenderer()
+	{
 		renderable->unbindVAO();
 		program->stop();
 	}
 
-	void BatchRenderer::addEntity(Entity3D entity) {
+	void BatchRenderer::addEntity(Entity3D entity)
+	{
 		entities.push_back(entity);
 		changed = true;
 		entityCount++;
 	}
 
-	void BatchRenderer::deleteEntity(Entity3D entity) {
-		for (unsigned int i = 0; i < entities.size(); i++) {
-			if (entities[i] == entity) {
+	void BatchRenderer::deleteEntity(Entity3D entity)
+	{
+		for (unsigned int i = 0; i < entities.size(); i++)
+		{
+			if (entities[i] == entity)
+			{
 				entities.erase(entities.begin() + i);
 				break;
 			}
@@ -43,14 +49,16 @@ namespace ht { namespace graphics {
 		entityCount--;
 	}
 
-	void BatchRenderer::prepare() {
-		if (changed)
-			reInit();
+	void BatchRenderer::prepare()
+	{
+		if (changed) reInit();
+
 		program->start();
 		renderable->bindVAO();
 	}
 
-	void BatchRenderer::reInit() {
+	void BatchRenderer::reInit()
+	{
 		delete renderable;
 		renderable = new Renderable();
 
@@ -60,11 +68,13 @@ namespace ht { namespace graphics {
 		int currentEntity = 0;
 		positionSize = 0;
 		indicesSize = 0;
-		for (Entity3D entity : entities) {
+		for (Entity3D entity : entities)
+		{
 			//Calculate the vbo of positions
 			currentEntity++;
 			mat4 model = entity.generateModelMatrix();
-			for (GLsizei i = 0; i < objectPositionCount; i++) {
+			for (GLsizei i = 0; i < objectPositionCount; i++)
+			{
 				vec3 current = objectPositions[i];
 				current = model * current;
 				positions[currentEntity * objectPositionCount + i + 0] = current.x;
@@ -73,7 +83,8 @@ namespace ht { namespace graphics {
 				positionSize += 3;
 			}
 			//Calculate the indices
-			for (GLsizei i = 0; i < object->getIndicesCount(); i++) {
+			for (GLsizei i = 0; i < object->getIndicesCount(); i++)
+			{
 				indices[currentEntity * object->getIndicesCount() + i] = currentEntity * objectIndices[i];
 				indicesSize++;
 			}
@@ -83,11 +94,11 @@ namespace ht { namespace graphics {
 		renderable->addBufferData(positions, positionSize * sizeof(GLfloat), RENDERABLE_COORDS);
 		renderable->addBufferData(indices, indicesSize * sizeof(GLint));
 
-
 		changed = false;
 	}
 
-	void BatchRenderer::render() const {
+	void BatchRenderer::render() const
+	{
 		mat4 model;
 		renderable->flush();
 	}

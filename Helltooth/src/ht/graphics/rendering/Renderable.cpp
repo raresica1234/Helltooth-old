@@ -16,38 +16,44 @@ namespace ht {	namespace graphics {
 	}
 
 	void Renderable::addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type) {
-		switch (type) {
+		switch (type)
+		{
 		case RENDERABLE_COORDS:
 			if(API::is3D())
 				storeDataInAttribNumber(0, 3, dataSize, data);
 			else
 				storeDataInAttribNumber(0, 2, dataSize, data);
-			
+
 			vertexSize = dataSize / sizeof(GLfloat);
 			positions = data;
-			return;
+			break;
+
 		case RENDERABLE_TEXTURE:
 			storeDataInAttribNumber(1, 2, dataSize, data);
 			textureCoords = data;
 			textureSize = dataSize / sizeof(GLfloat);
-			return;
+			break;
+
 		case RENDERABLE_NORMAL:
 			storeDataInAttribNumber(2, 3, dataSize, data);
 			normals = data;
 			normalSize = dataSize / sizeof(GLfloat);
-			return;
+			break;
+
 		case RENDERABLE_COLOR:
 			storeDataInAttribNumber(3, 4, dataSize, data);
 			//TODO: colors;
-			return;
+			break;
+
 		default:
 			//FATAL ERROR ( logging system)
 			std::cout << "Type incorrect!" << std::endl;
-			return;
+			break;
 		}
 	}
 
-	void Renderable::addBufferData(const GLint *data, const GLsizei &dataSize) {
+	void Renderable::addBufferData(const GLint* data, const GLsizei& dataSize)
+	{
 		storeIndices(data, dataSize);
 		usingIndices = true;
 	}

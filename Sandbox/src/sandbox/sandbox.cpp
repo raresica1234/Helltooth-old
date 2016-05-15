@@ -5,7 +5,8 @@ using namespace ht;
 using namespace graphics;
 using namespace utils;
 
-Sandbox::Sandbox() {
+Sandbox::Sandbox()
+{
 	std::cout << "SandBox constructed!" << std::endl;
 
 	m_Window = new Window("First Window!", WIDTH, HEIGHT);
@@ -34,21 +35,21 @@ Sandbox::Sandbox() {
 
 	//renderer = new BatchRenderer(renderable3D, program);
 
-
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	unsigned int max_ups = 60;
-	counter = new FpsCounter(max_ups);
+	counter = new FpsCounter(60);
 }
 
-void Sandbox::init() {
+void Sandbox::init()
+{
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distributionPOS(-50, 50);
 	std::uniform_int_distribution<int> distributionPOSz(10, 250);
 	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
-	for (int i = 0; i < 5000; i++) {
+	for (int i = 0; i < 5000; i++)
+	{
 		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
 		//renderer->addEntity(entity);
@@ -59,17 +60,18 @@ void Sandbox::init() {
 	counter->init();
 }
 
-void Sandbox::start() {
+void Sandbox::start()
+{
 	init();
-	while (!m_Window->closed()) {
+
+	while (!m_Window->closed())
+	{
 		m_Window->clear();
 
-		if(counter->update())
-			update();
+		if(counter->update()) update();
 
 		counter->render();
 		render();
-
 
 		counter->show();
 
@@ -77,15 +79,15 @@ void Sandbox::start() {
 	}
 }
 
-void Sandbox::update(){
+void Sandbox::update() { }
 
-}
-
-void Sandbox::render() {
+void Sandbox::render()
+{
 	//renderer->render();
 }
 
-Sandbox::~Sandbox() {
+Sandbox::~Sandbox()
+{
 	std::cout << "SandBox deconstructed!" << std::endl;
 
 	delete counter;
