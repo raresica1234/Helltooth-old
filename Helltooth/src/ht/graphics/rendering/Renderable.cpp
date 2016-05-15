@@ -2,18 +2,10 @@
 
 namespace ht {	namespace graphics {
 
-	Renderable::Renderable()
-		: usingIndices(false)	{
-		glGenVertexArrays(1, &vaoID);
-	}
+	Renderable::Renderable() : usingIndices(false) { glGenVertexArrays(1, &vaoID); }
 
-	void Renderable::bindVAO() const {
-		glBindVertexArray(vaoID);
-	}
-
-	void Renderable::unbindVAO() const {
-		glBindVertexArray(0);
-	}
+	void Renderable::bindVAO() const { glBindVertexArray(vaoID); }
+	void Renderable::unbindVAO() const { glBindVertexArray(0); }
 
 	void Renderable::addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type) {
 		switch (type)
@@ -85,7 +77,6 @@ namespace ht {	namespace graphics {
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-
 	}
 
 	void Renderable::flush() const

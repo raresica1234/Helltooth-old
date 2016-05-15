@@ -4,12 +4,13 @@ namespace ht { namespace graphics {
 	using namespace maths;
 
 	ShaderProgram::ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH) 
-		:VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH)
+		: VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH)
 	{
 		programID = init();
 	}
 
-	ShaderProgram::~ShaderProgram() {
+	ShaderProgram::~ShaderProgram()
+	{
 		stop();
 		glDeleteProgram(programID);
 	}
@@ -46,6 +47,7 @@ namespace ht { namespace graphics {
 		glCompileShader(fragmentID);
 
 		glGetShaderiv(fragmentID, GL_COMPILE_STATUS, &result);
+
 		if (result == GL_FALSE) {
 			GLint length;
 			glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH, &length);
@@ -68,44 +70,17 @@ namespace ht { namespace graphics {
 		return programID;
 	}
 
-	void ShaderProgram::start() const {
-		glUseProgram(programID);
-	}
+	void ShaderProgram::start() const { glUseProgram(programID); }
+	void ShaderProgram::stop() const { glUseProgram(0); }
 
-	void ShaderProgram::stop() const {
-		glUseProgram(0);
-	}
+	GLint ShaderProgram::uniformLocation(const char* location) const{ return glGetUniformLocation(programID, location); }
 
-	int ShaderProgram::uniformLocation(const char* location) const{
-		return glGetUniformLocation(programID, location);
-	}
+	void ShaderProgram::uniformBool(const char* name, const bool& value) { glUniform1f(uniformLocation(name), value); }
 
-	void ShaderProgram::uniform1f(const char *name, const float &value) {
-		glUniform1f(uniformLocation(name), value);
-	}
-
-	void ShaderProgram::uniformBool(const char *name, const bool &value) {
-		if (value) {
-			glUniform1f(uniformLocation(name), 1);
-			return;
-		}
-		glUniform1f(uniformLocation(name), 0);
-	}
-
-	void ShaderProgram::uniform2f(const char *name, const vec2 &value) {
-		glUniform2f(uniformLocation(name), value.x, value.y);
-	}
-
-	void ShaderProgram::uniform3f(const char *name, const vec3 &value) {
-		glUniform3f(uniformLocation(name), value.x, value.y, value.z);
-	}
-
-	void ShaderProgram::uniform4f(const char *name, const vec4 &value) {
-		glUniform4f(uniformLocation(name), value.x, value.y, value.z, value.w);
-	}
-
-	void ShaderProgram::uniformMat4(const char *name, const mat4 &value) {
-		glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements);
-	}
+	void ShaderProgram::uniform1f(const char *name, const float &value) { glUniform1f(uniformLocation(name), value); }
+	void ShaderProgram::uniform2f(const char *name, const vec2 &value) { glUniform2f(uniformLocation(name), value.x, value.y); }
+	void ShaderProgram::uniform3f(const char *name, const vec3 &value) { glUniform3f(uniformLocation(name), value.x, value.y, value.z); }
+	void ShaderProgram::uniform4f(const char *name, const vec4 &value) { glUniform4f(uniformLocation(name), value.x, value.y, value.z, value.w); }
+	void ShaderProgram::uniformMat4(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); }
 
 } }
