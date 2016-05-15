@@ -1,5 +1,7 @@
 #include "BatchRenderer.h"
 
+#include "../../../ht/utils/memory/MemoryManager.h"
+
 namespace ht { namespace graphics {
 
 	BatchRenderer::BatchRenderer(Renderable *object, ShaderProgram *program) {

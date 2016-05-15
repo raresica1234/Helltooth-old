@@ -1,7 +1,5 @@
 #include "sandbox.h"
 
-
-
 using namespace sandbox;
 using namespace ht;
 using namespace graphics;
@@ -9,19 +7,18 @@ using namespace utils;
 
 Sandbox::Sandbox() {
 	std::cout << "SandBox constructed!" << std::endl;
-	
+
 	m_Window = new Window("First Window!", WIDTH, HEIGHT);
 
 	glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
 
 	API::API(TYPE, MODE);
 
-
 	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 
 	renderable3D = new Renderable();
 	cube = new Cube(renderable3D);
-	
+
 	program->start();
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
@@ -40,7 +37,6 @@ Sandbox::Sandbox() {
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	
 
 	unsigned int max_ups = 60;
 	counter = new FpsCounter(max_ups);
@@ -57,7 +53,6 @@ void Sandbox::init() {
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
 		//renderer->addEntity(entity);
 	}
-	
 
 	//renderer->prepare();
 
@@ -93,13 +88,13 @@ void Sandbox::render() {
 Sandbox::~Sandbox() {
 	std::cout << "SandBox deconstructed!" << std::endl;
 
-	htdel counter;
+	delete counter;
 
-	htdel renderable3D;
-	htdel cube;
+	delete renderable3D;
+	delete cube;
 
-	htdel program;
+	delete program;
 	//delete renderer;
 
-	htdel m_Window;
+	delete m_Window;
 }

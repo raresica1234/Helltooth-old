@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "../../ht/utils/memory/MemoryManager.h"
+
 namespace ht { namespace utils {
 
 	class FileUtils {
@@ -17,7 +19,9 @@ namespace ht { namespace utils {
 			fseek(file, 0, SEEK_SET);
 			fread(data, 1, length, file);
 			fclose(file);
-			return std::string(data);
+			std::string temp = data;
+			delete[] data; // fixed: memory leak
+			return temp;
 		}
 
 	};

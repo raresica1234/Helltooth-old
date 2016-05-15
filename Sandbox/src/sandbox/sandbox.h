@@ -28,8 +28,6 @@ namespace sandbox{
 
 		ht::maths::mat4 view;
 
-		
-
 		float z = 0;
 
 		unsigned int TYPE = API_OPENGL;

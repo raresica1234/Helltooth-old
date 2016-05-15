@@ -55,6 +55,5 @@
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
-    <ClCompile Include="src\ht\utils\memory\MemoryManager.cpp" />
   </ItemGroup>
 </Project>

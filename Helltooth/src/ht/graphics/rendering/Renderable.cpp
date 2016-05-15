@@ -52,7 +52,8 @@ namespace ht {	namespace graphics {
 		usingIndices = true;
 	}
 
-	void Renderable::storeDataInAttribNumber(const unsigned int &number, const unsigned int &count, const GLsizei &dataSize, const GLfloat *data) {
+	void Renderable::storeDataInAttribNumber(const unsigned int &number, const unsigned int &count, const GLsizei &dataSize, const GLfloat *data)
+	{
 		GLuint vboID;
 
 		glGenBuffers(1, &vboID);
@@ -62,52 +63,59 @@ namespace ht {	namespace graphics {
 
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 		glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-		
+
 		glEnableVertexAttribArray(number);
 		glVertexAttribPointer(number, count, GL_FLOAT, GL_FALSE, count * sizeof(float), 0);
 
 		glEnableVertexAttribArray(number);
-
 	}
 
-	void Renderable::storeIndices(const GLint *data, const GLsizei &dataSize) {
+	void Renderable::storeIndices(const GLint *data, const GLsizei &dataSize)
+	{
 		glGenBuffers(1, &ibo);
 		indicesSize = dataSize / sizeof(GLint);
 
 		std::cout << "indices " << indicesSize << std::endl;
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
 	}
 
-	void Renderable::flush() const {
+	void Renderable::flush() const
+	{
 		bindVAO();
-		if (usingIndices) {
+
+		if (usingIndices)
+		{
 			glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*) 0);
 		}
-		else {
+		else
+		{
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 		}
+
 		unbindVAO();
 	}
 
-	Renderable::~Renderable() {
+	Renderable::~Renderable()
+	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_INDEX_ARRAY, 0);
 		glBindVertexArray(0);
 
 		glDeleteVertexArrays(1, &vaoID);
-		
-		for (GLuint vbo : vbos) {
+
+		for (GLuint vbo : vbos)
+		{
 			glDeleteBuffers(1, &vbo);
 		}
 
 		glDeleteBuffers(1, &ibo);
 
 		delete positions;
-		delete normals;
-		delete indices;
-		delete textureCoords;
-
+		//delete normals;
+		//delete indices; -> This three lines cause an exception (you are trying to delete a nullptr)
+		//delete textureCoords;
 	}
 } }

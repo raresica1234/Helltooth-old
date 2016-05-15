@@ -2,13 +2,12 @@
 
 using namespace sandbox;
 
-void main() {
-
+void main()
+{
 	Sandbox* sandbox = new Sandbox();
 	sandbox->start();
 
 	delete sandbox;
 
 	system("PAUSE");
-
 }
