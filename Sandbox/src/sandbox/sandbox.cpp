@@ -35,7 +35,7 @@ Sandbox::Sandbox() {
 
 	program->stop();
 
-	renderer = new BatchRenderer(renderable3D, program);
+	//renderer = new BatchRenderer(renderable3D, program);
 
 
 	glEnable(GL_CULL_FACE);
@@ -55,11 +55,11 @@ void Sandbox::init() {
 	for (int i = 0; i < 5000; i++) {
 		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
-		renderer->addEntity(entity);
+		//renderer->addEntity(entity);
 	}
 	
 
-	renderer->prepare();
+	//renderer->prepare();
 
 	counter->init();
 }
@@ -87,19 +87,19 @@ void Sandbox::update(){
 }
 
 void Sandbox::render() {
-	renderer->render();
+	//renderer->render();
 }
 
 Sandbox::~Sandbox() {
-	std::cout << "SandBox deconstructed!"<< std::endl;
+	std::cout << "SandBox deconstructed!" << std::endl;
 
-	delete counter;
+	htdel counter;
 
-	delete renderable3D;
-	delete cube;
+	htdel renderable3D;
+	htdel cube;
 
-	delete program;
-	delete renderer;
+	htdel program;
+	//delete renderer;
 
-	delete m_Window;
+	htdel m_Window;
 }

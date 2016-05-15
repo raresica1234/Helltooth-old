@@ -24,3 +24,7 @@
 #include "utils/Input.h"
 #include "utils/FileUtils.h"
 #include "utils/FpsCounter.h"
+
+//UTILS -> MEMORY
+#include "utils/memory/MemoryManager.h"
+

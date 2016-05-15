@@ -145,6 +145,8 @@
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Input.h" />
+    <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
+    <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\API.cpp" />
@@ -158,6 +160,8 @@
     <ClCompile Include="src\ht\maths\vec3.cpp" />
     <ClCompile Include="src\ht\maths\vec4.cpp" />
     <ClCompile Include="src\ht\utils\input.cpp" />
+    <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
+    <ClCompile Include="src\ht\utils\memory\MemoryManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

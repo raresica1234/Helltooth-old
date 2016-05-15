@@ -22,7 +22,7 @@ namespace sandbox{
 		ht::graphics::Renderable *renderable3D;
 		ht::graphics::Cube *cube;
 
-		ht::graphics::BatchRenderer *renderer;
+		//ht::graphics::BatchRenderer *renderer;
 
 		ht::utils::FpsCounter *counter;
 

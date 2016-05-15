@@ -4,7 +4,11 @@ using namespace sandbox;
 
 void main() {
 
-	Sandbox sandbox;
-	sandbox.start();
+	Sandbox* sandbox = new Sandbox();
+	sandbox->start();
+
+	delete sandbox;
+
+	system("PAUSE");
 
 }

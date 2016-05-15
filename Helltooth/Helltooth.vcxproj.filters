@@ -37,6 +37,8 @@
     <ClInclude Include="src\ht\graphics\Camera.h" />
     <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\BatchRenderer.h" />
+    <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
+    <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -52,5 +54,7 @@
     <ClCompile Include="src\ht\graphics\API.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
+    <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
+    <ClCompile Include="src\ht\utils\memory\MemoryManager.cpp" />
   </ItemGroup>
 </Project>
