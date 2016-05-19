@@ -9,44 +9,44 @@ Sandbox::Sandbox()
 {
 	std::cout << "SandBox constructed!" << std::endl;
 
-	m_Window = new Window("First Window!", WIDTH, HEIGHT);
+	m_Window = htnew Window("First Window!", WIDTH, HEIGHT);
 
 	glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
 
 	API::API(TYPE, MODE);
 
-	program = new ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
+	program = htnew ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 
-	renderable3D = new Renderable();
-	cube = new Cube(renderable3D);
+	entity = htnew Entity3D(vec3(1, 1, -5));
 
-	program->start();
+	renderable = htnew Renderable();
+	cube = htnew Cube(renderable);
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	view = mat4::createIdentity();
-
-	program->uniformMat4("projectionMatrix", projectionMatrix);
-
-	program->uniformMat4("viewMatrix", view);
-
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	program->start();
+	program->uniformMat4("projectionMatrix", projectionMatrix);
+	program->uniformMat4("viewMatrix", view);
 	program->stop();
 
 	//renderer = new BatchRenderer(renderable3D, program);
 
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
-	counter = new FpsCounter(60);
+	counter = htnew FpsCounter(60);
 }
 
 void Sandbox::init()
 {
-	std::default_random_engine generator;
-	std::uniform_int_distribution<int> distributionPOS(-50, 50);
-	std::uniform_int_distribution<int> distributionPOSz(10, 250);
-	std::uniform_int_distribution<int> distributionROT(1, 1000);
+	entity->scale(vec3(1, 1, 1));
+
+	program->start();
+	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
+
+	/*std::default_random_engine generator;
+	std::uniform_int_distribution<float> distributionPOS(-50, 50);
+	std::uniform_int_distribution<float> distributionPOSz(10, 250);
+	std::uniform_int_distribution<float> distributionROT(1, 1000);
 
 	for (int i = 0; i < 5000; i++)
 	{
@@ -54,7 +54,7 @@ void Sandbox::init()
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
 		//renderer->addEntity(entity);
 	}
-
+	*/
 	//renderer->prepare();
 
 	counter->init();
@@ -79,11 +79,15 @@ void Sandbox::start()
 	}
 }
 
-void Sandbox::update() { }
+void Sandbox::update() { 
+	entity->rotate(vec3(1, 1, 1));
+	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
+}
 
 void Sandbox::render()
 {
 	//renderer->render();
+	renderable->render();
 }
 
 Sandbox::~Sandbox()
@@ -92,11 +96,11 @@ Sandbox::~Sandbox()
 
 	delete counter;
 
-	delete renderable3D;
+	delete renderable;
 	delete cube;
 
 	delete program;
-	//delete renderer;
+	delete entity;
 
 	delete m_Window;
 }

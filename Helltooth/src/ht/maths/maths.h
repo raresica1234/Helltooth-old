@@ -1,6 +1,6 @@
 #pragma once
 
-const double PI = 3.14159265358979323846;
+const double PI = 3.1415926535897932384626433832;
 
 namespace ht { namespace maths {
 

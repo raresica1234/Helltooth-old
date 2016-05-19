@@ -20,8 +20,9 @@ namespace sandbox{
 		ht::graphics::Window* m_Window;
 		ht::graphics::ShaderProgram* program;
 
-		ht::graphics::Renderable *renderable3D;
+		ht::graphics::Renderable *renderable;
 		ht::graphics::Cube *cube;
+		ht::graphics::Entity3D *entity;
 
 		//ht::graphics::BatchRenderer *renderer;
 

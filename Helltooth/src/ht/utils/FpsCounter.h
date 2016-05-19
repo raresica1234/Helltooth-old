@@ -42,8 +42,7 @@ namespace ht { namespace utils {
 
 	public:
 
-		FpsCounter(unsigned int& MAX_UPS)
-		{
+		FpsCounter(const unsigned int MAX_UPS) {
 			this->MAX_UPS = MAX_UPS;
 
 			ups = 0;
@@ -57,13 +56,11 @@ namespace ht { namespace utils {
 
 		~FpsCounter() { }
 
-		void init()
-		{
+		void init() {
 			lastTime = getTime();
 		}
 
-		bool update()
-		{
+		bool update() {
 			currentTime = getTime();
 			if (getElapsedTime() - time >= updateTick) {
 				ups++;
@@ -73,14 +70,12 @@ namespace ht { namespace utils {
 			return false;
 		}
 
-		void render()
-		{
+		void render() {
 			fps++;
 		}
 
 		void show() {
-			if ((currentTime - lastTime) > 0.5)
-			{
+			if ((currentTime - lastTime) > 0.5) {
 				std::cout << "fps " << fps << " ups " << ups << std::endl;
 				ups = 0;
 				fps = 0;
@@ -88,8 +83,7 @@ namespace ht { namespace utils {
 			}
 		}
 
-		unsigned __int64 getTime()
-		{
+		unsigned __int64 getTime() {
 			LARGE_INTEGER time, frequency;
 
 			QueryPerformanceCounter(&time);
@@ -98,8 +92,7 @@ namespace ht { namespace utils {
 			return time.QuadPart / frequency.QuadPart;
 		}
 
-		unsigned __int64 getCounter()
-		{
+		unsigned __int64 getCounter() {
 			LARGE_INTEGER time;
 
 			QueryPerformanceCounter(&time);
@@ -107,8 +100,7 @@ namespace ht { namespace utils {
 			return time.QuadPart;
 		}
 
-		unsigned __int64 getFrequency()
-		{
+		unsigned __int64 getFrequency() {
 			LARGE_INTEGER time;
 
 			QueryPerformanceFrequency(&time);

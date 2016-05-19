@@ -1,118 +1,85 @@
 #include "Renderable.h"
 
-namespace ht {	namespace graphics {
 
-	Renderable::Renderable() : usingIndices(false) { glGenVertexArrays(1, &vaoID); }
+namespace ht { namespace graphics {
 
-	void Renderable::bindVAO() const { glBindVertexArray(vaoID); }
-	void Renderable::unbindVAO() const { glBindVertexArray(0); }
-
-	void Renderable::addBufferData(const GLfloat *data, const GLsizei &dataSize, const int &type) {
-		switch (type)
-		{
-		case RENDERABLE_COORDS:
-			if(API::is3D())
-				storeDataInAttribNumber(0, 3, dataSize, data);
-			else
-				storeDataInAttribNumber(0, 2, dataSize, data);
-
-			vertexSize = dataSize / sizeof(GLfloat);
-			positions = data;
-			break;
-
-		case RENDERABLE_TEXTURE:
-			storeDataInAttribNumber(1, 2, dataSize, data);
-			textureCoords = data;
-			textureSize = dataSize / sizeof(GLfloat);
-			break;
-
-		case RENDERABLE_NORMAL:
-			storeDataInAttribNumber(2, 3, dataSize, data);
-			normals = data;
-			normalSize = dataSize / sizeof(GLfloat);
-			break;
-
-		case RENDERABLE_COLOR:
-			storeDataInAttribNumber(3, 4, dataSize, data);
-			//TODO: colors;
-			break;
-
-		default:
-			//FATAL ERROR ( logging system)
-			std::cout << "Type incorrect!" << std::endl;
-			break;
-		}
+	Renderable::Renderable()
+		: vboNumber(0), usingIbo(false) {
+		this->vao = htnew VAO();
+		this->vbos = htnew VBO[4];
 	}
 
-	void Renderable::addBufferData(const GLint* data, const GLsizei& dataSize)
-	{
-		storeIndices(data, dataSize);
-		usingIndices = true;
+	Renderable::~Renderable() {
+		delete[] vbos;
+		delete vao;
 	}
 
-	void Renderable::storeDataInAttribNumber(const unsigned int &number, const unsigned int &count, const GLsizei &dataSize, const GLfloat *data)
-	{
-		GLuint vboID;
+	void Renderable::loadRawModel(const RawModel* model) {
+		//Store data for every single vbo from the models data.
+		storeData(RENDERABLE_COORDS, model->getPositions(), model->getPositionSize());
 
-		glGenBuffers(1, &vboID);
-		vbos.push_back(vboID);
+		if (model->getIndexSize() > 0)
+			std::cout << model->getIndexSize();
+			storeData(model->getIndices(), model->getIndexSize());
 
-		std::cout << "dataSize " << dataSize << std::endl;
+		if (model->getNormalSize() > 0)
+			storeData(RENDERABLE_NORMALS ,model->getNormals(), model->getNormalSize());
 
-		glBindBuffer(GL_ARRAY_BUFFER, vboID);
-		glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
-
-		glEnableVertexAttribArray(number);
-		glVertexAttribPointer(number, count, GL_FLOAT, GL_FALSE, count * sizeof(float), 0);
-
-		glEnableVertexAttribArray(number);
+		if (!model->usingColors())
+			storeData(RENDERABLE_TEXTURE_COORDS, model->getTextureCoords(), model->getTextureCoordsSize());
+		
 	}
 
-	void Renderable::storeIndices(const GLint *data, const GLsizei &dataSize)
-	{
-		glGenBuffers(1, &ibo);
-		indicesSize = dataSize / sizeof(GLint);
+	void Renderable::storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {
+		//Make new vbo and bind vao
+			vao->bindVAO();
 
-		std::cout << "indices " << indicesSize << std::endl;
+			vbos[vboNumber] = *(htnew VBO());
+			vbos[vboNumber].bindVBO();
+			switch (usage) {
+			case RENDERABLE_COORDS:
+				if (API::is2D())
+					vbos[vboNumber].storeDataInAttribList(0, 2, dataSize, data);
+				else
+					vbos[vboNumber].storeDataInAttribList(0, 3, dataSize, data);
+				break;
+			case RENDERABLE_TEXTURE_COORDS:
+				vbos[vboNumber].storeDataInAttribList(1, 2, dataSize, data);
+				break;
+			case RENDERABLE_NORMALS:
+				vbos[vboNumber].storeDataInAttribList(2, 3, dataSize, data);
+				break;
+			}
+			
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
+			//Increase vbo numbers (number of vbos created)
+			vboNumber++;
+			vao->unbindVAO();
 	}
 
-	void Renderable::flush() const
-	{
-		bindVAO();
+	void Renderable::storeData(const GLuint *data, const GLsizei &dataSize) {
+		vao->bindVAO();
 
-		if (usingIndices)
-		{
-			glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*) 0);
+		ibo = htnew IBO();
+		ibo->bindIBO();
+
+		ibo->storeIndices(data, dataSize);
+		usingIbo = true;
+
+
+		vao->unbindVAO();
+	}
+
+	void Renderable::render() const {
+		vao->bindVAO();
+
+		if (usingIbo) {
+			glDrawElements(GL_TRIANGLES, ibo->getCount(), GL_UNSIGNED_INT, nullptr);
 		}
 		else
-		{
 			glDrawArrays(GL_TRIANGLES, 0, 3);
-		}
 
-		unbindVAO();
+		vao->unbindVAO();
 	}
 
-	Renderable::~Renderable()
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_INDEX_ARRAY, 0);
-		glBindVertexArray(0);
-
-		glDeleteVertexArrays(1, &vaoID);
-
-		for (GLuint vbo : vbos)
-		{
-			glDeleteBuffers(1, &vbo);
-		}
-
-		glDeleteBuffers(1, &ibo);
-
-		delete positions;
-		//delete normals;
-		//delete indices; -> This three lines cause an exception (you are trying to delete a nullptr)
-		//delete textureCoords;
-	}
 } }

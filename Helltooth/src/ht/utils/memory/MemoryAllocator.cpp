@@ -9,9 +9,8 @@ namespace ht { namespace utils {
 
 	static_assert(sizeof(byte) == 1, "Invalid size of byte!");
 
-	void* MemoryAllocator::allocate(size_t size)
-	{
-		if (!initialized) start();
+	void* MemoryAllocator::allocate(size_t size) {
+		if (!initialized) { start(); initialized = true; }
 
 		allocated += size / 1024.0f; //keep track of the allocated memory in KB
 
@@ -21,16 +20,14 @@ namespace ht { namespace utils {
 		//*(size_t*)memory = size;
 		memory += sizeof(size_t);
 
-		std::cout << "Current memory allocated: " << allocated << " added " << size << std::endl;
+		std::cout << "Current memory allocated: " << getAllocatedB() << " B added " << size << std::endl;
 		return (void*)memory;
 	}
 
-	void MemoryAllocator::deallocate(void *memory)
-	{
-		if (!initialized) start();
+	void MemoryAllocator::deallocate(void *memory) {
+		if (!initialized) { start(); initialized = true; }
 
-		if (memory == nullptr)
-		{
+		if (memory == nullptr) {
 			// the pointer is null
 			__debugbreak();
 		}
@@ -41,7 +38,7 @@ namespace ht { namespace utils {
 		free(address);
 
 		allocated -= size / 1024.0f;
-		std::cout << "Current memory allocated: " << allocated << " deleted " << size << std::endl;
+		std::cout << "Current memory allocated: " << getAllocatedB() << " B deleted " << size << std::endl;
 	}
 
 } }

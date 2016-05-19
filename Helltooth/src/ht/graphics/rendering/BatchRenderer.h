@@ -1,55 +1,37 @@
 #pragma once
 
 #include <vector>
+#include <GL/glew.h>
 
+#include "model/RawModel.h"
+#include "Renderable.h"
 #include "Entity3D.h"
-#include "../API.h"
-#include "../shaders/ShaderProgram.h"
-
+#include "EntityStack.h"
 
 namespace ht { namespace graphics {
 
 	class BatchRenderer {
 	private:
-		std::vector<Entity3D> entities;
+		RawModel *model;
 
-		Renderable *renderable;
-		Renderable *object;
+		Renderable* renderable;
 
-		ShaderProgram *program;
+		EntityStack* entities;
+		std::vector<unsigned int> entitiesID;
 
-		vec3 *objectPositions;
-		const GLint *objectIndices;
-
-		GLsizei objectPositionCount;
-
-		unsigned int entityCount = 0;
-
-		GLfloat *positions;
-		GLsizei positionSize;
-
-		GLint *indices;
-		GLsizei indicesSize;
-
-		GLfloat *normals;
-		GLfloat *textureCoords;
-
-		bool changed;
-
-	public:
-		BatchRenderer(Renderable *object, ShaderProgram *program);
 		
+	public:
+		BatchRenderer();
 		~BatchRenderer();
 
-		void addEntity(Entity3D entity);
-		void deleteEntity(Entity3D entity);
+		//Entity Stack:
+		int addEntity(const Entity3D &entity);
+		void removeEntity(const unsigned int id);
+		Entity3D getEntity(const unsigned int &id);
 
-		void prepare();
-		
-		void render() const;
-
-	protected:
-		void reInit();
+		//BatchRendering things
+		void init();
+		void render();
 
 
 	};

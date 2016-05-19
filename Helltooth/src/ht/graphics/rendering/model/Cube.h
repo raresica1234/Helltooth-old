@@ -2,27 +2,25 @@
 
 #include <GLFW/glfw3.h>
 #include "../Renderable.h"
-
+#include "RawModel.h"
 #include "../../../utils/memory/MemoryManager.h" // include this file in all the files that use "new" or "delete"
 
 namespace ht { namespace graphics {
 
 	struct Cube {
-		GLfloat* data;
-		GLint* indices;
+		GLfloat *data;
+		GLuint *indices;
+		RawModel *model;
 
-		Cube(Renderable *renderable) {
+		inline Cube(Renderable *renderable) {
 			init();
-			renderable->bindVAO();
-			renderable->addBufferData(data, 3 * 4 * 6 * sizeof(GLfloat), RENDERABLE_COORDS);
-			renderable->addBufferData(indices, 3 * 12 * sizeof(GLint));
-			renderable->unbindVAO();
+			model = htnew RawModel(data, 3 * 4 * 6 * sizeof(GLfloat));
+			model->storeData(indices, 3 * 12 * sizeof(GLuint));
+			renderable->loadRawModel(model);
 		}
 
-		void init()
-		{
-			this->data = new GLfloat[3 * 4 * 6]
-			{
+		inline void init() {
+			this->data = htnew GLfloat[3 * 4 * 6] {
 				-0.5f,	0.5f, -0.5f,
 				-0.5f, -0.5f, -0.5f,
 				 0.5f, -0.5f, -0.5f,
@@ -54,8 +52,7 @@ namespace ht { namespace graphics {
 				 0.5f, -0.5f,  0.5f
 			};
 
-			this->indices = new GLint[3 * 12]
-			{
+			this->indices = htnew GLuint[3 * 12] {
 				 0,  1,  3,
 				 3,  1,  2,
 				 4,  5,  7,
@@ -71,10 +68,8 @@ namespace ht { namespace graphics {
 			};
 		}
 
-		~Cube()
-		{
-			//delete[] this->data; -> is this already deleted? I get an exception...
-			//delete[] this->indices;
+		inline ~Cube() {
+			delete model;
 		}
 	};
 
