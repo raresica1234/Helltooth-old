@@ -58,5 +58,6 @@
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityStack.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
   </ItemGroup>
 </Project>

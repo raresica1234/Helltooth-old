@@ -26,7 +26,7 @@ namespace ht { namespace graphics {
 		const GLuint *indices;
 
 	public:
-		inline RawModel(const GLfloat *positions, const GLsizei positionSize)
+		inline RawModel(GLfloat *positions, const GLsizei positionSize)
 			: positionSize(positionSize), textureCoordSize(0), normalSize(0), indexSize(0) {
 			this->textureCoords = nullptr;
 			this->normals = nullptr;

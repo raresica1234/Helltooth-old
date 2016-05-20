@@ -23,6 +23,13 @@ namespace ht { namespace graphics {
 			m_Scale = vec3(1, 1, 1);
 		}
 
+		Entity3D() {
+			m_Position.x = 0;
+			m_Position.y = 0;
+			m_Position.z = 0;
+			m_Scale = vec3(1, 1, 1);
+		}
+
 		Entity3D(const vec3 position) {
 			m_Position = position;
 		}

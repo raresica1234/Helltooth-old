@@ -14,7 +14,9 @@ namespace ht{ namespace graphics {
 
 	public:
 		EntityStack();
-		~EntityStack();
+		~EntityStack() {
+
+		}
 
 		int addEntity(const Entity3D &entity);
 

@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\API.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityStack.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />

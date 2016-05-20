@@ -4,6 +4,7 @@
 #include "../Renderable.h"
 #include "RawModel.h"
 #include "../../../utils/memory/MemoryManager.h" // include this file in all the files that use "new" or "delete"
+#include "../BatchRenderer.h"
 
 namespace ht { namespace graphics {
 
@@ -12,12 +13,13 @@ namespace ht { namespace graphics {
 		GLuint *indices;
 		RawModel *model;
 
-		inline Cube(Renderable *renderable) {
+		inline Cube() {
 			init();
 			model = htnew RawModel(data, 3 * 4 * 6 * sizeof(GLfloat));
 			model->storeData(indices, 3 * 12 * sizeof(GLuint));
-			renderable->loadRawModel(model);
 		}
+
+		inline RawModel* getModel() { return model; }
 
 		inline void init() {
 			this->data = htnew GLfloat[3 * 4 * 6] {

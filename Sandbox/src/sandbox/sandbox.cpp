@@ -19,8 +19,9 @@ Sandbox::Sandbox()
 
 	entity = htnew Entity3D(vec3(1, 1, -5));
 
-	renderable = htnew Renderable();
-	cube = htnew Cube(renderable);
+	cube = htnew Cube();
+
+	renderer = new BatchRenderer(cube->getModel(), program);
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	view = mat4::createIdentity();
@@ -31,7 +32,7 @@ Sandbox::Sandbox()
 	program->uniformMat4("viewMatrix", view);
 	program->stop();
 
-	//renderer = new BatchRenderer(renderable3D, program);
+	
 
 	counter = htnew FpsCounter(60);
 }
@@ -56,6 +57,10 @@ void Sandbox::init()
 	}
 	*/
 	//renderer->prepare();
+
+	renderer->addEntity(*entity);
+
+	renderer->init();
 
 	counter->init();
 }
@@ -82,12 +87,12 @@ void Sandbox::start()
 void Sandbox::update() { 
 	entity->rotate(vec3(1, 1, 1));
 	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
+	
 }
 
 void Sandbox::render()
 {
-	//renderer->render();
-	renderable->render();
+	renderer->render();
 }
 
 Sandbox::~Sandbox()
@@ -96,10 +101,9 @@ Sandbox::~Sandbox()
 
 	delete counter;
 
-	delete renderable;
+	delete renderer;
 	delete cube;
 
-	delete program;
 	delete entity;
 
 	delete m_Window;
