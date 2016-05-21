@@ -26,6 +26,8 @@ namespace ht { namespace graphics {
 
 		const ShaderProgram* program;
 
+		unsigned int entityCount;
+
 		bool changed; //keeps track if the entitystack has been changed
 		//if the entitystack is changed the model will be remade
 		//if the entitystack hasn't change, the batch renderer will render normally
