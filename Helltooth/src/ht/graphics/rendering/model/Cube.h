@@ -3,24 +3,32 @@
 #include <GLFW/glfw3.h>
 #include "../Renderable.h"
 #include "RawModel.h"
-#include "../../../utils/memory/MemoryManager.h" // include this file in all the files that use "new" or "delete"
-#include "../BatchRenderer.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 
 	struct Cube {
+		//Position of the cube model
 		GLfloat *data;
+
+		//Indices of the cube model
 		GLuint *indices;
+
+		//RawModel which contains all the data of the cube
 		RawModel *model;
 
+
+		//Default constructor.
 		inline Cube() {
 			init();
 			model = htnew RawModel(data, 3 * 4 * 6 * sizeof(GLfloat));
 			model->storeData(indices, 3 * 12 * sizeof(GLuint));
 		}
 
+		//Return RawModel* of the cube.
 		inline RawModel* getModel() { return model; }
 
+	protected:
 		inline void init() {
 			this->data = htnew GLfloat[3 * 4 * 6] {
 				-0.5f,	0.5f, -0.5f,
@@ -70,6 +78,7 @@ namespace ht { namespace graphics {
 			};
 		}
 
+	public:
 		inline ~Cube() {
 			delete model;
 		}

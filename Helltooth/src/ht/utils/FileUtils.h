@@ -20,7 +20,7 @@ namespace ht { namespace utils {
 			fread(data, 1, length, file);
 			fclose(file);
 			std::string temp = data;
-			delete[] data; // fixed: memory leak
+			delete[] data;
 			return temp;
 		}
 

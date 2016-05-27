@@ -41,6 +41,24 @@ namespace ht { namespace graphics {
 
 		mat4 generateModelMatrix() const;
 
+		inline mat4 generateRotateMatrix() const {
+			mat4 rotate = mat4::createIdentity();
+			rotate.rotate(m_Rotation);
+			return rotate;
+		}
+
+		inline mat4 generateTranslationMatrix() const {
+			mat4 result = mat4::createIdentity();
+			result.translate(m_Position);
+			return result;
+		}
+
+		inline mat4 generateScaleMatrix() const {
+			mat4 move = mat4::createIdentity();
+			move.scale(m_Scale);
+			return move;
+		}
+
 		bool operator==(Entity3D &other);
 
 	};

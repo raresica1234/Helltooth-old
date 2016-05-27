@@ -12,6 +12,8 @@ namespace ht { namespace graphics {
 	Renderable::~Renderable() {
 		delete[] vbos;
 		delete vao;
+		if (ibo != nullptr)
+			delete ibo;
 	}
 
 	void Renderable::loadRawModel(const RawModel* model) {
@@ -19,7 +21,7 @@ namespace ht { namespace graphics {
 		storeData(RENDERABLE_COORDS, model->getPositions(), model->getPositionSize());
 
 		if (model->getIndexSize() > 0)
-			std::cout << model->getIndexSize();
+			//std::cout << model->getIndexSize();
 			storeData(model->getIndices(), model->getIndexSize());
 
 		if (model->getNormalSize() > 0)
@@ -71,15 +73,11 @@ namespace ht { namespace graphics {
 	}
 
 	void Renderable::render() const {
-		vao->bindVAO();
-
 		if (usingIbo) {
 			glDrawElements(GL_TRIANGLES, ibo->getCount(), GL_UNSIGNED_INT, nullptr);
 		}
 		else
 			glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		vao->unbindVAO();
 	}
 
 } }

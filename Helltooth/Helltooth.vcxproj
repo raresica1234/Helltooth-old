@@ -85,6 +85,10 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Dependencies\Helltooth\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -107,6 +111,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,13 +134,14 @@
   <ItemGroup>
     <ClInclude Include="src\ht\graphics\API.h" />
     <ClInclude Include="src\ht\graphics\Camera.h" />
-    <ClInclude Include="src\ht\graphics\rendering\BatchRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
+    <ClInclude Include="src\ht\graphics\rendering\EntityRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\EntityStack.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Pyramid.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Renderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
@@ -153,8 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\API.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\BatchRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\EntityRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityStack.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />

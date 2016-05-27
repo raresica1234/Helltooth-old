@@ -39,12 +39,14 @@ namespace ht { namespace maths {
 		vec2 operator*=(const vec2 &other);
 
 		inline void print() const {
+#if PRINT
 			std::cout << std::endl;
 			for (int i = 1; i <= 16; i++) {
 				std::cout << elements[i - 1] << " ";
 				if (i % 4 == 0)
 					std::cout << std::endl;
 			}
+#endif
 		}
 	};
 

@@ -4,10 +4,8 @@ using namespace sandbox;
 
 void main()
 {
-	Sandbox* sandbox = new Sandbox();
+	Sandbox* sandbox = htnew Sandbox();
 	sandbox->start();
 
 	delete sandbox;
-
-	system("PAUSE");
 }

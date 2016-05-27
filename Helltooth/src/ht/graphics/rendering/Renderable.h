@@ -35,6 +35,10 @@ namespace ht { namespace graphics {
 		void render() const;
 
 		inline GLuint getVaoID() { return vao->getID(); }
+
+		inline void prepare() { vao->bindVAO(); }
+
+		inline void end() { vao->unbindVAO(); }
 	};
 
 } }

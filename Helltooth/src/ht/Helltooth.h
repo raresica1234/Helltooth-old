@@ -1,17 +1,27 @@
 #pragma once
 
+/*
+	#define DEBUG makes a lot of DEBUG messages appear
+	#define MEMORY makes all the memory stuff appear
+	#define PRINT makes all the printing appear
+
+*/
+
 //GRAPHICS
 #include "graphics/Window.h"
 #include "graphics/API.h"
+#include "graphics/Camera.h"
 
 #include "graphics/shaders/ShaderProgram.h"
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
-#include "graphics/rendering/BatchRenderer.h"
+#include "graphics/rendering/Renderer.h"
+#include "graphics/rendering/EntityRenderer.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Pyramid.h"
+
 
 
 //MATHS

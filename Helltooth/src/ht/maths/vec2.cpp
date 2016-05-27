@@ -30,7 +30,9 @@ namespace ht { namespace maths {
 	}
 
 	void vec2::print() {
+#if PRINT
 		std::cout << "Vector2 x: " << x << " y: " << y << std::endl;
+#endif
 	}
 
 } }

@@ -10,7 +10,7 @@ namespace ht{ namespace graphics {
 	private:
 		std::map<unsigned int, Entity3D> entities;
 
-		long long size;
+		unsigned int size;
 
 	public:
 		EntityStack();

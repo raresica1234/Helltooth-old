@@ -15,17 +15,20 @@ inline void* operator new[](std::size_t count) noexcept {
 }
 
 inline void* operator new(std::size_t count, const char* file, unsigned int line) noexcept {
-	if (count > MB) {
-		//LOG
+	if (count > 1024) {
+#if 1
 		std::cout << "Large allocation: " << count / 1024.0f << " KB" << ", at FILE: " << file << " LINE: " << line << std::endl;
+#endif
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
 inline void* operator new[](std::size_t count, const char* file, unsigned int line) noexcept {
-	if (count > MB) {
+	if (count > 1024) {
 		//LOG
+#if 1
 		std::cout << "Large allocation: " << count / 1024.0f << " KB" << ", at FILE: " << file << " LINE: " << line << std::endl;
+#endif
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }

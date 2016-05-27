@@ -26,6 +26,8 @@ namespace ht { namespace graphics {
 		const GLuint *indices;
 
 	public:
+
+		//RawModel(GLFloat array of positions, GLsizei positionSize in bytes)
 		inline RawModel(GLfloat *positions, const GLsizei positionSize)
 			: positionSize(positionSize), textureCoordSize(0), normalSize(0), indexSize(0) {
 			this->textureCoords = nullptr;
@@ -45,6 +47,7 @@ namespace ht { namespace graphics {
 				delete[] indices;
 		}
 
+		//storeData(int usage, GLfloat *data, Glsizei dataSize in bytes)
 		inline void storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {
 			switch (usage) {
 			case RAWMODEL_COORDS:

@@ -34,7 +34,9 @@ namespace ht {	namespace maths {
 		}
 
 		void vec3::print() {
+
 			std::cout << "Vector3 x: " << x << " y: " << y << " z: "<< z << std::endl;
+
 		}
 
 } }

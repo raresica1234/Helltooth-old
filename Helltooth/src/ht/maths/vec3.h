@@ -17,6 +17,15 @@ namespace ht {	namespace maths {
 			friend vec3 operator*(vec3 left, vec3 right);
 
 			void print();
+
+			inline void normalize() {
+				float length = sqrt(x * x + y * y + z * z);
+				if (length != 0) {
+					this->x = x / length;
+					this->y = y / length;
+					this->z = z / length;
+				}
+			}
 		};
 
 } }

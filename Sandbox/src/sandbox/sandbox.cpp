@@ -21,18 +21,20 @@ Sandbox::Sandbox()
 
 	cube = htnew Cube();
 
-	renderer = new BatchRenderer(cube->getModel(), program);
+	camera = htnew Camera(m_Window);
+
+	renderer = htnew EntityRenderer(program);
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
-	view = mat4::createIdentity();
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	program->start();
 	program->uniformMat4("projectionMatrix", projectionMatrix);
-	program->uniformMat4("viewMatrix", view);
+	program->uniformMat4("viewMatrix", mat4::createIdentity());
 	program->stop();
 
-	
+	model = htnew Renderable();
+	model->loadRawModel(cube->getModel());
 
 	counter = htnew FpsCounter(60);
 }
@@ -44,23 +46,21 @@ void Sandbox::init()
 	program->start();
 	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
 
-	/*std::default_random_engine generator;
-	std::uniform_int_distribution<float> distributionPOS(-50, 50);
-	std::uniform_int_distribution<float> distributionPOSz(10, 250);
-	std::uniform_int_distribution<float> distributionROT(1, 1000);
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distributionPOS(-100, 100);
+	std::uniform_int_distribution<int> distributionPOSz(-100, 250);
+	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
-	for (int i = 0; i < 5000; i++)
+	for (int i = 0; i < 2500; i++)
 	{
 		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
-		//renderer->addEntity(entity);
+		entity.scale(3, 3, 3);
+
+		entities.push_back(entity);
 	}
-	*/
-	//renderer->prepare();
 
-	renderer->addEntity(*entity);
-
-	renderer->init();
+	
 
 	counter->init();
 }
@@ -86,25 +86,31 @@ void Sandbox::start()
 
 void Sandbox::update() { 
 	entity->rotate(vec3(1, 1, 1));
-	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
-	
+	camera->update();
 }
 
-void Sandbox::render()
-{
+void Sandbox::render() {
+	
+	renderer->pushEntityList(model, entities);
+	renderer->pushEntity(model, *entity);
+	program->start();
+	program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+	program->stop();
 	renderer->render();
 }
 
-Sandbox::~Sandbox()
-{
-	std::cout << "SandBox deconstructed!" << std::endl;
+Sandbox::~Sandbox() {
 
 	delete counter;
 
 	delete renderer;
+	delete model;
+
 	delete cube;
 
 	delete entity;
 
 	delete m_Window;
+
+	std::cout << "SandBox deconstructed!" << std::endl;
 }

@@ -26,6 +26,8 @@ namespace ht { namespace graphics {
 			inline int getWidth() const { return m_Width; }
 			inline int getHeight() const { return m_Height; }
 
+			inline GLFWwindow* getWindow() const { return m_Window; }
+
 		private:
 			bool init();
 		};

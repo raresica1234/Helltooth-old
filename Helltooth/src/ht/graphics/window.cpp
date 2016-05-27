@@ -19,13 +19,17 @@ namespace ht {	namespace graphics {
 
 		bool Window::init() {
 			if (!glfwInit()) {
+#if DEBUG
 				std::cout << "Could not initialize GLFW!" << std::endl;
+#endif
 				return false;
 			}
 
 			m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
 			if (!m_Window) {
+#if DEBUG
 				std::cout << "Failed to create GLFW Window!" << std::endl;
+#endif
 				return false;
 			}
 
@@ -36,10 +40,11 @@ namespace ht {	namespace graphics {
 				std::cout << "Could not initialize GLEW!" << std::endl;
 				return false;
 			}
+#if DEBUG
 			std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 			std::cout << "GLFW Version: " << glfwGetVersion << std::endl;
 			std::cout << "GLEW  Version: " << GLEW_VERSION << std::endl;
-
+#endif
 			utils::Input::init();
 
 			glfwSetKeyCallback(m_Window, utils::key_callback);

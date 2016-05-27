@@ -40,7 +40,9 @@ namespace ht { namespace maths {
 	}
 	
 	void vec4::print() {
+#if PRINT
 		std::cout << "Vector4 x: " << x << " y: " << y << " z: " << z << " w: " << w << std::endl;
+#endif
 	}
 
 } }
