@@ -4,7 +4,7 @@
 namespace ht { namespace graphics {
 
 	Renderable::Renderable()
-		: vboNumber(0), usingIbo(false) {
+		: vboNumber(0), usingIbo(false), ibo(nullptr) {
 		this->vao = htnew VAO();
 		this->vbos = htnew VBO[4];
 	}

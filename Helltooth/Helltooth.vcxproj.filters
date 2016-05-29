@@ -44,6 +44,7 @@
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\assets\Asset.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
+    <ClInclude Include="src\ht\utils\Log.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />

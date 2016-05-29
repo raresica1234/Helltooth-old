@@ -36,6 +36,8 @@ Sandbox::Sandbox()
 	model = htnew Renderable();
 	model->loadRawModel(cube->getModel());
 
+	model->setTexture(assets::Asset::loadTextureFromFile("res/bitch.tga"));
+
 	counter = htnew FpsCounter(60);
 }
 

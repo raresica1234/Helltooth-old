@@ -26,4 +26,7 @@
     <None Include="src\shaders\shader.vert" />
     <None Include="res\texture.httexture" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bitch.tga" />
+  </ItemGroup>
 </Project>

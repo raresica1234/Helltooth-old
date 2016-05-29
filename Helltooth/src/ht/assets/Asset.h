@@ -48,21 +48,18 @@ namespace ht{ namespace assets{
 
 			BYTE* pixels = FreeImage_GetBits(dib);
 
-			GLsizei *width;
-			*width = FreeImage_GetWidth(dib);
-			GLsizei *height;
-			*height = FreeImage_GetHeight(dib);
-			GLsizei *bpp;
-			*bpp = FreeImage_GetBPP(dib);
+			GLsizei width = FreeImage_GetWidth(dib);
+			GLsizei height = FreeImage_GetHeight(dib);
+			GLsizei bpp = FreeImage_GetBPP(dib);
 
-			long long size = *width * *height * (*bpp / 8);
+			long long size = width * height * (bpp / 8);
 
 			BYTE* result = htnew BYTE[size];
 			memcpy(result, pixels, size);
 
 			FreeImage_Unload(dib);
 
-			texture.loadPixelArray(result, *width, *height, *bpp, size);
+			texture.loadPixelArray(result, width, height, bpp, size);
 
 			return texture;
 		}

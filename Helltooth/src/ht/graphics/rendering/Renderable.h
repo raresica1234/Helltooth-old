@@ -10,6 +10,8 @@
 #include "../../utils/memory/MemoryManager.h"
 #include "model/RawModel.h"
 
+#include "../textures/Texture.h"
+
 namespace ht { namespace graphics {
 
 	class Renderable {
@@ -17,6 +19,8 @@ namespace ht { namespace graphics {
 		VAO* vao;
 		VBO* vbos;
 		IBO* ibo;
+
+		Texture texture;
 
 
 		bool usingIbo;
@@ -39,6 +43,9 @@ namespace ht { namespace graphics {
 		inline void prepare() { vao->bindVAO(); }
 
 		inline void end() { vao->unbindVAO(); }
+
+		inline void setTexture(const Texture texture) { this->texture = texture; }
+
 	};
 
 } }
