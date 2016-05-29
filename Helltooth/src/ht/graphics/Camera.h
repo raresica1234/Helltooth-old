@@ -4,6 +4,8 @@
 #include "../utils/Input.h"
 #include <GLFW/glfw3.h>
 
+#include "window.h"
+
 #include <iostream>
 
 namespace ht { namespace graphics {
@@ -17,8 +19,6 @@ namespace ht { namespace graphics {
 	private:
 		vec3 position = vec3(1,1,1);
 		vec3 rotation = vec3(1,1,1);
-
-		mat4 viewMatrix;
 
 		vec2 mouse;
 
@@ -35,7 +35,7 @@ namespace ht { namespace graphics {
 
 		Camera(Window* window) 
 			: position(vec3()), rotation(vec3()), window(window) {
-			movementSpeedFactor = 1.0f; // How fast we move (higher values mean we move and strafe faster)
+			movementSpeedFactor = 2.0f; // How fast we move (higher values mean we move and strafe faster)
 
 			pitchSensitivity = 0.2f; // How sensitive mouse movements affect looking up and down
 			yawSensitivity = 0.2f; // How sensitive mouse movements affect looking left and right
@@ -92,10 +92,11 @@ namespace ht { namespace graphics {
 			position.x += movement.x;
 			position.y += movement.y;
 			position.z += movement.z;
+			
 		}
 
-		mat4 generateViewMatrix() {
-			viewMatrix = mat4::createIdentity();
+		mat4 generateViewMatrix() const {
+			mat4 viewMatrix = mat4::createIdentity();
 			vec3 rotation = vec3(this->rotation.x, this->rotation.y, this->rotation.z);
 			viewMatrix.rotate(rotation);
 
@@ -113,7 +114,6 @@ namespace ht { namespace graphics {
 			
 			rotation.x += vertMovement;
 			rotation.y -= horizMovement;
-			std::cout << rotation.y << std::endl;
 
 			if (rotation.x < -90) {
 				rotation.x = -90;

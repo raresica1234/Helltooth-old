@@ -73,7 +73,9 @@ namespace ht { namespace graphics {
 	void ShaderProgram::start() const { glUseProgram(programID); }
 	void ShaderProgram::stop() const { glUseProgram(0); }
 
-	GLint ShaderProgram::uniformLocation(const char* location) const{ return glGetUniformLocation(programID, location); }
+	GLint ShaderProgram::uniformLocation(const char* location) {
+		return glGetUniformLocation(programID, location);
+	}
 
 	void ShaderProgram::uniformBool(const char* name, const bool& value) { glUniform1f(uniformLocation(name), value); }
 

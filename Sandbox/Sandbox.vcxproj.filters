@@ -24,5 +24,6 @@
   <ItemGroup>
     <None Include="src\shaders\shader.frag" />
     <None Include="src\shaders\shader.vert" />
+    <None Include="res\texture.httexture" />
   </ItemGroup>
 </Project>

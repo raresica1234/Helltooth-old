@@ -24,6 +24,12 @@ namespace ht { namespace utils {
 			return temp;
 		}
 
+		static void write_file(const char* path, const void* data, const int dataSize) {
+			FILE* file = fopen(path, "w");
+			fwrite(data, 1, dataSize, file);
+			fclose(file);
+		}
+
 	};
 
 } }

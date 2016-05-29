@@ -1,24 +1,29 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <string>
-
 #include "../../utils/FileUtils.h"
 #include "../../maths/vec2.h"
 #include "../../maths/vec3.h"
 #include "../../maths/vec4.h"
 #include "../../maths/mat4.h"
 
+#include <GL/glew.h>
+
+#include <unordered_map>
+#include <string>
+
+#include <math.h>
 
 namespace ht { namespace graphics { 
 
 	using namespace maths;
+
 
 	class ShaderProgram {
 	private:
 		const char *VERTEX_PATH;
 		const char *FRAGMENT_PATH;
 		GLuint programID;
+		std::unordered_map<std::string, GLint> locations;
 
 	public:
 		ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH);
@@ -37,7 +42,7 @@ namespace ht { namespace graphics {
 
 	protected:
 		int init();
-		GLint uniformLocation(const char* name) const;
+		GLint uniformLocation(const char* name);
 	};
 
 } } 

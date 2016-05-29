@@ -51,16 +51,16 @@ void Sandbox::init()
 	std::uniform_int_distribution<int> distributionPOSz(-100, 250);
 	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
-	for (int i = 0; i < 2500; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
 		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
-		entity.scale(3, 3, 3);
+		entity.scale(1, 1, 1);
 
 		entities.push_back(entity);
 	}
 
-	
+	renderer->setCamera(camera);
 
 	counter->init();
 }
@@ -93,9 +93,6 @@ void Sandbox::render() {
 	
 	renderer->pushEntityList(model, entities);
 	renderer->pushEntity(model, *entity);
-	program->start();
-	program->uniformMat4("viewMatrix", camera->generateViewMatrix());
-	program->stop();
 	renderer->render();
 }
 

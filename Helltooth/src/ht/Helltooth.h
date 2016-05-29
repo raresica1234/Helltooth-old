@@ -16,12 +16,12 @@
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
-#include "graphics/rendering/Renderer.h"
 #include "graphics/rendering/EntityRenderer.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Pyramid.h"
 
+#include "graphics/textures/Texture.h"
 
 
 //MATHS
@@ -37,3 +37,6 @@
 
 //UTILS -> MEMORY
 #include "utils/memory/MemoryManager.h"
+
+//ASSETS
+#include "assets/Asset.h"

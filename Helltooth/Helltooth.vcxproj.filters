@@ -40,9 +40,10 @@
     <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
-    <ClInclude Include="src\ht\graphics\rendering\EntityStack.h" />
     <ClInclude Include="src\ht\graphics\rendering\EntityRenderer.h" />
-    <ClInclude Include="src\ht\graphics\rendering\Renderer.h" />
+    <ClInclude Include="src\ht\graphics\textures\Texture.h" />
+    <ClInclude Include="src\ht\assets\Asset.h" />
+    <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -58,7 +59,7 @@
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\EntityStack.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
   </ItemGroup>
 </Project>

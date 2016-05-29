@@ -22,6 +22,7 @@ namespace ht { namespace graphics {
 
 	void EntityRenderer::render() {
 		program->start();
+		program->uniformMat4("viewMatrix", camera->generateViewMatrix());
 		for (auto& entry : entities) {
 			entry.first->prepare();
 			for (Entity3D entity : entry.second) {
