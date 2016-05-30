@@ -17,4 +17,3 @@
 **Fixes:**
 - *None*
 
-[AppVeyor](https://ci.appveyor.com/api/github/webhook?id=yqes1a5gyu52ggtt)
