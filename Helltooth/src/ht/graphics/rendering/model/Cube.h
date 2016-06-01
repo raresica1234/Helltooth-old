@@ -14,6 +14,8 @@ namespace ht { namespace graphics {
 		//Indices of the cube model
 		GLuint *indices;
 
+		GLfloat *textureCoords;
+
 		//RawModel which contains all the data of the cube
 		RawModel *model;
 
@@ -23,12 +25,15 @@ namespace ht { namespace graphics {
 			init();
 			model = htnew RawModel(data, 3 * 4 * 6 * sizeof(GLfloat));
 			model->storeData(indices, 3 * 12 * sizeof(GLuint));
+			model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoords, 2 * 4 * 6 * sizeof(GLfloat));
 		}
 
 		//Return RawModel* of the cube.
 		inline RawModel* getModel() { return model; }
 
 	protected:
+
+		//this function sets all the data needed to make a cube
 		inline void init() {
 			this->data = htnew GLfloat[3 * 4 * 6] {
 				-0.5f,	0.5f, -0.5f,
@@ -75,6 +80,33 @@ namespace ht { namespace graphics {
 				19, 17, 18,
 				20, 21, 23,
 				23, 21, 22
+			};
+
+			this->textureCoords = new GLfloat[2 * 4 * 6]{
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0,
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0,
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0,
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0,
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0,
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0
 			};
 		}
 

@@ -12,7 +12,6 @@ namespace ht { namespace graphics {
 
 	class RawModel {
 	private:
-		GLuint id;
 		bool usingColor;
 
 		GLsizei positionSize;

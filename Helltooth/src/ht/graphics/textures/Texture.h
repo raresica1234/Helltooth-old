@@ -14,15 +14,15 @@ namespace ht{ namespace graphics {
 	public:
 		Texture();
 		~Texture() {
-
+			glDeleteTextures(1, &textureID);
 		}
 
-		inline void bind() { glBindTexture(GL_TEXTURE_2D, textureID); }
-		inline void unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
+		inline void bind() const { glBindTexture(GL_TEXTURE_2D, textureID); }
+		inline void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 
-		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, long long bpp, unsigned int pixelSize);
+		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, long long bpp, unsigned int pixelSize) const;
 
-		inline GLuint getID() { return textureID; }
+		inline GLuint getID() const { return textureID; }
 
 	};
 

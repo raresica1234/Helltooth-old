@@ -23,9 +23,11 @@ namespace ht{ namespace assets{
 		//todo models of course
 
 	public:
-		static inline Texture loadTextureFromFile(char *file) {
-			Texture texture;
+		static inline const Texture* loadTextureFromFile(char *file) {
+			const Texture* texture = new Texture();
 			
+			
+
 			std::string fileName(file);
 			if (fileName.substr(fileName.size() - HELLTOOTH_FORMAT_SIZE, fileName.size()) == ".httexture") {
 				
@@ -37,14 +39,9 @@ namespace ht{ namespace assets{
 
 			if (fif == FIF_UNKNOWN) 
 				fif = FreeImage_GetFIFFromFilename(file);
-
-			if (fif == FIF_UNKNOWN) {
-				return texture;;
-			}
 			
 			if (FreeImage_FIFSupportsReading(fif)) dib = FreeImage_Load(fif, file);
 
-			if (!dib) return texture;
 
 			BYTE* pixels = FreeImage_GetBits(dib);
 
@@ -59,7 +56,9 @@ namespace ht{ namespace assets{
 
 			FreeImage_Unload(dib);
 
-			texture.loadPixelArray(result, width, height, bpp, size);
+			texture->loadPixelArray(result, width, height, bpp, size);
+
+			std::cout << "Texture ID: " << texture->getID() << std::endl;
 
 			return texture;
 		}

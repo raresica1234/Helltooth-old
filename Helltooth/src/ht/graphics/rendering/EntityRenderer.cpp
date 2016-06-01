@@ -32,7 +32,6 @@ namespace ht { namespace graphics {
 			entry.first->end();
 		}
 		program->stop();
-		cleanUP();
 	}
 
 	void EntityRenderer::cleanUP() {

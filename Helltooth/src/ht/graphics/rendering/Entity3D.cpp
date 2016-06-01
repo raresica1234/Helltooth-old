@@ -2,6 +2,8 @@
 
 namespace ht { namespace graphics {
 
+	//Rotate the entity 
+	//Eg: rotate(vec3(90,0,0)) -> rotates 90 degrees on the x axis
 	void Entity3D::rotate(vec3 &axis) {
 		m_Rotation.x += axis.x;
 		m_Rotation.y += axis.y;

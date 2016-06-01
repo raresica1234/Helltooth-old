@@ -28,5 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bitch.tga" />
+    <Image Include="res\asd.jpg" />
   </ItemGroup>
 </Project>

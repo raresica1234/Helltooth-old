@@ -1,12 +1,5 @@
 #pragma once
 
-/*
-	#define DEBUG makes a lot of DEBUG messages appear
-	#define MEMORY makes all the memory stuff appear
-	#define PRINT makes all the printing appear
-
-*/
-
 //GRAPHICS
 #include "graphics/Window.h"
 #include "graphics/API.h"

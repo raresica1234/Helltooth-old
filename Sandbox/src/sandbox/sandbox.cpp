@@ -96,6 +96,7 @@ void Sandbox::render() {
 	renderer->pushEntityList(model, entities);
 	renderer->pushEntity(model, *entity);
 	renderer->render();
+	renderer->cleanUP();
 }
 
 Sandbox::~Sandbox() {

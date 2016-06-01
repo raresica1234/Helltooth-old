@@ -34,7 +34,6 @@ namespace ht { namespace graphics {
 
 		inline void setCamera(const Camera* camera) { this->camera = camera; }
 
-	private:
 		void cleanUP();
 
 	};

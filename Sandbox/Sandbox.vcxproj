@@ -80,6 +80,7 @@
     <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)bin\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
@@ -92,7 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Helltooth;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;DEBUG;FREEIMAGE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -152,6 +153,7 @@
     <None Include="src\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\asd.jpg" />
     <Image Include="res\bitch.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

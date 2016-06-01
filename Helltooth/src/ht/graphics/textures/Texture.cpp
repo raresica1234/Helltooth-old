@@ -11,7 +11,7 @@ namespace ht { namespace graphics {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	}
 
-	bool Texture::loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, long long bpp, unsigned int pixelSize) {
+	bool Texture::loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, long long bpp, unsigned int pixelSize) const {
 		switch (bpp)
 		{
 		case 24:

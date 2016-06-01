@@ -20,8 +20,7 @@ namespace ht { namespace graphics {
 		VBO* vbos;
 		IBO* ibo;
 
-		Texture texture;
-
+		const Texture* texture;
 
 		bool usingIbo;
 
@@ -40,11 +39,15 @@ namespace ht { namespace graphics {
 
 		inline GLuint getVaoID() { return vao->getID(); }
 
-		inline void prepare() { vao->bindVAO(); }
+		inline void prepare() { 
+			vao->bindVAO();
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture->getID());
+		}
 
 		inline void end() { vao->unbindVAO(); }
 
-		inline void setTexture(const Texture texture) { this->texture = texture; }
+		inline void setTexture(const Texture* texture) { this->texture = texture; }
 
 	};
 

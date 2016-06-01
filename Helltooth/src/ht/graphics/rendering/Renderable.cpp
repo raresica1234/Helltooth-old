@@ -4,7 +4,7 @@
 namespace ht { namespace graphics {
 
 	Renderable::Renderable()
-		: vboNumber(0), usingIbo(false), ibo(nullptr) {
+		: vboNumber(0), usingIbo(false), ibo(nullptr), texture(nullptr) {
 		this->vao = htnew VAO();
 		this->vbos = htnew VBO[4];
 	}
@@ -12,8 +12,12 @@ namespace ht { namespace graphics {
 	Renderable::~Renderable() {
 		delete[] vbos;
 		delete vao;
+
 		if (ibo != nullptr)
 			delete ibo;
+
+		if(texture != nullptr)
+			delete texture;
 	}
 
 	void Renderable::loadRawModel(const RawModel* model) {

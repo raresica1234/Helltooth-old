@@ -1,7 +1,8 @@
 #pragma once
 
+#include <stdio.h>
+
 #include <Windows.h>
-#include <iostream>
 
 namespace ht { namespace utils {
 
@@ -76,9 +77,7 @@ namespace ht { namespace utils {
 
 		void show() {
 			if ((currentTime - lastTime) > 0.5) {
-#if DEBUG
-				std::cout << "fps " << fps << " ups " << ups << std::endl;
-#endif
+				printf("fps %i ups %i \n", fps, ups);
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;
