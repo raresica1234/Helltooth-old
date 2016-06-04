@@ -1,13 +1,12 @@
 #pragma once
 
-#include "../graphics/textures/Texture.h"
+#include <FreeImage/FreeImage.h>
 
 #include <vector>
 #include <string>
 #include <iostream>
 
-#include <FreeImage/FreeImage.h>
-
+#include "../graphics/textures/Texture.h"
 #include "../utils/memory/MemoryManager.h"
 
 #include <GL/glew.h>
@@ -49,7 +48,7 @@ namespace ht{ namespace assets{
 			GLsizei height = FreeImage_GetHeight(dib);
 			GLsizei bpp = FreeImage_GetBPP(dib);
 
-			long long size = width * height * (bpp / 8);
+			unsigned int size = width * height * (bpp / 8);
 
 			BYTE* result = htnew BYTE[size];
 			memcpy(result, pixels, size);
@@ -57,8 +56,6 @@ namespace ht{ namespace assets{
 			FreeImage_Unload(dib);
 
 			texture->loadPixelArray(result, width, height, bpp, size);
-
-			std::cout << "Texture ID: " << texture->getID() << std::endl;
 
 			return texture;
 		}

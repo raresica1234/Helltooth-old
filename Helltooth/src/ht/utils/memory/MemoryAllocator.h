@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 namespace ht { namespace utils {
 
 	class MemoryAllocator

@@ -1,8 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-
-#include <Windows.h>
+#include "Log.h"
 
 namespace ht { namespace utils {
 
@@ -77,7 +75,7 @@ namespace ht { namespace utils {
 
 		void show() {
 			if ((currentTime - lastTime) > 0.5) {
-				printf("fps %i ups %i \n", fps, ups);
+				HT_INFO("fps %i ups %i", fps, ups);
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;

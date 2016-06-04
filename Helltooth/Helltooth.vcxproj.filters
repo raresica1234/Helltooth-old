@@ -44,6 +44,9 @@
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\assets\Asset.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
+    <ClInclude Include="src\ht\utils\Log.h" />
+    <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Writer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -61,5 +64,6 @@
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
+    <ClCompile Include="src\ht\tools\Serialization\src\Writer.cpp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,8 @@
 #pragma once
 
+//ASSETS
+#include "assets/Asset.h"
+
 //GRAPHICS
 #include "graphics/Window.h"
 #include "graphics/API.h"
@@ -30,6 +33,3 @@
 
 //UTILS -> MEMORY
 #include "utils/memory/MemoryManager.h"
-
-//ASSETS
-#include "assets/Asset.h"

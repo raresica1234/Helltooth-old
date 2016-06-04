@@ -153,9 +153,12 @@
     <ClInclude Include="src\ht\maths\vec2.h" />
     <ClInclude Include="src\ht\maths\vec3.h" />
     <ClInclude Include="src\ht\maths\vec4.h" />
+    <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Writer.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Input.h" />
+    <ClInclude Include="src\ht\utils\Log.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
   </ItemGroup>
@@ -171,6 +174,7 @@
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />
     <ClCompile Include="src\ht\maths\vec4.cpp" />
+    <ClCompile Include="src\ht\tools\Serialization\src\Writer.cpp" />
     <ClCompile Include="src\ht\utils\input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
   </ItemGroup>

@@ -38,7 +38,7 @@ namespace ht { namespace graphics {
 			glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vertexID, length, &length, &error[0]);
-			std::cout << "Failed to compile vertex shader!" << &error[0] << std::endl;
+			HT_FATAL("Failed to compile vertex shader! \n %s", &error[0]);
 			glDeleteShader(vertexID);
 			return -1;
 		}
@@ -53,7 +53,7 @@ namespace ht { namespace graphics {
 			glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(fragmentID, length, &length, &error[0]);
-			std::cout << "Failed to compile fragment shader!" << &error[0] << std::endl;
+			HT_FATAL("Failed to compile fragment shader! \n %s", &error[0]);
 			glDeleteShader(fragmentID);
 			return - 1;
 		}

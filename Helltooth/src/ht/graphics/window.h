@@ -3,7 +3,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
+#include "../utils/Log.h"
 #include "../utils/Input.h"
 
 namespace ht { namespace graphics {

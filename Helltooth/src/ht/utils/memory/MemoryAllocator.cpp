@@ -1,5 +1,10 @@
 #include "MemoryAllocator.h"
+
+#include <Windows.h>
+#include "../Log.h"
+
 #define MEMORY 0
+
 namespace ht { namespace utils {
 
 	float MemoryAllocator::allocated;
@@ -19,9 +24,8 @@ namespace ht { namespace utils {
 		*addr = size;
 		//*(size_t*)memory = size;
 		memory += sizeof(size_t);
-#if MEMORY
-		std::cout << "Current memory allocated: " << getAllocatedB() << " B added " << size << std::endl;
-#endif
+
+
 		return (void*)memory;
 	}
 
@@ -39,9 +43,6 @@ namespace ht { namespace utils {
 		free(address);
 
 		allocated -= size / 1024.0f;
-#if MEMORY
-		std::cout << "Current memory allocated: " << getAllocatedB() << " B deleted " << size << std::endl;
-#endif
 	}
 
 } }
