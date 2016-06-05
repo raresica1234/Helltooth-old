@@ -2,26 +2,21 @@
 
 namespace ht { namespace tools { namespace serialization {
 
-	byte* SerializationWriter::header = "HT";
+	char* SerializationWriter::header = "HT";
 	short SerializationWriter::version = HT_SERIALIZATION_VERSION;
 
-	template<typename T> int SerializationWriter::writeBytes(char* buffer, int position, const T& value) {
-		auto asBytes = to_bytes(value);
-		for (byte c : asBytes) {
-			buffer[position++] = c;
+	
+	int SerializationWriter::writeBytes(byte* dest, int pointer, std::string string) {
+		const unsigned int size = (short)string.length();
+
+		assert(size <= 65535);
+
+		pointer = writeBytes(dest, pointer, (short)size);
+		for (unsigned short i = 0; i < (short)size; i++) {
+			pointer = writeBytes(dest, pointer, string[i]);
 		}
-		return position;
+		return pointer;
 	}
 
-
-	template<typename T> std::array<byte, sizeof(T)> static SerializationWriter::toBytes(const T& object) {
-		std::array<byte, sizeof(T)> bytes;
-
-		const byte* begin = reinterpret_cast<const byte*>(std::addressof(object));
-		const byte* end = begin + sizeof(T);
-		std::copy(begin, end, std::begin(bytes));
-
-		return bytes;
-	}
 
 } } }

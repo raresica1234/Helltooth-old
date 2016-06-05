@@ -33,3 +33,6 @@
 
 //UTILS -> MEMORY
 #include "utils/memory/MemoryManager.h"
+
+//TOOLS
+#include "tools/Serialization/Serialization.h"
