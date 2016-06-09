@@ -8,6 +8,7 @@
 #define HT_SERIALIZATION_VERSION (short) 0x0100;
 namespace ht { namespace tools { namespace serialization {
 
+
 	typedef unsigned char byte;
 
 	class SerializationWriter {
@@ -22,10 +23,39 @@ namespace ht { namespace tools { namespace serialization {
 		template<typename T>
 		static T readBytes(byte* src, int pointer) {
 			T value = src[pointer] << (sizeof(T) * 8 - 8);
-			for (int i = pointer; i < pointer + sizeof(T); i++) {
-				value |= src[pointer + i] << ((sizeof(T) * 8 - 8) - (i * 8));
+			for (int i = 0; i < (int) sizeof(T); i++) {
+				value |= (src[pointer + i] << ((sizeof(T) * 8 - 8) - (i * 8)));
 			}
 			return value;
+		}
+
+		template<>
+		static float readBytes<float>(byte* src, int pointer) {
+			unsigned int value = src[pointer] << (sizeof(int) * 8 - 8);
+			for (int i = 0; i < (int) sizeof(float); i++) {
+				value |= (src[pointer + i] << ((sizeof(int) * 8 - 8) - (i * 8)));
+			}
+			float result;
+			memcpy_s(&result, 4, &value, 4);
+			return result;
+		}
+
+		template<>
+		static bool readBytes<bool>(byte* src, int pointer) {
+			bool result;
+			result = src[pointer];
+			return result != 0;
+		}
+
+		template<>
+		static double readBytes<double>(byte* src, int pointer) {
+			unsigned long long value = src[pointer] << (sizeof(int) * 8 - 8);
+			for (int i = pointer; i < (int)pointer + (int) sizeof(float); i++) {
+				value |= (src[pointer + i] << ((sizeof(int) * 8 - 8) - (i * 8)));
+			}
+			double result;
+			memcpy_s(&result, 4, &value, 4);
+			return result;
 		}
 
 		template<>
@@ -61,6 +91,24 @@ namespace ht { namespace tools { namespace serialization {
 			return bytes;
 		}
 	
+	};
+
+	struct Container {
+		byte type;
+		std::string name;
+
+
+		int writeBytes(byte* dest, int &pointer) {
+			pointer = SerializationWriter::writeBytes(dest, pointer, type);
+			pointer = SerializationWriter::writeBytes(dest, pointer, name);
+			return pointer;
+		}
+
+		void setName(std::string name) {
+			this->name = name;
+		}
+
+		void setType(byte type) { this->type = type; }
 	};
 
 } } }

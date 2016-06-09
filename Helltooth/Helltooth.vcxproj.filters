@@ -47,6 +47,9 @@
     <ClInclude Include="src\ht\utils\Log.h" />
     <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Writer.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Field.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Types.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Array.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />

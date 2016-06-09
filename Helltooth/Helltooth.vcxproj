@@ -154,6 +154,9 @@
     <ClInclude Include="src\ht\maths\vec3.h" />
     <ClInclude Include="src\ht\maths\vec4.h" />
     <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Array.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Field.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Types.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Writer.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
