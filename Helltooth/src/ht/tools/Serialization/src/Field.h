@@ -98,7 +98,7 @@ namespace ht { namespace tools { namespace serialization {
 			this->dataType = dataType;
 			container.setType(SERIALIZATION_FIELD);
 			container.setName(name);
-			data = new byte[sizeof(T)];
+			data = htnew byte[sizeof(T)];
 			SerializationWriter::writeBytes(data, 0, value);
 			container.dataSize += Types::getSize(dataType) + 1;
 		}

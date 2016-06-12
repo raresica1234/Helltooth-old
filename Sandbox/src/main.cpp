@@ -17,15 +17,13 @@ void main()
 	using namespace tools;
 	using namespace serialization;
 
-	
-
-	byte* dest = new byte[300];
+	unsigned char* dest = htnew unsigned char[300];
 	memset(dest, 0, 300);
 
-	int* array_data = new int[4]{
+	int* array_data = htnew int[4]{
 		1,2,3,4
 	};
-	
+
 	int value = 4;
 
 	Array array = Array("test", array_data, 4);

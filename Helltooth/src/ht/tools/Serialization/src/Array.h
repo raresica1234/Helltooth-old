@@ -2,6 +2,7 @@
 
 #include "Writer.h"
 #include "Types.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 #include <string>
 #include <assert.h>
@@ -91,13 +92,13 @@ namespace ht { namespace tools { namespace serialization {
 				}
 			}
 			assert(false);
-			return Array("", new byte[0], 0);
+			return Array("", htnew byte[0], 0);
 		}
 
 		template<typename T>
 		T* getArray() {
 			assert(sizeof(T) == Types::getSize(type));
-			T* result = new T[dataSize];
+			T* result = htnew T[dataSize];
 
 			for (int i = 0; i < dataSize; i++) {
 				result[i] = SerializationWriter::readBytes<T>(data, i * sizeof(T));
@@ -111,7 +112,7 @@ namespace ht { namespace tools { namespace serialization {
 	private:
 		template<typename T>
 		static T* readArray(byte* src, short size, int pointer) {
-			T* data = new T[size];
+			T* data = htnew T[size];
 			for (short i = 0; i < size; i++) {
 				data[i] = SerializationWriter::readBytes<T>(src, pointer + (i * sizeof(T)));
 			}
@@ -126,7 +127,7 @@ namespace ht { namespace tools { namespace serialization {
 			this->type = type;
 			dataSize = length;
 			container.dataSize += sizeof(T) * length + 1 + 2;
-			this->data = new byte[dataSize * sizeof(T)];
+			this->data = htnew byte[dataSize * sizeof(T)];
 			for (unsigned short i = 0; i < dataSize; i++) {
 				pointer = SerializationWriter::writeBytes(this->data, pointer, data[i]);
 			}
