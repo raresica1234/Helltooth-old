@@ -42,6 +42,7 @@ namespace ht { namespace tools { namespace serialization {
 		}
 
 		static Array readBytes(byte* dest, int pointer) {
+			short dataSize = SerializationWriter::readBytes<short>(dest, pointer += 2);
 			if (SerializationWriter::readBytes<byte>(dest, pointer) != SERIALIZATION_ARRAY) assert(false);
 			std::string name;
 			pointer += 1;
@@ -105,6 +106,8 @@ namespace ht { namespace tools { namespace serialization {
 			return result;
 		}
 
+		inline short getDataSize() { return container.dataSize; }
+
 	private:
 		template<typename T>
 		static T* readArray(byte* src, short size, int pointer) {
@@ -122,6 +125,7 @@ namespace ht { namespace tools { namespace serialization {
 			int pointer = 0;
 			this->type = type;
 			dataSize = length;
+			container.dataSize += sizeof(T) * length + 1 + 2;
 			this->data = new byte[dataSize * sizeof(T)];
 			for (unsigned short i = 0; i < dataSize; i++) {
 				pointer = SerializationWriter::writeBytes(this->data, pointer, data[i]);

@@ -1,5 +1,3 @@
-#include <Windows.h>
-
 #include "Texture.h"
 
 namespace ht { namespace graphics {

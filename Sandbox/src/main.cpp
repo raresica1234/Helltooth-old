@@ -1,5 +1,6 @@
 //#include "sandbox/sandbox.h"
 #include "src/ht/tools/Serialization/Serialization.h"
+//#include "src/ht/Helltooth.h"
 //using namespace sandbox;
 
 #include <iostream>
@@ -18,29 +19,41 @@ void main()
 
 	
 
-	byte* dest = new byte[100];
-	memset(dest, 0, 100);
+	byte* dest = new byte[300];
+	memset(dest, 0, 300);
 
 	int* array_data = new int[4]{
 		1,2,3,4
 	};
 	
+	int value = 4;
+
 	Array array = Array("test", array_data, 4);
 
-	array.writeBytes(dest, 0);
+	Field field = Field("test", value);
 
-	for (int i = 0; i < 100; i++) {
+	Object object = Object("Test");
+
+	//object.addField(field);
+	object.addArray(array);
+
+	object.writeBytes(dest, 0);
+
+	for (int i = 0; i < 300; i++) {
 		printf("0x%x ", dest[i]);
 	}
+
 	printf("\n\n");
-	Array array2 = Array::readBytes(dest, 0);
+	//Array field2 = Array::readBytes(dest, 0);
 
 
-	int* data = array2.getArray<int>();
+	//int* data = field2.getArray<int>();
 
-	for (int i = 0; i < 4; i++) {
-		printf("0x%x ", data[i]);
-	}
+	//for (int i = 0; i < 4; i++) {
+	//printf("0x%x ", data[i]);
+	//}
+
+	//delete object;
 
 	system("PAUSE");
 }

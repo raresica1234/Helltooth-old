@@ -56,6 +56,7 @@ namespace ht { namespace tools { namespace serialization {
 		}
 
 		inline static Field readBytes(byte* dest, int pointer) {
+			short dataSize = SerializationWriter::readBytes<short>(dest, pointer+=2);
 			if (SerializationWriter::readBytes<byte>(dest, pointer) != SERIALIZATION_FIELD) assert(false);
 			pointer += 1;
 			std::string name = SerializationWriter::readBytes<std::string>(dest, pointer);
@@ -87,6 +88,9 @@ namespace ht { namespace tools { namespace serialization {
 			return SerializationWriter::readBytes<T>(data, 0);
 		}
 
+		bool checkData(short dataSize) { return container.dataSize == dataSize; }
+
+		inline short getDataSize() { return container.dataSize; }
 
 	private:
 		template<class T>
@@ -96,6 +100,7 @@ namespace ht { namespace tools { namespace serialization {
 			container.setName(name);
 			data = new byte[sizeof(T)];
 			SerializationWriter::writeBytes(data, 0, value);
+			container.dataSize += Types::getSize(dataType) + 1;
 		}
 	
 	};

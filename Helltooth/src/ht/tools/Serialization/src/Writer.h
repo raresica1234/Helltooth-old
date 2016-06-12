@@ -8,7 +8,6 @@
 #define HT_SERIALIZATION_VERSION (short) 0x0100;
 namespace ht { namespace tools { namespace serialization {
 
-
 	typedef unsigned char byte;
 
 	class SerializationWriter {
@@ -96,9 +95,10 @@ namespace ht { namespace tools { namespace serialization {
 	struct Container {
 		byte type;
 		std::string name;
-
+		short dataSize;
 
 		int writeBytes(byte* dest, int &pointer) {
+			pointer = SerializationWriter::writeBytes(dest, pointer, dataSize);
 			pointer = SerializationWriter::writeBytes(dest, pointer, type);
 			pointer = SerializationWriter::writeBytes(dest, pointer, name);
 			return pointer;
@@ -106,6 +106,7 @@ namespace ht { namespace tools { namespace serialization {
 
 		void setName(std::string name) {
 			this->name = name;
+			dataSize = 1 + name.length() + 2 + 2;
 		}
 
 		void setType(byte type) { this->type = type; }

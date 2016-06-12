@@ -5,12 +5,13 @@
 #define RENDERABLE_NORMALS 2
 #define RENDERABLE_COLORS 3
 
+#include "../textures/Texture.h"
+
 #include "vertex.h"
 #include "../API.h"
 #include "../../utils/memory/MemoryManager.h"
 #include "model/RawModel.h"
 
-#include "../textures/Texture.h"
 
 namespace ht { namespace graphics {
 

@@ -6,3 +6,4 @@
 #include "src/Writer.h"
 #include "src/Field.h"
 #include "src/Array.h"
+#include "src/Object.h"

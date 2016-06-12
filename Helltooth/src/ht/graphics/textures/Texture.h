@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <FreeImage/FreeImage.h>
+#include <GL/glew.h>
 
 #include "../../utils/memory/MemoryManager.h"
 

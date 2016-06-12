@@ -1,5 +1,7 @@
 #pragma once
 
+#include <FreeImage/FreeImage.h>
+
 //ASSETS
 #include "assets/Asset.h"
 
@@ -35,4 +37,4 @@
 #include "utils/memory/MemoryManager.h"
 
 //TOOLS
-#include "tools/Serialization/Serialization.h"
+//#include "tools/Serialization/Serialization.h"
