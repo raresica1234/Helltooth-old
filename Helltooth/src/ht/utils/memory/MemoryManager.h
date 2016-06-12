@@ -4,11 +4,11 @@
 
 #include "../Log.h"
 
-#define htnew	new(__FILE__,__LINE__)
+#define htnew	new(__FILE__, __LINE__)
 
 #define MB 1024 * 1024
 
-inline void* operator new(std::size_t count) noexcept {
+inline void* operator new(size_t count) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);
@@ -16,7 +16,7 @@ inline void* operator new(std::size_t count) noexcept {
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new[](std::size_t count) noexcept {
+inline void* operator new[](size_t count) noexcept {
 	if (count > MB) {
 		float size = (float) count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);
@@ -24,7 +24,7 @@ inline void* operator new[](std::size_t count) noexcept {
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new(std::size_t count, const char* file, unsigned int line) noexcept {
+inline void* operator new(size_t count, const char* file, unsigned int line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);
@@ -32,7 +32,7 @@ inline void* operator new(std::size_t count, const char* file, unsigned int line
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new[](std::size_t count, const char* file, unsigned int line) noexcept {
+inline void* operator new[](size_t count, const char* file, unsigned int line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);

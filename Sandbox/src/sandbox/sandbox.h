@@ -6,7 +6,12 @@
 #include <random>
 #include <stdio.h>
 #include <iostream>
+
+#ifdef _WINDOWS_
+#	undef _WINDOWS_
+#endif
 #include <Windows.h>
+
 #include <src/ht/Helltooth.h>
 
 #define WIDTH	1024

@@ -1,6 +1,4 @@
 #include "MemoryAllocator.h"
-
-#include <Windows.h>
 #include "../Log.h"
 
 #define MEMORY 0
