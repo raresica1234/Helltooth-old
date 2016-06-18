@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+#if 0
 
 namespace ht { namespace utils {
 
@@ -25,3 +25,4 @@ namespace ht { namespace utils {
 	};
 
 } }
+#endif

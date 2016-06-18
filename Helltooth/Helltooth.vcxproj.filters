@@ -51,6 +51,7 @@
     <ClInclude Include="src\ht\tools\Serialization\src\Types.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Array.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Object.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Database.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />

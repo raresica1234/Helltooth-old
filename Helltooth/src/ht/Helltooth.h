@@ -37,4 +37,4 @@
 #include "utils/memory/MemoryManager.h"
 
 //TOOLS
-//#include "tools/Serialization/Serialization.h"
+#include "tools/Serialization/Serialization.h"

@@ -1,8 +1,7 @@
 #include "MemoryAllocator.h"
 
 #include "../Log.h"
-
-#define MEMORY 0
+#if 0
 
 namespace ht { namespace utils {
 
@@ -16,7 +15,7 @@ namespace ht { namespace utils {
 	void* MemoryAllocator::allocate(size_t size) {
 		if (!initialized) { start(); initialized = true; }
 
-		allocated += size / 1024.0f; //keep track of the allocated memory in KB
+		allocated += size; //keep track of the allocated memory in KB
 
 		byte* memory = (byte*) malloc(size + sizeof(size_t));
 		size_t* addr = (size_t*)memory;
@@ -24,6 +23,7 @@ namespace ht { namespace utils {
 		//*(size_t*)memory = size;
 		memory += sizeof(size_t);
 
+		HT_MSG("Current memory allocated: %i", allocated);
 
 		return (void*)memory;
 	}
@@ -41,7 +41,10 @@ namespace ht { namespace utils {
 		size_t size = *(size_t*)address;
 		free(address);
 
-		allocated -= size / 1024.0f;
+		HT_MSG("Current memory allocated: %i", allocated);
+
+		allocated -= size;
 	}
 
 } }
+#endif

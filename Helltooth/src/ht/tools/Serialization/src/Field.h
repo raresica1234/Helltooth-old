@@ -3,6 +3,8 @@
 #include "Writer.h"
 #include "Types.h"
 
+#include "../../../utils/memory/MemoryManager.h"
+
 namespace ht { namespace tools { namespace serialization {
 
 
@@ -10,7 +12,7 @@ namespace ht { namespace tools { namespace serialization {
 	private:
 		Container container;
 		byte dataType;
-		byte* data;
+		byte* data = nullptr;
 	
 	public:
 		
@@ -43,7 +45,7 @@ namespace ht { namespace tools { namespace serialization {
 		}
 
 		inline ~Field() {
-			delete[] data;
+			//delete[] data;
 		}
 
 		inline int writeBytes(byte* dest, int pointer) {
@@ -92,14 +94,17 @@ namespace ht { namespace tools { namespace serialization {
 
 		inline short getDataSize() { return container.dataSize; }
 
-	private:
+		inline std::string getName() { return container.name; }
+
+	protected:
 		template<class T>
 		void setData(T value, std::string name, byte dataType) {
 			this->dataType = dataType;
 			container.setType(SERIALIZATION_FIELD);
 			container.setName(name);
-			data = new byte[sizeof(T)];
-			SerializationWriter::writeBytes(data, 0, value);
+			if (data != nullptr) delete[] data;
+			this->data = htnew byte[4];
+			SerializationWriter::writeBytes(this->data, 0, value);
 			container.dataSize += Types::getSize(dataType) + 1;
 		}
 	

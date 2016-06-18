@@ -8,7 +8,9 @@
 #include "Array.h"
 #include "Types.h"
 
-namespace ht { namespace tools { namespace serialization{ 
+#include "../../../utils/memory/MemoryManager.h"
+
+namespace ht { namespace tools { namespace serialization { 
 
 	class Object {
 	private:
@@ -22,17 +24,14 @@ namespace ht { namespace tools { namespace serialization{
 			container.setType(SERIALIZATION_OBJECT);
 		}
 
-		~Object() {
-			//delete fields;
-			//delete arrays;
+		~Object() { }
+
+		inline void addField(const Field* field) {
+			fields.push_back(*field);
 		}
 
-		inline void addField(Field &field) {
-			fields.push_back(field);
-		}
-
-		inline void addArray(Array &array) {
-			arrays.push_back(array);
+		inline void addArray(const Array* array) {
+			arrays.push_back(*array);
 		}
 
 		inline int writeBytes(byte* dest, int pointer) {
@@ -47,7 +46,7 @@ namespace ht { namespace tools { namespace serialization{
 			return pointer;
 		}
 
-		static Object readBytes(byte* dest, int pointer) {
+		inline static Object readBytes(byte* dest, int pointer) {
 			int currentPointer = pointer;
 			currentPointer += 2;
 			byte type = SerializationWriter::readBytes<byte>(dest, currentPointer++);
@@ -60,7 +59,10 @@ namespace ht { namespace tools { namespace serialization{
 			while (SerializationWriter::readBytes<byte>(dest, currentPointer) == SERIALIZATION_FIELD) {
 				currentPointer -= 2;
 				Field field = Field::readBytes(dest, currentPointer);
-				object.addField(field);
+				Field *field2;
+				*field2 = field;
+				object.addField(field2);
+				delete field2;
 				currentPointer += field.getDataSize();
 			}
 			currentPointer += 2;
@@ -68,11 +70,36 @@ namespace ht { namespace tools { namespace serialization{
 			while (SerializationWriter::readBytes<byte>(dest, currentPointer) == SERIALIZATION_ARRAY) {
 				currentPointer -= 2;
 				Array array = Array::readBytes(dest, currentPointer);
-				object.addArray(array);
+				Array *array2;
+				*array2 = array;
+				object.addArray(array2);
+				delete array2;
 				currentPointer += array.getDataSize();
 			}
 
 			return object;
+		}
+
+		inline std::string getName() { return container.name; }
+
+		inline Field findField(std::string name) {
+			for (Field field : fields) {
+				if (field.getName() == name) {
+					return field;
+				}
+			}
+			HT_FATAL("[SERIALIZATION] Field %s not found, object name %s", name, container.name);
+			return Field("",-1);
+		}
+
+		inline Array findObject(std::string name) {
+			for (Array array : arrays) {
+				if (array.getName() == name) {
+					return array;
+				}
+			}
+			HT_FATAL("[SERIALIZATION] Field %s not found, object name %s", name, container.name);
+			return Array("", new int[1]{ -1 }, 1);
 		}
 
 

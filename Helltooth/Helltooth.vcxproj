@@ -155,6 +155,7 @@
     <ClInclude Include="src\ht\maths\vec4.h" />
     <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Array.h" />
+    <ClInclude Include="src\ht\tools\Serialization\src\Database.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Field.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Object.h" />
     <ClInclude Include="src\ht\tools\Serialization\src\Types.h" />

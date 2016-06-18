@@ -1,5 +1,6 @@
 //#include "sandbox/sandbox.h"
-#include "src/ht/tools/Serialization/Serialization.h"
+#include <Windows.h>
+#include "src/ht/Helltooth.h"
 //#include "src/ht/Helltooth.h"
 //using namespace sandbox;
 
@@ -15,29 +16,36 @@ void main()
 
 	using namespace ht;
 	using namespace tools;
-	using namespace serialization;
 
 	
 
-	byte* dest = new byte[300];
+	serialization::byte* dest = htnew serialization::byte[300];
 	memset(dest, 0, 300);
 
-	int* array_data = new int[4]{
+	int* array_data = htnew int[4]{
 		1,2,3,4
 	};
 	
 	int value = 4;
 
-	Array array = Array("test", array_data, 4);
+	const serialization::Array* array = new serialization::Array("test", array_data, 4);
 
-	Field field = Field("test", value);
+	const serialization::Field* field = new serialization::Field("test", value);
 
-	Object object = Object("Test");
+	serialization::Object* object = new serialization::Object("Test");
 
-	//object.addField(field);
-	object.addArray(array);
+	serialization::Database* db = new serialization::Database("Test");
 
-	object.writeBytes(dest, 0);
+	object->addField(field);
+	object->addArray(array);
+
+	//db->addObject(*object);
+	//db->findObject("Test").addField(field);
+	//db->findObject("Test").addArray(array);
+
+
+
+	object->writeBytes(dest, 0);
 
 	for (int i = 0; i < 300; i++) {
 		printf("0x%x ", dest[i]);
@@ -46,6 +54,11 @@ void main()
 	printf("\n\n");
 	//Array field2 = Array::readBytes(dest, 0);
 
+	delete[] dest;
+	delete array;
+	delete field;
+	delete object;
+	delete db;
 
 	//int* data = field2.getArray<int>();
 

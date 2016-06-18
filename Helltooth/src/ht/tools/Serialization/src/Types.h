@@ -3,6 +3,8 @@
 #include <assert.h>
 #include "Writer.h"
 
+#include "../../../utils/memory/MemoryManager.h"
+
 #define SERIALIZATION_UNKNOWN	0
 #define SERIALIZATION_FIELD		1
 #define SERIALIZATION_ARRAY		2

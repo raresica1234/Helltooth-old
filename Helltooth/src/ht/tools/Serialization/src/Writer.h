@@ -5,6 +5,8 @@
 
 #include <assert.h>
 
+#include "../../../utils/memory/MemoryManager.h"
+
 #define HT_SERIALIZATION_VERSION (short) 0x0100;
 namespace ht { namespace tools { namespace serialization {
 
@@ -61,7 +63,7 @@ namespace ht { namespace tools { namespace serialization {
 		static std::string readBytes<std::string>(byte* src, int pointer) {
 			char* value;
 			short size = readBytes<short>(src, pointer);
-			value = new char[size + 1];
+			value = htnew char[size + 1];
 			for (int i = pointer + 2; i < pointer + size + 2; i++) {
 				value[i - pointer - 2] = readBytes<char>(src, i);
 			}
@@ -75,6 +77,15 @@ namespace ht { namespace tools { namespace serialization {
 			for (byte c : asBytes) {
 				dest[pointer++] = c;
 			}
+			return pointer;
+		}
+
+		template<>
+		static int writeBytes(byte* dest, int pointer, const int& value) {
+			dest[pointer++] = (byte)((value >> 24) & 0xff);
+			dest[pointer++] = (byte)((value >> 16) & 0xff);
+			dest[pointer++] = (byte)((value >> 8) & 0xff);
+			dest[pointer++] = (byte)((value >> 0) & 0xff);
 			return pointer;
 		}
 
