@@ -1,7 +1,14 @@
 x64
 Debug
-Release
 .vs
 .sdf
-bin
 .pdb
+
+.obj
+.log
+.pdb
+Helltooth.tlog
+Sandbox.tlog
+.ipdb
+.iobj
+.exe
