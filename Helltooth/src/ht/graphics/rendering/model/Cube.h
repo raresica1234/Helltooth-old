@@ -34,6 +34,8 @@ namespace ht { namespace graphics {
 	protected:
 
 		//this function sets all the data needed to make a cube
+		//this function is hardcoded, later when i support obj models reading
+		//i will have a special model loaded in Helltooth for this
 		inline void init() {
 			this->data = htnew GLfloat[3 * 4 * 6] {
 				-0.5f,	0.5f, -0.5f,

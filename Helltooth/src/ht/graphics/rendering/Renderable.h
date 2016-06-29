@@ -28,26 +28,34 @@ namespace ht { namespace graphics {
 		unsigned int vboNumber;
 
 	public:
+		//Construcotr
 		Renderable();
 		~Renderable();
 
+		//load all the data from a rawModel
 		void loadRawModel(const RawModel* model);
 
+		//Store data
 		void storeData(const int usage, const GLfloat *data, const GLsizei &dataSize);
 		void storeData(const GLuint *data, const GLsizei &dataSize);
 
+		//Render
 		void render() const;
 
+		//Get vao ID
 		inline GLuint getVaoID() { return vao->getID(); }
 
+		//prepare for rendering
 		inline void prepare() { 
 			vao->bindVAO();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->getID());
 		}
 
+		//Unbind vao
 		inline void end() { vao->unbindVAO(); }
 
+		//set texture
 		inline void setTexture(const Texture* texture) { this->texture = texture; }
 
 	};

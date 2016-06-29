@@ -10,17 +10,22 @@ namespace ht { namespace graphics {
 		m_Rotation.z += axis.z;
 	}
 
+	//Scale the entity: make it bigger or smaller
+	//Eg: scale(3,3,3) -> makes the model 3 times bigger
 	void Entity3D::scale(const float &scaleX, const float &scaleY, const float &scaleZ) {
 		m_Scale.x += scaleX;
 		m_Scale.y += scaleY;
 		m_Scale.z += scaleZ;
 	}
 
+	//Scale the entity: make it bigger or smaller
+	//Eg: scale(vec3(3,3,3)) -> makes the model 3 times bigger
 	void Entity3D::scale(const vec3 scale) {
 		m_Scale = scale;
 	}
 
-
+	//Generate the model matrix of the entity
+	//Used for shader
 	mat4 Entity3D::generateModelMatrix() const {
 		mat4 result = mat4::createIdentity();
 		result.translate(m_Position);
@@ -37,7 +42,8 @@ namespace ht { namespace graphics {
 
 		return result;
 	}
-
+	
+	//Operator used for testing if two entities are the same
 	bool Entity3D::operator==(Entity3D &other) {
 		if (m_Position.x == other.m_Position.x && m_Position.y == other.m_Position.y && m_Position.z == other.m_Position.z) {
 			if (m_Rotation.x == other.m_Rotation.x && m_Rotation.y == other.m_Rotation.y && m_Rotation.z == other.m_Rotation.z) {

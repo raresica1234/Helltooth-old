@@ -14,11 +14,13 @@ namespace ht { namespace graphics {
 	private:
 		bool usingColor;
 
+		//Size of arrays
 		GLsizei positionSize;
 		GLsizei textureCoordSize;
 		GLsizei normalSize;;
 		GLsizei indexSize;
 
+		//Arrays of data for model
 		const GLfloat *positions;
 		const GLfloat *textureCoords;
 		const GLfloat *normals;
@@ -36,6 +38,7 @@ namespace ht { namespace graphics {
 			this->positions = positions;
 		}
 
+		//Deconstructor
 		inline ~RawModel() {
 			delete[] positions;
 			if(textureCoords != nullptr)
@@ -69,11 +72,13 @@ namespace ht { namespace graphics {
 				break;
 			}
 		}
-
+		//storeData(Gluint *data, const GLsizei dataSize in bytes) for indices
 		inline void storeData(const GLuint *data, const GLsizei &dataSize) {
 			indices = data;
 			indexSize = dataSize;
 		}
+
+		//some getters
 
 		inline GLsizei getPositionSize() const { return positionSize; }
 		inline GLsizei getTextureCoordsSize() const { return textureCoordSize; }

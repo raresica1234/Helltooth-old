@@ -17,10 +17,9 @@
 #define WIDTH	1024
 #define HEIGHT	768
 
-namespace sandbox{
+namespace sandbox {
 
-	class Sandbox
-	{
+	class Sandbox {
 	private:
 		ht::graphics::Window* m_Window;
 		ht::graphics::ShaderProgram *program;
