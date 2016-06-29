@@ -1,6 +1,5 @@
 #include "MemoryAllocator.h"
 #include "../Log.h"
-#if 0
 
 namespace ht { namespace utils {
 
@@ -46,4 +45,3 @@ namespace ht { namespace utils {
 	}
 
 } }
-#endif

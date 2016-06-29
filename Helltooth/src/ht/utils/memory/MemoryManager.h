@@ -8,7 +8,6 @@
 #define htnew	new(__FILE__, __LINE__)
 #endif
 #define MB 1024 * 1024
-#if 0
 #define htnew	new(__FILE__, __LINE__)
 
 #define MB 1024 * 1024
@@ -60,4 +59,3 @@ inline void operator delete(void* ptr, const char* file, unsigned int line) noex
 inline void operator delete[](void* ptr, const char* file, unsigned int line) noexcept {
 	ht::utils::MemoryAllocator::deallocate(ptr);
 }
-#endif
