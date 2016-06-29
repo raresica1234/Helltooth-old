@@ -105,6 +105,8 @@ namespace ht { namespace tools { namespace serialization {
 			if (data != nullptr) delete[] data;
 			this->data = htnew byte[4];
 			SerializationWriter::writeBytes(this->data, 0, value);
+			data = htnew byte[sizeof(T)];
+			SerializationWriter::writeBytes(data, 0, value);
 			container.dataSize += Types::getSize(dataType) + 1;
 		}
 	

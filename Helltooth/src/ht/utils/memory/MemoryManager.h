@@ -3,13 +3,16 @@
 #include "MemoryAllocator.h"
 
 #include "../Log.h"
-#define htnew new
-
+#define h
 #ifndef htnew
 #define htnew	new(__FILE__, __LINE__)
 #endif
 #define MB 1024 * 1024
 #if 0
+#define htnew	new(__FILE__, __LINE__)
+
+#define MB 1024 * 1024
+
 inline void* operator new(size_t count) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);

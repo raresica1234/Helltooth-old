@@ -16,16 +16,16 @@ void main()
 
 	using namespace ht;
 	using namespace tools;
-
 	
 
 	serialization::byte* dest = htnew serialization::byte[300];
+	unsigned char* dest = htnew unsigned char[300];
 	memset(dest, 0, 300);
 
 	int* array_data = htnew int[4]{
 		1,2,3,4
 	};
-	
+
 	int value = 4;
 
 	const serialization::Array* array = new serialization::Array("test", array_data, 4);

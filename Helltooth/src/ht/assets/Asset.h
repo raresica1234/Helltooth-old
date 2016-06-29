@@ -23,7 +23,7 @@ namespace ht{ namespace assets{
 
 	public:
 		static inline const Texture* loadTextureFromFile(char *file) {
-			const Texture* texture = new Texture();
+			const Texture* texture = htnew Texture();
 			
 			
 

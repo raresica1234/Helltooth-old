@@ -82,7 +82,7 @@ namespace ht { namespace graphics {
 				23, 21, 22
 			};
 
-			this->textureCoords = new GLfloat[2 * 4 * 6]{
+			this->textureCoords = htnew GLfloat[2 * 4 * 6]{
 				0, 0,
 				0, 1,
 				1, 1,

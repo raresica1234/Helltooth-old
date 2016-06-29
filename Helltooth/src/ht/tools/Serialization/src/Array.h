@@ -2,6 +2,7 @@
 
 #include "Writer.h"
 #include "Types.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 #include "../../../utils/memory/MemoryManager.h"
 
@@ -118,7 +119,6 @@ namespace ht { namespace tools { namespace serialization {
 		static T* readArray(byte* src, short size, int pointer) {
 			T* data = htnew T[size];
 			memset(data, (T) 0, sizeof(T));
-
 			for (short i = 0; i < size; i++) {
 				data[i] = SerializationWriter::readBytes<T>(src, pointer + (i * sizeof(T)));
 			}
@@ -137,6 +137,8 @@ namespace ht { namespace tools { namespace serialization {
 			memset(this->data, 0, length * sizeof(T));
 
 			for (unsigned short i = 0; i < length; i++) {
+			this->data = htnew byte[dataSize * sizeof(T)];
+			for (unsigned short i = 0; i < dataSize; i++) {
 				pointer = SerializationWriter::writeBytes(this->data, pointer, data[i]);
 			}
 		}
