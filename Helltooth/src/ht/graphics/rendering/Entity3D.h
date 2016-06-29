@@ -11,11 +11,15 @@ namespace ht { namespace graphics {
 
 	class Entity3D {
 	private:
+		//Entity data
 		vec3 m_Position;
 		vec3 m_Rotation;
 		vec3 m_Scale;
 
 	public:
+
+		//Constructor
+		//Entity(positionX, positionY, positionZ)
 		Entity3D(const float &x, const float &y, const float &z) {
 			m_Position.x = x;
 			m_Position.y = y;
@@ -23,6 +27,8 @@ namespace ht { namespace graphics {
 			m_Scale = vec3(1, 1, 1);
 		}
 
+		//Default constructor
+		//Sets everything to 0 (default) and the scale to 1
 		Entity3D() {
 			m_Position.x = 0;
 			m_Position.y = 0;
@@ -41,6 +47,7 @@ namespace ht { namespace graphics {
 
 		mat4 generateModelMatrix() const;
 
+	protected:
 		inline mat4 generateRotateMatrix() const {
 			mat4 rotate = mat4::createIdentity();
 			rotate.rotate(m_Rotation);
@@ -59,6 +66,7 @@ namespace ht { namespace graphics {
 			return move;
 		}
 
+	public:
 		bool operator==(Entity3D &other);
 
 	};

@@ -23,14 +23,19 @@ namespace ht { namespace graphics {
 
 	class ShaderProgram {
 	private:
+		//Shader files path
 		const char *VERTEX_PATH;
 		const char *FRAGMENT_PATH;
+		
+		//program id
 		GLuint programID;
-		std::unordered_map<std::string, GLint> locations;
 
 	public:
+		//Constructor(vertex shader path, fragment shader path)
 		ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH);
 		~ShaderProgram();
+
+		//Uniforms
 
 		void uniform1f(const char *name, const float &value);
 		void uniformBool(const char *name, const bool &value);
@@ -39,8 +44,10 @@ namespace ht { namespace graphics {
 		void uniform4f(const char *name, const vec4 &value);
 		void uniformMat4(const char *name, const mat4 &value);
 
-
+		//Starting the program
 		void start() const;
+
+		//Stoping the program
 		void stop() const;
 
 	protected:

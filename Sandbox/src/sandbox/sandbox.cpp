@@ -55,8 +55,8 @@ void Sandbox::init()
 
 	for (int i = 0; i < 10000; i++)
 	{
-		Entity3D entity = Entity3D(distributionPOS(generator), distributionPOS(generator), -distributionPOSz(generator));
-		entity.rotate(vec3(distributionROT(generator), distributionROT(generator), distributionROT(generator)));
+		Entity3D entity = Entity3D((float)distributionPOS(generator), (float)distributionPOS(generator), (float)-distributionPOSz(generator));
+		entity.rotate(vec3((float)distributionROT(generator), (float)distributionROT(generator), (float)distributionROT(generator)));
 		entity.scale(1, 1, 1);
 
 		entities.push_back(entity);

@@ -1,11 +1,14 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "../graphics/textures/Texture.h"
 
 #include "../utils/memory/MemoryManager.h"
-#if 0
+
+#include "../tools/Cereal/Cereal.h"
+
 namespace ht { namespace assets {
 
 
@@ -13,55 +16,65 @@ namespace ht { namespace assets {
 	using namespace graphics;
 
 	class HelltoothTexture {
-	
+	private:
+		Texture* texture = nullptr;
+		
+
 	public:
-		static Texture openTexture(char* file) {
-			FILE* f = fopen(file, "rt");
-			fseek(f, 0, SEEK_END);
-			unsigned long length = ftell(f);
-			char* data = htnew char[length + 1];
-			memset(data, 0, length + 1);
-			fseek(f, 0, SEEK_SET);
-			fread(data, 1, length, f);
-			fclose(f);
-			std::string temp = data;
-			
-			int currentOffset = 1; // the # that declares the header makes 1
+		
+		HelltoothTexture(const char* filePath) {
+			Cereal::Buffer buffer = Cereal::Buffer(1);
+			buffer.readFile(filePath);
 
-			int width;
-			int height = 0;
-			std::string current;
-			if (temp.substr(currentOffset, 1) == "w") {
-				currentOffset+=2;
-				const char* data;
-				current = temp.substr(currentOffset, 4);
-				data = current.c_str();
-				width = data[0] << 3 | data[1] << 2 | data[2] << 1 | data[3];
-				std::cout << "width " << width << std::endl;
-				currentOffset += 5; // end of line
-			}
-			if (readNext(temp, 1, currentOffset) == "h") {
-				currentOffset+=2;
-				const char* data;
-				current = temp.substr(currentOffset, 4);
-				data = current.c_str();
-				std::cout << "height " << data << std::endl;
-				currentOffset += 4;
-			}
+			Cereal::Database* database = htnew Cereal::Database();
+			database->read(buffer);
 
-			Texture texture;
-			return texture;
+			Cereal::Object* object = database->getObject("texture");
+			Cereal::Field* field = object->getField("width");
+			int width = field->getValue<int>();
+			int height = object->getField("height")->getValue<int>();
+			byte bpp = object->getField("bpp")->getValue<byte>();
+
+			Cereal::Array* pixels = object->getArray("pixels");
+
+			if (texture) delete texture;
+
+			byte* data = pixels->getRawArray();
+
+			texture = htnew Texture();
+			texture->loadPixelArray(data, width, height, bpp);
+
+			delete database;
 		}
 
-	protected:
-		static inline const char* readNext(std::string temp, const int numberOfBytes, int &pointer) {
-			std::string current = temp.substr(pointer, numberOfBytes);
-			const char* data = current.c_str();
-			pointer += numberOfBytes;
-			return data;
+		inline Texture* getTexture() {
+			return texture;
+		}
+		
+
+		inline static void storeAsHelltoothTexture(const char* filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize) {
+			Cereal::Field* field1 = htnew Cereal::Field("width", width);
+			Cereal::Field* field2 = htnew Cereal::Field("height", width);
+			Cereal::Field* field3 = htnew Cereal::Field("bpp", bpp);
+			
+			Cereal::Array* array = htnew Cereal::Array("pixels", pixels, dataSize);
+			
+			Cereal::Object* object = htnew Cereal::Object("texture");
+			
+			object->add(field1);
+			object->add(field2);
+			object->add(field3);
+			object->add(array);
+
+			Cereal::Database* database = htnew Cereal::Database("texture");
+			database->addObject(object);
+
+			Cereal::Buffer buffer = Cereal::Buffer(database->getSize());
+			database->write(buffer);
+			buffer.writeFile(filePath);
+			delete database;
 		}
 
 	};
 
 } }
-#endif

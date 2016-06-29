@@ -6,31 +6,37 @@
 #include <string>
 #include <iostream>
 
+#include <sys/stat.h>
+
 #include "../graphics/textures/Texture.h"
 #include "../utils/memory/MemoryManager.h"
 
+#include "../tools/Cereal/Cereal.h"
+
 #include <GL/glew.h>
+
+#include "HelltoothTexture.h"
+
+#include "../utils/Log.h"
 
 namespace ht{ namespace assets{
 
 	using namespace graphics;
-#define HELLTOOTH_FORMAT_SIZE	10
 
 	class Asset {
-	private:
-		//static std::vector<Texture> textures;
-		//todo models of course
-
 	public:
 		static inline const Texture* loadTextureFromFile(char *file) {
-			const Texture* texture = htnew Texture();
-			
-			
-
 			std::string fileName(file);
-			if (fileName.substr(fileName.size() - HELLTOOTH_FORMAT_SIZE, fileName.size()) == ".httexture") {
-				
+			fileName += ".httexture";
+
+			if (exists(fileName)) {
+				HelltoothTexture texture(fileName.c_str());
+				return texture.getTexture();
 			}
+
+			HT_INFO("\"%s\" not found! Creating one...", fileName);
+
+			const Texture* texture = htnew Texture();
 
 			FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(file);
 
@@ -55,9 +61,21 @@ namespace ht{ namespace assets{
 
 			FreeImage_Unload(dib);
 
-			texture->loadPixelArray(result, width, height, bpp, size);
+			std::string name(file);
+			name.append(".httexture");
+			HelltoothTexture::storeAsHelltoothTexture(name.c_str(), result, width, height, bpp, size);
+
+			texture->loadPixelArray(result, width, height, bpp);
+
+			delete[] result;
 
 			return texture;
+		}
+
+	protected:
+		static bool exists(std::string path) {
+			struct stat buffer;
+			return (stat(path.c_str(), &buffer) == 0);
 		}
 
 	};

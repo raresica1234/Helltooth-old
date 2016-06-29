@@ -45,13 +45,16 @@
     <ClInclude Include="src\ht\assets\Asset.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
     <ClInclude Include="src\ht\utils\Log.h" />
-    <ClInclude Include="src\ht\tools\Serialization\Serialization.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Writer.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Field.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Types.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Array.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Object.h" />
-    <ClInclude Include="src\ht\tools\Serialization\src\Database.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Array.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Buffer.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Database.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Field.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Header.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Internal.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
+    <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -69,6 +72,5 @@
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
-    <ClCompile Include="src\ht\tools\Serialization\src\Writer.cpp" />
   </ItemGroup>
 </Project>
