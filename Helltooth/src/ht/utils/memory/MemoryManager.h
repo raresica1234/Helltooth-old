@@ -15,7 +15,7 @@
 inline void* operator new(size_t count) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
-		HT_WARN("Large allocation, size: %.2f MB", size);
+		//HT_WARN("Large allocation, size: %.2f MB", size);
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }
@@ -23,7 +23,7 @@ inline void* operator new(size_t count) noexcept {
 inline void* operator new[](size_t count) noexcept {
 	if (count > MB) {
 		float size = (float) count / (MB);
-		HT_WARN("Large allocation, size: %.2f MB", size);
+		//HT_WARN("Large allocation, size: %.2f MB", size);
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }
@@ -31,7 +31,7 @@ inline void* operator new[](size_t count) noexcept {
 inline void* operator new(size_t count, const char* file, unsigned int line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
-		HT_WARN("Large allocation, size: %.2f MB", size);
+		HT_WARN("Large allocation, size: %.2f MB %s", size, file);
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }
@@ -39,7 +39,7 @@ inline void* operator new(size_t count, const char* file, unsigned int line) noe
 inline void* operator new[](size_t count, const char* file, unsigned int line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
-		HT_WARN("Large allocation, size: %.2f MB", size);
+		HT_WARN("Large allocation, size: %.2f MB %s", size, file);
 	}
 	return ht::utils::MemoryAllocator::allocate(count);
 }

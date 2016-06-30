@@ -1,3 +1,19 @@
+//  Cereal: A C++ Serialization library
+//  Copyright (C) 2016  The Cereal Team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <vector>
@@ -8,8 +24,6 @@
 
 #include "Field.h"
 #include "Array.h"
-
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -92,7 +106,7 @@ namespace Cereal {
 
 			for (int i = 0; i < fieldCount; i++)
 			{
-				Field* field = htnew Field;
+				Field* field = new Field;
 
 				field->read(buffer);
 				this->add(field);
@@ -102,7 +116,7 @@ namespace Cereal {
 
 			for (int i = 0; i < arrayCount; i++)
 			{
-				Array* array = htnew Array;
+				Array* array = new Array;
 
 				array->read(buffer);
 				this->add(array);
@@ -129,7 +143,6 @@ namespace Cereal {
 
 		const std::vector<Field*>& getFields() { return fields; }
 		const std::vector<Array*>& getArrays() { return arrays; }
-
 	};
 
 }

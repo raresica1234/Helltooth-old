@@ -15,6 +15,8 @@ namespace ht { namespace graphics {
 		vec3 m_Position;
 		vec3 m_Rotation;
 		vec3 m_Scale;
+		mutable mat4 modelMatrix;
+
 
 	public:
 
@@ -25,6 +27,7 @@ namespace ht { namespace graphics {
 			m_Position.y = y;
 			m_Position.z = z;
 			m_Scale = vec3(1, 1, 1);
+			modelMatrix = generateModelMatrix();
 		}
 
 		//Default constructor
@@ -34,10 +37,12 @@ namespace ht { namespace graphics {
 			m_Position.y = 0;
 			m_Position.z = 0;
 			m_Scale = vec3(1, 1, 1);
+			modelMatrix = generateModelMatrix();
 		}
 
-		Entity3D(const vec3 position) {
+		inline Entity3D(const vec3 position) {
 			m_Position = position;
+			modelMatrix = generateModelMatrix();
 		}
 
 		void rotate(vec3 &axis);
@@ -45,9 +50,11 @@ namespace ht { namespace graphics {
 		void scale(const float &scaleX, const float &scaleY, const float &scaleZ);
 		void scale(const vec3 scale);
 
-		mat4 generateModelMatrix() const;
+		inline mat4 getModelMatrix() { return modelMatrix; }
 
 	protected:
+		mat4 generateModelMatrix() const;
+		
 		inline mat4 generateRotateMatrix() const {
 			mat4 rotate = mat4::createIdentity();
 			rotate.rotate(m_Rotation);

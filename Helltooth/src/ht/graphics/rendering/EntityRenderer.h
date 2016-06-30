@@ -12,7 +12,6 @@
 
 namespace ht { namespace graphics {
 
-#define MAX_ENTITY_COUNT 2500
 
 	class EntityRenderer{
 	private:

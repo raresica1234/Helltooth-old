@@ -1,16 +1,7 @@
-﻿  API.cpp
-  Entity3D.cpp
+﻿  Entity3D.cpp
   EntityRenderer.cpp
   Renderable.cpp
   ShaderProgram.cpp
   Texture.cpp
-  window.cpp
-C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\GLFW\include\GLFW/glfw3.h(85): note: see previous definition of 'APIENTRY'
   mat4.cpp
-  vec2.cpp
-  vec3.cpp
-  vec4.cpp
-  input.cpp
-  MemoryAllocator.cpp
   Helltooth.vcxproj -> C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\Helltooth\Helltooth.lib

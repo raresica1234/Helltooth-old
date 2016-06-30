@@ -46,7 +46,7 @@ void Sandbox::init()
 	entity->scale(vec3(1, 1, 1));
 
 	program->start();
-	program->uniformMat4("modelMatrix", entity->generateModelMatrix());
+	program->uniformMat4("modelMatrix", entity->getModelMatrix());
 
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distributionPOS(-100, 100);

@@ -8,6 +8,7 @@ namespace ht { namespace graphics {
 		m_Rotation.x += axis.x;
 		m_Rotation.y += axis.y;
 		m_Rotation.z += axis.z;
+		modelMatrix = generateModelMatrix();
 	}
 
 	//Scale the entity: make it bigger or smaller
@@ -16,12 +17,14 @@ namespace ht { namespace graphics {
 		m_Scale.x += scaleX;
 		m_Scale.y += scaleY;
 		m_Scale.z += scaleZ;
+		modelMatrix = generateModelMatrix();
 	}
 
 	//Scale the entity: make it bigger or smaller
 	//Eg: scale(vec3(3,3,3)) -> makes the model 3 times bigger
 	void Entity3D::scale(const vec3 scale) {
 		m_Scale = scale;
+		modelMatrix = generateModelMatrix();
 	}
 
 	//Generate the model matrix of the entity
@@ -39,7 +42,6 @@ namespace ht { namespace graphics {
 		move.scale(m_Scale);
 
 		result = result * move;
-
 		return result;
 	}
 	

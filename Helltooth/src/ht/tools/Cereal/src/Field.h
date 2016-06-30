@@ -1,3 +1,19 @@
+//  Cereal: A C++ Serialization library
+//  Copyright (C) 2016  The Cereal Team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <string>
@@ -6,8 +22,6 @@
 #include "Reader.h" // Because of the internal buffer. Do we change it to be a Buffer class?
 #include "Writer.h"
 #include "Internal.h"
-
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -31,7 +45,7 @@ namespace Cereal {
 			if (data) delete[] data;
 
 			//Setting the data
-			data = htnew byte[sizeof(T)];
+			data = new byte[sizeof(T)];
 			Writer::writeBytes<T>(data, 0, value);
 		}
 
@@ -47,7 +61,7 @@ namespace Cereal {
 			//Setting the data
 			if (data) delete[] data;
 
-			data = htnew byte[value.length() + 2];
+			data = new byte[value.length() + 2];
 
 			int ptr = Writer::writeBytes<unsigned short>(data, 0, (unsigned short)value.length());
 
@@ -107,8 +121,6 @@ namespace Cereal {
 			assert(type == DataType::DATA_FIELD);
 
 			std::string name = buffer.readBytes<std::string>();
-
-			//pointer += sizeof(short) + name.length(); // sizeof Short ( length) + length of string - 1 (the buffer starts at 0)
 
 			DataType dataType = (DataType)buffer.readBytes<byte>();
 

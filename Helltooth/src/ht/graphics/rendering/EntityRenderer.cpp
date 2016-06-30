@@ -26,7 +26,7 @@ namespace ht { namespace graphics {
 		for (auto& entry : entities) {
 			entry.first->prepare();
 			for (Entity3D entity : entry.second) {
-				program->uniformMat4("modelMatrix", entity.generateModelMatrix());
+				program->uniformMat4("modelMatrix", entity.getModelMatrix());
 				entry.first->render();
 			}
 			entry.first->end();

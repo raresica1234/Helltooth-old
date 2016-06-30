@@ -1,3 +1,19 @@
+//  Cereal: A C++ Serialization library
+//  Copyright (C) 2016  The Cereal Team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <fstream>
@@ -5,8 +21,6 @@
 #include <assert.h>
 
 #include "Internal.h"
-
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -18,7 +32,7 @@ namespace Cereal {
 		unsigned int offset;
 
 	public:
-		Buffer(unsigned int size) : size(size), start(htnew byte[size]) { clean(); }
+		Buffer(unsigned int size) : size(size), start(new byte[size]) { clean(); }
 		Buffer(byte* start, unsigned int size) : size(size), start(start) { clean(); }
 		Buffer(byte* start, unsigned int size, unsigned int offset) : size(size), start(start), offset(offset) {}
 
@@ -163,7 +177,7 @@ namespace Cereal {
 
 		void shrink()
 		{
-			byte* temp = htnew byte[offset];
+			byte* temp = new byte[offset];
 
 			memcpy(temp, start, offset);
 
@@ -200,20 +214,23 @@ namespace Cereal {
 
 		bool readFile(const std::string& filepath)
 		{
-			FILE* file = fopen(filepath.c_str(), "rb");
+			std::ifstream infile(filepath, std::ifstream::binary);
 
-			fseek(file, 0, SEEK_END);
-			unsigned int length = ftell(file);
+			if (!infile.good()) return false;
 
-			start = htnew byte[length];
-			size = length;
-			offset = 0;
+			delete[] start;
 
-			memset(start, 0, length);
-			fseek(file, 0, SEEK_SET);
+			infile.seekg(0, std::ios::end);
+			size_t size = infile.tellg();
+			infile.seekg(0, std::ios::beg);
 
-			fread(start, 1, length, file);
-			fclose(file);
+			start = new byte[size];
+
+			infile.read((char*)start, size);
+			infile.close();
+
+			this->size = size;
+			this->offset = 0;
 
 			return true;
 		}

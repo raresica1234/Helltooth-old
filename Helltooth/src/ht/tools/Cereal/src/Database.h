@@ -1,3 +1,19 @@
+//  Cereal: A C++ Serialization library
+//  Copyright (C) 2016  The Cereal Team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <string>
@@ -8,8 +24,6 @@
 #include "Internal.h"
 #include "Object.h"
 #include "Buffer.h"
-
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -49,7 +63,7 @@ namespace Cereal {
 
 				for (unsigned short i = 0; i < objectCount; i++)
 				{
-					Object* obj = htnew Object;
+					Object* obj = new Object;
 
 					obj->read(buffer);
 					this->addObject(obj);
@@ -93,9 +107,9 @@ namespace Cereal {
 			return true;
 		}
 
-		inline unsigned int getSize() const
+		inline unsigned long long getSize() const
 		{
-			unsigned int ret = sizeof(short) + sizeof(short) + name.length() + sizeof(unsigned int) + sizeof(unsigned short);
+			unsigned long long ret = sizeof(short) + sizeof(short) + name.length() + sizeof(unsigned int) + sizeof(unsigned short);
 
 			for (const Object* obj : objects)
 				ret += obj->getSize();

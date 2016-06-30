@@ -1,3 +1,19 @@
+//  Cereal: A C++ Serialization library
+//  Copyright (C) 2016  The Cereal Team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma once
 
 #include <string>
@@ -7,8 +23,6 @@
 #include "Reader.h"
 #include "Writer.h" // Same as Field.h
 #include "Internal.h"
-
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -33,7 +47,7 @@ namespace Cereal {
 			//Setting the data
 			if (data) delete[] data;
 
-			data = htnew byte[sizeof(T) * count];
+			data = new byte[sizeof(T) * count];
 
 			unsigned int pointer = 0;
 
@@ -82,14 +96,14 @@ namespace Cereal {
 
 			if (data) delete[] data;
 
-			data = htnew byte[count * sizeOf(dataType)];
+			data = new byte[count * sizeOf(dataType)];
 
 			memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
 		}
 
 		inline short getCount() const { return count; }
 		inline DataType getContainerType() const { return type; }
-		inline DataType getDataType() const  { return dataType; }
+		inline DataType getDataType() const { return dataType; }
 		const std::string& getName() const { return name; }
 
 		template<class T>
