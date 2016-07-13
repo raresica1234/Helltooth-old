@@ -114,7 +114,7 @@ namespace ht { namespace graphics {
 
 	public:
 		inline ~Cube() {
-			delete model;
+			//delete model;
 		}
 	};
 

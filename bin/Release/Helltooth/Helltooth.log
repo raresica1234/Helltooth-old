@@ -1,7 +1,1 @@
-﻿  Entity3D.cpp
-  EntityRenderer.cpp
-  Renderable.cpp
-  ShaderProgram.cpp
-  Texture.cpp
-  mat4.cpp
-  Helltooth.vcxproj -> C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\Helltooth\Helltooth.lib
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\release\helltooth\memoryallocator.obj' because it is being used by another process.

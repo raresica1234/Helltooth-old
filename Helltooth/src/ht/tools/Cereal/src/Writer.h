@@ -20,6 +20,7 @@
 #include <assert.h>
 
 #include "Internal.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 

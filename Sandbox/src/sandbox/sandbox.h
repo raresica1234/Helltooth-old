@@ -24,12 +24,13 @@ namespace sandbox {
 		ht::graphics::Window* m_Window;
 		ht::graphics::ShaderProgram *program;
 
-		ht::graphics::Cube *cube;
 		ht::graphics::Entity3D *entity;
 
 		ht::graphics::Renderable *model;
 
-		ht::graphics::EntityRenderer *renderer;
+		ht::graphics::RawModel *rawModel;
+
+		ht::graphics::EntityRenderer3D *renderer;
 
 		ht::utils::FpsCounter *counter;
 

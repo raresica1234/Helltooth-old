@@ -46,14 +46,14 @@ namespace ht { namespace graphics {
 		inline GLuint getVaoID() { return vao->getID(); }
 
 		//prepare for rendering
-		inline void prepare() { 
+		inline void prepare() const { 
 			vao->bindVAO();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->getID());
 		}
 
 		//Unbind vao
-		inline void end() { vao->unbindVAO(); }
+		inline void end() const { vao->unbindVAO(); }
 
 		//set texture
 		inline void setTexture(const Texture* texture) { this->texture = texture; }

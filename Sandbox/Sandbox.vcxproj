@@ -157,10 +157,6 @@
     <None Include="src\shaders\shader.frag" />
     <None Include="src\shaders\shader.vert" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\asd.jpg" />
-    <Image Include="res\bitch.tga" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

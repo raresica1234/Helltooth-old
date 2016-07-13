@@ -19,11 +19,9 @@ Sandbox::Sandbox()
 
 	entity = htnew Entity3D(vec3(1, 1, -5));
 
-	cube = htnew Cube();
-
 	camera = htnew Camera(m_Window);
 
-	renderer = htnew EntityRenderer(program);
+	renderer = htnew EntityRenderer3D(program);
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -33,10 +31,12 @@ Sandbox::Sandbox()
 	program->uniformMat4("viewMatrix", mat4::createIdentity());
 	program->stop();
 
+	rawModel = ObjLoader::loadObjFile("res/cube.obj");
+	
 	model = htnew Renderable();
-	model->loadRawModel(cube->getModel());
+	model->loadRawModel(rawModel);
 
-	model->setTexture(assets::Asset::loadTextureFromFile("res/bitch.tga"));
+	model->setTexture(assets::Asset::loadTextureFromFile("res/cubeDiffuse.png"));
 
 	counter = htnew FpsCounter(60);
 }
@@ -45,15 +45,12 @@ void Sandbox::init()
 {
 	entity->scale(vec3(1, 1, 1));
 
-	program->start();
-	program->uniformMat4("modelMatrix", entity->getModelMatrix());
-
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distributionPOS(-100, 100);
 	std::uniform_int_distribution<int> distributionPOSz(-100, 250);
 	std::uniform_int_distribution<int> distributionROT(1, 1000);
 
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		Entity3D entity = Entity3D((float)distributionPOS(generator), (float)distributionPOS(generator), (float)-distributionPOSz(generator));
 		entity.rotate(vec3((float)distributionROT(generator), (float)distributionROT(generator), (float)distributionROT(generator)));
@@ -87,16 +84,15 @@ void Sandbox::start()
 }
 
 void Sandbox::update() { 
-	entity->rotate(vec3(1, 1, 1));
+	//entity->rotate(vec3(0, 0, 1));
 	camera->update();
 }
 
 void Sandbox::render() {
 	
-	renderer->pushEntityList(model, entities);
-	renderer->pushEntity(model, *entity);
+	renderer->submitList(model, entities);
+	renderer->submit(model, *entity);
 	renderer->render();
-	renderer->cleanUP();
 }
 
 Sandbox::~Sandbox() {
@@ -105,8 +101,6 @@ Sandbox::~Sandbox() {
 
 	delete renderer;
 	delete model;
-
-	delete cube;
 
 	delete entity;
 

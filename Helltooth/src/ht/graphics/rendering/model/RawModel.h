@@ -8,6 +8,8 @@
 #include <GL/glew.h>
 #include "../../../utils/memory/MemoryManager.h"
 
+#include <stdio.h>
+
 namespace ht { namespace graphics {
 
 	class RawModel {
@@ -72,6 +74,7 @@ namespace ht { namespace graphics {
 				break;
 			}
 		}
+
 		//storeData(Gluint *data, const GLsizei dataSize in bytes) for indices
 		inline void storeData(const GLuint *data, const GLsizei &dataSize) {
 			indices = data;
@@ -91,6 +94,17 @@ namespace ht { namespace graphics {
 		inline const GLuint* getIndices() const { return indices; }
 
 		inline bool usingColors() const { return usingColor; }
+
+
+		inline void print() const {
+			for (int i = 0; i < positionSize / sizeof(GLfloat); i += 3) {
+				printf("Vertex %i %f/%f/%f \n", i / 3, positions[i], positions[i + 1], positions[i + 2]);
+			}
+
+			for (int i = 0; i < indexSize / sizeof(GLuint); i += 3) {
+				printf("Index %i %f/%f/%f \n", i / 3, indices[i], indices[i + 1], indices[i + 2]);
+			}
+		}
 	};
 
 } }

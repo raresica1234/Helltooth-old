@@ -35,7 +35,7 @@ namespace ht { namespace graphics {
 
 		Camera(Window* window) 
 			: position(vec3()), rotation(vec3()), window(window) {
-			movementSpeedFactor = 2.0f; // How fast we move (higher values mean we move and strafe faster)
+			movementSpeedFactor = 1.0f; // How fast we move (higher values mean we move and strafe faster)
 
 			pitchSensitivity = 0.2f; // How sensitive mouse movements affect looking up and down
 			yawSensitivity = 0.2f; // How sensitive mouse movements affect looking left and right

@@ -50,7 +50,7 @@ namespace ht { namespace graphics {
 		void scale(const float &scaleX, const float &scaleY, const float &scaleZ);
 		void scale(const vec3 scale);
 
-		inline mat4 getModelMatrix() { return modelMatrix; }
+		inline mat4 getModelMatrix() const { return modelMatrix; }
 
 	protected:
 		mat4 generateModelMatrix() const;

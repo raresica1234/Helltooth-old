@@ -24,6 +24,8 @@
 #include "Writer.h" // Same as Field.h
 #include "Internal.h"
 
+#include "../../../utils/memory/MemoryManager.h"
+
 namespace Cereal {
 
 	class Array
@@ -33,7 +35,7 @@ namespace Cereal {
 		std::string name;
 		DataType dataType;
 		unsigned int count; // item count
-		byte* data;
+		byte* data = nullptr;
 
 		template<class T>
 		void setData(std::string name, DataType type, T* value, unsigned int count)
@@ -47,7 +49,7 @@ namespace Cereal {
 			//Setting the data
 			if (data) delete[] data;
 
-			data = new byte[sizeof(T) * count];
+			data = htnew byte[sizeof(T) * count];
 
 			unsigned int pointer = 0;
 
@@ -96,7 +98,7 @@ namespace Cereal {
 
 			if (data) delete[] data;
 
-			data = new byte[count * sizeOf(dataType)];
+			data = htnew byte[count * sizeOf(dataType)];
 
 			memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
 		}

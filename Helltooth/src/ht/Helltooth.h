@@ -12,10 +12,10 @@
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
-#include "graphics/rendering/EntityRenderer.h"
+#include "graphics/rendering/EntityRenderer3D.h"
 
 #include "graphics/rendering/model/Cube.h"
-#include "graphics/rendering/model/Pyramid.h"
+#include "graphics/rendering/model/ObjLoader.h"
 
 #include "graphics/textures/Texture.h"
 

@@ -24,6 +24,7 @@
 
 #include "Field.h"
 #include "Array.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 

@@ -33,7 +33,8 @@ namespace ht { namespace graphics {
 
 		if (!model->usingColors())
 			storeData(RENDERABLE_TEXTURE_COORDS, model->getTextureCoords(), model->getTextureCoordsSize());
-		
+
+		delete model;
 	}
 
 	void Renderable::storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {

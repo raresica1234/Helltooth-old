@@ -22,6 +22,7 @@
 #include "Reader.h" // Because of the internal buffer. Do we change it to be a Buffer class?
 #include "Writer.h"
 #include "Internal.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -31,7 +32,7 @@ namespace Cereal {
 		DataType type;
 		std::string name;
 		DataType dataType;
-		byte* data;
+		byte* data = nullptr;
 
 		template<class T>
 		void setData(std::string name, DataType type, T value)

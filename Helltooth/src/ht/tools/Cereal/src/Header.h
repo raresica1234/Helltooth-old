@@ -24,6 +24,7 @@
 #include "Internal.h"
 #include "Database.h"
 #include "Buffer.h"
+#include "../../../utils/memory/MemoryManager.h"
 
 #define MAGIC_NUMBER	0x524d
 

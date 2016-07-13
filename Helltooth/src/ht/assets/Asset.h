@@ -61,9 +61,7 @@ namespace ht{ namespace assets{
 
 			FreeImage_Unload(dib);
 
-			std::string name(file);
-			name.append(".httexture");
-			HelltoothTexture::storeAsHelltoothTexture(name.c_str(), result, width, height, bpp, size);
+			HelltoothTexture::storeAsHelltoothTexture(fileName.c_str(), result, width, height, bpp, size);
 
 			texture->loadPixelArray(result, width, height, bpp);
 

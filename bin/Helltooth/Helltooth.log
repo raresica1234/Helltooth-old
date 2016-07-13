@@ -1,0 +1,7 @@
+﻿  EntityRenderer3D.cpp
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\rawmodel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\rawmodel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\rawmodel.h(105): warning C4477: 'printf' : format string '%f' requires an argument of type 'double', but variadic argument 2 has type 'const GLuint'
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\rawmodel.h(105): warning C4477: 'printf' : format string '%f' requires an argument of type 'double', but variadic argument 3 has type 'const GLuint'
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\rawmodel.h(105): warning C4477: 'printf' : format string '%f' requires an argument of type 'double', but variadic argument 4 has type 'const GLuint'
+  Helltooth.vcxproj -> C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\Helltooth\Helltooth.lib
