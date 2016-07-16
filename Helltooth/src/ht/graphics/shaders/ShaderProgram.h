@@ -51,7 +51,7 @@ namespace ht { namespace graphics {
 		void stop() const;
 
 	protected:
-		int init();
+		int compile();
 		GLint uniformLocation(const char* name);
 	};
 

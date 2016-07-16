@@ -6,8 +6,6 @@
 
 #include "window.h"
 
-#include <iostream>
-
 namespace ht { namespace graphics {
 
 	using namespace maths;
@@ -26,23 +24,20 @@ namespace ht { namespace graphics {
 
 		float pitchSensitivity; 
 		float yawSensitivity;
-
-		Window* window;
-
 		vec2 midPoint;
 
 	public:
 
 		Camera(Window* window) 
-			: position(vec3()), rotation(vec3()), window(window) {
+			: position(vec3()), rotation(vec3()){
 			movementSpeedFactor = 1.0f; // How fast we move (higher values mean we move and strafe faster)
 
 			pitchSensitivity = 0.2f; // How sensitive mouse movements affect looking up and down
 			yawSensitivity = 0.2f; // How sensitive mouse movements affect looking left and right
 			midPoint.x = (float) window->getWidth() / 2;
 			midPoint.y = (float) window->getHeight() / 2;
-			std::cout << rotation.y << std::endl;
 		}
+
 		~Camera() {}
 
 		void update() {

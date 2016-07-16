@@ -102,7 +102,10 @@ namespace ht { namespace graphics {
 			}
 
 			for (int i = 0; i < indexSize / sizeof(GLuint); i += 3) {
-				printf("Index %i %f/%f/%f \n", i / 3, indices[i], indices[i + 1], indices[i + 2]);
+				printf("Index %i %i/%i/%i \n", i / 3, indices[i], indices[i + 1], indices[i + 2]);
+			}
+			for (int i = 0; i < textureCoordSize / sizeof(GLfloat); i += 2) {
+				printf("Texture %i %f/%f \n", i / 2, textureCoords[i], textureCoords[i + 1]);
 			}
 		}
 	};

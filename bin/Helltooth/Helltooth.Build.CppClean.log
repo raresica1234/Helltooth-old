@@ -1,7 +1,7 @@
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\helltooth.pdb
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\helltooth.idb
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\api.obj
-c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\batchrenderer3d.obj
+c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\layer.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\entity3d.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\entityrenderer3d.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\renderable.obj
@@ -14,6 +14,7 @@ c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\vec
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\vec4.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\input.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\memoryallocator.obj
+c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\shadermanager.obj
 c:\users\rares\documents\visual studio 2015\projects\helltooth\dependencies\helltooth\helltooth.lib
 c:\users\rares\documents\visual studio 2015\projects\helltooth\dependencies\helltooth\helltooth.pdb
 c:\users\rares\documents\visual studio 2015\projects\helltooth\bin\helltooth\helltooth.tlog\cl.command.1.tlog

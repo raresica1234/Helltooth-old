@@ -1,5 +1,8 @@
 #pragma once
 
+#include "rendering/model/ObjLoader.h"
+#include "../assets/Asset.h"
+
 #define API_MODE_2D 0
 #define API_MODE_3D 1
 
@@ -17,14 +20,17 @@ namespace ht { namespace graphics {
 		static unsigned int mode;
 
 	public:
-		API(const unsigned int& type, const unsigned int& mode)
-		{
+		API(const unsigned int& type, const unsigned int& mode) {
 			this->type = type;
 			this->mode = mode;
 		}
 
-		static bool is3D() { return mode == API_MODE_3D; }
-		static bool is2D() { return mode == API_MODE_2D; }
+		static RawModel* loadObjFile(const char* path);
+
+		static const Texture* loadTextureFromFile(const char* path);
+
+		inline static bool is3D() { return mode == API_MODE_3D; }
+		inline static bool is2D() { return mode == API_MODE_2D; }
 	};
 
 } }

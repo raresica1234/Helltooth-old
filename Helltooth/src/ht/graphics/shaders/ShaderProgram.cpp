@@ -6,7 +6,7 @@ namespace ht { namespace graphics {
 	ShaderProgram::ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH) 
 		: VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH)
 	{
-		programID = init();
+		programID = compile();
 	}
 
 	ShaderProgram::~ShaderProgram()
@@ -15,7 +15,7 @@ namespace ht { namespace graphics {
 		glDeleteProgram(programID);
 	}
 
-	int ShaderProgram::init() {
+	int ShaderProgram::compile() {
 		GLuint programID = glCreateProgram();
 
 		GLuint vertexID = glCreateShader(GL_VERTEX_SHADER);

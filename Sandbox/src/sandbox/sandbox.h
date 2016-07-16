@@ -19,38 +19,30 @@
 
 namespace sandbox {
 
-	class Sandbox {
+	class Sandbox : public Application {
 	private:
-		ht::graphics::Window* m_Window;
-		ht::graphics::ShaderProgram *program;
+		Layer* layer;
 
-		ht::graphics::Entity3D *entity;
+		Entity3D *entity;
 
-		ht::graphics::Renderable *model;
+		Renderable *model;
 
-		ht::graphics::RawModel *rawModel;
-
-		ht::graphics::EntityRenderer3D *renderer;
-
-		ht::utils::FpsCounter *counter;
-
-		ht::graphics::Camera *camera;
+		RawModel *rawModel;
 
 		unsigned int id;
 
 		unsigned int TYPE = API_OPENGL;
 		unsigned int MODE = API_MODE_3D;
 
-		std::vector<ht::graphics::Entity3D> entities;
+		std::vector<Entity3D> entities;
 
 	public:
 		Sandbox();
 		~Sandbox();
 
-		void init();
-		void start();
+		void init() override;
 
-		void update();
-		void render();
+		void update() override;
+		void render() override;
 	};
 };

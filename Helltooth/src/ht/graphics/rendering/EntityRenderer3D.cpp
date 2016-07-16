@@ -7,21 +7,18 @@ namespace ht { namespace graphics {
 
 	}
 
-	EntityRenderer3D::~EntityRenderer3D() {
-		delete program;
-	}
+	EntityRenderer3D::~EntityRenderer3D() { }
 
 
 	void EntityRenderer3D::submit(const Renderable* renderable, const Entity3D &entity) {
 		entities[renderable].push_back(entity);
 	}
 
-	void EntityRenderer3D::submitList(const Renderable* renderable, const std::vector<Entity3D>entities) {
+	void EntityRenderer3D::submit(const Renderable* renderable, const std::vector<Entity3D>entities) {
 		this->entities[renderable] = entities;
 	}
 
 	void EntityRenderer3D::render() {
-		program->start();
 		program->uniformMat4("viewMatrix", camera->generateViewMatrix());
 		for (auto& entry : entities) {
 			entry.first->prepare();
@@ -31,7 +28,6 @@ namespace ht { namespace graphics {
 			}
 			entry.first->end();
 		}
-		program->stop();
 	}
 
 	void EntityRenderer3D::cleanUP() {

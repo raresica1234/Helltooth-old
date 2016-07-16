@@ -14,18 +14,51 @@
 #include "../../../utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
-
+		using namespace maths;
 	class ObjLoader {
 	private:
+		static void reserveMemory(std::vector<float> &vector, unsigned int size) {
+			if (vector.size() <= size)
+				vector.resize(size + 1);
+		}
 
-		inline static std::vector<std::string> split(const std::string &s, char delim) {
-			std::vector<std::string> split;
-			std::stringstream ss(s);
-			std::string item;
-			while (getline(ss, item, delim)) {
-				split.push_back(item);
+		static void processVertex(vec3 vertex, std::vector<unsigned int> &indices, std::vector<maths::vec2> &textures,
+			std::vector<maths::vec3> &normals, std::vector<float> &textureArray, std::vector<float> &normalsArray) {
+
+			unsigned int currentVertexPointer = vertex.x - 1;
+			indices.push_back(currentVertexPointer);
+			maths::vec2 currentTex = textures[vertex.y - 1];
+
+			reserveMemory(textureArray, currentVertexPointer * 2 + 1);
+			textureArray[currentVertexPointer * 2] = currentTex.x;
+			textureArray[currentVertexPointer * 2 + 1] = currentTex.y;
+
+			maths::vec3 currentNorm = normals[vertex.z - 1];
+
+			reserveMemory(normalsArray, currentVertexPointer * 3 + 2);
+
+			normalsArray[currentVertexPointer * 3] = currentNorm.x;
+			normalsArray[currentVertexPointer * 3 + 1] = currentNorm.y;
+			normalsArray[currentVertexPointer * 3 + 2] = currentNorm.z;
+		}
+
+		static void readLine(FILE* file, char* buffer, unsigned int bufferLen = 256) {
+			char c;
+			unsigned int bufferIndex = 0;
+			c = fgetc(file);
+			while (!feof(file) && c != '\n' && bufferIndex < bufferLen) {
+				buffer[bufferIndex++] = c;
+				c = fgetc(file);
 			}
-			return split;
+			if (bufferIndex < bufferLen)
+				buffer[bufferIndex] = '\0';
+		}
+
+		static char* skipWhitespaces(char* text) {
+			char* ptr = text;
+			while (*text == ' ' || *text == '\t' || *text == '\v')
+				ptr++;
+			return ptr;
 		}
 
 	public:
@@ -36,100 +69,76 @@ namespace ht { namespace graphics {
 				return nullptr;
 			}
 
-			fseek(file, 0, FILE_END);
-			long dataSize = ftell(file);
-			char* data = new char[dataSize];
 
 			fseek(file, 0, SEEK_SET);
 
-			fread(data, 1, dataSize, file);
-			fclose(file);
-			std::string fileContent(data);
-			std::vector<std::string> lines = split(fileContent, '\n');
 
 			std::vector<maths::vec3> vertices;
 			std::vector<maths::vec2> textures;
 			std::vector<maths::vec3> normals;
+
+			std::vector<float> texturesIndex;
+			std::vector<float> normalsIndex;
+
 			std::vector<unsigned int> indices;
 			float* verticesArray = nullptr;
 			float* normalsArray = nullptr;
 			float* textureArray = nullptr;
 			unsigned int* indicesArray = nullptr;
-			size_t i;
-			std::vector<std::string> currentLine;
-			for (i = 0; i < lines.size(); i++) {
-				currentLine.clear();
-				currentLine = split(lines[i], ' ');
 
-				if (lines[i].substr(0, 2) == "v ") {
-					maths::vec3 vertex(std::stof(currentLine[1]), std::stof(currentLine[2]), std::stof(currentLine[3]));
+			while (!feof(file)) {
+				char buffer[256] = { '\0' };
+				readLine(file, buffer);
+				char* textbegins = skipWhitespaces(buffer);
+				std::string currentLine(textbegins);
+
+				if (textbegins == "#") continue;
+
+				if (currentLine.substr(0, 2) == "v ") {
+					vec3 vertex;
+					sscanf(textbegins, "v %f %f %f", &vertex.x, &vertex.y, &vertex.z);
 					vertices.push_back(vertex);
-				}
-				else if (lines[i].substr(0, 3) == "vt ") {
-					maths::vec2 texture(std::stof(currentLine[1]), std::stof(currentLine[2]));
+				} else if (currentLine.substr(0, 3) == "vt ") {
+					vec2 texture;
+					sscanf(textbegins, "vt %f %f", &texture.x, &texture.y);
 					textures.push_back(texture);
 				}
-				else if (lines[i].substr(0, 3) == "vn ") {
-					maths::vec3 normal(std::stof(currentLine[1]), std::stof(currentLine[2]), std::stof(currentLine[3]));
+				else if (currentLine.substr(0, 3) == "vn ") {
+					vec3 normal;
+					sscanf(textbegins, "vn %f %f %f", &normal.x, &normal.y, &normal.z);
 					normals.push_back(normal);
 				}
-				else if (lines[i].substr(0, 2) == "f ") {
-					textureArray = new float[vertices.size() * 2];
-					normalsArray = new float[vertices.size() * 3];
-					break;
+				else if (currentLine.substr(0, 2) == "f ") {
+					vec3 vertex1, vertex2, vertex3;
+
+					sscanf(textbegins, "f %f/%f/%f %f/%f/%f %f/%f/%f", &vertex1.x, &vertex1.y, &vertex1.z,
+						&vertex2.x, &vertex2.y, &vertex2.z, &vertex3.x, &vertex3.y, &vertex3.z);
+
+					processVertex(vertex1, indices, textures, normals, texturesIndex, normalsIndex);
+					processVertex(vertex2, indices, textures, normals, texturesIndex, normalsIndex);
+					processVertex(vertex3, indices, textures, normals, texturesIndex, normalsIndex);
 				}
 			}
+			
+			verticesArray = htnew float[vertices.size() * 3];
+			indicesArray = htnew unsigned int[indices.size()];
+			textureArray = htnew float[vertices.size() * 2];
+			normalsArray = htnew float[vertices.size() * 3];
 
-			for (i; i < lines.size(); i++) {
-				currentLine = split(lines[i], ' ');
-				
-				if (currentLine[0] != "f")
-					continue;
+			texturesIndex.shrink_to_fit();
+			normalsIndex.shrink_to_fit();
 
-				std::vector<std::string> vertex1 = split(currentLine[1], '/');
-				std::vector<std::string> vertex2 = split(currentLine[2], '/');
-				std::vector<std::string> vertex3 = split(currentLine[3], '/');
+			memcpy(verticesArray, &vertices[0], vertices.size() * 3 * sizeof(float));
+			memcpy(indicesArray, &indices[0], indices.size() * sizeof(unsigned int));
+			memcpy(textureArray, &texturesIndex[0], vertices.size() * 2 * sizeof(float));
+			memcpy(normalsArray, &normalsIndex[0], vertices.size() * 3 * sizeof(float));
+			fclose(file);
 
-				processVertex(vertex1, indices, textures, normals, textureArray, normalsArray);
-				processVertex(vertex2, indices, textures, normals, textureArray, normalsArray);
-				processVertex(vertex3, indices, textures, normals, textureArray, normalsArray);
-			}
-
-			verticesArray = new float[vertices.size() * 3];
-			indicesArray = new unsigned int[indices.size()];
-			int vertexPointer = 0;
-			for (maths::vec3 vertex : vertices) {
-				verticesArray[vertexPointer++] = vertex.x;
-				verticesArray[vertexPointer++] = vertex.y;
-				verticesArray[vertexPointer++] = vertex.z;
-			}
-
-			for (int i = 0; i < indices.size(); i++) {
-				indicesArray[i] = indices[i];
-			}
-
-			RawModel* model = new RawModel(verticesArray, vertices.size() * 3 * sizeof(GLfloat));
+			RawModel* model = htnew RawModel(verticesArray, vertices.size() * 3 * sizeof(GLfloat));
 			model->storeData(indicesArray, indices.size() * sizeof(GLuint));
 			model->storeData(RAWMODEL_NORMALS, normalsArray, vertices.size() * 3 * sizeof(GLfloat));
 			model->storeData(RAWMODEL_TEXTURE_COORDS, textureArray, vertices.size() * 2 * sizeof(GLfloat));
 			return model;
 		}
-
-
-	private:
-		static void processVertex(std::vector<std::string> &vertexData, std::vector<unsigned int> &indices,
-			std::vector<maths::vec2> &textures, std::vector<maths::vec3> &normals, float* textureArray, float* normalsArray) {
-
-			unsigned int currentVertexPointer = std::stoul(vertexData[0]) - 1;
-			indices.push_back(currentVertexPointer);
-			maths::vec2 currentTex = textures[std::stoi(vertexData[1]) - 1];
-			textureArray[currentVertexPointer * 2] = currentTex.x;
-			textureArray[currentVertexPointer * 2 + 1] = currentTex.y;
-			maths::vec3 currentNorm = normals[std::stoi(vertexData[2]) - 1];
-			normalsArray[  currentVertexPointer * 3  ] = currentNorm.x;
-			normalsArray[currentVertexPointer * 3 + 1] = currentNorm.y;
-			normalsArray[currentVertexPointer * 3 + 2] = currentNorm.z;
-		}
 	};
-
 } }

@@ -45,9 +45,7 @@ namespace ht {	namespace graphics {
 			glfwSetMouseButtonCallback(m_Window, utils::mouse_button_callback);
 			glfwSetCursorPosCallback(m_Window, utils::cursor_position_callback);
 
-
-			glLoadIdentity();
-			glMatrixMode(GL_PROJECTION);
+			glfwSwapInterval(0);
 			glEnable(GL_DEPTH_TEST);
 
 			return true;
@@ -59,8 +57,7 @@ namespace ht {	namespace graphics {
 
 		void Window::update() {
 			glfwPollEvents();
-			glfwSwapBuffers(m_Window);
-			
+			glfwSwapBuffers(m_Window); 
 		}
 
 		bool Window::closed() const {

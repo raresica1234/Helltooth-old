@@ -48,8 +48,10 @@ namespace ht { namespace graphics {
 		//prepare for rendering
 		inline void prepare() const { 
 			vao->bindVAO();
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->getID());
+			if (texture) {
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, texture->getID());
+			}
 		}
 
 		//Unbind vao

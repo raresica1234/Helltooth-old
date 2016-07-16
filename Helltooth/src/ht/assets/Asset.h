@@ -25,7 +25,7 @@ namespace ht{ namespace assets{
 
 	class Asset {
 	public:
-		static inline const Texture* loadTextureFromFile(char *file) {
+		static inline const Texture* loadTextureFromFile(const char *file) {
 			std::string fileName(file);
 			fileName += ".httexture";
 

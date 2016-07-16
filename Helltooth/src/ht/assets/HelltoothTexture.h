@@ -11,17 +11,13 @@
 
 namespace ht { namespace assets {
 
-
-
 	using namespace graphics;
 
 	class HelltoothTexture {
 	private:
 		Texture* texture = nullptr;
-		
 
 	public:
-		
 		HelltoothTexture(const char* filePath) {
 			Cereal::Buffer buffer = Cereal::Buffer(1);
 			buffer.readFile(filePath);

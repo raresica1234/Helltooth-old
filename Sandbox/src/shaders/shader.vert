@@ -7,6 +7,7 @@ layout (location = 2) in vec3 normals;
 uniform mat4 projectionMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
+uniform mat4 textureRot;
 
 out vec3 positions;
 out vec2 pass_textureCoords;

@@ -35,7 +35,7 @@ namespace ht { namespace graphics {
 		void submit(const Renderable* renderable, const Entity3D &entity);
 
 		//Push vector of entities (Renderable, std::vector<Entity3D>)
-		void submitList(const Renderable* renderable, const std::vector<Entity3D>entities);
+		void submit(const Renderable* renderable, const std::vector<Entity3D>entities);
 
 		//Render
 		void render();

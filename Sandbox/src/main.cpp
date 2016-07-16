@@ -6,7 +6,6 @@ using namespace sandbox;
 
 void main() {
 	Sandbox* sandbox = htnew Sandbox();
-	sandbox->start();
 
 	delete sandbox;
 	system("PAUSE");

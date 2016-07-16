@@ -56,6 +56,8 @@
     <ClInclude Include="src\ht\graphics\rendering\EntityRenderer3D.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\ObjLoader.h" />
+    <ClInclude Include="src\ht\graphics\Layer.h" />
+    <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -73,5 +75,7 @@
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer3D.cpp" />
+    <ClCompile Include="src\ht\graphics\Layer.cpp" />
+    <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
   </ItemGroup>
 </Project>
