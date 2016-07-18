@@ -2,6 +2,7 @@
 
 #include "Camera.h"
 #include "shaders/ShaderProgram.h"
+#include "shaders/ShaderManager.h"
 #include "rendering/EntityRenderer3D.h"
 #include "rendering/Entity3D.h"
 #include "rendering/Renderable.h"
@@ -21,7 +22,7 @@ namespace ht { namespace graphics {
 		Camera* camera;
 
 	public:
-		Layer(ShaderProgram* shader, Camera* camera);
+		Layer(unsigned int shader, Camera* camera);
 		~Layer();
 
 		void setMatrix(maths::mat4 &projectionMatrix);

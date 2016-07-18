@@ -10,6 +10,7 @@
 #include "graphics/Layer.h"
 
 #include "graphics/shaders/ShaderProgram.h"
+#include "graphics/shaders/ShaderManager.h"
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
@@ -52,6 +53,7 @@ public:
 	}
 
 	~Application() {
+		ShaderManager::cleanUP();
 		delete counter;
 		delete window;
 	}
@@ -66,7 +68,7 @@ protected:
 			counter->render();
 			render();
 
-			counter->show();
+			if(counter->tick()) tick();
 
 			window->update();
 		}
@@ -80,4 +82,5 @@ protected:
 
 	virtual void update() = 0;
 
+	virtual void tick() {}
 };

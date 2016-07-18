@@ -4,13 +4,12 @@ namespace ht { namespace graphics {
 	using namespace maths;
 
 	ShaderProgram::ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH) 
-		: VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH)
-	{
+		: VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH) {
 		programID = compile();
+		projection = false;
 	}
 
-	ShaderProgram::~ShaderProgram()
-	{
+	ShaderProgram::~ShaderProgram() {
 		stop();
 		glDeleteProgram(programID);
 	}
@@ -85,4 +84,5 @@ namespace ht { namespace graphics {
 	void ShaderProgram::uniform4f(const char *name, const vec4 &value) { glUniform4f(uniformLocation(name), value.x, value.y, value.z, value.w); }
 	void ShaderProgram::uniformMat4(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); }
 
+	void ShaderProgram::setProjection(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); projection = true; }
 } }

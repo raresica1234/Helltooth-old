@@ -2,9 +2,8 @@
 
 namespace ht { namespace graphics {
 
-	EntityRenderer3D::EntityRenderer3D(ShaderProgram* program)
-		: program(program) {
-
+	EntityRenderer3D::EntityRenderer3D(unsigned int program) {
+		this->program = ShaderManager::getProgram(program);
 	}
 
 	EntityRenderer3D::~EntityRenderer3D() { }

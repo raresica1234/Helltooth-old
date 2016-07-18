@@ -1,1 +1,65 @@
-﻿
+﻿  API.cpp
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(28): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(36): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Buffer.h(225): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Database.h(83): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(86): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(100): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\assets\HelltoothTexture.h(68): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  Layer.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\GLFW\include\GLFW/glfw3.h(85): note: see previous definition of 'APIENTRY'
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(28): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(36): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Buffer.h(225): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Database.h(83): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(86): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(100): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\assets\HelltoothTexture.h(68): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  Entity3D.cpp
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(28): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(36): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Buffer.h(225): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Database.h(83): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(86): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(100): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\assets\HelltoothTexture.h(68): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  EntityRenderer3D.cpp
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(28): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(36): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Buffer.h(225): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Database.h(83): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(86): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(100): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\assets\HelltoothTexture.h(68): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  Renderable.cpp
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(104): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering\model\RawModel.h(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(28): warning C4244: 'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(30): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\graphics\rendering/model/ObjLoader.h(36): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Buffer.h(225): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Database.h(83): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(86): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\tools\cereal\src/Header.h(100): warning C4244: '+=': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+c:\users\rares\documents\visual studio 2015\projects\helltooth\helltooth\src\ht\assets\HelltoothTexture.h(68): warning C4244: 'argument': conversion from 'unsigned __int64' to 'unsigned int', possible loss of data
+  ShaderManager.cpp
+  ShaderProgram.cpp
+  Helltooth.vcxproj -> C:\Users\RARES\documents\visual studio 2015\Projects\Helltooth\Dependencies\Helltooth\Helltooth.lib

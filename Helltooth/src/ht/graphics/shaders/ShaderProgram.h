@@ -27,6 +27,8 @@ namespace ht { namespace graphics {
 		const char *VERTEX_PATH;
 		const char *FRAGMENT_PATH;
 		
+		bool projection;
+
 		//program id
 		GLuint programID;
 
@@ -43,12 +45,22 @@ namespace ht { namespace graphics {
 		void uniform3f(const char *name, const vec3 &value);
 		void uniform4f(const char *name, const vec4 &value);
 		void uniformMat4(const char *name, const mat4 &value);
+		void setProjection(const char *name, const mat4 &value);
 
 		//Starting the program
 		void start() const;
 
 		//Stoping the program
 		void stop() const;
+
+		inline void reCompile() {
+			stop();
+			glDeleteProgram(programID);
+			programID = compile();
+			projection = false;
+		}
+
+		inline bool hasProjection() { return projection; }
 
 	protected:
 		int compile();

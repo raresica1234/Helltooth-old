@@ -35,6 +35,7 @@ namespace sandbox {
 		unsigned int MODE = API_MODE_3D;
 
 		std::vector<Entity3D> entities;
+		bool compile;
 
 	public:
 		Sandbox();
@@ -44,5 +45,7 @@ namespace sandbox {
 
 		void update() override;
 		void render() override;
+
+		void tick() override;
 	};
 };

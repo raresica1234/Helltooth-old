@@ -8,9 +8,8 @@ Sandbox::Sandbox()
 
 	API::API(TYPE, MODE);
 
-	ShaderProgram* program = htnew ShaderProgram("src/shaders/shader.vert", "src/shaders/shader.frag");
 	Camera* camera = htnew Camera(window);
-	layer = htnew Layer(program, camera);
+	layer = htnew Layer(ShaderManager::loadProgram("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
 
 	entity = htnew Entity3D(vec3(0, -20, -50));
 
@@ -39,11 +38,19 @@ void Sandbox::init(){
 
 void Sandbox::update() {
 	layer->update();
+	if (Input::getKey(GLFW_KEY_R))
+		compile = true;
 }
 
 void Sandbox::render() {
 	layer->submit(model, *entity);
 	layer->render();
+}
+
+void Sandbox::tick() {
+	if (compile)
+		ShaderManager::reCompile();
+	compile = false;
 }
 
 Sandbox::~Sandbox()  {

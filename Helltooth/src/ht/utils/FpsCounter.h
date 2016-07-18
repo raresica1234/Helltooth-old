@@ -73,13 +73,15 @@ namespace ht { namespace utils {
 			fps++;
 		}
 
-		void show() {
+		bool tick() {
 			if ((currentTime - lastTime) > 0.5) {
 				HT_INFO("fps %i ups %i", fps, ups);
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;
+				return true;
 			}
+			return false;
 		}
 
 		unsigned __int64 getTime() {

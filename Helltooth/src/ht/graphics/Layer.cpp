@@ -2,9 +2,9 @@
 
 namespace ht { namespace graphics { 
 
-	Layer::Layer(ShaderProgram* shader, Camera* camera)
-		: shader(shader), camera(camera){
-		renderer = new EntityRenderer3D(this->shader);
+	Layer::Layer(unsigned int shader, Camera* camera)
+		: shader(ShaderManager::getProgram(shader)), camera(camera){
+		renderer = new EntityRenderer3D(shader);
 		renderer->setCamera(camera);
 	}
 
@@ -17,7 +17,7 @@ namespace ht { namespace graphics {
 	void Layer::setMatrix(maths::mat4 &projectionMatrix) {
 		this->projectionMatrix = projectionMatrix;
 		shader->start();
-		shader->uniformMat4("projectionMatrix", projectionMatrix);
+		shader->setProjection("projectionMatrix", projectionMatrix);
 		shader->stop();
 	}
 
@@ -37,6 +37,8 @@ namespace ht { namespace graphics {
 
 	void Layer::update() {
 		camera->update();
+		if (!shader->hasProjection())
+			setMatrix(projectionMatrix);
 	}
 
 } }

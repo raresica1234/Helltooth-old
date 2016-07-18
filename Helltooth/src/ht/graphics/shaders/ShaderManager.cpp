@@ -3,23 +3,28 @@
 
 namespace ht { namespace graphics {
 
-	std::vector<ShaderProgram*> ShaderManager::programs;
+	std::vector<ShaderProgram*> ShaderManager::shaders;
 
 	unsigned int ShaderManager::loadProgram(const char* vertexPath, const char* fragmentPath) {
 		ShaderProgram* program = htnew ShaderProgram(vertexPath, fragmentPath);
-		programs.push_back(program);
-		return programs.size() - 1;
+		shaders.push_back(program);
+		return shaders.size() - 1;
 	}
 
 	ShaderProgram* ShaderManager::getProgram(unsigned int &id) {
-		if (id < programs.size())
-			return programs[id];
+		if (id < shaders.size())
+			return shaders[id];
 		return nullptr;
 	}
 
 	void ShaderManager::cleanUP() {
-		if (programs.size() > 0)
-			for (ShaderProgram* program : programs)
-				delete program;
+		if (shaders.size() > 0)
+			for (ShaderProgram* shader : shaders)
+				delete shader;
+	}
+
+	void ShaderManager::reCompile() {
+		for (ShaderProgram* program : shaders)
+			program->reCompile();
 	}
 } }

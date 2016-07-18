@@ -9,13 +9,14 @@ namespace ht {namespace graphics {
 
 	class ShaderManager {
 	private:
-		static std::vector<ShaderProgram*> programs;
+		static std::vector<ShaderProgram*> shaders;
 
 	public:
 		static unsigned int loadProgram(const char* vertexPath, const char* fragmentPath);
 		static ShaderProgram* getProgram(unsigned int &id);
 		static void cleanUP();
 
+		static void reCompile();
 	};
 
 

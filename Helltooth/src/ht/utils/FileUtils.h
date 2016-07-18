@@ -12,6 +12,10 @@ namespace ht { namespace utils {
 	public:
 		static std::string read_file(const char* filepath) {
 			FILE* file = fopen(filepath, "rt");
+			if (!file) {
+				HT_FATAL("[FILEUTILS] Cannot read %s", filepath);
+				return nullptr;
+			}
 			fseek(file, 0, SEEK_END);
 			unsigned long length = ftell(file);
 			char* data = htnew char[length + 1];

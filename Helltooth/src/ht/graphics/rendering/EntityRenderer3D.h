@@ -8,6 +8,7 @@
 #include "Renderable.h"
 
 #include "../shaders/ShaderProgram.h"
+#include "../shaders/ShaderManager.h"
 #include "../Camera.h"
 #include "../../utils/memory/MemoryManager.h"
 
@@ -28,7 +29,7 @@ namespace ht { namespace graphics {
 	public:
 		
 		//Constructor takes in ShaderProgram
-		EntityRenderer3D(ShaderProgram* program);
+		EntityRenderer3D(unsigned int program);
 		~EntityRenderer3D();
 
 		//Push entity (Renderable, entity)
