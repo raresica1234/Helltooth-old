@@ -35,7 +35,7 @@ namespace sandbox {
 		unsigned int MODE = API_MODE_3D;
 
 		std::vector<Entity3D> entities;
-		bool compile;
+		bool compile = false;
 
 	public:
 		Sandbox();

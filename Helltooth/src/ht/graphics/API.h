@@ -30,7 +30,7 @@ namespace ht { namespace graphics {
 
 		static const Texture* loadTextureFromFile(const char* path);
 
-		static inline unsigned int createShader(const char* VERTEX_PATH, const char* FRAGMENT_PATH);
+		static unsigned int createShader(const char* VERTEX_PATH, const char* FRAGMENT_PATH);
 
 		inline static bool is3D() { return mode == API_MODE_3D; }
 		inline static bool is2D() { return mode == API_MODE_2D; }

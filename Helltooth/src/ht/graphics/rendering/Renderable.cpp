@@ -4,7 +4,7 @@
 namespace ht { namespace graphics {
 
 	Renderable::Renderable()
-		: vboNumber(0), usingIbo(false), ibo(nullptr), texture(nullptr) {
+		: vboNumber(0), usingIbo(false), ibo(nullptr){
 		this->vao = htnew VAO();
 		this->vbos = htnew VBO[4];
 	}
@@ -16,7 +16,7 @@ namespace ht { namespace graphics {
 		if (ibo != nullptr)
 			delete ibo;
 
-		if(texture != nullptr)
+		for (const Texture* texture : textures)
 			delete texture;
 	}
 

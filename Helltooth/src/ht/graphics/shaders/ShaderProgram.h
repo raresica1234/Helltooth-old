@@ -9,7 +9,8 @@
 #include "../../maths/mat4.h"
 
 #include "../../utils/Log.h"
-
+#include "../lighting/Light.h"
+#include "../lighting/Sun.h"
 
 #include <unordered_map>
 #include <string>
@@ -40,12 +41,18 @@ namespace ht { namespace graphics {
 		//Uniforms
 
 		void uniform1f(const char *name, const float &value);
+		void uniform1i(const char *name, const int &value);
 		void uniformBool(const char *name, const bool &value);
 		void uniform2f(const char *name, const vec2 &value);
 		void uniform3f(const char *name, const vec3 &value);
 		void uniform4f(const char *name, const vec4 &value);
 		void uniformMat4(const char *name, const mat4 &value);
+		void uniform1iv(const char *name, const int* value, const short &count);
+		
 		void setProjection(const char *name, const mat4 &value);
+		
+		void setLight(const char *name, const Light &light);
+		void setSun(const char *name, const Sun &sun);
 
 		//Starting the program
 		void start() const;

@@ -34,7 +34,7 @@ namespace ht{ namespace assets{
 				return texture.getTexture();
 			}
 
-			HT_INFO("\"%s\" not found! Creating one...", fileName);
+			HT_WARN("\"%s\" not found! Creating one...", fileName);
 
 			const Texture* texture = htnew Texture();
 
@@ -66,7 +66,7 @@ namespace ht{ namespace assets{
 			texture->loadPixelArray(result, width, height, bpp);
 
 			delete[] result;
-
+			HT_INFO("[Asset] Texture %s loaded!", file);
 			return texture;
 		}
 

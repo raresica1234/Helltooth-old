@@ -58,6 +58,8 @@
     <ClInclude Include="src\ht\graphics\rendering\model\ObjLoader.h" />
     <ClInclude Include="src\ht\graphics\Layer.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
+    <ClInclude Include="src\ht\graphics\lighting\Sun.h" />
+    <ClInclude Include="src\ht\graphics\lighting\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />

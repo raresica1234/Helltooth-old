@@ -21,7 +21,7 @@ namespace ht { namespace graphics {
 		VBO* vbos;
 		IBO* ibo;
 
-		const Texture* texture;
+		std::vector<const Texture*> textures;
 
 		bool usingIbo;
 
@@ -46,11 +46,15 @@ namespace ht { namespace graphics {
 		inline GLuint getVaoID() { return vao->getID(); }
 
 		//prepare for rendering
-		inline void prepare() const { 
+		inline void prepare(ShaderProgram* program) const { 
 			vao->bindVAO();
-			if (texture) {
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, texture->getID());
+			for (int i = 0; i < textures.size(); i++) {
+				if (i > 31) {
+					HT_WARN("[Renderable] Textures size is bigger than 32!");
+					break;
+				}
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, textures[i]->getID());
 			}
 		}
 
@@ -58,7 +62,7 @@ namespace ht { namespace graphics {
 		inline void end() const { vao->unbindVAO(); }
 
 		//set texture
-		inline void setTexture(const Texture* texture) { this->texture = texture; }
+		inline void addTexture(const Texture* texture) { textures.push_back(texture);}
 
 	};
 

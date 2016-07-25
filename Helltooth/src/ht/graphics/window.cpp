@@ -36,9 +36,9 @@ namespace ht {	namespace graphics {
 				HT_FATAL("Could not initialize GLEW!");
 				return false;
 			}
-			HT_INFO("OpenGL Version: %s", glGetString(GL_VERSION));
-			HT_INFO("GLFW Version: %i", glfwGetVersion);
-			HT_INFO("GLEW  Version: %i", GLEW_VERSION);
+			HT_WARN("OpenGL Version: %s", glGetString(GL_VERSION));
+			HT_WARN("GLFW Version: %i", glfwGetVersion);
+			HT_WARN("GLEW  Version: %i", GLEW_VERSION);
 			utils::Input::init();
 
 			glfwSetKeyCallback(m_Window, utils::key_callback);

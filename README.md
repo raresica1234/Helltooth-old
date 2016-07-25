@@ -12,11 +12,3 @@ If you want to start using this engine, feel free to use it, you can also help t
 **Tutorials** for Helltooth will be found on the [*Wiki*](https://github.com/raresica1234/Helltooth/wiki).
 
 **Helltooth** also has a *site*: [click here](http://raresica1234.github.io/Helltooth/).
-
-## Current possibilities
-* Math support: calculate using matrices and vectors
-* Window support: make a window in no time
-* Input support
-* Entities
-* 3D Support
-* Textures, use a 2^n by 2^n texture! **Note: textures will be converted into the engine's special format: HTTEXTURE, in the future they will be compressed!**

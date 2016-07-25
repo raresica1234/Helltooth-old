@@ -5,6 +5,9 @@
 #include "ShaderProgram.h"
 #include <vector>
 
+#include "../../utils/Log.h"
+
+
 namespace ht {namespace graphics {
 
 	class ShaderManager {

@@ -9,8 +9,8 @@
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
 
-#include "graphics/shaders/ShaderProgram.h"
-#include "graphics/shaders/ShaderManager.h"
+#include "graphics/lighting/Light.h"
+#include "graphics/lighting/Sun.h"
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
@@ -18,6 +18,9 @@
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/ObjLoader.h"
+
+#include "graphics/shaders/ShaderProgram.h"
+#include "graphics/shaders/ShaderManager.h"
 
 #include "graphics/textures/Texture.h"
 
@@ -75,6 +78,7 @@ protected:
 	}
 
 	virtual void init() {
+		Input::init();
 		counter->init();
 	}
 

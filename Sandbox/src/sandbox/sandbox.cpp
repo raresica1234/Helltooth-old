@@ -9,22 +9,22 @@ Sandbox::Sandbox()
 	API::API(TYPE, MODE);
 
 	Camera* camera = htnew Camera(window);
-	layer = htnew Layer(ShaderManager::loadProgram("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
+	layer = htnew Layer(API::createShader("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
 
 	entity = htnew Entity3D(vec3(0, -20, -50));
 
 	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
 	layer->setMatrix(projectionMatrix);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
 
 	rawModel = API::loadObjFile("res/stall.obj");
 
 	model = htnew Renderable();
 	model->loadRawModel(rawModel);
 
-	model->setTexture(API::loadTextureFromFile("res/stallTexture.png"));
+	model->addTexture(API::loadTextureFromFile("res/stallTexture.png"));
+	model->addTexture(API::loadTextureFromFile("res/stallTextureSpecular.png"));
 
 	entity->rotate(vec3(0, 180, 0));
 	Application::start();
@@ -48,9 +48,11 @@ void Sandbox::render() {
 }
 
 void Sandbox::tick() {
-	if (compile)
+	if (compile) {
 		ShaderManager::reCompile();
-	compile = false;
+		layer->reloadTextures();
+		compile = false;
+	}
 }
 
 Sandbox::~Sandbox()  {

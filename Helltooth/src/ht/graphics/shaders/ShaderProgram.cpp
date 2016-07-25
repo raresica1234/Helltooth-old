@@ -79,10 +79,25 @@ namespace ht { namespace graphics {
 	void ShaderProgram::uniformBool(const char* name, const bool& value) { glUniform1f(uniformLocation(name), value); }
 
 	void ShaderProgram::uniform1f(const char *name, const float &value) { glUniform1f(uniformLocation(name), value); }
+	void ShaderProgram::uniform1i(const char *name, const int &value) { glUniform1i(uniformLocation(name), value); }
 	void ShaderProgram::uniform2f(const char *name, const vec2 &value) { glUniform2f(uniformLocation(name), value.x, value.y); }
 	void ShaderProgram::uniform3f(const char *name, const vec3 &value) { glUniform3f(uniformLocation(name), value.x, value.y, value.z); }
 	void ShaderProgram::uniform4f(const char *name, const vec4 &value) { glUniform4f(uniformLocation(name), value.x, value.y, value.z, value.w); }
 	void ShaderProgram::uniformMat4(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); }
 
+	void ShaderProgram::uniform1iv(const char *name, const int* value, const short &count) {
+		glUniform1iv(uniformLocation(name), count, value);
+	}
+
 	void ShaderProgram::setProjection(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); projection = true; }
+	
+	void ShaderProgram::setLight(const char *name, const Light &light) {
+		uniform3f((std::string(name) + "Pos").c_str(), light.getPosition());
+		uniform3f((std::string(name) + "Color").c_str(), light.getColor());
+	}
+
+	void ShaderProgram::setSun(const char *name, const Sun &sun) {
+		uniform3f(name, sun.getPosition());
+	}
+
 } }

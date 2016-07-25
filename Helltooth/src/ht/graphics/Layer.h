@@ -32,6 +32,7 @@ namespace ht { namespace graphics {
 		void render();
 		void update();
 
+		void reloadTextures();
 	};
 
 } }

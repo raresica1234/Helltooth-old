@@ -8,5 +8,4 @@ void main() {
 	Sandbox* sandbox = htnew Sandbox();
 
 	delete sandbox;
-	system("PAUSE");
 }

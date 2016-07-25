@@ -138,6 +138,7 @@ namespace ht { namespace graphics {
 			model->storeData(indicesArray, indices.size() * sizeof(GLuint));
 			model->storeData(RAWMODEL_NORMALS, normalsArray, vertices.size() * 3 * sizeof(GLfloat));
 			model->storeData(RAWMODEL_TEXTURE_COORDS, textureArray, vertices.size() * 2 * sizeof(GLfloat));
+			HT_INFO("[ObjLoader] Object %s loaded", path);
 			return model;
 		}
 	};

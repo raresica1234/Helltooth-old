@@ -8,6 +8,7 @@ namespace ht { namespace graphics {
 	unsigned int ShaderManager::loadProgram(const char* vertexPath, const char* fragmentPath) {
 		ShaderProgram* program = htnew ShaderProgram(vertexPath, fragmentPath);
 		shaders.push_back(program);
+		HT_INFO("[ShaderManager] Program with id %i loaded!", shaders.size() - 1);
 		return shaders.size() - 1;
 	}
 
@@ -24,6 +25,7 @@ namespace ht { namespace graphics {
 	}
 
 	void ShaderManager::reCompile() {
+		HT_WARN("[ShaderManager] Shaders Recompiled!");
 		for (ShaderProgram* program : shaders)
 			program->reCompile();
 	}
