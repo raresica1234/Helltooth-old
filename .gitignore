@@ -9,7 +9,6 @@
 *.tlog/
 *.lastbuildstate
 
-*.sdf
 *.user
 *.suo
 Intermidiates/
