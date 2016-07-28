@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "../../../utils/memory/MemoryManager.h"
+
 #include <string>
 #include <vector>
 
@@ -24,7 +26,6 @@
 #include "Internal.h"
 #include "Object.h"
 #include "Buffer.h"
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -64,7 +65,7 @@ namespace Cereal {
 
 				for (unsigned short i = 0; i < objectCount; i++)
 				{
-					Object* obj = new Object;
+					Object* obj = htnew Object;
 
 					obj->read(buffer);
 					this->addObject(obj);
@@ -80,7 +81,7 @@ namespace Cereal {
 
 		bool write(Buffer& buffer) const
 		{
-			if (!buffer.hasSpace(this->getSize())) return false;
+			if (!buffer.hasSpace((unsigned int)this->getSize())) return false;
 
 			buffer.writeBytes<unsigned short>(version);
 
@@ -110,7 +111,16 @@ namespace Cereal {
 
 		inline unsigned long long getSize() const
 		{
-			unsigned long long ret = sizeof(short) + sizeof(short) + name.length() + sizeof(unsigned int) + sizeof(unsigned short);
+			unsigned long long ret = sizeof(short);
+
+			switch (version)
+			{
+			case Version::VERSION_1_0:
+				ret += sizeof(short) + name.length() + sizeof(int) + sizeof(short); break;
+
+			default:
+				__debugbreak(); break; // Invalid version
+			}
 
 			for (const Object* obj : objects)
 				ret += obj->getSize();

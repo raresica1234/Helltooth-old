@@ -16,53 +16,45 @@
 
 #pragma once
 
+#include "../../../utils/memory/MemoryManager.h"
+
 #include <string>
 
 #include "Buffer.h"
 #include "Reader.h" // Because of the internal buffer. Do we change it to be a Buffer class?
 #include "Writer.h"
 #include "Internal.h"
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
 	class Field
 	{
 	private:
-		DataType type;
 		std::string name;
 		DataType dataType;
 		byte* data = nullptr;
 
 		template<class T>
-		void setData(std::string name, DataType type, T value)
+		void setData(DataType type, T value)
 		{
-			//Initialization of container
-			this->type = DataType::DATA_FIELD;
-			this->name = name;
-
 			dataType = type;
 
 			if (data) delete[] data;
 
 			//Setting the data
-			data = new byte[sizeof(T)];
+			data = htnew byte[sizeof(T)];
 			Writer::writeBytes<T>(data, 0, value);
 		}
 
 		template<>
-		void setData<std::string>(std::string name, DataType type, std::string value)
+		void setData<std::string>(DataType type, std::string value)
 		{
-			//Initialization of container
-			this->type = DataType::DATA_FIELD;
-			this->name = name;
-
 			dataType = type;
 
 			//Setting the data
 			if (data) delete[] data;
 
-			data = new byte[value.length() + 2];
+			data = htnew byte[value.length() + 2];
 
 			int ptr = Writer::writeBytes<unsigned short>(data, 0, (unsigned short)value.length());
 
@@ -74,16 +66,16 @@ namespace Cereal {
 
 	public:
 		//constructor for each field type
-		Field() : data(nullptr), dataType(DataType::DATA_UNKNOWN) { name = "", type = DataType::DATA_FIELD; }
-		Field(std::string name, byte value) { setData<byte>(name, DataType::DATA_CHAR /* | MOD_UNSIGNED*/, value); }
-		Field(std::string name, bool value) { setData<bool>(name, DataType::DATA_BOOL, value); }
-		Field(std::string name, char value) { setData<char>(name, DataType::DATA_CHAR, value); }
-		Field(std::string name, short value) { setData<short>(name, DataType::DATA_SHORT, value); }
-		Field(std::string name, int value) { setData<int>(name, DataType::DATA_INT, value); }
-		Field(std::string name, float value) { setData<float>(name, DataType::DATA_FLOAT, value); }
-		Field(std::string name, long long value) { setData<long long>(name, DataType::DATA_LONG_LONG, value); }
-		Field(std::string name, double value) { setData<double>(name, DataType::DATA_DOUBLE, value); }
-		Field(std::string name, std::string value) { setData<std::string>(name, DataType::DATA_STRING, value); }
+		Field() : data(nullptr), dataType(DataType::DATA_UNKNOWN), name("") { }
+		Field(std::string name, byte value) : name(name) { setData<byte>(DataType::DATA_CHAR /* | MOD_UNSIGNED*/, value); }
+		Field(std::string name, bool value) : name(name) { setData<bool>(DataType::DATA_BOOL, value); }
+		Field(std::string name, char value) : name(name) { setData<char>(DataType::DATA_CHAR, value); }
+		Field(std::string name, short value) : name(name) { setData<short>(DataType::DATA_SHORT, value); }
+		Field(std::string name, int value) : name(name) { setData<int>(DataType::DATA_INT, value); }
+		Field(std::string name, float value) : name(name) { setData<float>(DataType::DATA_FLOAT, value); }
+		Field(std::string name, long long value) : name(name) { setData<long long>(DataType::DATA_LONG_LONG, value); }
+		Field(std::string name, double value) : name(name) { setData<double>(DataType::DATA_DOUBLE, value); }
+		Field(std::string name, std::string value) : name(name) { setData<std::string>(DataType::DATA_STRING, value); }
 
 		~Field() { if(data) delete[] data; }
 
@@ -91,7 +83,7 @@ namespace Cereal {
 		{
 			if (!buffer.hasSpace(this->getSize())) return false;
 
-			buffer.writeBytes<byte>(type);
+			buffer.writeBytes<byte>(DataType::DATA_FIELD);
 			buffer.writeBytes<std::string>(name);
 			buffer.writeBytes<byte>(this->dataType); //write data type
 
@@ -121,29 +113,28 @@ namespace Cereal {
 
 			assert(type == DataType::DATA_FIELD);
 
-			std::string name = buffer.readBytes<std::string>();
+			this->name = buffer.readBytes<std::string>();
 
 			DataType dataType = (DataType)buffer.readBytes<byte>();
 
 			switch (dataType)
 			{
-				case DataType::DATA_BOOL: setData<bool>(name, dataType, buffer.readBytes<bool>()); break;
-				case DataType::DATA_CHAR: setData<byte>(name, dataType, buffer.readBytes<byte>()); break;
-				case DataType::DATA_SHORT: setData<short>(name, dataType, buffer.readBytes<short>()); break;
-				case DataType::DATA_INT: setData<int>(name, dataType, buffer.readBytes<int>()); break;
-				case DataType::DATA_LONG_LONG: setData<long long>(name, dataType, buffer.readBytes<long long>()); break;
-				case DataType::DATA_FLOAT: setData<float>(name, dataType, buffer.readBytes<float>()); break;
-				case DataType::DATA_DOUBLE: setData<double>(name, dataType, buffer.readBytes<double>()); break;
-				case DataType::DATA_STRING: setData<std::string>(name, dataType, buffer.readBytes<std::string>()); break;
-				default: assert(false); break;
+				case DataType::DATA_BOOL: setData<bool>(dataType, buffer.readBytes<bool>()); break;
+				case DataType::DATA_CHAR: setData<byte>(dataType, buffer.readBytes<byte>()); break;
+				case DataType::DATA_SHORT: setData<short>(dataType, buffer.readBytes<short>()); break;
+				case DataType::DATA_INT: setData<int>(dataType, buffer.readBytes<int>()); break;
+				case DataType::DATA_LONG_LONG: setData<long long>(dataType, buffer.readBytes<long long>()); break;
+				case DataType::DATA_FLOAT: setData<float>(dataType, buffer.readBytes<float>()); break;
+				case DataType::DATA_DOUBLE: setData<double>(dataType, buffer.readBytes<double>()); break;
+				case DataType::DATA_STRING: setData<std::string>(dataType, buffer.readBytes<std::string>()); break;
+				default: __debugbreak(); break;
 			}
 		}
 
 		template<class T>
 		inline T getValue() const { return Reader::readBytes<T>(data, 0); }
 
-		byte getContainerType() const { return type; }
-		const std::string& getName() const { return name; }
+		inline const std::string& getName() const { return name; }
 		inline DataType getDataType() const { return dataType; }
 
 		inline unsigned int getSize() const

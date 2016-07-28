@@ -13,15 +13,12 @@ Sandbox::Sandbox()
 
 	entity = htnew Entity3D(vec3(0, -20, -50));
 
-	mat4 projectionMatrix = mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT);
-	layer->setMatrix(projectionMatrix);
+	layer->setMatrix(mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT));
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
 
-	rawModel = API::loadObjFile("res/stall.obj");
-
 	model = htnew Renderable();
-	model->loadRawModel(rawModel);
+	model->loadRawModel(API::loadObjFile("res/stall.obj"));
 
 	model->addTexture(API::loadTextureFromFile("res/stallTexture.png"));
 	model->addTexture(API::loadTextureFromFile("res/stallTextureSpecular.png"));

@@ -55,11 +55,12 @@
     <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
     <ClInclude Include="src\ht\graphics\rendering\EntityRenderer3D.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
-    <ClInclude Include="src\ht\graphics\rendering\model\ObjLoader.h" />
     <ClInclude Include="src\ht\graphics\Layer.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\lighting\Sun.h" />
     <ClInclude Include="src\ht\graphics\lighting\Light.h" />
+    <ClInclude Include="src\ht\graphics\ObjLoader.h" />
+    <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\utils\input.cpp" />
@@ -79,5 +80,6 @@
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer3D.cpp" />
     <ClCompile Include="src\ht\graphics\Layer.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
   </ItemGroup>
 </Project>

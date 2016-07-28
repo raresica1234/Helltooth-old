@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "../../../utils/memory/MemoryManager.h"
+
 #include <vector>
 #include <string>
 
@@ -24,25 +26,19 @@
 
 #include "Field.h"
 #include "Array.h"
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
 	class Object
 	{
 	private:
-		byte type;
 		std::string name;
 		std::vector<Array*> arrays;
 		std::vector<Field*> fields;
 
 	public:
-		Object() {};
-		Object(std::string name)
-		{
-			this->name = name;
-			this->type = DataType::DATA_OBJECT;
-		}
+		Object(std::string name) : name(name) { }
+		Object() { }
 
 		~Object()
 		{
@@ -60,7 +56,7 @@ namespace Cereal {
 			assert(fields.size() < 65536);
 			assert(arrays.size() < 65536);
 
-			buffer.writeBytes<byte>(type);
+			buffer.writeBytes<byte>(DataType::DATA_OBJECT);
 			buffer.writeBytes<std::string>(name);
 
 			buffer.writeBytes<unsigned short>((unsigned short)fields.size());
@@ -76,8 +72,8 @@ namespace Cereal {
 			return true;
 		}
 
-		inline void add(Field* field) { fields.push_back(field); }
-		inline void add(Array* array) { arrays.push_back(array); }
+		inline void addField(Field* field) { fields.push_back(field); }
+		inline void addArray(Array* array) { arrays.push_back(array); }
 
 		inline Field* getField(std::string name) const
 		{
@@ -97,9 +93,9 @@ namespace Cereal {
 
 		void read(Buffer& buffer)
 		{
-			this->type = buffer.readBytes<byte>();
+			byte type = buffer.readBytes<byte>();
 
-			assert(this->type == DataType::DATA_OBJECT);
+			assert(type == DataType::DATA_OBJECT);
 
 			this->name = buffer.readBytes<std::string>();
 
@@ -107,27 +103,26 @@ namespace Cereal {
 
 			for (int i = 0; i < fieldCount; i++)
 			{
-				Field* field = new Field;
+				Field* field = htnew Field;
 
 				field->read(buffer);
-				this->add(field);
+				this->addField(field);
 			}
 
 			unsigned short arrayCount = buffer.readBytes<unsigned short>();
 
 			for (int i = 0; i < arrayCount; i++)
 			{
-				Array* array = new Array;
+				Array* array = htnew Array;
 
 				array->read(buffer);
-				this->add(array);
+				this->addArray(array);
 
 				buffer.addOffset(array->getCount() * array->getDataType());
 			}
 		}
 
-		const std::string& getName() const { return name; }
-		byte getContainerType() const { return type; }
+		inline const std::string& getName() const { return name; }
 
 		inline unsigned int getSize() const
 		{

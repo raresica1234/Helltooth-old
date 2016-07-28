@@ -19,7 +19,6 @@
 #include <string>
 
 #include "Internal.h"
-#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
