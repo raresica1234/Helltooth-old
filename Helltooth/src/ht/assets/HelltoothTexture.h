@@ -35,10 +35,12 @@ namespace ht { namespace assets {
 
 			if (texture) delete texture;
 
-			byte* data = pixels->getRawArray();
+			byte* data = pixels->getRawArray<byte>(new byte[pixels->getCount()]);
 
 			texture = htnew Texture();
 			texture->loadPixelArray(data, width, height, bpp);
+
+			delete[] data;
 
 			delete database;
 		}
@@ -57,10 +59,10 @@ namespace ht { namespace assets {
 			
 			Cereal::Object* object = htnew Cereal::Object("texture");
 			
-			object->add(field1);
-			object->add(field2);
-			object->add(field3);
-			object->add(array);
+			object->addField(field1);
+			object->addField(field2);
+			object->addField(field3);
+			object->addArray(array);
 
 			Cereal::Database* database = htnew Cereal::Database("texture");
 			database->addObject(object);

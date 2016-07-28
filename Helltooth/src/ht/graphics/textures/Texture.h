@@ -5,7 +5,10 @@
 #include <GL/glew.h>
 #include <FreeImage/FreeImage.h>
 
-namespace ht{ namespace graphics {
+namespace ht { namespace graphics {
+
+#define TEXTURE_COLOR_ATTACHMENT GL_RGB
+#define TEXTURE_DEPTH_ATTACHMENT GL_DEPTH_COMPONENT32
 
 	class Texture {
 	private:
@@ -26,6 +29,8 @@ namespace ht{ namespace graphics {
 
 		//loading textures
 		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp) const;
+
+		void createAttachment(int width, int height, int type);
 
 		//getting id
 		inline GLuint getID() const { return textureID; }

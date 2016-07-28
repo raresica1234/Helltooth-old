@@ -84,13 +84,13 @@
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Dependencies\Helltooth\</OutDir>
-    <IntDir>$(SolutionDir)bin\Helltooth\</IntDir>
+    <IntDir>$(SolutionDir)Intermidiates\Helltooth\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Dependencies\Helltooth\</OutDir>
-    <IntDir>$(SolutionDir)bin\Release\Helltooth\</IntDir>
+    <IntDir>$(SolutionDir)Intermidiates\Helltooth\$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,8 +152,9 @@
     <ClInclude Include="src\ht\graphics\lighting\Sun.h" />
     <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\EntityRenderer3D.h" />
+    <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
-    <ClInclude Include="src\ht\graphics\rendering\model\ObjLoader.h" />
+    <ClInclude Include="src\ht\graphics\ObjLoader.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
     <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="src\ht\graphics\Layer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\EntityRenderer3D.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />

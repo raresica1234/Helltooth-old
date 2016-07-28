@@ -13,3 +13,4 @@
 *.user
 *.suo
 Intermidiates/
+*.opendb

@@ -97,14 +97,14 @@ namespace ht { namespace graphics {
 
 
 		inline void print() const {
-			for (int i = 0; i < positionSize / sizeof(GLfloat); i += 3) {
+			for (GLsizei i = 0; i < positionSize / (signed) sizeof(GLfloat); i += 3) {
 				printf("Vertex %i %f/%f/%f \n", i / 3, positions[i], positions[i + 1], positions[i + 2]);
 			}
 
-			for (int i = 0; i < indexSize / sizeof(GLuint); i += 3) {
+			for (GLsizei i = 0; i < indexSize / (signed) sizeof(GLuint); i += 3) {
 				printf("Index %i %i/%i/%i \n", i / 3, indices[i], indices[i + 1], indices[i + 2]);
 			}
-			for (int i = 0; i < textureCoordSize / sizeof(GLfloat); i += 2) {
+			for (GLsizei i = 0; i < textureCoordSize / (signed) sizeof(GLfloat); i += 2) {
 				printf("Texture %i %f/%f \n", i / 2, textureCoords[i], textureCoords[i + 1]);
 			}
 		}

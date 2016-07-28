@@ -8,6 +8,7 @@
 #include "graphics/API.h"
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
+#include "graphics/ObjLoader.h"
 
 #include "graphics/lighting/Light.h"
 #include "graphics/lighting/Sun.h"
@@ -17,7 +18,6 @@
 #include "graphics/rendering/EntityRenderer3D.h"
 
 #include "graphics/rendering/model/Cube.h"
-#include "graphics/rendering/model/ObjLoader.h"
 
 #include "graphics/shaders/ShaderProgram.h"
 #include "graphics/shaders/ShaderManager.h"
