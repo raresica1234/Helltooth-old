@@ -5,7 +5,9 @@ namespace ht { namespace graphics {
 	Layer::Layer(unsigned int shader, Camera* camera)
 		: shader(ShaderManager::getProgram(shader)), camera(camera){
 		renderer = new EntityRenderer3D(shader);
-		renderer->setCamera(camera);
+		if (camera);
+			renderer->setCamera(camera);
+
 		this->shader->start();
 		GLint texIDs[] = {
 			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
@@ -39,15 +41,19 @@ namespace ht { namespace graphics {
 		shader->start();
 		renderer->render();
 		shader->stop();
-		renderer->cleanUP();
 	}
 
 	void Layer::update() {
-		camera->update();
+		if(camera)
+			camera->update();
 		if (!shader->hasProjection())
 			setMatrix(projectionMatrix);
 	}
 
+
+	void Layer::cleanUP() {
+		renderer->cleanUP();
+	}
 
 	void Layer::reloadTextures() {
 		this->shader->start();

@@ -22,12 +22,18 @@ namespace sandbox {
 	class Sandbox : public Application {
 	private:
 		Layer* layer;
+		Layer *guis;
 
 		Entity3D *entity;
 
 		Renderable *model;
+		Renderable *gui;
 
 		RawModel *rawModel;
+
+		FBO *fbo;
+
+		Quad *quad;
 
 		unsigned int id;
 

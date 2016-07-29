@@ -24,7 +24,7 @@ namespace ht { namespace graphics {
 		ShaderProgram* program;
 
 		//Camera
-		const Camera* camera;
+		const Camera* camera = nullptr;
 
 	public:
 		

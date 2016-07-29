@@ -16,8 +16,10 @@
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
 #include "graphics/rendering/EntityRenderer3D.h"
+#include "graphics/rendering/FBO.h"
 
 #include "graphics/rendering/model/Cube.h"
+#include "graphics/rendering/model/Quad.h"
 
 #include "graphics/shaders/ShaderProgram.h"
 #include "graphics/shaders/ShaderManager.h"

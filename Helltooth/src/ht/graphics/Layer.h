@@ -22,7 +22,7 @@ namespace ht { namespace graphics {
 		Camera* camera;
 
 	public:
-		Layer(unsigned int shader, Camera* camera);
+		Layer(unsigned int shader, Camera* camera = nullptr);
 		~Layer();
 
 		void setMatrix(maths::mat4 &projectionMatrix);
@@ -32,6 +32,7 @@ namespace ht { namespace graphics {
 		void render();
 		void update();
 
+		void cleanUP();
 		void reloadTextures();
 	};
 

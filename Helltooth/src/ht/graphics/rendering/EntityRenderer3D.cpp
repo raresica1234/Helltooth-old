@@ -18,7 +18,9 @@ namespace ht { namespace graphics {
 	}
 
 	void EntityRenderer3D::render() {
-		program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+		program->start();
+		if (camera)
+			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
 		for (auto& entry : entities) {
 			entry.first->prepare(program);
 			for (Entity3D entity : entry.second) {

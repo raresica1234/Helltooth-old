@@ -154,6 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\texture.httexture" />
+    <None Include="src\shaders\quad.frag" />
+    <None Include="src\shaders\quad.vert" />
     <None Include="src\shaders\shader.frag" />
     <None Include="src\shaders\shader.vert" />
   </ItemGroup>

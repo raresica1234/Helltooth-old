@@ -155,6 +155,7 @@
     <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
     <ClInclude Include="src\ht\graphics\ObjLoader.h" />
+    <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
     <ClInclude Include="src\ht\graphics\rendering\vertex.h" />

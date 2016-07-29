@@ -10,76 +10,223 @@
     <Filter Include="Dependencies">
       <UniqueIdentifier>{5f2adb05-7b4c-4aaf-b1ee-34915c989926}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Helltooth\Graphics">
+    <Filter Include="src\Helltooth\assets">
+      <UniqueIdentifier>{357ff1b4-4575-4e4f-8df3-3d3f1b516603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics">
       <UniqueIdentifier>{c53cc937-11cb-4cc6-a514-58a7400a9f85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics\lighting">
+      <UniqueIdentifier>{c442122c-8543-4298-b3eb-0de13a6c9b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics\rendering">
+      <UniqueIdentifier>{7893257b-d494-4a55-9a95-7f320f58c911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics\rendering\model">
+      <UniqueIdentifier>{01abd920-b4de-4f9c-815f-6a6483a135ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\maths">
+      <UniqueIdentifier>{9dbbfb26-20dd-4269-9861-ec7ffb222ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics\shaders">
+      <UniqueIdentifier>{379345ed-79b5-4f72-956b-692026a24a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\graphics\textures">
+      <UniqueIdentifier>{8510396b-5014-434f-a931-18e18148835e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\tools">
+      <UniqueIdentifier>{e3f9d969-5fab-49ae-8124-93cafa9f5fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\tools\Cereal">
+      <UniqueIdentifier>{3ae2bd59-0924-4a27-a52f-9fd8c8237563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\tools\Cereal\src">
+      <UniqueIdentifier>{1edcd6a2-bfb1-42e5-b36a-3d1f49950034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\utils">
+      <UniqueIdentifier>{bee78558-b532-4999-915e-f3823ce9a81d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Helltooth\utils\memory">
+      <UniqueIdentifier>{c1bd97d7-e836-41a0-8581-477bf10bf2f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ht\Helltooth.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ht\utils\FileUtils.h" />
-    <ClInclude Include="src\ht\utils\Input.h" />
-    <ClInclude Include="src\ht\maths\mat4.h" />
-    <ClInclude Include="src\ht\maths\maths.h" />
-    <ClInclude Include="src\ht\maths\vec2.h" />
-    <ClInclude Include="src\ht\maths\vec3.h" />
-    <ClInclude Include="src\ht\maths\vec4.h" />
-    <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\window.h">
-      <Filter>src\Helltooth\Graphics</Filter>
+      <Filter>src\Helltooth\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\ht\utils\FpsCounter.h" />
-    <ClInclude Include="src\ht\graphics\API.h" />
-    <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
-    <ClInclude Include="src\ht\graphics\Camera.h" />
-    <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
-    <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
-    <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
-    <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
-    <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
-    <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
-    <ClInclude Include="src\ht\graphics\textures\Texture.h" />
-    <ClInclude Include="src\ht\assets\Asset.h" />
-    <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
-    <ClInclude Include="src\ht\utils\Log.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Array.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Buffer.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Database.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Field.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Header.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Internal.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
-    <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
-    <ClInclude Include="src\ht\graphics\rendering\EntityRenderer3D.h" />
-    <ClInclude Include="src\ht\assets\HelltoothModel.h" />
-    <ClInclude Include="src\ht\graphics\Layer.h" />
-    <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
-    <ClInclude Include="src\ht\graphics\lighting\Sun.h" />
-    <ClInclude Include="src\ht\graphics\lighting\Light.h" />
-    <ClInclude Include="src\ht\graphics\ObjLoader.h" />
-    <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
+    <ClInclude Include="src\ht\graphics\API.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\Cereal.h">
+      <Filter>src\Helltooth\tools\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Array.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Buffer.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Database.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Field.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Header.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Internal.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\assets\Asset.h">
+      <Filter>src\Helltooth\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\assets\HelltoothModel.h">
+      <Filter>src\Helltooth\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\assets\HelltoothTexture.h">
+      <Filter>src\Helltooth\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\lighting\Light.h">
+      <Filter>src\Helltooth\graphics\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\lighting\Sun.h">
+      <Filter>src\Helltooth\graphics\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\model\Cube.h">
+      <Filter>src\Helltooth\graphics\rendering\model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h">
+      <Filter>src\Helltooth\graphics\rendering\model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\Entity3D.h">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\EntityRenderer3D.h">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\Layer.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\FileUtils.h">
+      <Filter>src\Helltooth\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\FpsCounter.h">
+      <Filter>src\Helltooth\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\Input.h">
+      <Filter>src\Helltooth\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\Log.h">
+      <Filter>src\Helltooth\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h">
+      <Filter>src\Helltooth\utils\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\utils\memory\MemoryManager.h">
+      <Filter>src\Helltooth\utils\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Object.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Reader.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\maths\vec2.h">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\maths\mat4.h">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\maths\vec3.h">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\maths\vec4.h">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\vertex.h">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\Camera.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\maths\maths.h">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\FBO.h">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\Renderable.h">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h">
+      <Filter>src\Helltooth\graphics\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h">
+      <Filter>src\Helltooth\graphics\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\ObjLoader.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\textures\Texture.h">
+      <Filter>src\Helltooth\graphics\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\tools\Cereal\src\Writer.h">
+      <Filter>src\Helltooth\tools\Cereal\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\Helltooth.h">
+      <Filter>src\Helltooth</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ht\utils\input.cpp" />
-    <ClCompile Include="src\ht\maths\mat4.cpp" />
-    <ClCompile Include="src\ht\maths\vec2.cpp" />
-    <ClCompile Include="src\ht\maths\vec3.cpp" />
-    <ClCompile Include="src\ht\maths\vec4.cpp" />
-    <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\window.cpp">
-      <Filter>src\Helltooth\Graphics</Filter>
+      <Filter>src\Helltooth\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\ht\graphics\API.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
-    <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
-    <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\EntityRenderer3D.cpp" />
-    <ClCompile Include="src\ht\graphics\Layer.cpp" />
-    <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
+    <ClCompile Include="src\ht\graphics\API.cpp">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\rendering\EntityRenderer3D.cpp">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\Layer.cpp">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\utils\input.cpp">
+      <Filter>src\Helltooth\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp">
+      <Filter>src\Helltooth\utils\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\maths\vec2.cpp">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\maths\mat4.cpp">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\maths\vec3.cpp">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\maths\vec4.cpp">
+      <Filter>src\Helltooth\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\rendering\FBO.cpp">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp">
+      <Filter>src\Helltooth\graphics\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp">
+      <Filter>src\Helltooth\graphics\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp">
+      <Filter>src\Helltooth\graphics\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\textures\Texture.cpp">
+      <Filter>src\Helltooth\graphics\textures</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

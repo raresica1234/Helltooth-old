@@ -9,8 +9,17 @@ namespace ht { namespace graphics {
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 	}
 
+	FBO::~FBO() {
+		for (Texture* texture : textures) {
+			delete texture;
+		}
+		if (hasDepthBuffer)
+			glDeleteFramebuffers(1, &depthBuffer);
+		glDeleteFramebuffers(1, &id);
+	}
+
 	void FBO::createColorTexture() {
-		Texture* texture = new Texture();
+		Texture* texture = htnew Texture();
 		texture->createAttachment(width, height, TEXTURE_COLOR_ATTACHMENT);
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->getID(), 0);
 		textures.push_back(texture);
@@ -19,7 +28,7 @@ namespace ht { namespace graphics {
 	void FBO::createDepthTexture(bool texture) {
 		hasDepthBuffer = !texture;
 		if (texture) {
-			Texture* texture = new Texture();
+			Texture* texture = htnew Texture();
 			texture->createAttachment(width, height, TEXTURE_DEPTH_ATTACHMENT);
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture->getID(), 0);
 			textures.push_back(texture);
@@ -37,6 +46,7 @@ namespace ht { namespace graphics {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, id);
 		glViewport(0, 0, width, height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void FBO::unbind(int width, int height) {

@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include "../textures/Texture.h"
+#include "../../utils/memory/MemoryManager.h"
+
 #include <vector>
 namespace ht { namespace graphics {
 
@@ -23,6 +25,8 @@ namespace ht { namespace graphics {
 		void bind();
 		void unbind(int width, int height);
 
+		inline GLuint getColorTexID() { return textures[0]->getID(); }
+		inline Texture* getColorTexture() { return textures[0]; }
 	};
 
 } }
