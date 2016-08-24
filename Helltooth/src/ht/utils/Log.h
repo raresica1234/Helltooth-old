@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WINDOWS_
-#undef _WINDOWS_
+	#undef _WINDOWS_
 #endif
 
 #include <Windows.h>

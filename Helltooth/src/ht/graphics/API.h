@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ObjLoader.h"
 #include "../assets/Asset.h"
 #include "shaders/ShaderManager.h"
 #include "rendering/model/RawModel.h"
+#include "../assets/ObjLoader.h"
 
 #define API_MODE_2D 0
 #define API_MODE_3D 1

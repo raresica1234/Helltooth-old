@@ -99,6 +99,7 @@ namespace Cereal {
 			data = htnew byte[count * sizeOf(dataType)];
 
 			memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
+			buffer.addOffset(getCount() * sizeOf(getDataType()));
 		}
 
 		inline unsigned int getCount() const { return count; }

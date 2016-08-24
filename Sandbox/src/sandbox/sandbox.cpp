@@ -12,7 +12,10 @@ Sandbox::Sandbox()
 	layer = htnew Layer(API::createShader("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
 	guis = htnew Layer(API::createShader("src/shaders/quad.vert", "src/shaders/quad.frag"));
 
-	entity = htnew Entity3D(vec3(0, -20, -50));
+	entity = htnew Entity3D(vec3(0, -20, -55));
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	fbo = htnew FBO(window->getWidth(), window->getHeight());
 	fbo->createColorTexture();
@@ -46,6 +49,8 @@ void Sandbox::init(){
 void Sandbox::update() {
 	layer->update();
 	guis->update();
+
+	entity->rotate(vec3(0, 0.3f, 0));
 
 	if (Input::getKey(GLFW_KEY_R))
 		compile = true;

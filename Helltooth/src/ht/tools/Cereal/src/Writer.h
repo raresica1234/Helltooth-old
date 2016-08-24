@@ -61,9 +61,9 @@ namespace Cereal {
 
 			memcpy_s(&x, sizeof(unsigned int), &data, sizeof(float));
 
-			writeBytes<unsigned int>(dest, pointer, x);
+			pointer = writeBytes<unsigned int>(dest, pointer, x);
 
-			return true;
+			return pointer;
 		}
 
 		template<>
@@ -73,9 +73,9 @@ namespace Cereal {
 
 			*(unsigned long long*)&x = (unsigned long long)data;
 
-			writeBytes<unsigned long long>(dest, pointer, x);
+			pointer = writeBytes<unsigned long long>(dest, pointer, x);
 
-			return true;
+			return pointer;
 		}
 
 	};

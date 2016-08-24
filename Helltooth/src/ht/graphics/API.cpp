@@ -7,7 +7,7 @@ namespace ht { namespace graphics {
 
 
 	RawModel* API::loadObjFile(const char* path) {
-		return ObjLoader::loadObjFile(path);
+		return assets::Asset::loadModelFromFile(path);
 	}
 
 	const Texture* API::loadTextureFromFile(const char* path) {

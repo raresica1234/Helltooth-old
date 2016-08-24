@@ -1,14 +1,15 @@
 #pragma once
 
+
 //ASSETS
 #include "assets/Asset.h"
+#include "assets/ObjLoader.h"
 
 //GRAPHICS
 #include "graphics/Window.h"
 #include "graphics/API.h"
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
-#include "graphics/ObjLoader.h"
 
 #include "graphics/lighting/Light.h"
 #include "graphics/lighting/Sun.h"

@@ -1,6 +1,6 @@
 #include "Window.h"
 
-namespace ht {	namespace graphics {
+namespace ht { namespace graphics {
 
 		void windowResize(GLFWwindow *window, int width, int height);
 
@@ -57,7 +57,7 @@ namespace ht {	namespace graphics {
 
 		void Window::update() {
 			glfwPollEvents();
-			glfwSwapBuffers(m_Window); 
+			glfwSwapBuffers(m_Window);
 		}
 
 		bool Window::closed() const {

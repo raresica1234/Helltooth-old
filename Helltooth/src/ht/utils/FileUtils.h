@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 
-#include "../../ht/utils/memory/MemoryManager.h"
+#include "memory/MemoryManager.h"
+
 
 namespace ht { namespace utils {
 
@@ -32,6 +33,22 @@ namespace ht { namespace utils {
 			FILE* file = fopen(path, "w");
 			fwrite(data, 1, dataSize, file);
 			fclose(file);
+		}
+
+		static std::string changeExtension(const char *file, std::string newExtension) {
+			std::string sfile(file);
+			int i = 0;
+			for (i = sfile.size(); i > 0 ; i--) {
+				if (sfile[i] == '.')
+					break;
+			}
+			if (i == 0)
+				HT_WARN("[FileUtils] Extension not found at file: %s", sfile);
+			i++;
+			std::string newFile;
+			newFile = sfile.substr(0, i);
+			newFile += newExtension;
+			return newFile;
 		}
 
 	};

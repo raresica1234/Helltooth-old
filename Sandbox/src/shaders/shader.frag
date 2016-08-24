@@ -34,4 +34,5 @@ void main(){
 	dampedFactor = pow(dampedFactor, 1 - currentSpecular.r);
 
 	color = color * max(brightness * dampedFactor, ambientLight);
+	//color = vec4(normal.x / 2 +0.3, normal.y, normal.z, pass_textureCoords.x);
 }

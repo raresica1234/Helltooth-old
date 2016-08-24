@@ -165,9 +165,6 @@
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h">
       <Filter>src\Helltooth\graphics\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\ht\graphics\ObjLoader.h">
-      <Filter>src\Helltooth\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\ht\graphics\textures\Texture.h">
       <Filter>src\Helltooth\graphics\textures</Filter>
     </ClInclude>
@@ -178,6 +175,12 @@
       <Filter>src\Helltooth</Filter>
     </ClInclude>
     <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
+    <ClInclude Include="src\ht\assets\ObjLoader.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\terrain\Terrain.h" />
+    <ClInclude Include="src\ht\components\graphics\StaticRendrable.h" />
+    <ClInclude Include="src\ht\components\graphics\DynamicRenderable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\window.cpp">

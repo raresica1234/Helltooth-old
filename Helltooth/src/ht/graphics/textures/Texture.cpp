@@ -5,6 +5,7 @@ namespace ht { namespace graphics {
 	Texture::Texture() {
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
+		HT_INFO("[Texture] Texture created with id %i", textureID);
 	}
 
 	bool Texture::loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp) const {
