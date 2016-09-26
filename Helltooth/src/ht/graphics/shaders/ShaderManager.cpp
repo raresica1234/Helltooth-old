@@ -5,12 +5,13 @@ namespace ht { namespace graphics {
 
 	std::vector<ShaderProgram*> ShaderManager::shaders;
 
-	unsigned int ShaderManager::loadProgram(const char* vertexPath, const char* fragmentPath) {
-		ShaderProgram* program = htnew ShaderProgram(vertexPath, fragmentPath);
+	unsigned int ShaderManager::loadProgram(const char* vertexPath, const char* fragmentPath, bool path) {
+		ShaderProgram* program = htnew ShaderProgram(vertexPath, fragmentPath, path);
 		shaders.push_back(program);
 		HT_INFO("[ShaderManager] Program with id %i loaded!", shaders.size() - 1);
 		return shaders.size() - 1;
 	}
+
 
 	ShaderProgram* ShaderManager::getProgram(unsigned int &id) {
 		if (id < shaders.size())

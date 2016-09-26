@@ -1,4 +1,4 @@
-#version 400 core
+#version 330 core
 
 in vec3 normal;
 in vec3 toLightVector;
@@ -7,7 +7,7 @@ in vec2 pass_textureCoords;
 
 uniform sampler2D textures[32];
 
-out vec4 color;
+layout(location = 0) out vec4 color;
 
 float ambientLight = 0.2;
 

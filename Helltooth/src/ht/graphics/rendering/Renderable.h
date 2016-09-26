@@ -48,7 +48,7 @@ namespace ht { namespace graphics {
 		//prepare for rendering
 		inline void prepare(ShaderProgram* program) const { 
 			vao->bindVAO();
-			for (int i = 0; i < textures.size(); i++) {
+			for (size_t i = 0; i < textures.size(); i++) {
 				if (i > 31) {
 					HT_WARN("[Renderable] Textures size is bigger than 32!");
 					break;

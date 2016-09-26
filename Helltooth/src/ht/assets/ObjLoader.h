@@ -25,7 +25,7 @@ namespace ht { namespace assets {
 		static void processVertex(vec3 vertex, std::vector<unsigned int> &indices, std::vector<maths::vec2> &textures,
 			std::vector<maths::vec3> &normals, std::vector<float> &textureArray, std::vector<float> &normalsArray) {
 
-			float currentVertexPointer = vertex.x - 1;
+			int currentVertexPointer = (int)vertex.x - 1;
 			indices.push_back((unsigned int) currentVertexPointer);
 			maths::vec2 currentTex = textures[(unsigned int)((int)vertex.y - 1)];
 
@@ -33,7 +33,7 @@ namespace ht { namespace assets {
 			textureArray[currentVertexPointer * 2] = currentTex.x;
 			textureArray[currentVertexPointer * 2 + 1] = currentTex.y;
 
-			maths::vec3 currentNorm = normals[vertex.z - 1];
+			maths::vec3 currentNorm = normals[(int)vertex.z - 1];
 
 			reserveMemory(normalsArray, currentVertexPointer * 3 + 2);
 

@@ -16,14 +16,20 @@
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
-#include "graphics/rendering/EntityRenderer3D.h"
+#include "graphics/rendering/renderers/EntityRenderer3D.h"
+#include "graphics/rendering/renderers/MasterRenderer.h"
 #include "graphics/rendering/FBO.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Quad.h"
 
+#include "graphics/rendering/types/StaticEntity.h"
+#include "graphics/rendering/types/DynamicEntity.h"
+
 #include "graphics/shaders/ShaderProgram.h"
 #include "graphics/shaders/ShaderManager.h"
+
+#include "graphics/terrain/Terrain.h"
 
 #include "graphics/textures/Texture.h"
 

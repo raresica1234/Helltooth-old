@@ -12,8 +12,6 @@ Sandbox::Sandbox()
 	layer = htnew Layer(API::createShader("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
 	guis = htnew Layer(API::createShader("src/shaders/quad.vert", "src/shaders/quad.frag"));
 
-	entity = htnew Entity3D(vec3(0, -20, -55));
-
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
@@ -25,42 +23,50 @@ Sandbox::Sandbox()
 	layer->setMatrix(mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT));
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
-	gui = htnew Renderable();
-	quad = htnew Quad();
-	gui->loadRawModel(quad->getModel());
-	gui->addTexture(fbo->getColorTexture());
+	Renderable* guiRenderable = htnew Renderable();
 
-	model = htnew Renderable();
+	quad = htnew Quad();
+	guiRenderable->loadRawModel(quad->getModel());
+	guiRenderable->addTexture(fbo->getColorTexture());
+	sentity = htnew StaticEntity(guiRenderable, -5.0f, -12.0f, 1.0f);
+	sentity->scale(2, 2, 2);
+
+	Renderable* model = htnew Renderable();
 	model->loadRawModel(API::loadObjFile("res/stall.obj"));
 
 	model->addTexture(API::loadTextureFromFile("res/stallTexture.png"));
 	model->addTexture(API::loadTextureFromFile("res/stallTextureSpecular.png"));
 
-	entity->rotate(vec3(0, 180, 0));
+	terrain = htnew Terrain(vec2(1, 1));
+
+	layer->submit(terrain);
+	//guis->submit(sentity);
+
+	dentity = htnew DynamicEntity(model, vec3(0, -20, -55));
+	dentity->rotate(vec3(0, 180, 0));
+	guis->submit(sentity);
 	Application::start();
 }
 
 void Sandbox::init(){
-	entity->scale(vec3(10, 10, 10));
+	dentity->scale(vec3(1, 1, 1));
 
 	Application::init();
+
 }
 
 void Sandbox::update() {
 	layer->update();
 	guis->update();
 
-	entity->rotate(vec3(0, 0.3f, 0));
+	dentity->rotate(vec3(0, 0.3f, 0));
 
 	if (Input::getKey(GLFW_KEY_R))
 		compile = true;
 }
 
 void Sandbox::render() {
-	layer->submit(model, *entity);
-	Entity3D e = Entity3D(-5.0f, -12.0f, 1.0f);
-	e.scale(2, 2, 2);
-	guis->submit(gui, e);
+	layer->submit(dentity);
 
 	fbo->bind();
 	layer->render();
@@ -68,7 +74,6 @@ void Sandbox::render() {
 
 	layer->render();
 	guis->render();
-
 
 	layer->cleanUP();
 	guis->cleanUP();
@@ -84,12 +89,16 @@ void Sandbox::tick() {
 }
 
 Sandbox::~Sandbox()  {
+	layer->forceCleanUP();
+	guis->forceCleanUP();
+
+	delete terrain;
+
 	delete guis;
 	delete layer;
 
-	delete model;
-	delete gui;
+	delete dentity;
+	delete sentity;
 
-	delete entity;
 	delete quad;
 }

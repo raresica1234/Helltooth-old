@@ -3,10 +3,13 @@
 #include "Camera.h"
 #include "shaders/ShaderProgram.h"
 #include "shaders/ShaderManager.h"
-#include "rendering/EntityRenderer3D.h"
+#include "rendering/renderers/MasterRenderer.h"
 #include "rendering/Entity3D.h"
 #include "rendering/Renderable.h"
 #include "../maths/mat4.h"
+
+#include "rendering/types/DynamicEntity.h"
+#include "rendering/types/StaticEntity.h"
 
 #include "../utils/memory/MemoryManager.h"
 
@@ -18,7 +21,7 @@ namespace ht { namespace graphics {
 	private:
 		maths::mat4 projectionMatrix;
 		ShaderProgram* shader;
-		EntityRenderer3D* renderer;
+		MasterRenderer* renderer;
 		Camera* camera;
 
 	public:
@@ -29,10 +32,14 @@ namespace ht { namespace graphics {
 
 		void submit(Renderable* renderable, Entity3D &entity);
 		void submit(Renderable* renderable, std::vector<Entity3D> entityList);
+		void submit(const StaticEntity *entity);
+		void submit(const DynamicEntity *entity);
+
 		void render();
 		void update();
 
 		void cleanUP();
+		void forceCleanUP();
 		void reloadTextures();
 	};
 

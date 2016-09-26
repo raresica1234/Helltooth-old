@@ -29,13 +29,13 @@ namespace ht { namespace graphics {
 		const char *FRAGMENT_PATH;
 		
 		bool projection;
-
+		bool path;
 		//program id
 		GLuint programID;
 
 	public:
 		//Constructor(vertex shader path, fragment shader path)
-		ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH);
+		ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH, bool path = true);
 		~ShaderProgram();
 
 		//Uniforms

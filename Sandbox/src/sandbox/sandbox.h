@@ -25,17 +25,14 @@ namespace sandbox {
 		Layer* layer;
 		Layer *guis;
 
-		Entity3D *entity;
-
-		Renderable *model;
-		Renderable *gui;
-
 		RawModel *rawModel;
 
 		FBO *fbo;
 
 		Quad *quad;
-
+		Terrain* terrain;
+		StaticEntity* sentity;
+		DynamicEntity* dentity;
 		unsigned int id;
 
 		unsigned int TYPE = API_OPENGL;

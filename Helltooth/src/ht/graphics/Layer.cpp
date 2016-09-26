@@ -4,9 +4,7 @@ namespace ht { namespace graphics {
 
 	Layer::Layer(unsigned int shader, Camera* camera)
 		: shader(ShaderManager::getProgram(shader)), camera(camera){
-		renderer = new EntityRenderer3D(shader);
-		if (camera);
-			renderer->setCamera(camera);
+		renderer = new MasterRenderer(shader, camera);
 
 		this->shader->start();
 		GLint texIDs[] = {
@@ -27,6 +25,7 @@ namespace ht { namespace graphics {
 		this->projectionMatrix = projectionMatrix;
 		shader->start();
 		shader->setProjection("projectionMatrix", projectionMatrix);
+		renderer->setProjectionMatrix(projectionMatrix);
 		shader->stop();
 	}
 
@@ -37,7 +36,14 @@ namespace ht { namespace graphics {
 		renderer->submit(renderable, entityList);
 	}
 
+	void Layer::submit(const StaticEntity *entity) {
+		renderer->submit(entity);
+	}
+	void Layer::submit(const DynamicEntity *entity) {
+		renderer->submit(entity);
+	}
 	void Layer::render() {
+		renderer->prepare();
 		shader->start();
 		renderer->render();
 		shader->stop();
@@ -50,9 +56,12 @@ namespace ht { namespace graphics {
 			setMatrix(projectionMatrix);
 	}
 
-
 	void Layer::cleanUP() {
 		renderer->cleanUP();
+	}
+
+	void Layer::forceCleanUP() {
+		renderer->forceCleanUP();
 	}
 
 	void Layer::reloadTextures() {

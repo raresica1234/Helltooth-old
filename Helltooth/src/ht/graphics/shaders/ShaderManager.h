@@ -15,7 +15,7 @@ namespace ht {namespace graphics {
 		static std::vector<ShaderProgram*> shaders;
 
 	public:
-		static unsigned int loadProgram(const char* vertexPath, const char* fragmentPath);
+		static unsigned int loadProgram(const char* vertexPath, const char* fragmentPath, bool path = true);
 		static ShaderProgram* getProgram(unsigned int &id);
 		static void cleanUP();
 

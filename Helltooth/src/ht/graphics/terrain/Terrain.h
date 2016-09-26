@@ -4,27 +4,55 @@
 #include "../../maths/vec3.h"
 #include "../../maths/vec2.h"
 
+#include "../rendering/Renderable.h"
+#include "../rendering/types/StaticEntity.h"
+
+#include "../Camera.h"
+
 #include <vector>
-#include "../../assets/Asset.h"
 namespace ht { namespace graphics {
 
-#define CHUNK_SIZE 16
-#define TERRAIN_CHUNK_SIZE 16
+#define VERTEX_COUNT 128
+#define TERRAIN_SIZE 800
 
-	class Terrain {
+	class Terrain : public StaticEntity {
 	private:
-		RawModel* model;
-		std::vector<Chunk> chunks;
-
+		ShaderProgram* program;
+		
 	public:
-		Terrain(maths::vec2 location, const char* heightMap) {
+		Terrain(maths::vec2 location);
 
+		~Terrain();
+
+		void prepare(ShaderProgram* program) const {
+			this->program->start();
+			renderable->prepare(this->program);
+			this->program->stop();
+		}
+
+		void setModelMatrix() const {
+			program->start();
+			program->uniformMat4("modelMatrix", mat4::createIdentity());
+			program->stop();
+		}
+		void setProjection(mat4 projection) const {
+			program->start();
+			program->uniformMat4("projectionMatrix", mat4::createIdentity()); 
+			program->stop();
+		}
+
+		void setViewMatrix(const Camera *camera) const {
+			program->start();
+			program->uniformMat4("viewMatrix", mat4::createIdentity()/*camera == nullptr ? mat4::createIdentity() : camera->generateViewMatrix()*/);
+			program->stop();
+		}
+
+		void render() const {
+			program->start();
+			renderable->render();
+			program->stop();
+			renderable->end();
 		}
 
 	};
-
-	struct Chunk {
-		std::vector<maths::vec3> vectors;
-	};
-
 } }
