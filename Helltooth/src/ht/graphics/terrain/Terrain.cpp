@@ -1,5 +1,7 @@
 #include "Terrain.h"
 
+#include "../rendering/model/Quad.h"
+
 namespace ht { namespace graphics {
 
 	static const char* shaderVert =
@@ -59,13 +61,14 @@ namespace ht { namespace graphics {
 		}
 
 		model = htnew RawModel(positions, terrainSize * 3 * sizeof(GLfloat));
-		model->storeData(indices, 6 * (VERTEX_COUNT - 1) * (VERTEX_COUNT - 1) * sizeof(GLint));
+		model->storeData(indices, 6 * (VERTEX_COUNT - 1) * (VERTEX_COUNT - 1) * sizeof(GLuint));
 		model->storeData(RAWMODEL_NORMALS, normals, terrainSize * 3 * sizeof(GLfloat));
 		model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoords, terrainSize * 2 * sizeof(GLfloat));
 
 		renderable = htnew Renderable();
 		renderable->loadRawModel(model);
-		this->scale(100, 100, 100);
+		renderable->addTexture(API::loadTextureFromFile("res/grass.jpg"));
+		scale(1.0, 1.0, 1.0);
 	}
 
 	Terrain::~Terrain() {

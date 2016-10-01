@@ -46,7 +46,7 @@ namespace ht { namespace graphics {
 		inline GLuint getVaoID() { return vao->getID(); }
 
 		//prepare for rendering
-		inline void prepare(ShaderProgram* program) const { 
+		inline void prepare() const { 
 			vao->bindVAO();
 			for (size_t i = 0; i < textures.size(); i++) {
 				if (i > 31) {

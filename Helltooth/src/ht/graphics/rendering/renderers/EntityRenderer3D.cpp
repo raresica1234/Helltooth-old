@@ -31,29 +31,17 @@ namespace ht { namespace graphics {
 		}
 	}
 
-	//void EntityRenderer3D::submit(const StaticEntity* e) {
-	//	staticEntities[e->getRenderable()].push_back((Entity3D)*e);
-	//}
-
 	void EntityRenderer3D::render() {
 		if (camera)
 			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
 		for (auto& entry : dynamicEntities) {
-			entry.first->prepare(program);
+			entry.first->prepare();
 			for (Entity3D entity : entry.second) {
 				program->uniformMat4("modelMatrix", entity.getModelMatrix());
 				entry.first->render();
 			}
 			entry.first->end();
 		}
-		/*for (auto& entry : staticEntities) {
-			entry.first->prepare(program);
-			for (Entity3D entity : entry.second) {
-				program->uniformMat4("modelMatrix", entity.getModelMatrix());
-				entry.first->render();
-			}
-			entry.first->end();
-		}*/
 	}
 
 	void EntityRenderer3D::cleanUP() {

@@ -52,6 +52,11 @@ namespace ht { namespace graphics {
 
 		inline mat4 getModelMatrix() const { return modelMatrix; }
 
+		inline void move(vec3 &move) {
+			m_Position = m_Position + move;
+			modelMatrix = generateModelMatrix();
+		}
+
 	protected:
 		mat4 generateModelMatrix() const;
 		

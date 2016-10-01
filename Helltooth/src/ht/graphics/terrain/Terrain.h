@@ -24,31 +24,26 @@ namespace ht { namespace graphics {
 
 		~Terrain();
 
-		void prepare(ShaderProgram* program) const {
-			this->program->start();
-			renderable->prepare(this->program);
-			this->program->stop();
+		void prepare() const {
+			renderable->prepare();
+			program->start();
 		}
 
-		void setModelMatrix() const {
-			program->start();
-			program->uniformMat4("modelMatrix", mat4::createIdentity());
+		void setModelMatrix() const override {
+			mat4 model = getModelMatrix();
+			program->uniformMat4("modelMatrix", model);
 			program->stop();
 		}
-		void setProjection(mat4 projection) const {
+		void setProjection(mat4 projection) const override {
 			program->start();
-			program->uniformMat4("projectionMatrix", mat4::createIdentity()); 
-			program->stop();
+			program->uniformMat4("projectionMatrix", projection);
 		}
 
-		void setViewMatrix(const Camera *camera) const {
-			program->start();
-			program->uniformMat4("viewMatrix", mat4::createIdentity()/*camera == nullptr ? mat4::createIdentity() : camera->generateViewMatrix()*/);
-			program->stop();
+		void setViewMatrix(const Camera *camera) const override {
+			program->uniformMat4("viewMatrix", camera == nullptr ? mat4::createIdentity() : camera->generateViewMatrix());
 		}
 
 		void render() const {
-			program->start();
 			renderable->render();
 			program->stop();
 			renderable->end();

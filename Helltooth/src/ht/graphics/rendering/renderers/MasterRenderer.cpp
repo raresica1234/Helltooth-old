@@ -20,6 +20,7 @@ namespace ht { namespace graphics {
 
 	void MasterRenderer::submit(const StaticEntity* staticEntity) {
 		staticEntity->setProjection(projectionMatrix);
+		staticEntity->setModelMatrix();
 		staticEntities.push_back(staticEntity);
 	}
 
@@ -38,9 +39,8 @@ namespace ht { namespace graphics {
 	void MasterRenderer::render() {
 		eRenderer->render();
 		for (const StaticEntity* sEntity : staticEntities) {
-			sEntity->prepare(program);
+			sEntity->prepare();
 			sEntity->setViewMatrix(camera);
-			sEntity->setModelMatrix();
 			sEntity->render();
 		}
 	}

@@ -32,7 +32,7 @@ namespace ht { namespace graphics {
 		StaticEntity(Renderable* renderable, float x, float y, float z)
 			: renderable(renderable), Entity3D(x, y, z) {}
 
-		virtual void prepare(ShaderProgram* program) const {
+		virtual void prepare() const {
 		};
 
 		virtual void setViewMatrix(const Camera* camera) const {

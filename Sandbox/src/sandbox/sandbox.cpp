@@ -42,7 +42,7 @@ Sandbox::Sandbox()
 	layer->submit(terrain);
 	//guis->submit(sentity);
 
-	dentity = htnew DynamicEntity(model, vec3(0, -20, -55));
+	dentity = htnew DynamicEntity(model, vec3(0, -1.0, -55));
 	dentity->rotate(vec3(0, 180, 0));
 	guis->submit(sentity);
 	Application::start();
@@ -59,7 +59,9 @@ void Sandbox::update() {
 	layer->update();
 	guis->update();
 
-	dentity->rotate(vec3(0, 0.3f, 0));
+	//dentity->rotate(vec3(0, 0.3f, 0));
+
+	
 
 	if (Input::getKey(GLFW_KEY_R))
 		compile = true;
