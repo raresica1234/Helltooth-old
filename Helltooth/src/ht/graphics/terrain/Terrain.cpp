@@ -67,10 +67,45 @@ namespace ht { namespace graphics {
 
 		renderable = htnew Renderable();
 		renderable->loadRawModel(model);
-		renderable->addTexture(API::loadTextureFromFile("res/grass.jpg"));
 		scale(1.0, 1.0, 1.0);
 	}
 
 	Terrain::~Terrain() {
 	}
+
+	void Terrain::prepare() const {
+		renderable->prepare();
+		program->start();
+	}
+
+	void Terrain::setModelMatrix() const {
+		mat4 model = getModelMatrix();
+		program->uniformMat4("modelMatrix", model);
+		program->stop();
+	}
+
+	void Terrain::setProjection(mat4 projection) const {
+		program->start();
+		program->uniformMat4("projectionMatrix", projection);
+	}
+
+	void Terrain::setViewMatrix(const Camera *camera) const {
+		program->uniformMat4("viewMatrix", camera == nullptr ? mat4::createIdentity() : camera->generateViewMatrix());
+	}
+
+	void Terrain::render() const {
+		renderable->render();
+		program->stop();
+		renderable->end();
+	}
+
+	void Terrain::addBlendMap(Texture* texture) {
+		renderable->addTexture(texture);
+	}
+
+	void Terrain::addTerrainTextures(Texture* textures, short count) {
+		for (short i = 0; i < count < 31 ? count : 31; i++) 
+			renderable->addTexture(&textures[i]);
+	}
+
 } }

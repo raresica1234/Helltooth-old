@@ -182,6 +182,8 @@
       <Filter>src\Helltooth\graphics\rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\ht\graphics\rendering\renderers\MasterRenderer.h" />
+    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
+    <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\window.cpp">
@@ -234,6 +236,8 @@
     </ClCompile>
     <ClCompile Include="src\ht\graphics\rendering\renderers\MasterRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
+    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
+    <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\terrain\terrainShader.vert" />

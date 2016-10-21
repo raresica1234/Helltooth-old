@@ -162,9 +162,11 @@
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
     <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
+    <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\terrain\Terrain.h" />
+    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
     <ClInclude Include="src\ht\graphics\window.h" />
@@ -198,9 +200,11 @@
     <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\MasterRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
+    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
     <ClCompile Include="src\ht\graphics\window.cpp" />
     <ClCompile Include="src\ht\maths\mat4.cpp" />

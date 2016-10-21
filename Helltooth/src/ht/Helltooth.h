@@ -28,6 +28,7 @@
 
 #include "graphics/shaders/ShaderProgram.h"
 #include "graphics/shaders/ShaderManager.h"
+#include "graphics/shaders/DynamicShader.h"
 
 #include "graphics/terrain/Terrain.h"
 

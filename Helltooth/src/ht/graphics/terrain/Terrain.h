@@ -24,30 +24,19 @@ namespace ht { namespace graphics {
 
 		~Terrain();
 
-		void prepare() const {
-			renderable->prepare();
-			program->start();
-		}
+		void prepare() const;
 
-		void setModelMatrix() const override {
-			mat4 model = getModelMatrix();
-			program->uniformMat4("modelMatrix", model);
-			program->stop();
-		}
-		void setProjection(mat4 projection) const override {
-			program->start();
-			program->uniformMat4("projectionMatrix", projection);
-		}
+		void setModelMatrix() const override;
 
-		void setViewMatrix(const Camera *camera) const override {
-			program->uniformMat4("viewMatrix", camera == nullptr ? mat4::createIdentity() : camera->generateViewMatrix());
-		}
+		void setProjection(mat4 projection) const override;
 
-		void render() const {
-			renderable->render();
-			program->stop();
-			renderable->end();
-		}
+		void setViewMatrix(const Camera *camera) const override;
+
+		void render() const;
+
+		void addBlendMap(Texture* texture);
+		
+		void addTerrainTextures(Texture* textures, short count = 1);
 
 	};
 } }
