@@ -67,6 +67,7 @@ namespace ht { namespace graphics {
 
 		renderable = htnew Renderable();
 		renderable->loadRawModel(model);
+		renderable->addTexture(API::loadTextureFromFile("res/grass.jpg"));
 		scale(1.0, 1.0, 1.0);
 	}
 

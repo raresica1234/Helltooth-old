@@ -19,7 +19,7 @@ void main() {
 	std::cout << shader.toString();
 	system("PAUSE");
 
-	//Sandbox* sandbox = htnew Sandbox();
+	Sandbox* sandbox = htnew Sandbox();
 
-	//delete sandbox;
+	delete sandbox;
 }
