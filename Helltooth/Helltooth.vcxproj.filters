@@ -51,9 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ht\graphics\window.h">
-      <Filter>src\Helltooth\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\ht\graphics\API.h">
       <Filter>src\Helltooth\graphics</Filter>
     </ClInclude>
@@ -182,11 +179,12 @@
       <Filter>src\Helltooth\graphics\rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\ht\graphics\rendering\renderers\MasterRenderer.h" />
+    <ClInclude Include="src\ht\graphics\window\window.h">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ht\graphics\window.cpp">
-      <Filter>src\Helltooth\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\ht\graphics\API.cpp">
       <Filter>src\Helltooth\graphics</Filter>
     </ClCompile>
@@ -234,6 +232,10 @@
     </ClCompile>
     <ClCompile Include="src\ht\graphics\rendering\renderers\MasterRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
+    <ClCompile Include="src\ht\graphics\window\window.cpp">
+      <Filter>src\Helltooth\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\terrain\terrainShader.vert" />

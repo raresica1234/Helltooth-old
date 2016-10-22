@@ -4,7 +4,7 @@
 #include "../utils/Input.h"
 #include <GLFW/glfw3.h>
 
-#include "window.h"
+#include "window/window.h"
 
 namespace ht { namespace graphics {
 

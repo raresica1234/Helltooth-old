@@ -40,7 +40,8 @@ namespace ht { namespace graphics {
 		eRenderer->render();
 		for (const StaticEntity* sEntity : staticEntities) {
 			sEntity->prepare();
-			sEntity->setViewMatrix(camera);
+			if(camera)
+				sEntity->setViewMatrix(camera);
 			sEntity->render();
 		}
 	}

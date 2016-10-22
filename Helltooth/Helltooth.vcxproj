@@ -166,8 +166,9 @@
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\terrain\Terrain.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
+    <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
-    <ClInclude Include="src\ht\graphics\window.h" />
+    <ClInclude Include="src\ht\graphics\window\window.h" />
     <ClInclude Include="src\ht\maths\mat4.h" />
     <ClInclude Include="src\ht\maths\maths.h" />
     <ClInclude Include="src\ht\maths\vec2.h" />
@@ -202,7 +203,8 @@
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
-    <ClCompile Include="src\ht\graphics\window.cpp" />
+    <ClCompile Include="src\ht\graphics\window\window.cpp" />
+    <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat4.cpp" />
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />

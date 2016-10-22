@@ -18,4 +18,8 @@ namespace ht { namespace graphics {
 		return ShaderManager::loadProgram(VERTEX_PATH, FRAGMENT_PATH, path);
 	}
 
+	unsigned int API::createWindow(const char *title, const int &width, const int &height) {
+		return WindowManager::createWindow(title, width, height);
+	}
+
 } }

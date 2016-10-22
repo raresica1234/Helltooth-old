@@ -33,6 +33,7 @@ namespace sandbox {
 		Terrain* terrain;
 		StaticEntity* sentity;
 		DynamicEntity* dentity;
+
 		unsigned int id;
 
 		unsigned int TYPE = API_OPENGL;

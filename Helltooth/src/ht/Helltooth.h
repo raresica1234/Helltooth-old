@@ -6,7 +6,8 @@
 #include "assets/ObjLoader.h"
 
 //GRAPHICS
-#include "graphics/Window.h"
+#include "graphics/window/Window.h"
+#include "graphics/window/WindowManager.h"
 #include "graphics/API.h"
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
@@ -60,14 +61,15 @@ protected:
 
 public:
 	Application(const char* title, int width, int height, int MAX_UPS = 60) {
-		window = htnew Window(title, width, height);
+		unsigned int wID = API::createWindow(title, width, height);
+		window = WindowManager::getWindow(wID);
 		counter = htnew FpsCounter(MAX_UPS);
 	}
 
 	~Application() {
 		ShaderManager::cleanUP();
+		WindowManager::cleanUP();
 		delete counter;
-		delete window;
 	}
 protected:
 	void start() {
