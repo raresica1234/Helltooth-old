@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "../../../utils/memory/MemoryManager.h"
-
 #include <string>
 #include <vector>
 
@@ -28,6 +26,8 @@
 #include "Buffer.h"
 
 #define MAGIC_NUMBER	0x524d
+
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -62,10 +62,14 @@ namespace Cereal {
 
 			for (unsigned int offs : offsets)
 			{
+				assert(buffer.getOffset() == offs);
+
+				buffer.setOffset(offs);
+
 				Database* db = htnew Database;
 
 				db->read(buffer);
-				this->add(db);
+				this->addDatabase(db);
 			}
 		}
 
@@ -111,7 +115,7 @@ namespace Cereal {
 			return nullptr;
 		}
 
-		void add(Database* db) { databases.push_back(db); }
+		void addDatabase(Database* db) { databases.push_back(db); }
 
 		const std::vector<Database*>& getDatabases() { return databases; }
 	};

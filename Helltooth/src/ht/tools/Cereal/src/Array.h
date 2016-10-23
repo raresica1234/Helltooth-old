@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "../../../utils/memory/MemoryManager.h"
-
 #include <string>
 #include <vector>
 
@@ -25,6 +23,8 @@
 #include "Reader.h"
 #include "Writer.h" // Same as Field.h
 #include "Internal.h"
+
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -34,7 +34,7 @@ namespace Cereal {
 		std::string name;
 		DataType dataType;
 		unsigned int count; // item count
-		byte* data = nullptr;
+		byte* data;
 
 		template<class T>
 		void setData(DataType type, T* value, unsigned int count)
@@ -45,7 +45,7 @@ namespace Cereal {
 			//Setting the data
 			if (data) del[] data;
 
-			data = htnew byte[sizeof(T) * count];
+			data = new byte[sizeof(T) * count];
 
 			assert(count < 1073741824); // Maximum item count (overflow of pointer and buffer)
 
@@ -57,14 +57,14 @@ namespace Cereal {
 
 	public:
 		Array() : dataType(DataType::DATA_UNKNOWN), data(nullptr), count(0), name("") { }
-		Array(std::string name, byte* value, unsigned int count) : name(name) { setData<byte>(DataType::DATA_CHAR, value, count); }
-		Array(std::string name, bool* value, unsigned int count) : name(name) { setData<bool>(DataType::DATA_BOOL, value, count); }
-		Array(std::string name, char* value, unsigned int count) : name(name) { setData<char>(DataType::DATA_CHAR, value, count); }
-		Array(std::string name, short* value, unsigned int count) : name(name) { setData<short>(DataType::DATA_SHORT, value, count); }
-		Array(std::string name, int* value, unsigned int count) : name(name) { setData<int>(DataType::DATA_INT, value, count); }
-		Array(std::string name, float* value, unsigned int count) : name(name) { setData<float>(DataType::DATA_FLOAT, value, count); }
-		Array(std::string name, long long* value, unsigned int count) : name(name) { setData<long long>(DataType::DATA_LONG_LONG, value, count); }
-		Array(std::string name, double* value, unsigned int count) : name(name) { setData<double>(DataType::DATA_DOUBLE, value, count); }
+		Array(std::string name, byte* value, unsigned int count) : name(name), data(nullptr) { setData<byte>(DataType::DATA_CHAR, value, count); }
+		Array(std::string name, bool* value, unsigned int count) : name(name), data(nullptr) { setData<bool>(DataType::DATA_BOOL, value, count); }
+		Array(std::string name, char* value, unsigned int count) : name(name), data(nullptr) { setData<char>(DataType::DATA_CHAR, value, count); }
+		Array(std::string name, short* value, unsigned int count) : name(name), data(nullptr) { setData<short>(DataType::DATA_SHORT, value, count); }
+		Array(std::string name, int* value, unsigned int count) : name(name), data(nullptr) { setData<int>(DataType::DATA_INT, value, count); }
+		Array(std::string name, float* value, unsigned int count) : name(name), data(nullptr) { setData<float>(DataType::DATA_FLOAT, value, count); }
+		Array(std::string name, long long* value, unsigned int count) : name(name), data(nullptr) { setData<long long>(DataType::DATA_LONG_LONG, value, count); }
+		Array(std::string name, double* value, unsigned int count) : name(name), data(nullptr) { setData<double>(DataType::DATA_DOUBLE, value, count); }
 
 		~Array() { if (data) del[] data; }
 
@@ -99,7 +99,8 @@ namespace Cereal {
 			data = htnew byte[count * sizeOf(dataType)];
 
 			memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
-			buffer.addOffset(getCount() * sizeOf(getDataType()));
+
+			buffer.addOffset(count * sizeOf(dataType));
 		}
 
 		inline unsigned int getCount() const { return count; }
@@ -123,10 +124,7 @@ namespace Cereal {
 			return ret;
 		}
 
-		__declspec(deprecated("Array::getRawArray() is deprecated! Array::getRawArray<T>(void* mem) should be used instead"))
-		inline byte* getRawArray() const { return data; } // this returns the array in BIG ENDIAN, not in little endian
-
-		// THIS should be used instead, as it returns the data in little endian (necessary for >1 byte data types like shorts or ints)
+		// This returns the data in little endian (necessary for >1 byte data types like shorts or ints)
 		template<typename T>
 		inline T* getRawArray(T* mem) const
 		{

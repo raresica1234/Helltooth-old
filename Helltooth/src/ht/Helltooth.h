@@ -50,6 +50,8 @@
 #include "utils/memory/MemoryManager.h"
 
 //TOOLS
+#include "tools/Cereal/Cereal.h"
+#include "tools/VFS/VFS.h"
 
 using namespace ht;
 using namespace graphics;

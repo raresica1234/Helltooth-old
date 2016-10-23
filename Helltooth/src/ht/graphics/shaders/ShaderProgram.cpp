@@ -4,7 +4,15 @@ namespace ht { namespace graphics {
 	using namespace maths;
 
 	ShaderProgram::ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH, bool path) 
-		: VERTEX_PATH(VERTEX_PATH), FRAGMENT_PATH(FRAGMENT_PATH), path(path){
+		: path(path){
+		if (path) {
+			utils::VFS::resolvePhysicalPath(std::string(VERTEX_PATH), this->VERTEX_PATH);
+			utils::VFS::resolvePhysicalPath(std::string(FRAGMENT_PATH), this->FRAGMENT_PATH);
+		}
+		else {
+			this->VERTEX_PATH = VERTEX_PATH;
+			this->FRAGMENT_PATH = FRAGMENT_PATH;
+		}
 		programID = compile();
 		projection = false;
 	}
@@ -24,18 +32,15 @@ namespace ht { namespace graphics {
 		std::string vertexSource;
 		std::string fragmentSource;
 		if (path) {
-			vertexSource = utils::FileUtils::read_file(VERTEX_PATH);
-			fragmentSource = utils::FileUtils::read_file(FRAGMENT_PATH);
+			vertexSource = utils::FileUtils::read_file(VERTEX_PATH.c_str());
+			fragmentSource = utils::FileUtils::read_file(FRAGMENT_PATH.c_str());
 		
 			vertex_Source = vertexSource.c_str();
 			fragment_Source = fragmentSource.c_str();
 		}
 		else {
-			vertexSource = std::string(VERTEX_PATH);
-			fragmentSource = std::string(FRAGMENT_PATH);
-
-			vertex_Source = vertexSource.c_str();
-			fragment_Source = fragmentSource.c_str();
+			vertex_Source = VERTEX_PATH.c_str();
+			fragment_Source = FRAGMENT_PATH.c_str();
 		}
 		glShaderSource(vertexID, 1, &vertex_Source, NULL);
 		glCompileShader(vertexID);

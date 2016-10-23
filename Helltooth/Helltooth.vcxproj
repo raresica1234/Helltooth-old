@@ -186,6 +186,8 @@
     <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
     <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
     <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
+    <ClInclude Include="src\ht\tools\VFS\src\Manager.h" />
+    <ClInclude Include="src\ht\tools\VFS\VFS.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Input.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />
     <ClCompile Include="src\ht\maths\vec4.cpp" />
+    <ClCompile Include="src\ht\tools\VFS\src\Manager.cpp" />
     <ClCompile Include="src\ht\utils\input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
   </ItemGroup>

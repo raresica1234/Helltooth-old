@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 #include "../../utils/FileUtils.h"
+#include "../../tools/VFS/VFS.h"
 #include "../../maths/vec2.h"
 #include "../../maths/vec3.h"
 #include "../../maths/vec4.h"
@@ -25,8 +26,8 @@ namespace ht { namespace graphics {
 	class ShaderProgram {
 	private:
 		//Shader files path
-		const char *VERTEX_PATH;
-		const char *FRAGMENT_PATH;
+		std::string VERTEX_PATH;
+		std::string FRAGMENT_PATH;
 		
 		bool projection;
 		bool path;

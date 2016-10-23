@@ -29,7 +29,8 @@ namespace ht { namespace assets {
 
 	class Asset {
 	public:
-		static inline const Texture* loadTextureFromFile(const char *file) {
+		static inline const Texture* loadTextureFromFile(std::string path) {
+			const char* file = path.c_str();
 			std::string fileName = utils::FileUtils::changeExtension(file, std::string("httexture"));
 
 			if (exists(fileName)) {
@@ -100,7 +101,8 @@ namespace ht { namespace assets {
 			FreeImage_Unload(dib);
 		}
 
-		static inline RawModel* loadModelFromFile(const char *file) {
+		static inline RawModel* loadModelFromFile(std::string path) {
+			const char* file = path.c_str();
 			std::string fileName = utils::FileUtils::changeExtension(file, std::string("htmodel"));
 			if (exists(fileName)) {
 				HelltoothModel model(fileName.c_str());

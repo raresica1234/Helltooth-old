@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "../../../utils/memory/MemoryManager.h"
-
 #include <string>
 #include <vector>
 
@@ -26,6 +24,8 @@
 #include "Internal.h"
 #include "Object.h"
 #include "Buffer.h"
+
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 

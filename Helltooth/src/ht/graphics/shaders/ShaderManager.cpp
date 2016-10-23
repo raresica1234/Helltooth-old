@@ -5,8 +5,8 @@ namespace ht { namespace graphics {
 
 	std::vector<ShaderProgram*> ShaderManager::shaders;
 
-	unsigned int ShaderManager::loadProgram(const char* vertexPath, const char* fragmentPath, bool path) {
-		ShaderProgram* program = htnew ShaderProgram(vertexPath, fragmentPath, path);
+	unsigned int ShaderManager::loadProgram(std::string vertexPath, std::string fragmentPath, bool path) {
+		ShaderProgram* program = htnew ShaderProgram(vertexPath.c_str(), fragmentPath.c_str(), path);
 		shaders.push_back(program);
 		HT_INFO("[ShaderManager] Program with id %i loaded!", shaders.size() - 1);
 		return shaders.size() - 1;

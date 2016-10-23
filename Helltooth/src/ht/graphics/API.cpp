@@ -7,11 +7,15 @@ namespace ht { namespace graphics {
 
 
 	RawModel* API::loadObjFile(const char* path) {
-		return assets::Asset::loadModelFromFile(path);
+		std::string resolvedpath;
+		utils::VFS::resolvePhysicalPath(std::string(path), resolvedpath);
+		return assets::Asset::loadModelFromFile(resolvedpath);
 	}
 
 	const Texture* API::loadTextureFromFile(const char* path) {
-		return assets::Asset::loadTextureFromFile(path);
+		std::string resolvedpath;
+		utils::VFS::resolvePhysicalPath(std::string(path), resolvedpath);
+		return assets::Asset::loadTextureFromFile(resolvedpath);
 	}
 
 	unsigned int API::createShader(const char* VERTEX_PATH, const char* FRAGMENT_PATH, bool path) {

@@ -8,9 +8,13 @@ Sandbox::Sandbox()
 
 	API::API(TYPE, MODE);
 
+	VFS::mount("shaders", "src/shaders");
+	VFS::mount("res", "res/");
+	VFS::mount("res", "res/unused/");
+
 	Camera* camera = htnew Camera(window);
-	layer = htnew Layer(API::createShader("src/shaders/shader.vert", "src/shaders/shader.frag"), camera);
-	guis = htnew Layer(API::createShader("src/shaders/quad.vert", "src/shaders/quad.frag"));
+	layer = htnew Layer(API::createShader("/shaders/shader.vert", "/shaders/shader.frag"), camera);
+	guis = htnew Layer(API::createShader("/shaders/quad.vert", "/shaders/quad.frag"));
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -32,10 +36,10 @@ Sandbox::Sandbox()
 	sentity->scale(3, 3, 3);
 
 	Renderable* model = htnew Renderable();
-	model->loadRawModel(API::loadObjFile("res/stall.obj"));
+	model->loadRawModel(API::loadObjFile("/res/stall.obj"));
 
-	model->addTexture(API::loadTextureFromFile("res/stallTexture.png"));
-	model->addTexture(API::loadTextureFromFile("res/stallTextureSpecular.png"));
+	model->addTexture(API::loadTextureFromFile("/res/stallTexture.png"));
+	model->addTexture(API::loadTextureFromFile("/res/stallTextureSpecular.png"));
 
 	terrain = htnew Terrain(vec2(1, 1));
 	layer->submit(terrain);
@@ -43,6 +47,7 @@ Sandbox::Sandbox()
 
 	dentity = htnew DynamicEntity(model, vec3(0.0f, -1.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
+
 	Application::start();
 }
 

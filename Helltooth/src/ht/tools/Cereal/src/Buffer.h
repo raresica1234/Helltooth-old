@@ -15,20 +15,19 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
-#include "../../../utils/memory/MemoryManager.h"
 
 #include <fstream>
 #include <string>
 #include <assert.h>
 
 #include "Internal.h"
-
+#include "../../../utils/memory/MemoryManager.h"
 namespace Cereal {
 
 	class Buffer
 	{
 	private:
-		byte* start = nullptr;
+		byte* start;
 		unsigned int size;
 		unsigned int offset;
 

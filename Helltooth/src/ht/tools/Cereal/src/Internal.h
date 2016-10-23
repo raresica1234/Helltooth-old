@@ -16,8 +16,6 @@
 
 #pragma once
 
-
-
 namespace Cereal {
 
 	typedef unsigned char byte;

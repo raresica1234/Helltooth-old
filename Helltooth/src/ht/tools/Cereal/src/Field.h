@@ -16,14 +16,14 @@
 
 #pragma once
 
-#include "../../../utils/memory/MemoryManager.h"
-
 #include <string>
 
 #include "Buffer.h"
 #include "Reader.h" // Because of the internal buffer. Do we change it to be a Buffer class?
 #include "Writer.h"
 #include "Internal.h"
+
+#include "../../../utils/memory/MemoryManager.h"
 
 namespace Cereal {
 
@@ -42,7 +42,7 @@ namespace Cereal {
 			if (data) del[] data;
 
 			//Setting the data
-			data = htnew byte[sizeof(T)];
+			data = new byte[sizeof(T)];
 			Writer::writeBytes<T>(data, 0, value);
 		}
 
