@@ -6,7 +6,13 @@
 #include "../Log.h"
 
 #ifndef htnew
-	#define htnew	new(__FILE__, __LINE__)
+#	define htnew	new(__FILE__, __LINE__)
+#endif
+#ifdef del
+#	undef del
+#endif
+#ifndef del
+#	define del delete
 #endif
 
 #define MB 1024 * 1024

@@ -39,7 +39,7 @@ namespace Cereal {
 		{
 			dataType = type;
 
-			if (data) delete[] data;
+			if (data) del[] data;
 
 			//Setting the data
 			data = htnew byte[sizeof(T)];
@@ -52,7 +52,7 @@ namespace Cereal {
 			dataType = type;
 
 			//Setting the data
-			if (data) delete[] data;
+			if (data) del[] data;
 
 			data = htnew byte[value.length() + 2];
 
@@ -77,7 +77,7 @@ namespace Cereal {
 		Field(std::string name, double value) : name(name) { setData<double>(DataType::DATA_DOUBLE, value); }
 		Field(std::string name, std::string value) : name(name) { setData<std::string>(DataType::DATA_STRING, value); }
 
-		~Field() { if(data) delete[] data; }
+		~Field() { if(data) del[] data; }
 
 		unsigned int write(Buffer& buffer) const
 		{

@@ -43,7 +43,7 @@ namespace Cereal {
 			this->dataType = type;
 
 			//Setting the data
-			if (data) delete[] data;
+			if (data) del[] data;
 
 			data = htnew byte[sizeof(T) * count];
 
@@ -66,7 +66,7 @@ namespace Cereal {
 		Array(std::string name, long long* value, unsigned int count) : name(name) { setData<long long>(DataType::DATA_LONG_LONG, value, count); }
 		Array(std::string name, double* value, unsigned int count) : name(name) { setData<double>(DataType::DATA_DOUBLE, value, count); }
 
-		~Array() { if (data) delete[] data; }
+		~Array() { if (data) del[] data; }
 
 		bool write(Buffer& buffer) const
 		{
@@ -94,7 +94,7 @@ namespace Cereal {
 			this->dataType = (DataType)buffer.readBytes<byte>();
 			this->count = buffer.readBytes<unsigned int>();
 
-			if (data) delete[] data;
+			if (data) del[] data;
 
 			data = htnew byte[count * sizeOf(dataType)];
 

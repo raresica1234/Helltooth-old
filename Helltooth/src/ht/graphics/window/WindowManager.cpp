@@ -26,7 +26,7 @@ namespace ht { namespace graphics {
 
 	void WindowManager::cleanUP() {
 		for (Window* window : windows)
-			delete window;
+			del window;
 	}
 
 

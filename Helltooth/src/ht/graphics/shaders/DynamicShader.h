@@ -70,6 +70,11 @@ namespace ht { namespace graphics {
 			return output;
 		}
 
+		void addMainCode(const char* line) {
+			selectBlock(MAIN_BLOCK);
+			addLine(std::string(line) + std::string("\n"));
+		}
+
 	private:
 		const char* storeTypeToString(VariableStoreType type) {
 			switch (type) {

@@ -44,7 +44,7 @@ namespace Cereal {
 		~Database()
 		{
 			for (size_t i = 0; i < objects.size(); i++)
-				delete objects[i];
+				del objects[i];
 		}
 
 		void read(Buffer& buffer)

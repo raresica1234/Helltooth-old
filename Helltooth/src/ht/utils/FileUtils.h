@@ -25,7 +25,7 @@ namespace ht { namespace utils {
 			fread(data, 1, length, file);
 			fclose(file);
 			std::string temp = data;
-			delete[] data;
+			del[] data;
 			return temp;
 		}
 

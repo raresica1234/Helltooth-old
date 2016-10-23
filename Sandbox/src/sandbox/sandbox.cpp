@@ -87,13 +87,13 @@ Sandbox::~Sandbox()  {
 	layer->forceCleanUP();
 	guis->forceCleanUP();
 
-	delete terrain;
+	del terrain;
 
-	delete guis;
-	delete layer;
+	del guis;
+	del layer;
 
-	delete dentity;
-	delete sentity;
+	del dentity;
+	del sentity;
 
-	delete quad;
+	del quad;
 }

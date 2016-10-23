@@ -20,5 +20,5 @@ void main() {
 
 	Sandbox* sandbox = htnew Sandbox();
 
-	delete sandbox;
+	del sandbox;
 }

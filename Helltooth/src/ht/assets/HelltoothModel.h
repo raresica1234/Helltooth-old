@@ -17,7 +17,7 @@ namespace ht { namespace assets {
 			Cereal::Buffer buffer(1);
 			buffer.readFile(path);
 
-			if (model) delete model;
+			if (model) del model;
 			
 			Cereal::Database* db = htnew Cereal::Database();
 			db->read(buffer);
@@ -48,7 +48,7 @@ namespace ht { namespace assets {
 				normals->getRawArray<GLfloat>(normalsArray);
 				model->storeData(RAWMODEL_NORMALS, normalsArray, normals->getCount() * sizeof(GLfloat));
 			}
-			delete db;
+			del db;
 		}
 
 		inline RawModel* getRawModel() { return model; }
@@ -65,27 +65,27 @@ namespace ht { namespace assets {
 			GLfloat* positions = htnew GLfloat[model->getPositionSize() / sizeof(GLfloat)];
 			memcpy(positions, model->getPositions(), model->getPositionSize());
 			array = htnew Cereal::Array("positions", positions, model->getPositionSize() / sizeof(GLfloat));
-			delete[] positions;
+			del[] positions;
 
 			if (model->getIndexSize() > 0) {
 				GLint* indices = htnew GLint[model->getIndexSize() / sizeof(GLuint)];
 				memcpy(indices, model->getIndices(), model->getIndexSize());
 				indexArray = htnew Cereal::Array("indices", indices, model->getIndexSize() / sizeof(GLint));
-				delete[] indices;
+				del[] indices;
 			}
 
 			if (model->getTextureCoordsSize() > 0) {
 				GLfloat* textureCoords = htnew GLfloat[model->getTextureCoordsSize() / sizeof(GLfloat)];
 				memcpy(textureCoords, model->getTextureCoords(), model->getTextureCoordsSize());
 				textureCoordArray = htnew Cereal::Array("textureCoords", textureCoords, model->getTextureCoordsSize()/ sizeof(GLfloat));
-				delete[] textureCoords;
+				del[] textureCoords;
 			}
 
 			if (model->getNormalSize() > 0) {
 				GLfloat* normals = htnew GLfloat[model->getNormalSize() / sizeof(GLfloat)];
 				memcpy(normals, model->getNormals(), model->getNormalSize());
 				normalsArray = htnew Cereal::Array("normals", normals, model->getNormalSize() / sizeof(GLfloat));
-				delete[] normals;
+				del[] normals;
 			}
 
 			if (array)
@@ -106,7 +106,7 @@ namespace ht { namespace assets {
 			Cereal::Buffer buffer = Cereal::Buffer(database->getSize());
 			database->write(buffer);
 			buffer.writeFile(path);
-			delete database;
+			del database;
 		}
 
 	};

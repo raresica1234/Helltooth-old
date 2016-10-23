@@ -4,7 +4,7 @@ namespace ht { namespace graphics {
 
 	Layer::Layer(unsigned int shader, Camera* camera)
 		: shader(ShaderManager::getProgram(shader)), camera(camera){
-		renderer = new MasterRenderer(shader, camera);
+		renderer = htnew MasterRenderer(shader, camera);
 
 		this->shader->start();
 		GLint texIDs[] = {
@@ -17,8 +17,8 @@ namespace ht { namespace graphics {
 	}
 
 	Layer::~Layer() {
-		delete renderer;
-		delete camera;
+		del renderer;
+		del camera;
 	}
 
 	void Layer::setMatrix(maths::mat4 &projectionMatrix) {

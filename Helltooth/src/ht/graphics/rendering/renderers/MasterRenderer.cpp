@@ -11,7 +11,7 @@ namespace ht { namespace graphics {
 	}
 
 	MasterRenderer::~MasterRenderer() {
-		delete eRenderer;
+		del eRenderer;
 	}
 
 	void MasterRenderer::submit(const DynamicEntity* dynamicEntity) {

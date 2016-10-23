@@ -68,7 +68,7 @@ namespace ht { namespace assets {
 
 			texture->loadPixelArray(result, width, height, bpp);
 
-			delete[] result;
+			del[] result;
 			HT_INFO("[Asset] Texture %s loaded!", file);
 			return texture;
 		}
@@ -92,7 +92,7 @@ namespace ht { namespace assets {
 
 			size = width * height * (bpp / 8);
 			if (result)
-				delete[] result;
+				del[] result;
 
 			result = htnew BYTE[size];
 			memcpy(result, pixels, size);

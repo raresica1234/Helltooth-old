@@ -10,14 +10,14 @@ namespace ht { namespace graphics {
 	}
 
 	Renderable::~Renderable() {
-		delete[] vbos;
-		delete vao;
+		del[] vbos;
+		del vao;
 
 		if (ibo != nullptr)
-			delete ibo;
+			del ibo;
 
 		for (const Texture* texture : textures)
-			delete texture;
+			del texture;
 	}
 
 	void Renderable::loadRawModel(const RawModel* model) {
@@ -34,7 +34,7 @@ namespace ht { namespace graphics {
 		if (!model->usingColors())
 			storeData(RENDERABLE_TEXTURE_COORDS, model->getTextureCoords(), model->getTextureCoordsSize());
 
-		delete model;
+		del model;
 	}
 
 	void Renderable::storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {

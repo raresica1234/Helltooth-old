@@ -11,7 +11,7 @@ namespace ht { namespace graphics {
 
 	FBO::~FBO() {
 		for (Texture* texture : textures) {
-			delete texture;
+			del texture;
 		}
 		if (hasDepthBuffer)
 			glDeleteFramebuffers(1, &depthBuffer);

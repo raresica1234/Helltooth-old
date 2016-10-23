@@ -42,7 +42,7 @@ namespace Cereal {
 		~Header()
 		{
 			for (size_t i = 0; i < databases.size(); i++)
-				delete databases[i];
+				del databases[i];
 		}
 
 		void read(Buffer& buffer)

@@ -43,10 +43,10 @@ namespace Cereal {
 		~Object()
 		{
 			for (size_t i = 0; i < arrays.size(); i++)
-				delete arrays[i];
+				del arrays[i];
 
 			for (size_t i = 0; i < fields.size(); i++)
-				delete fields[i];
+				del fields[i];
 		}
 
 		bool write(Buffer& buffer) const

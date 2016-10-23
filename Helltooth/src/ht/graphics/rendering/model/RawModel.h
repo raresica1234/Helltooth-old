@@ -42,13 +42,13 @@ namespace ht { namespace graphics {
 
 		//Deconstructor
 		inline ~RawModel() {
-			delete[] positions;
+			del[] positions;
 			if(textureCoords != nullptr)
-				delete[] textureCoords;
+				del[] textureCoords;
 			if (normals != nullptr)
-				delete[] normals;
+				del[] normals;
 			if (indices != nullptr)
-				delete[] indices;
+				del[] indices;
 		}
 
 		//storeData(int usage, GLfloat *data, Glsizei dataSize in bytes)

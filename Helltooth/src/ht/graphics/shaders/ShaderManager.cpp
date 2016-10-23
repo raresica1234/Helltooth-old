@@ -22,7 +22,7 @@ namespace ht { namespace graphics {
 	void ShaderManager::cleanUP() {
 		if (shaders.size() > 0)
 			for (ShaderProgram* shader : shaders)
-				delete shader;
+				del shader;
 	}
 
 	void ShaderManager::reCompile() {

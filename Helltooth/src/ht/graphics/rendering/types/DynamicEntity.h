@@ -32,7 +32,7 @@ namespace ht { namespace graphics {
 				: renderable(renderable), Entity3D(x, y, z) {}
 
 			~DynamicEntity() {
-				delete renderable;
+				del renderable;
 			}
 
 			friend bool operator==(DynamicEntity left, DynamicEntity& right) {

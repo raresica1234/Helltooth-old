@@ -39,7 +39,7 @@ namespace Cereal {
 
 		~Buffer()
 		{
-			delete[] start;
+			del[] start;
 			offset = size = 0;
 		}
 
@@ -173,7 +173,7 @@ namespace Cereal {
 
 			memcpy(temp, start, offset);
 
-			delete[] start;
+			del[] start;
 
 			start = temp;
 			size = offset;
@@ -210,7 +210,7 @@ namespace Cereal {
 
 			if (!infile.good()) return false;
 
-			delete[] start;
+			del[] start;
 
 			infile.seekg(0, std::ios::end);
 			this->size = (unsigned int)infile.tellg();

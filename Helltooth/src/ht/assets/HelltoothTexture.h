@@ -33,16 +33,16 @@ namespace ht { namespace assets {
 
 			Cereal::Array* pixels = object->getArray("pixels");
 
-			if (texture) delete texture;
+			if (texture) del texture;
 
 			byte* data = pixels->getRawArray<byte>(new byte[pixels->getCount()]);
 
 			texture = htnew Texture();
 			texture->loadPixelArray(data, width, height, bpp);
 
-			delete[] data;
+			del[] data;
 
-			delete database;
+			del database;
 		}
 
 		inline Texture* getTexture() {

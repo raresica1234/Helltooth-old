@@ -45,7 +45,7 @@ namespace ht { namespace graphics {
 		virtual void setModelMatrix() const {};
 
 		virtual ~StaticEntity() {
-			delete renderable;
+			del renderable;
 		};
 
 		virtual void render() const {

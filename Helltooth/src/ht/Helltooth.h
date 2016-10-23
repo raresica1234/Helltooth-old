@@ -70,7 +70,7 @@ public:
 	~Application() {
 		ShaderManager::cleanUP();
 		WindowManager::cleanUP();
-		delete counter;
+		del counter;
 	}
 protected:
 	void start() {
