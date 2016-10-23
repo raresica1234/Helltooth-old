@@ -10,6 +10,6 @@ out vec2 textureC;
 
 void main() {
 	gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
-	textureC.x = textureCoords.x;
+	textureC.x = 1 - textureCoords.x;
 	textureC.y = 1 - textureCoords.y;
 }

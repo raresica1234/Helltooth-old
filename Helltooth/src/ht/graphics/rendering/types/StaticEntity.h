@@ -19,6 +19,7 @@ namespace ht { namespace graphics {
 
 	protected:
 		Renderable* renderable;
+		bool hasShader = false;
 
 	public:
 		StaticEntity() : Entity3D(), renderable(nullptr) { }
@@ -33,6 +34,7 @@ namespace ht { namespace graphics {
 			: renderable(renderable), Entity3D(x, y, z) {}
 
 		virtual void prepare() const {
+			renderable->prepare();
 		};
 
 		virtual void setViewMatrix(const Camera* camera) const {
@@ -46,7 +48,9 @@ namespace ht { namespace graphics {
 			delete renderable;
 		};
 
-		virtual void render() const {};
+		virtual void render() const {
+			renderable->render();
+		};
 
 		friend bool operator==(StaticEntity left, StaticEntity& right) {
 			if ((Entity3D)left == (Entity3D)right) {
@@ -54,6 +58,13 @@ namespace ht { namespace graphics {
 			}
 			return false;
 		}
+
+		inline void end() const {
+			renderable->end();
+		}
+
+		inline bool hasOwnShader() const { return hasShader; }
+
 
 	};
 

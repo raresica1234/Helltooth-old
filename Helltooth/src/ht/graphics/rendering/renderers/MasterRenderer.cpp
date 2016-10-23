@@ -40,9 +40,22 @@ namespace ht { namespace graphics {
 		eRenderer->render();
 		for (const StaticEntity* sEntity : staticEntities) {
 			sEntity->prepare();
-			if(camera)
-				sEntity->setViewMatrix(camera);
-			sEntity->render();
+			if (sEntity->hasOwnShader()) {
+				if (camera)
+					sEntity->setViewMatrix(camera);
+				sEntity->render();
+			}
+			else {
+				program->start();
+				if (camera)
+					program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+				program->uniformMat4("projectionMatrix", projectionMatrix);
+				program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
+				sEntity->render();
+				program->stop();
+				sEntity->end();
+			}
+				
 		}
 	}
 } }

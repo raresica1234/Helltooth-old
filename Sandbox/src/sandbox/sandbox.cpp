@@ -19,7 +19,7 @@ Sandbox::Sandbox()
 	fbo->createColorTexture();
 	fbo->createDepthTexture(false);
 
-	guis->setMatrix(mat4::createOrthographic(9.0f, -9.0f, 16.0f, -16.0f, -1.0f, 1.0f));
+	guis->setMatrix(mat4::createOrthographic(-9.0f, 9.0f, 16.0f, -16.0f, -1.0f, 1.0f));
 	layer->setMatrix(mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT));
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
@@ -28,8 +28,8 @@ Sandbox::Sandbox()
 	quad = htnew Quad();
 	guiRenderable->loadRawModel(quad->getModel());
 	guiRenderable->addTexture(fbo->getColorTexture());
-	sentity = htnew StaticEntity(guiRenderable, -5.0f, -12.0f, 1.0f);
-	sentity->scale(2, 2, 2);
+	sentity = htnew StaticEntity(guiRenderable, 5.0f, -12.0f, 1.0f);
+	sentity->scale(3, 3, 3);
 
 	Renderable* model = htnew Renderable();
 	model->loadRawModel(API::loadObjFile("res/stall.obj"));
@@ -41,7 +41,7 @@ Sandbox::Sandbox()
 	layer->submit(terrain);
 	guis->submit(sentity);
 
-	dentity = htnew DynamicEntity(model, vec3(0, -1.0, -55));
+	dentity = htnew DynamicEntity(model, vec3(0.0f, -1.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	Application::start();
 }

@@ -17,7 +17,6 @@ void main() {
 
 	shader.addOutputVariable("textureCoordinates", VEC2);
 	std::cout << shader.toString();
-	system("PAUSE");
 
 	Sandbox* sandbox = htnew Sandbox();
 

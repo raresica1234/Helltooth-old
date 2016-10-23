@@ -16,6 +16,7 @@ namespace ht { namespace graphics {
 		: StaticEntity(nullptr, vec3(location.x, 0.0f, location.y)) {
 		unsigned int id = API::createShader(shaderVert, shaderFrag, false);
 		program = ShaderManager::getProgram(id);
+		hasShader = true;
 		RawModel* model = nullptr;
 		
 		GLfloat distance = TERRAIN_SIZE / VERTEX_COUNT;
