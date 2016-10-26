@@ -13,7 +13,7 @@ namespace ht { namespace graphics {
 	;
 
 	Terrain::Terrain(maths::vec2 location) 
-		: StaticEntity(nullptr, vec3(location.x, 0.0f, location.y)) {
+		: StaticEntity(nullptr) {
 		unsigned int id = API::createShader(shaderVert, shaderFrag, false);
 		program = ShaderManager::getProgram(id);
 		hasShader = true;
@@ -60,7 +60,7 @@ namespace ht { namespace graphics {
 				indices[pointer++] = bottomRight;
 			}
 		}
-
+		move(vec3(location.x * TERRAIN_SIZE, 0, location.y * TERRAIN_SIZE));
 		model = htnew RawModel(positions, terrainSize * 3 * sizeof(GLfloat));
 		model->storeData(indices, 6 * (VERTEX_COUNT - 1) * (VERTEX_COUNT - 1) * sizeof(GLuint));
 		model->storeData(RAWMODEL_NORMALS, normals, terrainSize * 3 * sizeof(GLfloat));
@@ -68,7 +68,7 @@ namespace ht { namespace graphics {
 
 		renderable = htnew Renderable();
 		renderable->loadRawModel(model);
-		renderable->addTexture(API::loadTextureFromFile("res/grass.jpg"));
+		renderable->addTexture(API::loadTextureFromFile("/res/grass.jpg"));
 		scale(1.0, 1.0, 1.0);
 	}
 
@@ -83,7 +83,6 @@ namespace ht { namespace graphics {
 	void Terrain::setModelMatrix() const {
 		mat4 model = getModelMatrix();
 		program->uniformMat4("modelMatrix", model);
-		program->stop();
 	}
 
 	void Terrain::setProjection(mat4 projection) const {

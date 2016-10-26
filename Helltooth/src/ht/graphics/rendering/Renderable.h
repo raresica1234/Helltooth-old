@@ -42,21 +42,10 @@ namespace ht { namespace graphics {
 		//Render
 		void render() const;
 
+		//Prepare for rendering
+		void prepare() const;
 		//Get vao ID
 		inline GLuint getVaoID() { return vao->getID(); }
-
-		//prepare for rendering
-		inline void prepare() const { 
-			vao->bindVAO();
-			for (size_t i = 0; i < textures.size(); i++) {
-				if (i > 31) {
-					HT_WARN("[Renderable] Textures size is bigger than 32!");
-					break;
-				}
-				glActiveTexture(GL_TEXTURE0 + i);
-				glBindTexture(GL_TEXTURE_2D, textures[i]->getID());
-			}
-		}
 
 		//Unbind vao
 		inline void end() const { vao->unbindVAO(); }

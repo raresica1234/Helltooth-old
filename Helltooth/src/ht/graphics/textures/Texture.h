@@ -19,7 +19,7 @@ namespace ht { namespace graphics {
 		//Constructor
 		Texture();
 		//Deconstrucotr
-		~Texture() {
+		inline ~Texture() {
 			glDeleteTextures(1, &textureID);
 		}
 

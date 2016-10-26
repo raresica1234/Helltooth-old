@@ -27,25 +27,13 @@ namespace ht { namespace graphics {
 		void submit(const DynamicEntity* dynamicEntity);
 		void submit(const StaticEntity* staticEntity);
 		void submit(const Renderable* renderable, const Entity3D &entity);
-
 		void submit(const Renderable* renderable, const std::vector<Entity3D>entities);
 
 		void prepare();
-
 		void render();
-
-		void cleanUP() {
-			eRenderer->cleanUP();
-			dynamicEntities.clear();
-		}
-
-		void forceCleanUP() {
-			staticEntities.clear();
-		}
-
-		inline void setProjectionMatrix(mat4 projectionMatrix) {
-			this->projectionMatrix = projectionMatrix;
-		}
+		void cleanUP();
+		void forceCleanUP();
+		void setProjectionMatrix(mat4 projectionMatrix);
 
 	};
 

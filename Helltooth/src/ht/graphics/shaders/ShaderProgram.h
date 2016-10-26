@@ -10,8 +10,6 @@
 #include "../../maths/mat4.h"
 
 #include "../../utils/Log.h"
-#include "../lighting/Light.h"
-#include "../lighting/Sun.h"
 
 #include <unordered_map>
 #include <string>
@@ -50,10 +48,8 @@ namespace ht { namespace graphics {
 		void uniformMat4(const char *name, const mat4 &value);
 		void uniform1iv(const char *name, const int* value, const short &count);
 		
+		//Sets the projection matrix
 		void setProjection(const char *name, const mat4 &value);
-		
-		void setLight(const char *name, const Light &light);
-		void setSun(const char *name, const Sun &sun);
 
 		//Starting the program
 		void start() const;
@@ -61,13 +57,10 @@ namespace ht { namespace graphics {
 		//Stoping the program
 		void stop() const;
 
-		inline void reCompile() {
-			stop();
-			glDeleteProgram(programID);
-			programID = compile();
-			projection = false;
-		}
+		//Recompiles the program
+		void reCompile();
 
+		//Tests if the program has a projection matrix bound
 		inline bool hasProjection() { return projection; }
 
 	protected:

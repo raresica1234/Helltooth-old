@@ -5,7 +5,7 @@
 #endif
 
 #include <Windows.h>
-
+#include <iostream>
 #include <stdio.h>
 
 //Color definitions
@@ -67,7 +67,7 @@
 
 namespace ht { namespace utils {
 
-	class Log{
+	class Log {
 	private:
 		static void setColor(const int logLevel) {
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), logLevel);
@@ -85,3 +85,18 @@ namespace ht { namespace utils {
 	};
 
 } }
+
+#ifdef DEBUG
+#define HT_ASSERT(x, ...)  \
+					if (!(x)) { \
+					HT_ERROR("*************************"); \
+					 HT_ERROR("    ASSERTION FAILED!    "); \
+					 HT_ERROR("*************************"); \
+										HT_ERROR(__FILE__, ": ", __LINE__); \
+					 HT_ERROR("Condition: ", #x); \
+					 HT_ERROR(__VA_ARGS__); \
+					 __debugbreak(); \
+					}
+#else
+#define HT_ASSERT(x, ...)
+#endif

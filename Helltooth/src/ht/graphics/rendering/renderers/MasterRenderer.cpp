@@ -43,13 +43,14 @@ namespace ht { namespace graphics {
 			if (sEntity->hasOwnShader()) {
 				if (camera)
 					sEntity->setViewMatrix(camera);
+				sEntity->setModelMatrix();
 				sEntity->render();
 			}
 			else {
 				program->start();
 				if (camera)
 					program->uniformMat4("viewMatrix", camera->generateViewMatrix());
-				program->uniformMat4("projectionMatrix", projectionMatrix);
+				program->setProjection("projectionMatrix", projectionMatrix);
 				program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
 				sEntity->render();
 				program->stop();
@@ -58,4 +59,18 @@ namespace ht { namespace graphics {
 				
 		}
 	}
+
+	void MasterRenderer::cleanUP() {
+		eRenderer->cleanUP();
+		dynamicEntities.clear();
+	}
+
+	void MasterRenderer::forceCleanUP() {
+		staticEntities.clear();
+	}
+
+	void MasterRenderer::setProjectionMatrix(mat4 projectionMatrix) {
+		this->projectionMatrix = projectionMatrix;
+	}
+
 } }

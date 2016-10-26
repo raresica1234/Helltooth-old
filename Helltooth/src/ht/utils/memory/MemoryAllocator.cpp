@@ -21,8 +21,6 @@ namespace ht { namespace utils {
 		//*(size_t*)memory = size;
 		memory += sizeof(size_t);
 
-		HT_MSG("Current memory allocated: %i", allocated);
-
 		return (void*)memory;
 	}
 
@@ -38,8 +36,6 @@ namespace ht { namespace utils {
 		address -= sizeof(size_t);
 		size_t size = *(size_t*)address;
 		free(address);
-
-		HT_MSG("Current memory allocated: %i", allocated);
 
 		allocated -= size;
 	}

@@ -12,7 +12,6 @@
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
     <ClCompile Include="src\ht\graphics\window\window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
@@ -23,6 +22,10 @@
     <ClCompile Include="src\ht\utils\input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
     <ClCompile Include="src\ht\tools\VFS\src\Manager.cpp" />
+    <ClCompile Include="src\ht\assets\Asset.cpp" />
+    <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
+    <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
+    <ClCompile Include="src\ht\graphics\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -34,8 +37,6 @@
     <ClInclude Include="src\ht\graphics\API.h" />
     <ClInclude Include="src\ht\graphics\Camera.h" />
     <ClInclude Include="src\ht\graphics\Layer.h" />
-    <ClInclude Include="src\ht\graphics\lighting\Light.h" />
-    <ClInclude Include="src\ht\graphics\lighting\Sun.h" />
     <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\EntityRenderer3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
@@ -49,7 +50,6 @@
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\terrain\Terrain.h" />
-    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />

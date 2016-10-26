@@ -12,9 +12,6 @@
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
 
-#include "graphics/lighting/Light.h"
-#include "graphics/lighting/Sun.h"
-
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity3D.h"
 #include "graphics/rendering/renderers/EntityRenderer3D.h"
@@ -64,7 +61,14 @@ protected:
 
 public:
 	Application(const char* title, int width, int height, int MAX_UPS = 60) {
+
 		unsigned int wID = API::createWindow(title, width, height);
+		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
+		HT_WARN("%s", std::string("| | | |    | | | |            | | | |    "));
+		HT_WARN("%s", std::string("| |_| | ___| | | |_ ___   ___ | |_| |__  "));
+		HT_WARN("%s", std::string("|  _  |/ _ \\ | | __/ _ \\ / _ \\| __| '_ \\ "));
+		HT_WARN("%s", std::string("| | | |  __/ | | || (_) | (_) | |_| | | |"));
+		HT_WARN("%s", std::string("\\_| |_/\\___|_|_|\\__\\___/ \\___/ \\__|_| |_|"));
 		window = WindowManager::getWindow(wID);
 		counter = htnew FpsCounter(MAX_UPS);
 	}
@@ -76,6 +80,12 @@ public:
 	}
 protected:
 	void start() {
+
+
+		Input::init();
+		counter->init();
+
+
 		init();
 		while (!window->closed()) {
 			window->clear();
@@ -92,8 +102,6 @@ protected:
 	}
 
 	virtual void init() {
-		Input::init();
-		counter->init();
 	}
 
 	virtual void render() = 0;

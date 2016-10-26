@@ -11,6 +11,7 @@
 #ifdef del
 #	undef del
 #endif
+
 #ifndef del
 #	define del delete
 #endif

@@ -41,13 +41,13 @@ Sandbox::Sandbox()
 	model->addTexture(API::loadTextureFromFile("/res/stallTexture.png"));
 	model->addTexture(API::loadTextureFromFile("/res/stallTextureSpecular.png"));
 
-	terrain = htnew Terrain(vec2(1, 1));
+	terrain = htnew Terrain(vec2(-0.5f, -0.5f));
 	layer->submit(terrain);
 	guis->submit(sentity);
 
 	dentity = htnew DynamicEntity(model, vec3(0.0f, -1.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
-
+	dentity->scale(3, 3, 3);
 	Application::start();
 }
 

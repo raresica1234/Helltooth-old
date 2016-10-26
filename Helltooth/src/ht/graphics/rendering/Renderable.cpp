@@ -77,6 +77,18 @@ namespace ht { namespace graphics {
 		vao->unbindVAO();
 	}
 
+	void Renderable::prepare() const {
+		vao->bindVAO();
+		for (size_t i = 0; i < textures.size(); i++) {
+			if (i > 31) {
+				HT_WARN("[Renderable] Textures size is bigger than 32!");
+				break;
+			}
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, textures[i]->getID());
+		}
+	}
+
 	void Renderable::render() const {
 		if (usingIbo) {
 			glDrawElements(GL_TRIANGLES, ibo->getCount(), GL_UNSIGNED_INT, nullptr);

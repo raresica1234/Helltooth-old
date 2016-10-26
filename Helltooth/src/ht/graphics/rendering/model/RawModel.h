@@ -94,20 +94,6 @@ namespace ht { namespace graphics {
 		inline const GLuint* getIndices() const { return indices; }
 
 		inline bool usingColors() const { return usingColor; }
-
-
-		inline void print() const {
-			for (GLsizei i = 0; i < positionSize / (signed) sizeof(GLfloat); i += 3) {
-				printf("Vertex %i %f/%f/%f \n", i / 3, positions[i], positions[i + 1], positions[i + 2]);
-			}
-
-			for (GLsizei i = 0; i < indexSize / (signed) sizeof(GLuint); i += 3) {
-				printf("Index %i %i/%i/%i \n", i / 3, indices[i], indices[i + 1], indices[i + 2]);
-			}
-			for (GLsizei i = 0; i < textureCoordSize / (signed) sizeof(GLfloat); i += 2) {
-				printf("Texture %i %f/%f \n", i / 2, textureCoords[i], textureCoords[i + 1]);
-			}
-		}
 	};
 
 } }

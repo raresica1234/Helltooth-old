@@ -32,9 +32,9 @@ namespace ht { namespace graphics {
 
 	void Texture::createAttachment(int width, int height, int type) {
 		glTexImage2D(GL_TEXTURE_2D, 0, type, width, height, 0, type == GL_RGB ? GL_RGB : GL_DEPTH_COMPONENT,
-			type == GL_RGB ? GL_UNSIGNED_BYTE : GL_FLOAT, nullptr);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			type == GL_RGB ? GL_UNSIGNED_BYTE : GL_FLOAT, nullptr); 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
 

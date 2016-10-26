@@ -107,13 +107,11 @@ namespace ht { namespace graphics {
 
 	void ShaderProgram::setProjection(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); projection = true; }
 	
-	void ShaderProgram::setLight(const char *name, const Light &light) {
-		uniform3f((std::string(name) + "Pos").c_str(), light.getPosition());
-		uniform3f((std::string(name) + "Color").c_str(), light.getColor());
-	}
-
-	void ShaderProgram::setSun(const char *name, const Sun &sun) {
-		uniform3f(name, sun.getPosition());
+	void ShaderProgram::reCompile() {
+		stop();
+		glDeleteProgram(programID);
+		programID = compile();
+		projection = false;
 	}
 
 } }

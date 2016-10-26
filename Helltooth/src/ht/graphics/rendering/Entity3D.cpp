@@ -2,6 +2,33 @@
 
 namespace ht { namespace graphics {
 
+
+	Entity3D::Entity3D(const float &x, const float &y, const float &z) {
+		m_Position.x = x;
+		m_Position.y = y;
+		m_Position.z = z;
+		m_Scale = vec3(1, 1, 1);
+		modelMatrix = generateModelMatrix();
+	}
+
+	Entity3D::Entity3D() {
+		m_Position.x = 0;
+		m_Position.y = 0;
+		m_Position.z = 0;
+		m_Scale = vec3(1, 1, 1);
+		modelMatrix = generateModelMatrix();
+	}
+
+	Entity3D::Entity3D(const vec3 position) {
+		m_Position = position;
+		modelMatrix = generateModelMatrix();
+	}
+
+	void Entity3D::move(vec3 &move) {
+		m_Position = m_Position + move;
+		modelMatrix = generateModelMatrix();
+	}
+
 	//Rotate the entity 
 	//Eg: rotate(vec3(90,0,0)) -> rotates 90 degrees on the x axis
 	void Entity3D::rotate(vec3 &axis) {
@@ -45,6 +72,24 @@ namespace ht { namespace graphics {
 		return result;
 	}
 	
+	mat4 Entity3D::generateRotateMatrix() const {
+		mat4 rotate = mat4::createIdentity();
+		rotate.rotate(m_Rotation);
+		return rotate;
+	}
+
+	mat4 Entity3D::generateTranslationMatrix() const {
+		mat4 result = mat4::createIdentity();
+		result.translate(m_Position);
+		return result;
+	}
+
+	mat4 Entity3D::generateScaleMatrix() const {
+		mat4 move = mat4::createIdentity();
+		move.scale(m_Scale);
+		return move;
+	}
+
 	//Operator used for testing if two entities are the same
 	bool Entity3D::operator==(Entity3D &other) {
 		if (m_Position.x == other.m_Position.x && m_Position.y == other.m_Position.y && m_Position.z == other.m_Position.z) {

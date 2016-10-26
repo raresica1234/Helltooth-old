@@ -65,7 +65,7 @@ namespace ht { namespace assets {
 		inline static RawModel* loadObjFile(const char* path) {
 			FILE* file = fopen(path, "rt");
 			if (file == nullptr) {
-				HT_FATAL("[ObjLoader] file %s could not be opened!", path);
+				HT_FATAL("[ObjLoader] file \"%s\" could not be opened!", path);
 				return nullptr;
 			}
 
@@ -138,7 +138,7 @@ namespace ht { namespace assets {
 			model->storeData(indicesArray, indices.size() * sizeof(GLuint));
 			model->storeData(RAWMODEL_NORMALS, normalsArray, vertices.size() * 3 * sizeof(GLfloat));
 			model->storeData(RAWMODEL_TEXTURE_COORDS, textureArray, vertices.size() * 2 * sizeof(GLfloat));
-			HT_INFO("[ObjLoader] Object %s loaded", path);
+			HT_INFO("[ObjLoader] Model \"%s\" loaded", path);
 			return model;
 		}
 	};
