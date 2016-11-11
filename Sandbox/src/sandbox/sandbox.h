@@ -30,7 +30,7 @@ namespace sandbox {
 		FBO *fbo;
 
 		Quad *quad;
-		Terrain* terrain;
+		World* world;
 		StaticEntity* sentity;
 		DynamicEntity* dentity;
 

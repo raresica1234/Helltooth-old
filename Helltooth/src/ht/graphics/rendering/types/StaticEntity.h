@@ -12,7 +12,6 @@ StaticRenderable component:
 To be used when rendering statical entities
 This component allows you to submit once, but render every frame.
 */
-
 namespace ht { namespace graphics {
 
 	class StaticEntity : public Entity3D {
@@ -34,6 +33,7 @@ namespace ht { namespace graphics {
 			: renderable(renderable), Entity3D(x, y, z) {}
 
 		virtual void prepare() const {
+			if(renderable)
 			renderable->prepare();
 		};
 

@@ -28,7 +28,7 @@
 #include "graphics/shaders/ShaderManager.h"
 #include "graphics/shaders/DynamicShader.h"
 
-#include "graphics/terrain/Terrain.h"
+#include "graphics/terrain/World.h"
 
 #include "graphics/textures/Texture.h"
 

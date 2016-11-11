@@ -11,7 +11,6 @@
     <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\Terrain.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
     <ClCompile Include="src\ht\graphics\window\window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
@@ -26,6 +25,8 @@
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\graphics\Camera.cpp" />
+    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
+    <ClCompile Include="src\ht\graphics\terrain\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -49,7 +50,6 @@
     <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
-    <ClInclude Include="src\ht\graphics\terrain\Terrain.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
@@ -77,9 +77,7 @@
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
     <ClInclude Include="src\ht\tools\VFS\VFS.h" />
     <ClInclude Include="src\ht\tools\VFS\src\Manager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\ht\graphics\terrain\terrainShader.frag" />
-    <None Include="src\ht\graphics\terrain\terrainShader.vert" />
+    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
+    <ClInclude Include="src\ht\graphics\terrain\World.h" />
   </ItemGroup>
 </Project>

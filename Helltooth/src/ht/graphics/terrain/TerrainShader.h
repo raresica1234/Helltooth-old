@@ -20,6 +20,9 @@ namespace ht { namespace graphics {
 		TerrainShader(TerrainShaderType type = TILING_SHADER);
 		~TerrainShader();
 
+		inline std::string generateVertex() { return vertexShader.toString(); }
+		inline std::string generateFragment() { return fragmentShader.toString(); }
+
 	};
 
 

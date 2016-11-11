@@ -27,11 +27,11 @@ namespace ht { namespace graphics {
 
 	enum InputType {
 		POSITIONS,
-		NORMALS,
 		TEXTURECOORDINATES,
-
+		NORMALS,
+		FRAGMENT
 	};
-
+#define MAGIC_NUMBER 28947.0f
 	class DynamicShader {
 
 		//BLOCK 0: VERSION RESERVED!
@@ -42,10 +42,12 @@ namespace ht { namespace graphics {
 	public:
 		DynamicShader(unsigned int version, bool core = false);
 
-		void addVariable(const char* name, VariableStoreType storeType, VariableType type = VariableType::STATIC);
+		void addVariable(const char* name, VariableStoreType storeType, VariableType type = VariableType::STATIC, float value = MAGIC_NUMBER);
 		void addInputVariable(const char* name, VariableStoreType storeType, InputType type);
 		void addOutputVariable(const char* name, VariableStoreType storeType);
 		void addMainCode(const char* line);
+
+		
 
 		std::string toString();
 
