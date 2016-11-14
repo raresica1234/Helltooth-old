@@ -3,9 +3,11 @@
 namespace ht { namespace graphics {
 
 	World::World(int size, vec4 terrainCounts) {
-		for (int x = terrainCounts.z; x < terrainCounts.x; x++) 
-			for (int y = terrainCounts.w; y < terrainCounts.y; y++) {
-				terrains[vec2(x, y)] = generateTerrain();
+		hasShader = true;
+		for (float x = terrainCounts.z; x < terrainCounts.x; x++) 
+			for (float y = terrainCounts.w; y < terrainCounts.y; y++) {
+				Renderable* current = generateTerrain();
+				terrains.push(Pair<vec2,Renderable*>(vec2(x,y), current));
 			}
 		std::string vertex = shader.generateVertex(), fragment = shader.generateFragment();
 		
@@ -69,8 +71,6 @@ namespace ht { namespace graphics {
 
 		renderable = htnew Renderable();
 		renderable->loadRawModel(model);
+		return renderable;
 	}
-
-
-
 } } 

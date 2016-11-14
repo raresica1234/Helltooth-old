@@ -6,7 +6,7 @@ Sandbox::Sandbox()
 	: Application("Sandbox", WIDTH, HEIGHT) {
 	glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
 
-	API::API(TYPE, MODE);
+	API::API(API_OPENGL, API_MODE_3D);
 
 	VFS::mount("shaders", "src/shaders");
 	VFS::mount("res", "res/");
@@ -32,23 +32,25 @@ Sandbox::Sandbox()
 	sentity = htnew StaticEntity(guiRenderable, 5.0f, -12.0f, 1.0f);
 	sentity->scale(3, 3, 3);
 
+	world = htnew World(800, vec4(1, 1, -1, -1));
+
 	Renderable* model = htnew Renderable();
 	model->loadRawModel(API::loadObjFile("/res/stall.obj"));
 	model->addTexture(API::loadTextureFromFile("/res/stallTexture.png"));
 	model->addTexture(API::loadTextureFromFile("/res/stallTextureSpecular.png"));
 
-	world = htnew World(800, vec4(1, 1, -1, -1));
-	layer->submit(world);
-	guis->submit(sentity);
-
 	dentity = htnew DynamicEntity(model, vec3(0.0f, -1.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	dentity->scale(3, 3, 3);
+
 	Application::start();
 }
 
 void Sandbox::init(){
 	dentity->scale(vec3(1, 1, 1));
+
+	layer->submit(world);
+	guis->submit(sentity);
 
 	Application::init();
 }

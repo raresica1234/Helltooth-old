@@ -36,9 +36,6 @@ namespace sandbox {
 
 		unsigned int id;
 
-		unsigned int TYPE = API_OPENGL;
-		unsigned int MODE = API_MODE_3D;
-
 		std::vector<Entity3D> entities;
 		bool compile = false;
 

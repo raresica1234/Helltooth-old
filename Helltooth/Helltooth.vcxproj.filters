@@ -27,6 +27,7 @@
     <ClCompile Include="src\ht\graphics\Camera.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
     <ClCompile Include="src\ht\graphics\terrain\World.cpp" />
+    <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -79,5 +80,8 @@
     <ClInclude Include="src\ht\tools\VFS\src\Manager.h" />
     <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
     <ClInclude Include="src\ht\graphics\terrain\World.h" />
+    <ClInclude Include="src\ht\utils\String.h" />
+    <ClInclude Include="src\ht\utils\List.h" />
+    <ClInclude Include="src\ht\utils\Map.h" />
   </ItemGroup>
 </Project>

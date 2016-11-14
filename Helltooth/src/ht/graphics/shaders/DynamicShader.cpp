@@ -9,13 +9,12 @@ namespace ht { namespace graphics {
 	}
 	void DynamicShader::addVariable(const char* name, VariableStoreType storeType, VariableType type, float value) {
 		selectBlock(VARIABLE_BLOCK + type);
-		if(value == MAGIC_NUMBER)
+		if(value == DYNAMIC_SHADER_MAGIC_NUMBER)
 			addLine((type == UNIFORM ? std::string("uniform ") : std::string()) + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name));
 		else 
 			addLine((type == UNIFORM ? std::string("uniform ") : std::string()) + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name) + std::string(" = ") + std::to_string(value));
 
 	}
-
 
 	void DynamicShader::addInputVariable(const char* name, VariableStoreType storeType, InputType type) {
 		selectBlock(0);

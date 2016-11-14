@@ -11,6 +11,8 @@
 
 #include "TerrainShader.h"
 
+#include "../../utils/List.h"
+
 namespace ht { namespace graphics {
 
 #define TERRAIN_SIZE 800
@@ -18,8 +20,8 @@ namespace ht { namespace graphics {
 
 	class World : public StaticEntity {
 	private: 
-		std::unordered_map<vec2, Renderable*> terrains;
-		
+		List<Pair<vec2, Renderable*>> terrains;
+
 		int terrainSize;
 
 		TerrainShader shader;
@@ -36,8 +38,9 @@ namespace ht { namespace graphics {
 
 		inline void prepare() const override {
 			program->start();
-			for (auto entry : terrains) {
-				entry.second->prepare();
+			for (int i = 0; i < terrains.size; i++) {
+				auto pair = terrains[i];
+				pair.value->prepare();
 			}
 		};
 
@@ -50,9 +53,10 @@ namespace ht { namespace graphics {
 		};
 
 		inline void setModelMatrix() const override {
-			for (auto entry : terrains) {
+			for(int i=0; i < terrains.size; i ++){
+				auto pair = terrains[i];
 				mat4 model = mat4::createIdentity();
-				vec2 position = entry.first;
+				vec2 position = pair.key;
 				model.translate(vec3(position.x, 0.0f, position.y));
 				model.scale(vec3(1, 1, 1));
 
@@ -61,8 +65,8 @@ namespace ht { namespace graphics {
 		};
 
 		inline void render() const override {
-			for (auto entry : terrains) {
-				entry.second->render();
+			for (int i = 0; i < terrains.size; i++) {
+				terrains[i].value->render();
 			}
 		};
 

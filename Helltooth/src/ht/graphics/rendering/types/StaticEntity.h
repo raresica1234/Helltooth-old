@@ -17,7 +17,7 @@ namespace ht { namespace graphics {
 	class StaticEntity : public Entity3D {
 
 	protected:
-		Renderable* renderable;
+		Renderable* renderable = nullptr;
 		bool hasShader = false;
 
 	public:
@@ -34,7 +34,7 @@ namespace ht { namespace graphics {
 
 		virtual void prepare() const {
 			if(renderable)
-			renderable->prepare();
+				renderable->prepare();
 		};
 
 		virtual void setViewMatrix(const Camera* camera) const {

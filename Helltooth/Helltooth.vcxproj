@@ -189,9 +189,12 @@
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Input.h" />
+    <ClInclude Include="src\ht\utils\List.h" />
     <ClInclude Include="src\ht\utils\Log.h" />
+    <ClInclude Include="src\ht\utils\Map.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
+    <ClInclude Include="src\ht\utils\String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\assets\Asset.cpp" />
@@ -220,6 +223,7 @@
     <ClCompile Include="src\ht\tools\VFS\src\Manager.cpp" />
     <ClCompile Include="src\ht\utils\input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
+    <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

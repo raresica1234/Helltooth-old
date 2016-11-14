@@ -31,9 +31,9 @@ namespace ht { namespace graphics {
 		NORMALS,
 		FRAGMENT
 	};
-#define MAGIC_NUMBER 28947.0f
-	class DynamicShader {
 
+	class DynamicShader {
+#define DYNAMIC_SHADER_MAGIC_NUMBER 28947.0f
 		//BLOCK 0: VERSION RESERVED!
 		std::vector<std::string> blocks;
 
@@ -42,7 +42,7 @@ namespace ht { namespace graphics {
 	public:
 		DynamicShader(unsigned int version, bool core = false);
 
-		void addVariable(const char* name, VariableStoreType storeType, VariableType type = VariableType::STATIC, float value = MAGIC_NUMBER);
+		void addVariable(const char* name, VariableStoreType storeType, VariableType type = VariableType::STATIC, float value = DYNAMIC_SHADER_MAGIC_NUMBER);
 		void addInputVariable(const char* name, VariableStoreType storeType, InputType type);
 		void addOutputVariable(const char* name, VariableStoreType storeType);
 		void addMainCode(const char* line);
