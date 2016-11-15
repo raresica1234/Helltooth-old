@@ -21,7 +21,7 @@ Sandbox::Sandbox()
 	fbo->createDepthTexture(false);
 
 	guis->setMatrix(mat4::createOrthographic(-9.0f, 9.0f, 16.0f, -16.0f, -1.0f, 1.0f));
-	layer->setMatrix(mat4::createPerspective(70, 0.1f, 1000.0f, WIDTH / HEIGHT));
+	layer->setMatrix(mat4::createPerspective(70, 0.1f, 10000.0f, WIDTH / HEIGHT));
 
 	Renderable* guiRenderable = htnew Renderable();
 
@@ -32,14 +32,15 @@ Sandbox::Sandbox()
 	sentity = htnew StaticEntity(guiRenderable, 5.0f, -12.0f, 1.0f);
 	sentity->scale(3, 3, 3);
 
-	world = htnew World(800, vec4(1, 1, -1, -1));
+	world = htnew World(800, vec4(1, 1, -1,-1));
+	world->addTexture(API::loadTextureFromFile("/res/grass.jpg"));
 
 	Renderable* model = htnew Renderable();
 	model->loadRawModel(API::loadObjFile("/res/stall.obj"));
 	model->addTexture(API::loadTextureFromFile("/res/stallTexture.png"));
 	model->addTexture(API::loadTextureFromFile("/res/stallTextureSpecular.png"));
 
-	dentity = htnew DynamicEntity(model, vec3(0.0f, -1.0f, -55.0f));
+	dentity = htnew DynamicEntity(model, vec3(0.0f, 0.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	dentity->scale(3, 3, 3);
 

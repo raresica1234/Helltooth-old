@@ -38,10 +38,6 @@ namespace ht { namespace graphics {
 
 		inline void prepare() const override {
 			program->start();
-			for (int i = 0; i < terrains.size; i++) {
-				auto pair = terrains[i];
-				pair.value->prepare();
-			}
 		};
 
 		inline void setViewMatrix(const Camera* camera) const override {
@@ -49,27 +45,38 @@ namespace ht { namespace graphics {
 		};
 
 		inline void setProjection(mat4 projection) const override {
+			program->start();
 			program->setProjection("projectionMatrix", projection);
+			program->stop();
 		};
 
 		inline void setModelMatrix() const override {
-			for(int i=0; i < terrains.size; i ++){
-				auto pair = terrains[i];
-				mat4 model = mat4::createIdentity();
-				vec2 position = pair.key;
-				model.translate(vec3(position.x, 0.0f, position.y));
-				model.scale(vec3(1, 1, 1));
-
-				program->uniformMat4("modelMatrix", model);
-			}
 		};
 
 		inline void render() const override {
 			for (int i = 0; i < terrains.size; i++) {
-				terrains[i].value->render();
+				Renderable * r = terrains[i].value;
+				r->prepare();
+				auto pair = terrains[i];
+				mat4 model = mat4::createIdentity();
+				vec2 position = pair.key;
+
+				model.translate(vec3(position.x * TERRAIN_SIZE, 0.0, position.y * TERRAIN_SIZE));
+
+				program->uniformMat4("modelMatrix", model);
+				r->render();
+				r->end();
 			}
+			program->stop();
 		};
 
+
+		__forceinline void addTexture(const Texture* texture) {
+			for (int i = 0; i < terrains.size; i++) {
+				Renderable *r = terrains[i].value;
+				r->addTexture(texture);
+			}
+		}
 
 	private:
 		Renderable* generateTerrain();

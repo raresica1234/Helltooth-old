@@ -60,13 +60,14 @@ namespace ht { namespace graphics {
 
 		fragmentShader.addOutputVariable("color", VEC4);
 
+
 		switch (type) {
 		case TILING_SHADER:
 			fragmentShader.addVariable("tilingValue", FLOAT, UNIFORM, 40.0f);
 			fragmentShader.addMainCode("color = texture(textures[0], textureCoordinates * tilingValue)");
+			//fragmentShader.addMainCode("color = vec4(0.0, 0.0, 0.0, 1.0)");
 			break;
 		}
-
 	} 
 
 

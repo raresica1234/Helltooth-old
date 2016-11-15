@@ -45,7 +45,8 @@ namespace ht { namespace graphics {
 		virtual void setModelMatrix() const {};
 
 		virtual ~StaticEntity() {
-			del renderable;
+			if(renderable)
+				del renderable;
 		};
 
 		virtual void render() const {
@@ -60,7 +61,8 @@ namespace ht { namespace graphics {
 		}
 
 		inline void end() const {
-			renderable->end();
+			if (renderable)
+				renderable->end();
 		}
 
 		inline bool hasOwnShader() const { return hasShader; }

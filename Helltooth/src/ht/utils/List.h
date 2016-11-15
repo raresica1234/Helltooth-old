@@ -43,11 +43,11 @@ namespace ht { namespace utils {
 				return;
 
 			T* temp = htnew T[size];
-			memcpy(temp, data, size);
+			memcpy(temp, data, size * sizeof(T));
 			del[] data;
 			reserved += extraReserve;
 			data = htnew T[reserved];
-			memcpy(data, temp, size);
+			memcpy(data, temp, size * sizeof(T));
 			del[] temp;
 		}
 
@@ -60,11 +60,11 @@ namespace ht { namespace utils {
 			if (size == reserve)
 				return;
 			T* temp = htnew T[size];
-			memcpy(temp, data, size);
+			memcpy(temp, data, size * sizeof(T));
 			reserved = size;
 			del[] data;
 			data = htnew T[size];
-			memcpy(data, temp, size);
+			memcpy(data, temp, size * sizeof(T));
 			del[] temp;
 		}
 		

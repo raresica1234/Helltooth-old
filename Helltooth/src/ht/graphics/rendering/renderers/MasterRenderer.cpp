@@ -41,7 +41,7 @@ namespace ht { namespace graphics {
 		for (const StaticEntity* sEntity : staticEntities) {
 			sEntity->prepare();
 			if (sEntity->hasOwnShader()) {
-				if (camera)
+				if(camera)
 					sEntity->setViewMatrix(camera);
 				sEntity->setModelMatrix();
 				sEntity->render();

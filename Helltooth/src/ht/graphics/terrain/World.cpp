@@ -2,10 +2,11 @@
 
 namespace ht { namespace graphics {
 
-	World::World(int size, vec4 terrainCounts) {
+	World::World(int size, vec4 terrainCounts)
+		: StaticEntity(nullptr) {
 		hasShader = true;
-		for (float x = terrainCounts.z; x < terrainCounts.x; x++) 
-			for (float y = terrainCounts.w; y < terrainCounts.y; y++) {
+		for (float x = terrainCounts.z; x <= terrainCounts.x; x+=1.0f) 
+			for (float y = terrainCounts.w; y <= terrainCounts.y; y+= 1.0f) {
 				Renderable* current = generateTerrain();
 				terrains.push(Pair<vec2,Renderable*>(vec2(x,y), current));
 			}
@@ -17,13 +18,18 @@ namespace ht { namespace graphics {
 		program = ShaderManager::getProgram(id);
 	}
 
-	World::~World() {}
+	World::~World() {
+		for (unsigned int i = 0; i < terrains.size; i++) {
+			Pair<vec2, Renderable*> x = terrains[i];
+			del x.value;
+		}
+	}
 
 
 	Renderable* World::generateTerrain() {
 		RawModel* model = nullptr;
 
-		GLfloat distance = TERRAIN_SIZE / VERTEX_COUNT;
+		GLfloat distance = (float)TERRAIN_SIZE / ((float)VERTEX_COUNT - 1);
 
 		int terrainSize = VERTEX_COUNT * VERTEX_COUNT;
 
@@ -34,18 +40,18 @@ namespace ht { namespace graphics {
 
 		int vertexPointer = 0;
 
-		for (int y = 0; y < VERTEX_COUNT; y++)
-			for (int x = 0; x < VERTEX_COUNT; x++) {
-				positions[vertexPointer * 3] = (float)x * distance;
+		for (float y = 0; y < VERTEX_COUNT; y++)
+			for (float x = 0; x < VERTEX_COUNT; x++) {
+				positions[vertexPointer * 3] = x * distance;
 				positions[vertexPointer * 3 + 1] = 0;
-				positions[vertexPointer * 3 + 2] = (float)y * distance;
+				positions[vertexPointer * 3 + 2] = y * distance;
 
 				normals[vertexPointer * 3] = 0.0f;
 				normals[vertexPointer * 3 + 1] = 1.0f;
 				normals[vertexPointer * 3 + 2] = 0.0f;
 
-				textureCoords[vertexPointer * 2] = (float)x / ((float)VERTEX_COUNT - 1);
-				textureCoords[vertexPointer * 2 + 1] = (float)y / ((float)VERTEX_COUNT - 1);
+				textureCoords[vertexPointer * 2] = x / ((float)VERTEX_COUNT - 1);
+				textureCoords[vertexPointer * 2 + 1] = y / ((float)VERTEX_COUNT - 1);
 				vertexPointer++;
 			}
 
@@ -69,7 +75,7 @@ namespace ht { namespace graphics {
 		model->storeData(RAWMODEL_NORMALS, normals, terrainSize * 3 * sizeof(GLfloat));
 		model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoords, terrainSize * 2 * sizeof(GLfloat));
 
-		renderable = htnew Renderable();
+		Renderable* renderable = htnew Renderable();
 		renderable->loadRawModel(model);
 		return renderable;
 	}
