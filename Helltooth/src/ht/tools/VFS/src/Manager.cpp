@@ -2,43 +2,49 @@
 
 namespace ht { namespace utils {
 
-	std::unordered_map<std::string, std::vector<std::string>> VFS::mountPoints;
+	Map<String, List<String>> VFS::mountPoints;
 
 
-	void VFS::mount(const std::string& virtualPath, const std::string& physicalPath) {
-		mountPoints[virtualPath].push_back(physicalPath);
+	void VFS::mount(const String& virtualPath, const String& physicalPath) {
+		String path = const_cast<String&>(physicalPath);
+		if (mountPoints.find(virtualPath) != List<String>())
+			mountPoints[virtualPath].push(path);
+		else {
+			List<String> paths;
+			paths.push(path);
+			mountPoints.push(virtualPath, paths);
+		}
 	}
 
-	void VFS::unmount(const std::string& path) {
+	void VFS::unmount(const String& path) {
 		mountPoints[path].clear();
 	}
 
-	bool VFS::resolvePhysicalPath(const std::string& path, std::string& outPhysicalPath) {
-		if (path[0] != '/')
-		{
+	bool VFS::resolvePhysicalPath(const String &path, String &outPhysicalPath) {
+		if (path[0] != '/') {
 			outPhysicalPath = path;
 			return VFS::exists(path);
 		}
 
-		std::string newPath = path.substr(1);
-		std::vector<std::string> dividedPath;
-		split(newPath, '/', dividedPath);
-		if (mountPoints.find(dividedPath[0]) == mountPoints.end() || mountPoints[dividedPath[0]].empty())
+		String newPath = path.substring(1);
+		Strings dividedPath = newPath.split('/');
+		if (mountPoints[dividedPath[0]].empty() || mountPoints.find(dividedPath[0]) == mountPoints.end())
 			return false;
 
-		std::string physicalPart;
-		for (int i = 1; i < dividedPath.size(); i++) 
-			physicalPart +=  '/' + dividedPath[i];
+		String physicalPart;
+		for (int i = 1; i < dividedPath.size; i++) {
+			physicalPart += '/';
+			physicalPart += dividedPath[i];
+		}
 		
-		for (auto physicalPath : mountPoints[dividedPath[0]]) {
-			std::string path = physicalPath + physicalPart;
+		for (int i = 0; i < mountPoints[dividedPath[0]].size;i ++) {
+			String physicalPath = mountPoints[dividedPath[0]][i];
+			String path = physicalPath + physicalPart;
 			if (VFS::exists(path)) {
 				outPhysicalPath = path;
 				return true;
 			}
-
 		}
-
 		return false;
 	}
 

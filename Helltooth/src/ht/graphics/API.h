@@ -1,11 +1,15 @@
 #pragma once
 
 #include "../assets/Asset.h"
+#include "../assets/ObjLoader.h"
+
 #include "shaders/ShaderManager.h"
 #include "rendering/model/RawModel.h"
-#include "../assets/ObjLoader.h"
 #include "window/WindowManager.h"
+
 #include "../tools/VFS/VFS.h"
+
+#include "../utils/String.h"
 
 #define API_MODE_2D 0
 #define API_MODE_3D 1
@@ -17,8 +21,9 @@
 
 namespace ht { namespace graphics {
 
-	class API
-	{
+	using namespace utils;
+
+	class API {
 	private:
 		static unsigned int type;
 		static unsigned int mode;
@@ -29,12 +34,12 @@ namespace ht { namespace graphics {
 			this->mode = mode;
 		}
 
-		static RawModel* loadObjFile(const char* path);
+		static RawModel* loadObjFile(String path);
 
-		static const Texture* loadTextureFromFile(const char* path);
+		static const Texture* loadTextureFromFile(String path);
 
-		static unsigned int createShader(const char* VERTEX_PATH, const char* FRAGMENT_PATH, bool path = true);
-		static unsigned int createWindow(const char *title, const int &width, const int &height);
+		static unsigned int createShader(String VERTEX_PATH, String FRAGMENT_PATH, bool path = true);
+		static unsigned int createWindow(String title, const int &width, const int &height);
 
 		inline static bool is3D() { return mode == API_MODE_3D; }
 		inline static bool is2D() { return mode == API_MODE_2D; }

@@ -17,21 +17,18 @@ namespace ht { namespace utils {
 	class Input {
 
 	private:
-		static bool m_Keys[MAX_KEYS];
-		static bool m_Buttons[MAX_BUTTONS];
+		static bool keys[MAX_KEYS];
+		static bool buttons[MAX_BUTTONS];
 		static double mouseX, mouseY;
 
 	public:
-		inline static void init()
-		{
-			for (int i = 0; i < MAX_KEYS; i++)
-			{
-				Input::m_Keys[i] = false;
+		inline static void init() {
+			for (int i = 0; i < MAX_KEYS; i++) {
+				Input::keys[i] = false;
 			}
 
-			for (int i = 0; i < MAX_BUTTONS; i++)
-			{
-				Input::m_Buttons[i] = false;
+			for (int i = 0; i < MAX_BUTTONS; i++) {
+				Input::buttons[i] = false;
 			}
 		}
 
@@ -39,9 +36,9 @@ namespace ht { namespace utils {
 		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-		inline static bool getKey(unsigned int const &a) { return Input::m_Keys[a]; }
+		inline static bool getKey(unsigned int const &a) { return Input::keys[a]; }
 
-		inline static bool getButton(unsigned int const &a) { return Input::m_Buttons[a]; }
+		inline static bool getButton(unsigned int const &a) { return Input::buttons[a]; }
 
 		inline static maths::vec2 getPosition() { return maths::vec2((float)mouseX, (float)mouseY); }
 	};

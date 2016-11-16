@@ -72,7 +72,7 @@ namespace ht { namespace graphics {
 
 
 		__forceinline void addTexture(const Texture* texture) {
-			for (int i = 0; i < terrains.size; i++) {
+			for (unsigned int i = 0; i < terrains.size; i++) {
 				Renderable *r = terrains[i].value;
 				r->addTexture(texture);
 			}

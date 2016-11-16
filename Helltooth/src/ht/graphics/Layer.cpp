@@ -32,7 +32,7 @@ namespace ht { namespace graphics {
 	void Layer::submit(Renderable* renderable, Entity3D &entity) {
 		renderer->submit(renderable, entity);
 	}
-	void Layer::submit(Renderable* renderable, const std::vector<Entity3D> entityList) {
+	void Layer::submit(Renderable* renderable, const List<Entity3D> entityList) {
 		renderer->submit(renderable, entityList);
 	}
 

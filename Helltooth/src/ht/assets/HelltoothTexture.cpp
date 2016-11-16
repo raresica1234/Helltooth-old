@@ -2,9 +2,9 @@
 
 namespace ht { namespace assets {
 
-	HelltoothTexture::HelltoothTexture(const char* filePath) {
+	HelltoothTexture::HelltoothTexture(String filePath) {
 		Cereal::Buffer buffer = Cereal::Buffer(1);
-		buffer.readFile(filePath);
+		buffer.readFile(filePath.c_str());
 
 		Cereal::Database* database = htnew Cereal::Database();
 		database->read(buffer);
@@ -29,7 +29,7 @@ namespace ht { namespace assets {
 		del database;
 	}
 
-	void HelltoothTexture::storeAsHelltoothTexture(const char* filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize) {
+	void HelltoothTexture::storeAsHelltoothTexture(String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize) {
 		Cereal::Field* field1 = htnew Cereal::Field("width", width);
 		Cereal::Field* field2 = htnew Cereal::Field("height", width);
 		Cereal::Field* field3 = htnew Cereal::Field("bpp", bpp);
@@ -48,7 +48,7 @@ namespace ht { namespace assets {
 
 		Cereal::Buffer buffer = Cereal::Buffer(database->getSize());
 		database->write(buffer);
-		buffer.writeFile(filePath);
+		buffer.writeFile(filePath.c_str());
 		delete database;
 	}
 

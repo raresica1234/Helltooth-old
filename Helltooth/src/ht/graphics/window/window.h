@@ -3,40 +3,44 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 #include "../../utils/Log.h"
 #include "../../utils/Input.h"
+#include "../../utils/String.h"
 
 namespace ht { namespace graphics {
 
-		class Window {
-		private:
-			const char* title;
-			int width;
-			int height;
-			GLFWwindow *window;
-			
-		public:
-			Window(const char *title, const int &width, const int &height);
-			~Window();
-			bool closed() const;
-			void update();
-			void clear() const;
+	using namespace utils;
 
-			inline int getWidth() const { return width; }
-			inline int getHeight() const { return height; }
+	class Window {
+	private:
+		String title;
+		int width;
+		int height;
+		GLFWwindow *window;
 
-			inline GLFWwindow* getWindow() const { return window; }
+	public:
+		Window(String title, const int &width, const int &height);
+		~Window();
+		bool closed() const;
+		void update();
+		void clear() const;
 
-			inline bool compare(GLFWwindow* window) {
-				return this->window == window;
-			}
+		inline int getWidth() const { return width; }
+		inline int getHeight() const { return height; }
 
-			inline void resize(int width, int height) {
-				this->width = width;
-				this->height = height;
-			}
+		inline GLFWwindow* getWindow() const { return window; }
 
-		private:
-			bool init();
-		};
+		inline bool compare(GLFWwindow* window) {
+			return this->window == window;
+		}
+
+		inline void resize(int width, int height) {
+			this->width = width;
+			this->height = height;
+		}
+
+	private:
+		bool init();
+	};
 } }

@@ -42,6 +42,9 @@
 #include "utils/Input.h"
 #include "utils/FileUtils.h"
 #include "utils/FpsCounter.h"
+#include "utils/List.h"
+#include "utils/Map.h"
+#include "utils/String.h"
 
 //UTILS -> MEMORY
 #include "utils/memory/MemoryManager.h"

@@ -34,10 +34,13 @@ namespace sandbox {
 		StaticEntity* sentity;
 		DynamicEntity* dentity;
 
+		List<DynamicEntity*> dentities;
+
 		unsigned int id;
 
-		std::vector<Entity3D> entities;
 		bool compile = false;
+
+		float y = 0.0f;
 
 	public:
 		Sandbox();

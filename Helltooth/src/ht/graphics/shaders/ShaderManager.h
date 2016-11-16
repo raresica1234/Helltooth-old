@@ -6,16 +6,17 @@
 #include <vector>
 
 #include "../../utils/Log.h"
-
+#include "../../utils/List.h"
+#include "../../utils/String.h"
 
 namespace ht {namespace graphics {
-
+	using namespace utils;
 	class ShaderManager {
 	private:
-		static std::vector<ShaderProgram*> shaders;
+		static List<ShaderProgram*> shaders;
 
 	public:
-		static unsigned int loadProgram(std::string vertexPath, std::string fragmentPath, bool path = true);
+		static unsigned int loadProgram(String vertexPath, String fragmentPath, bool path = true);
 		static ShaderProgram* getProgram(unsigned int &id);
 		static void cleanUP();
 

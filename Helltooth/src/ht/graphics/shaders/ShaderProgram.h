@@ -10,22 +10,20 @@
 #include "../../maths/mat4.h"
 
 #include "../../utils/Log.h"
-
-#include <unordered_map>
-#include <string>
+#include "../../utils/String.h"
 
 #include <math.h>
 
 namespace ht { namespace graphics { 
 
 	using namespace maths;
-
+	using namespace utils;
 
 	class ShaderProgram {
 	private:
 		//Shader files path
-		std::string VERTEX_PATH;
-		std::string FRAGMENT_PATH;
+		String VERTEX_PATH;
+		String FRAGMENT_PATH;
 		
 		bool projection;
 		bool path;
@@ -34,7 +32,7 @@ namespace ht { namespace graphics {
 
 	public:
 		//Constructor(vertex shader path, fragment shader path)
-		ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH, bool path = true);
+		ShaderProgram(String VERTEX_PATH, String FRAGMENT_PATH, bool path = true);
 		~ShaderProgram();
 
 		//Uniforms

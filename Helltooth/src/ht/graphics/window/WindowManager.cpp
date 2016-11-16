@@ -5,7 +5,7 @@ namespace ht { namespace graphics {
 
 	std::vector<Window*> WindowManager::windows;
 
-	unsigned int WindowManager::createWindow(const char *title, const int width, const int height) {
+	unsigned int WindowManager::createWindow(String title, const int width, const int height) {
 		windows.push_back(htnew Window(title, width, height));
 		return windows.size() - 1;
 	}

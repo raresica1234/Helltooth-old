@@ -5,13 +5,13 @@
 #include <vector>
 
 #include "memory/MemoryManager.h"
-
+#include "String.h"
 
 namespace ht { namespace utils {
 
 	class FileUtils {
 	public:
-		static std::string read_file(const char* filepath) {
+		static String read_file(const char* filepath) {
 			FILE* file = fopen(filepath, "rt");
 			if (!file) {
 				HT_FATAL("[FILEUTILS] Cannot read %s", filepath);
@@ -24,7 +24,7 @@ namespace ht { namespace utils {
 			fseek(file, 0, SEEK_SET);
 			fread(data, 1, length, file);
 			fclose(file);
-			std::string temp = data;
+			String temp = data;
 			del[] data;
 			return temp;
 		}
@@ -35,20 +35,21 @@ namespace ht { namespace utils {
 			fclose(file);
 		}
 
-		static std::string changeExtension(const char *file, std::string newExtension) {
-			std::string sfile(file);
-			int i = 0;
-			for (i = sfile.size(); i > 0 ; i--) {
-				if (sfile[i] == '.')
-					break;
+		static String changeExtension(String path, String newExtension) {
+			String result;
+
+			Strings strings = path.split('.');
+			if (strings.size <= 2) {
+				result = strings[0] + "." + newExtension;
 			}
-			if (i == 0)
-				HT_WARN("[FileUtils] Extension not found at file: %s", sfile);
-			i++;
-			std::string newFile;
-			newFile = sfile.substr(0, i);
-			newFile += newExtension;
-			return newFile;
+			else {
+				String aux;
+				for (unsigned int i = 0; i < strings.size - 1; i++)
+					aux += strings[i];
+				result = aux + "." + newExtension;
+			}
+
+			return result;
 		}
 
 	};

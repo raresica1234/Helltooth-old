@@ -2,6 +2,16 @@
 
 #include <iostream>
 
+#include "memory/MemoryManager.h"
+
+#define Strings List<String>
+#define Ints List<int>
+#define Floats List<float>
+#define UInts List<unsigned int>
+#define Vec2s List<maths::vec2>
+#define Vec3s List<maths::vec3>
+#define Vec4s List<maths::vec4>
+
 namespace ht { namespace utils {
 	
 	template<typename K, typename V>
@@ -28,6 +38,14 @@ namespace ht { namespace utils {
 			data = htnew T[1];
 		}
 
+		List(const List<T>& other) {
+			data = htnew T[other.reserved];
+			size = other.size;
+			reserved = other.reserved;
+			extraReserve = extraReserve;
+			memcpy(data, other.data, other.size * sizeof(T));
+		}
+
 		List(unsigned int reserved, unsigned int extraReserve = 1) {
 			data = htnew T[reserved];
 			this->reserved = reserved;
@@ -41,7 +59,7 @@ namespace ht { namespace utils {
 		void reserve() {
 			if (size < reserved)
 				return;
-
+			
 			T* temp = htnew T[size];
 			memcpy(temp, data, size * sizeof(T));
 			del[] data;
@@ -51,13 +69,23 @@ namespace ht { namespace utils {
 			del[] temp;
 		}
 
-		void push(T& element) {
+		void resize(unsigned int res) {
+			this->reserved = res;
+			T* temp = htnew T[size];
+			memcpy(temp, data, size * sizeof(T));
+			del[] data;
+			reserved += extraReserve;
+			data = htnew T[reserved];
+			memcpy(data, temp, size * sizeof(T));
+			del[] temp;
+		}
+
+		void push(T element) {
 			reserve();
 			data[size++] = element;
 		}
-
 		void fit() {
-			if (size == reserve)
+			if (size == reserved)
 				return;
 			T* temp = htnew T[size];
 			memcpy(temp, data, size * sizeof(T));
@@ -75,9 +103,42 @@ namespace ht { namespace utils {
 			return -1;
 		}
 
+		void clear() {
+			size = 0;
+			reserved = 1;
+			delete[] data;
+			data = htnew T[1];
+		}
+
+		bool empty() {
+			if (size > 0)
+				return false;
+			return true;
+		}
+
 		T& operator[](unsigned int index) const {
 			HT_ASSERT(size >= index, "Index %i bigger than list size %i!", index, size);
 			return data[index];
+		}
+
+		bool operator==(List<T> &other) {
+			if (size != other.size)
+				return false;
+			for (int i = 0; i < size; i++) 
+				if (data[i] != other[i])
+					return false;
+			return true;
+		}
+
+		bool operator!=(List<T> &other) {
+			if (size == 0)
+				return false;
+			if (size != other.size)
+				return true;
+			for (int i = 0; i < size; i++)
+				if (data[i] == other[i])
+					return false;
+			return true;
 		}
 	};
 

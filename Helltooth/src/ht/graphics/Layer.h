@@ -31,7 +31,7 @@ namespace ht { namespace graphics {
 		void setMatrix(maths::mat4 &projectionMatrix);
 
 		void submit(Renderable* renderable, Entity3D &entity);
-		void submit(Renderable* renderable, std::vector<Entity3D> entityList);
+		void submit(Renderable* renderable, const List<Entity3D> entityList);
 		void submit(const StaticEntity *entity);
 		void submit(const DynamicEntity *entity);
 

@@ -17,18 +17,19 @@ namespace ht { namespace utils {
 		unsigned int size = 0;
 
 	public:
-		String() { }
+		String() { data = htnew char[1];  data[0] = 0; size = 1; }
 		String(const char* str);
 
 		void append(const char* str);
 		void append(const String &other);
 		void append(const char str);
-		List<String> split(const char delimiter);
+		List<String> split(const char delimiter) const;
 
-		bool operator!=(const String& other);
-		bool operator==(const String& other);
+		bool operator!=(const String& other) const;
+		bool operator==(const String& other) const;
 		String operator+(const String& other);
 		void operator+=(const String &other);
+		void operator+=(const char &other);
 
 		inline void operator=(const String& other) {
 			if (data)
@@ -45,8 +46,8 @@ namespace ht { namespace utils {
 				delete[] data;
 
 			size = 0;
-			while (str[size] != '\0')
-				size++;
+			while (str[size++] != '\0')
+				;
 
 			data = htnew char[size];
 			memcpy(data, str, size);
@@ -57,8 +58,16 @@ namespace ht { namespace utils {
 		}
 
 		__forceinline char& operator[](unsigned int index) const {
-			HT_ASSERT(index > size, "Index size %i bigger than string size %i!", index, size);
+			HT_ASSERT(size > index, "Index size %i bigger than string size %i!", index, size);
 			return data[index];
+		}
+
+		__forceinline const char* c_str() const { return data; }
+
+		__forceinline String substring(unsigned int pos) const { 
+			char* a = htnew char[size - pos];
+			memcpy(a, data + pos, size - pos);
+			return String(a); 
 		}
 	};
 

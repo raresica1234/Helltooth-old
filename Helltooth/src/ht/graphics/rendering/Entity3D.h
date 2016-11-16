@@ -46,7 +46,7 @@ namespace ht { namespace graphics {
 		mat4 generateScaleMatrix() const;
 
 	public:
-		bool operator==(Entity3D &other);
+		bool operator==(Entity3D &other) const;
 
 	};
 

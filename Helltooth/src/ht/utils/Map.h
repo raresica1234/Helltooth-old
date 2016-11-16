@@ -21,14 +21,36 @@ namespace ht { namespace utils {
 		V find(K key) {
 			unsigned int id = keys.find(key);
 			if (id == -1)
-				return nullptr;
+				return V();
 			return values[id];
+		}
+
+		Pair<K, V> find(unsigned int index) {
+			return Pair<K, V>(keys[index], values[index]);
 		}
 
 		V operator[](K key) {
 			return find(key);
 		}
 
+		void clear() {
+			keys.clear();
+			values.clear();
+		}
+
+		V end() {
+			return values[values.size - 1];
+		}
+
+		bool empty() const {
+			if (values.size > 0)
+				return false;
+			return true;
+		}
+
+		unsigned int size() {
+			return keys.size;
+		}
 	};
 
 

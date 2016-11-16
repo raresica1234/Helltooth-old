@@ -5,48 +5,50 @@ namespace ht { namespace utils {
 	String::String(const char* str) {
 		while (str[size] != '\0')
 			size++;
-		data = htnew char[size];
+		data = htnew char[++size];
 		memcpy(data, str, size);
 	}
 
 
 	void String::append(const char* str) {
 		unsigned int strlen = 0;
-		while (str[strlen] != '\0')
-			strlen++;
-		this->size += strlen;
-		char* savedData = htnew char[size];
-		memcpy(savedData, data, size - strlen);
-		memcpy(savedData + size, str, strlen);
+		while (str[strlen++] != '\0')
+			;
+		char* temp = htnew char[size + strlen - 1];
+		memcpy(temp, data, size - 1);
+		memcpy(temp + (size - 1), str, strlen);
 		delete[] data;
+		size = size + strlen - 1;
 		data = htnew char[size];
-		memcpy(data, savedData, size);
-		delete[] savedData;
+		memcpy(data, temp, size);
+		delete[] temp;
 	}
 	
 	void String::append(const char str) {
-		char* savedData = htnew char[++size];
-		memcpy(savedData, data, size - 2);
-		savedData[size - 1] = str;
+		char* temp = htnew char[size + 1];
+		memcpy(temp, data, size - 1);
+		memcpy(temp + (size - 1), &str, 1);
+		temp[size] = 0;
+		size++;
 		delete[] data;
 		data = htnew char[size];
-		memcpy(data, savedData, size);
-		delete[] savedData;
+		memcpy(data, temp, size);
+		delete[] temp;
 	}
-
 
 	void String::append(const String &other) {
-		this->size += other.size;
-		char* savedData = htnew char[size];
-		memcpy(savedData, data, size - other.size);
-		memcpy(savedData + size, other.data, other.size);
+		unsigned int strlen = other.size;
+		char* temp = htnew char[size + strlen - 1];
+		memcpy(temp, data, size - 1);
+		memcpy(temp + (size - 1), other.data, strlen);
 		delete[] data;
+		size = size + strlen - 1;
 		data = htnew char[size];
-		memcpy(data, savedData, size);
-		delete[] savedData;
+		memcpy(data, temp, size);
+		delete[] temp;
 	}
 
-	bool String::operator!=(const String& other) {
+	bool String::operator!=(const String& other) const {
 		if (size != other.size)
 			return true;
 		for (int i = 0; i < size; i++)
@@ -55,11 +57,11 @@ namespace ht { namespace utils {
 		return false;
 	}
 
-	bool String::operator==(const String& other) {
+	bool String::operator==(const String& other) const {
 		if (size != other.size)
 			return false;
 		bool result = true;
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < other.size; i++)
 			if (data[i] != other[i])
 				result = false;
 		return result;
@@ -74,7 +76,11 @@ namespace ht { namespace utils {
 		append(other);
 	}
 
-	List<String> String::split(const char delimiter) {
+	void String::operator+=(const char &other) {
+		append(other);
+	}
+
+	List<String> String::split(const char delimiter) const {
 		List<String> strings;
 		String split = "";
 		for (int i = 0; i < size; i++) {
@@ -84,6 +90,7 @@ namespace ht { namespace utils {
 			}
 			split += data[i];
 		}
+		strings.push(split);
 		return strings;
 	}
 

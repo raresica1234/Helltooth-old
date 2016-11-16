@@ -3,11 +3,11 @@
 namespace ht { namespace graphics {
 	using namespace maths;
 
-	ShaderProgram::ShaderProgram(const char *VERTEX_PATH, const char *FRAGMENT_PATH, bool path) 
+	ShaderProgram::ShaderProgram(String VERTEX_PATH, String FRAGMENT_PATH, bool path)
 		: path(path){
 		if (path) {
-			utils::VFS::resolvePhysicalPath(std::string(VERTEX_PATH), this->VERTEX_PATH);
-			utils::VFS::resolvePhysicalPath(std::string(FRAGMENT_PATH), this->FRAGMENT_PATH);
+			utils::VFS::resolvePhysicalPath(VERTEX_PATH, this->VERTEX_PATH);
+			utils::VFS::resolvePhysicalPath(FRAGMENT_PATH, this->FRAGMENT_PATH);
 		}
 		else {
 			this->VERTEX_PATH = VERTEX_PATH;
@@ -29,8 +29,8 @@ namespace ht { namespace graphics {
 		GLuint fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 		const char* vertex_Source;
 		const char* fragment_Source;
-		std::string vertexSource;
-		std::string fragmentSource;
+		String vertexSource;
+		String fragmentSource;
 		if (path) {
 			vertexSource = utils::FileUtils::read_file(VERTEX_PATH.c_str());
 			fragmentSource = utils::FileUtils::read_file(FRAGMENT_PATH.c_str());

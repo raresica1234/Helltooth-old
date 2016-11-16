@@ -91,7 +91,7 @@ namespace ht { namespace graphics {
 	}
 
 	//Operator used for testing if two entities are the same
-	bool Entity3D::operator==(Entity3D &other) {
+	bool Entity3D::operator==(Entity3D &other) const {
 		if (m_Position.x == other.m_Position.x && m_Position.y == other.m_Position.y && m_Position.z == other.m_Position.z) {
 			if (m_Rotation.x == other.m_Rotation.x && m_Rotation.y == other.m_Rotation.y && m_Rotation.z == other.m_Rotation.z) {
 				if (m_Scale.x == m_Scale.x && m_Scale.y == m_Scale.y && m_Scale.z == m_Scale.z) {

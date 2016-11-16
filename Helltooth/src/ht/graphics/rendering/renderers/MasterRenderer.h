@@ -12,8 +12,8 @@ namespace ht { namespace graphics {
 	class MasterRenderer {
 	private:
 		EntityRenderer3D* eRenderer;
-		std::vector<const StaticEntity*> staticEntities;
-		std::vector<const DynamicEntity*> dynamicEntities;
+		List<const StaticEntity*> staticEntities;
+		List<const DynamicEntity*> dynamicEntities;
 
 		ShaderProgram* program;
 		mat4 projectionMatrix;
@@ -27,7 +27,7 @@ namespace ht { namespace graphics {
 		void submit(const DynamicEntity* dynamicEntity);
 		void submit(const StaticEntity* staticEntity);
 		void submit(const Renderable* renderable, const Entity3D &entity);
-		void submit(const Renderable* renderable, const std::vector<Entity3D>entities);
+		void submit(const Renderable* renderable, const List<Entity3D>entities);
 
 		void prepare();
 		void render();

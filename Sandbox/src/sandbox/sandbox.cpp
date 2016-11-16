@@ -9,8 +9,8 @@ Sandbox::Sandbox()
 	API::API(API_OPENGL, API_MODE_3D);
 
 	VFS::mount("shaders", "src/shaders");
-	VFS::mount("res", "res/");
-	VFS::mount("res", "res/unused/");
+	VFS::mount("res", "res/models/");
+	VFS::mount("res", "res/textures/");
 
 	Camera* camera = htnew Camera(window);
 	layer = htnew Layer(API::createShader("/shaders/shader.vert", "/shaders/shader.frag"), camera);
@@ -43,7 +43,20 @@ Sandbox::Sandbox()
 	dentity = htnew DynamicEntity(model, vec3(0.0f, 0.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	dentity->scale(3, 3, 3);
-
+	
+	
+	for (float i = 0; i < 200; i++) {
+		int x = rand() % 100 - 50;
+		int z = rand() % 100 - 50;
+		Cube* cube = htnew Cube();
+		Renderable* model = htnew Renderable();
+		model->loadRawModel(cube->getModel());
+		delete cube;
+		model->addTexture(API::loadTextureFromFile("/res/cobble.png"));
+		DynamicEntity* entity = htnew DynamicEntity(model, vec3(x, 0.0f, z));
+		entity->scale(1, 1, 1);
+		dentities.push(entity);
+	}
 	Application::start();
 }
 
@@ -60,8 +73,15 @@ void Sandbox::update() {
 	layer->update();
 	guis->update();
 
+	for (int i = 0; i < dentities.size; i++) {
+		dentities[i]->rotate(vec3(0, y, 0));
+	}
+	y+=0.1f;
+	if (y > 360) y = 0;
+
 	if (Input::getKey(GLFW_KEY_R))
 		compile = true;
+
 }
 
 void Sandbox::render() {
@@ -70,6 +90,10 @@ void Sandbox::render() {
 	fbo->bind();
 	layer->render();
 	fbo->unbind(window->getWidth(), window->getHeight());
+
+	for (int i = 0; i < dentities.size; i++) {
+		layer->submit(dentities[i]);
+	}
 
 	layer->render();
 	guis->render();

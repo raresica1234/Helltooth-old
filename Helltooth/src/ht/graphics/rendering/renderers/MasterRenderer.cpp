@@ -15,20 +15,20 @@ namespace ht { namespace graphics {
 	}
 
 	void MasterRenderer::submit(const DynamicEntity* dynamicEntity) {
-		dynamicEntities.push_back(dynamicEntity);
+		dynamicEntities.push(dynamicEntity);
 	}
 
 	void MasterRenderer::submit(const StaticEntity* staticEntity) {
 		staticEntity->setProjection(projectionMatrix);
 		staticEntity->setModelMatrix();
-		staticEntities.push_back(staticEntity);
+		staticEntities.push(staticEntity);
 	}
 
 	void MasterRenderer::submit(const Renderable* renderable, const Entity3D &entity) {
 		eRenderer->submit(renderable, entity);
 	}
 
-	void MasterRenderer::submit(const Renderable* renderable, const std::vector<Entity3D>entities) {
+	void MasterRenderer::submit(const Renderable* renderable, const List<Entity3D> entities) {
 		eRenderer->submit(renderable, entities);
 	}
 
@@ -38,7 +38,8 @@ namespace ht { namespace graphics {
 
 	void MasterRenderer::render() {
 		eRenderer->render();
-		for (const StaticEntity* sEntity : staticEntities) {
+		for (unsigned int i = 0; i < staticEntities.size; i++ ) {
+			const StaticEntity* sEntity = staticEntities[i];
 			sEntity->prepare();
 			if (sEntity->hasOwnShader()) {
 				if(camera)
