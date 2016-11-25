@@ -45,7 +45,6 @@ namespace ht { namespace graphics {
 			if (sEntity->hasOwnShader()) {
 				if(camera)
 					sEntity->setViewMatrix(camera);
-				sEntity->setModelMatrix();
 				sEntity->render();
 			}
 			else {

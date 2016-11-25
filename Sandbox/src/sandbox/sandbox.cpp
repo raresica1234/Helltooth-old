@@ -62,7 +62,7 @@ Sandbox::Sandbox()
 		model->loadRawModel(cube->getModel());
 		del cube;
 		model->addTexture(id);
-		DynamicEntity* entity = htnew DynamicEntity(model, vec3(x, 0.5f, z));
+		DynamicEntity* entity = htnew DynamicEntity(model, vec3((float)x, 0.5f, (float)z));
 		entity->scale(1, 1, 1);
 		dentities.push_back(entity);
 	}
@@ -82,7 +82,7 @@ void Sandbox::update() {
 	layer->update();
 	guis->update();
 
-	for (int i = 0; i < dentities.size(); i++) 
+	for (unsigned int i = 0; i < dentities.size(); i++) 
 		dentities[i]->rotate(vec3(0, 1.0f, 0));
 	
 
@@ -94,7 +94,7 @@ void Sandbox::update() {
 void Sandbox::render() {
 	layer->submit(dentity);
 
-	for (int i = 0; i < dentities.size(); i++) {
+	for (unsigned int i = 0; i < dentities.size(); i++) {
 		layer->submit(dentities[i]);
 	}
 	

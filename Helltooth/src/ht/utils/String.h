@@ -89,7 +89,7 @@ namespace std {
 	struct hash<ht::utils::String> {
 		size_t operator()(const ht::utils::String &value) const {
 			unsigned h = STRING_HASH_FIRSTH;
-			for(int i=0; i < value.size; i ++) {
+			for (unsigned int i = 0; i < value.size; i++) {
 				h = (h * STRING_HASH_A) ^ (value[i] * STRING_HASH_B);
 			}
 			return h % STRING_HASH_C; // or return h % C;

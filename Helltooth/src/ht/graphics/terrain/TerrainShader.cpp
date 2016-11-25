@@ -55,7 +55,6 @@ namespace ht { namespace graphics {
 
 		fragmentShader.addInputVariable("textureCoordinates", VEC2, FRAGMENT);
 
-
 		fragmentShader.addVariable("textures[32]", SAMPLER2D, UNIFORM);
 
 		fragmentShader.addOutputVariable("color", VEC4);
