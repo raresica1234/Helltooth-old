@@ -1,17 +1,15 @@
 #pragma once
 
 #include <sstream>
+#include <unordered_map>
 
-#include "../../../utils/List.h"
 #include "../../../utils/String.h"
-#include "../../../utils/Map.h"
 
 namespace ht { namespace utils {
 
 	class VFS {
 	private:
-		static Map<String, List<String>> mountPoints;
-
+		static std::unordered_map<String, std::vector<String>> mountPoints;
 
 	public:
 		

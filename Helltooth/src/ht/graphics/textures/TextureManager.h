@@ -1,39 +1,45 @@
 #pragma once
 
-#include "../../utils/List.h"
 #include "../../utils/String.h"
 
 #include "Texture.h"
 
 #include "../../assets/Asset.h"
 
+#include "../../tools/VFS/VFS.h"
+
+#include "../../utils/memory/MemoryManager.h"
+
 namespace ht { namespace graphics {
 
-	using namespace utils;
 	class TextureManager {
 	private:
-		List<const Texture*> textures;
-		static TextureManager* textureManager;
+		std::vector<const Texture*> textures;
+		static TextureManager* tManager;
+
 	public:
 		__forceinline TextureManager() {}
 		~TextureManager();
 
-		unsigned int createTextureFromFile(String path);
+		unsigned int createTextureFromFile(ht::utils::String path);
 
 		const Texture* getTexture(unsigned int id);
 
-		static TextureManager* Get() { return textureManager; }
+		inline unsigned int addTexture(const Texture* texture) {
+			textures.push_back(texture);
 
-		static void End() { delete textureManager; }
+			return textures.size() - 1;
+		}
+
+		static TextureManager* Get() { return tManager; }
+
+		static void End() { del tManager; tManager = nullptr; }
 
 		static void Init() { 
-			if (!textureManager)
-				textureManager = htnew TextureManager();
+			if (!tManager)
+				tManager = htnew TextureManager();
 			else
 				HT_WARN("[TextureManager] Reinitialization not possible!");
 		}
-
 	};
-
-
 } }

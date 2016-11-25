@@ -18,16 +18,14 @@
 
 namespace ht { namespace assets {
 
-	using namespace graphics;
-	using namespace utils;
 	class Asset {
 	public:
-		static const Texture* loadTextureFromFile(String path);
+		static const ht::graphics::Texture* loadTextureFromFile(ht::utils::String path);
 
-		static RawModel* loadModelFromFile(String path);
+		static ht::graphics::RawModel* loadModelFromFile(ht::utils::String path);
 
 	protected:
-		inline static bool exists(String path) {
+		inline static bool exists(ht::utils::String path) {
 			struct stat buffer;
 			return (stat(path.c_str(), &buffer) == 0);
 		}

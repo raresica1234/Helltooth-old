@@ -7,8 +7,8 @@
 
 namespace ht { namespace graphics {
 
-#define TEXTURE_COLOR_ATTACHMENT GL_RGB
-#define TEXTURE_DEPTH_ATTACHMENT GL_DEPTH_COMPONENT32
+	#define TEXTURE_COLOR_ATTACHMENT GL_RGB
+	#define TEXTURE_DEPTH_ATTACHMENT GL_DEPTH_COMPONENT32
 
 	class Texture {
 	private:

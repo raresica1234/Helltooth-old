@@ -38,11 +38,4 @@ namespace ht { namespace maths {
 		left.w *= right.w;
 		return left;
 	}
-	
-	void vec4::print() {
-#if PRINT
-		std::cout << "Vector4 x: " << x << " y: " << y << " z: " << z << " w: " << w << std::endl;
-#endif
-	}
-
 } }

@@ -38,13 +38,13 @@ namespace ht { namespace utils {
 		static String changeExtension(String path, String newExtension) {
 			String result;
 
-			Strings strings = path.split('.');
-			if (strings.size <= 2) {
+			std::vector<String> strings = path.split('.');
+			if (strings.size() <= 2) {
 				result = strings[0] + "." + newExtension;
 			}
 			else {
 				String aux;
-				for (unsigned int i = 0; i < strings.size - 1; i++)
+				for (unsigned int i = 0; i < strings.size() - 1; i++)
 					aux += strings[i];
 				result = aux + "." + newExtension;
 			}

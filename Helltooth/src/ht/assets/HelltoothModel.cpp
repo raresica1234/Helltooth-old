@@ -2,6 +2,9 @@
 
 namespace ht { namespace assets {
 
+	using namespace utils;
+	using namespace graphics;
+
 	HelltoothModel::HelltoothModel(String path) {
 		Cereal::Buffer buffer(1);
 		buffer.readFile(path.c_str());
@@ -40,7 +43,7 @@ namespace ht { namespace assets {
 		del db;
 	}
 
-	void HelltoothModel::storeAsHelltoothModel(String path, RawModel* model) {
+	void HelltoothModel::StoreAsHelltoothModel(String path, RawModel* model) {
 		Cereal::Object* object = htnew Cereal::Object("model");
 
 		Cereal::Array* array = nullptr;

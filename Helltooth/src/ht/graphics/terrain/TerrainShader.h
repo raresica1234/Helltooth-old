@@ -24,6 +24,4 @@ namespace ht { namespace graphics {
 		inline std::string generateFragment() { return fragmentShader.toString(); }
 
 	};
-
-
 } }

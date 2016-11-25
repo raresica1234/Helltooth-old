@@ -7,19 +7,17 @@
 
 namespace ht { namespace assets {
 	
-	using namespace graphics;
-	using namespace utils;
 
 	class HelltoothModel {
 	private:
-		RawModel* model = nullptr;
+		ht::graphics::RawModel* model = nullptr;
 
 	public:
-		HelltoothModel(String path);
+		HelltoothModel(ht::utils::String path);
 
-		inline RawModel* getRawModel() { return model; }
+		inline ht::graphics::RawModel* getRawModel() { return model; }
 
-		static void storeAsHelltoothModel(String path, RawModel* model);
+		static void StoreAsHelltoothModel(ht::utils::String path, ht::graphics::RawModel* model);
 	};
 
 } }

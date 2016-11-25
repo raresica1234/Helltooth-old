@@ -15,9 +15,6 @@ namespace ht { namespace graphics {
 
 		if (ibo != nullptr)
 			del ibo;
-		if(!textures.empty())
-			for (const Texture* texture : textures)
-				del texture;
 	}
 
 	void Renderable::loadRawModel(const RawModel* model) {

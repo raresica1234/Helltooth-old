@@ -32,11 +32,4 @@ namespace ht {	namespace maths {
 			left.z *= right.z;
 			return left;
 		}
-
-		void vec3::print() {
-
-			std::cout << "Vector3 x: " << x << " y: " << y << " z: "<< z << std::endl;
-
-		}
-
 } }

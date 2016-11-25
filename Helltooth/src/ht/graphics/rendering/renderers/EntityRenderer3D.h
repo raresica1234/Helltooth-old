@@ -11,16 +11,15 @@
 #include "../types/DynamicEntity.h"
 #include "../types/StaticEntity.h"
 
-#include "../../../utils/Map.h"
+#include <unordered_map>
+#include <vector>
 
 namespace ht { namespace graphics {
-
-	using namespace utils;
 
 	class EntityRenderer3D {
 	private:
 		//map of Renderables and entites list
-		Map<const Renderable*, List<Entity3D>> dynamicEntities;
+		std::unordered_map<const Renderable*, std::vector<Entity3D>> dynamicEntities;
 
 		//ShaderProgram
 		ShaderProgram* program;
@@ -38,12 +37,12 @@ namespace ht { namespace graphics {
 		void submit(const Renderable* renderable, const Entity3D &entity);
 
 		//Push vector of entities (Renderable, std::vector<Entity3D>)
-		void submit(const Renderable* renderable, const List<Entity3D> entities);
+		void submit(const Renderable* renderable, const std::vector<Entity3D> entities);
 
 		void submit(const DynamicEntity* e);
 		//void submit(const StaticEntity* e);
 
-		void submit(List<const DynamicEntity*> entities);
+		void submit(std::vector<const DynamicEntity*> entities);
 
 		//Render
 		void render();
@@ -55,7 +54,4 @@ namespace ht { namespace graphics {
 		void cleanUP();
 
 	};
-
-
-
 } }

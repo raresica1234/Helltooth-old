@@ -12,21 +12,18 @@
 
 namespace ht { namespace assets {
 
-	using namespace graphics;
-	using namespace utils;
-
 	class HelltoothTexture {
 	private:
-		Texture* texture = nullptr;
+		ht::graphics::Texture* texture = nullptr;
 
 	public:
-		HelltoothTexture(String filePath);
+		HelltoothTexture(ht::utils::String filePath);
 
-		inline Texture* getTexture() {
+		inline ht::graphics::Texture* getTexture() {
 			return texture;
 		}
 
-		static void storeAsHelltoothTexture(String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize);
+		static void StoreAsHelltoothTexture(ht::utils::String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize);
 	};
 
 } }

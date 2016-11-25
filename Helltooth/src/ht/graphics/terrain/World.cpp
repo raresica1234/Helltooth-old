@@ -1,6 +1,7 @@
 #include "World.h"
 
 namespace ht { namespace graphics {
+	using namespace maths;
 
 	World::World(int size, vec4 terrainCounts)
 		: StaticEntity(nullptr) {
@@ -8,20 +9,19 @@ namespace ht { namespace graphics {
 		for (float x = terrainCounts.z; x <= terrainCounts.x; x+=1.0f) 
 			for (float y = terrainCounts.w; y <= terrainCounts.y; y+= 1.0f) {
 				Renderable* current = generateTerrain();
-				terrains.push(Pair<vec2,Renderable*>(vec2(x,y), current));
+				chunks.push_back(Chunk(vec2(x, y), current));
 			}
 		std::string vertex = shader.generateVertex(), fragment = shader.generateFragment();
 		
 		const char *vertexC = vertex.c_str(), *fragmentC = fragment.c_str();
 
 		unsigned int id = API::createShader(vertexC, fragmentC, false);
-		program = ShaderManager::getProgram(id);
+		program = ShaderManager::Get()->getProgram(id);
 	}
 
 	World::~World() {
-		for (unsigned int i = 0; i < terrains.size; i++) {
-			Pair<vec2, Renderable*> x = terrains[i];
-			del x.value;
+		for (Chunk chunk : chunks) {
+			del chunk.chunk;
 		}
 	}
 

@@ -21,8 +21,6 @@
 
 namespace ht { namespace graphics {
 
-	using namespace utils;
-
 	class API {
 	private:
 		static unsigned int type;
@@ -34,15 +32,12 @@ namespace ht { namespace graphics {
 			this->mode = mode;
 		}
 
-		static RawModel* loadObjFile(String path);
+		static RawModel* loadObjFile(ht::utils::String path);
 
-		static const Texture* loadTextureFromFile(String path);
-
-		static unsigned int createShader(String VERTEX_PATH, String FRAGMENT_PATH, bool path = true);
-		static unsigned int createWindow(String title, const int &width, const int &height);
+		static unsigned int createShader(ht::utils::String VERTEX_PATH, ht::utils::String FRAGMENT_PATH, bool path = true);
+		static unsigned int createWindow(ht::utils::String title, const int &width, const int &height);
 
 		inline static bool is3D() { return mode == API_MODE_3D; }
 		inline static bool is2D() { return mode == API_MODE_2D; }
 	};
-
 } }

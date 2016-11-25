@@ -12,7 +12,6 @@
 namespace ht { namespace maths {
 
 	struct mat4 {
-
 		union {
 			GLfloat elements[4 * 4];
 			vec4 columns[4];
@@ -37,17 +36,5 @@ namespace ht { namespace maths {
 		vec4 operator*=(const vec4 &other);
 		vec3 operator*=(const vec3 &other);
 		vec2 operator*=(const vec2 &other);
-
-		inline void print() const {
-#if PRINT
-			std::cout << std::endl;
-			for (int i = 1; i <= 16; i++) {
-				std::cout << elements[i - 1] << " ";
-				if (i % 4 == 0)
-					std::cout << std::endl;
-			}
-#endif
-		}
 	};
-
 } }

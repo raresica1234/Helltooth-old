@@ -15,8 +15,5 @@ namespace ht { namespace maths {
 		friend vec4 operator+(vec4 left, vec4 &right);
 		friend vec4 operator-(vec4 left, vec4 &right);
 		friend vec4 operator*(vec4 left, vec4 &right);
-
-		void print();
-
 	};
 } }

@@ -2,6 +2,7 @@
 #include "WindowManager.h"
 
 namespace ht { namespace graphics {
+	using namespace utils;
 
 	void windowResize(GLFWwindow *window, int width, int height);
 
@@ -38,8 +39,10 @@ namespace ht { namespace graphics {
 			return false;
 		}
 		HT_WARN("OpenGL Version: %s", glGetString(GL_VERSION));
+		HT_WARN("OpenGL Vendor: %s", glGetString(GL_VENDOR));
 		HT_WARN("GLFW Version: %i", glfwGetVersion);
 		HT_WARN("GLEW  Version: %i", GLEW_VERSION);
+		
 		utils::Input::init();
 
 		glfwSetKeyCallback(window, utils::key_callback);
@@ -59,6 +62,7 @@ namespace ht { namespace graphics {
 	void Window::update() {
 		glfwPollEvents();
 		glfwSwapBuffers(window);
+		glViewport(0, 0, width, height);
 	}
 
 	bool Window::closed() const {
@@ -66,6 +70,6 @@ namespace ht { namespace graphics {
 	}
 
 	void windowResize(GLFWwindow *window, int width, int height) {
-		WindowManager::resize(window, width, height);
+		WindowManager::Get()->resize(window, width, height);
 	}
 } }

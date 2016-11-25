@@ -1,6 +1,10 @@
 #include "Asset.h"
 
+
 namespace ht { namespace assets {
+	using namespace graphics;
+	using namespace utils;
+
 	const Texture* Asset::loadTextureFromFile(String path) {
 		String fileName = utils::FileUtils::changeExtension(path, "httexture");
 
@@ -36,7 +40,7 @@ namespace ht { namespace assets {
 
 		FreeImage_Unload(dib);
 
-		HelltoothTexture::storeAsHelltoothTexture(fileName, result, width, height, bpp, size);
+		HelltoothTexture::StoreAsHelltoothTexture(fileName, result, width, height, bpp, size);
 		const Texture* texture = htnew Texture();
 
 		texture->loadPixelArray(result, width, height, bpp);
@@ -56,9 +60,9 @@ namespace ht { namespace assets {
 		}
 
 		HT_INFO("[Asset]\"%s\" not found! Creating one...", fileName);
-		RawModel* rawModel = ObjLoader::loadObjFile(path);
+		RawModel* rawModel = ObjLoader::LoadObjFile(path);
 
-		HelltoothModel::storeAsHelltoothModel(fileName, rawModel);
+		HelltoothModel::StoreAsHelltoothModel(fileName, rawModel);
 		HT_INFO("[Asset] Model \"%s\" loaded!", fileName);
 		return rawModel;
 	}

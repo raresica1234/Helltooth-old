@@ -1,7 +1,7 @@
 #include "Entity3D.h"
 
 namespace ht { namespace graphics {
-
+	using namespace maths;
 
 	Entity3D::Entity3D(const float &x, const float &y, const float &z) {
 		m_Position.x = x;

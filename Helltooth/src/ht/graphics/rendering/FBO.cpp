@@ -10,9 +10,6 @@ namespace ht { namespace graphics {
 	}
 
 	FBO::~FBO() {
-		for (Texture* texture : textures) {
-			del texture;
-		}
 		if (hasDepthBuffer)
 			glDeleteFramebuffers(1, &depthBuffer);
 		glDeleteFramebuffers(1, &id);
@@ -22,7 +19,7 @@ namespace ht { namespace graphics {
 		Texture* texture = htnew Texture();
 		texture->createAttachment(width, height, TEXTURE_COLOR_ATTACHMENT);
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture->getID(), 0);
-		textures.push_back(texture);
+		textures.push_back(TextureManager::Get()->addTexture(texture));
 	}
 
 	void FBO::createDepthTexture(bool texture) {
@@ -31,7 +28,7 @@ namespace ht { namespace graphics {
 			Texture* texture = htnew Texture();
 			texture->createAttachment(width, height, TEXTURE_DEPTH_ATTACHMENT);
 			glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture->getID(), 0);
-			textures.push_back(texture);
+			textures.push_back(TextureManager::Get()->addTexture(texture));
 		}
 		else {
 			glGenRenderbuffers(1, &depthBuffer);

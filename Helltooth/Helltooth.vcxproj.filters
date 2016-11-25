@@ -29,6 +29,7 @@
     <ClCompile Include="src\ht\utils\Input.cpp" />
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
+    <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -48,7 +49,6 @@
     <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
-    <ClInclude Include="src\ht\graphics\rendering\vertex.h" />
     <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
@@ -81,9 +81,8 @@
     <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
     <ClInclude Include="src\ht\graphics\terrain\World.h" />
     <ClInclude Include="src\ht\utils\String.h" />
-    <ClInclude Include="src\ht\utils\List.h" />
-    <ClInclude Include="src\ht\utils\Map.h" />
     <ClInclude Include="src\ht\graphics\textures\TextureManager.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
   </ItemGroup>
 </Project>

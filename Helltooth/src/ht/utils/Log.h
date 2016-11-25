@@ -83,7 +83,6 @@ namespace ht { namespace utils {
 				printf("\n");
 		}
 	};
-
 } }
 
 #ifdef DEBUG

@@ -31,6 +31,7 @@
 #include "graphics/terrain/World.h"
 
 #include "graphics/textures/Texture.h"
+#include "graphics/textures/TextureManager.h"
 
 //MATHS
 #include "maths/vec2.h"
@@ -42,8 +43,6 @@
 #include "utils/Input.h"
 #include "utils/FileUtils.h"
 #include "utils/FpsCounter.h"
-#include "utils/List.h"
-#include "utils/Map.h"
 #include "utils/String.h"
 
 //UTILS -> MEMORY
@@ -53,41 +52,36 @@
 #include "tools/Cereal/Cereal.h"
 #include "tools/VFS/VFS.h"
 
-using namespace ht;
-using namespace graphics;
-using namespace assets;
-
 class Application {
 protected:
-	Window* window;
-	FpsCounter *counter;
+	ht::graphics::Window* window;
+	ht::utils::FpsCounter *counter;
 
 public:
 	Application(const char* title, int width, int height, int MAX_UPS = 60) {
+		ht::graphics::WindowManager::Init();
+		ht::graphics::TextureManager::Init();
+		ht::graphics::ShaderManager::Init();
+		
+		ht::utils::Input::init();
 
-		unsigned int wID = API::createWindow(title, width, height);
+		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
 		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
 		HT_WARN("%s", std::string("| | | |    | | | |            | | | |    "));
 		HT_WARN("%s", std::string("| |_| | ___| | | |_ ___   ___ | |_| |__  "));
 		HT_WARN("%s", std::string("|  _  |/ _ \\ | | __/ _ \\ / _ \\| __| '_ \\ "));
 		HT_WARN("%s", std::string("| | | |  __/ | | || (_) | (_) | |_| | | |"));
 		HT_WARN("%s", std::string("\\_| |_/\\___|_|_|\\__\\___/ \\___/ \\__|_| |_|"));
-		window = WindowManager::getWindow(wID);
-		counter = htnew FpsCounter(MAX_UPS);
+		window = ht::graphics::WindowManager::Get()->getWindow(wID);
+		counter = htnew ht::utils::FpsCounter(MAX_UPS);
 	}
 
 	~Application() {
-		ShaderManager::cleanUP();
-		WindowManager::cleanUP();
 		del counter;
 	}
 protected:
 	void start() {
-
-
-		Input::init();
 		counter->init();
-
 
 		init();
 		while (!window->closed()) {
@@ -102,6 +96,10 @@ protected:
 
 			window->update();
 		}
+
+		ht::graphics::ShaderManager::End();
+		ht::graphics::TextureManager::End();
+		ht::graphics::WindowManager::End();
 	}
 
 	virtual void init() {

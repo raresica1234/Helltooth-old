@@ -1,4 +1,5 @@
 #pragma once
+
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "../maths/vec2.h"
@@ -15,7 +16,6 @@
 namespace ht { namespace utils {
 
 	class Input {
-
 	private:
 		static bool keys[MAX_KEYS];
 		static bool buttons[MAX_BUTTONS];
@@ -42,5 +42,4 @@ namespace ht { namespace utils {
 
 		inline static maths::vec2 getPosition() { return maths::vec2((float)mouseX, (float)mouseY); }
 	};
-
 } }

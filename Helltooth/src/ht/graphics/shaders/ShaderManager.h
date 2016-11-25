@@ -6,22 +6,32 @@
 #include <vector>
 
 #include "../../utils/Log.h"
-#include "../../utils/List.h"
 #include "../../utils/String.h"
 
-namespace ht {namespace graphics {
-	using namespace utils;
+namespace ht { namespace graphics {
+
 	class ShaderManager {
 	private:
-		static List<ShaderProgram*> shaders;
+		std::vector<ShaderProgram*> shaders;
+		static ShaderManager* sManager;
 
 	public:
-		static unsigned int loadProgram(String vertexPath, String fragmentPath, bool path = true);
-		static ShaderProgram* getProgram(unsigned int &id);
-		static void cleanUP();
+		unsigned int loadProgram(ht::utils::String vertexPath, ht::utils::String fragmentPath, bool path = true);
+		ShaderProgram* getProgram(unsigned int &id);
+		void cleanUP();
 
-		static void reCompile();
+		void reCompile();
+
+		static void Init() {
+			if (!sManager)
+				sManager = htnew ShaderManager();
+			else
+				HT_WARN("[ShaderManager] Reinitialization not possible!");
+		}
+
+		static ShaderManager* Get() { return sManager; }
+
+		static void End() { del sManager; sManager = nullptr; }
+
 	};
-
-
 } }

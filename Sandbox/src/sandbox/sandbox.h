@@ -22,19 +22,19 @@ namespace sandbox {
 
 	class Sandbox : public Application {
 	private:
-		Layer* layer;
-		Layer *guis;
+		ht::graphics::Layer* layer;
+		ht::graphics::Layer *guis;
 
-		RawModel *rawModel;
+		ht::graphics::RawModel *rawModel;
 
-		FBO *fbo;
+		ht::graphics::FBO *fbo;
 
-		Quad *quad;
-		World* world;
-		StaticEntity* sentity;
-		DynamicEntity* dentity;
+		ht::graphics::Quad *quad;
+		ht::graphics::World* world;
+		ht::graphics::StaticEntity* sentity;
+		ht::graphics::DynamicEntity* dentity;
 
-		List<DynamicEntity*> dentities;
+		std::vector<ht::graphics::DynamicEntity*> dentities;
 
 		unsigned int id;
 

@@ -4,8 +4,7 @@
 
 namespace ht { namespace utils {
 
-	class FpsCounter
-	{
+	class FpsCounter {
 	private:
 		unsigned int ups, fps, MAX_UPS;
 

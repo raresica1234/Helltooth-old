@@ -2,16 +2,18 @@
 
 #include <GL/glew.h>
 #include "../textures/Texture.h"
+#include "../textures/TextureManager.h"
 #include "../../utils/memory/MemoryManager.h"
 
 #include <vector>
+
 namespace ht { namespace graphics {
 
 	class FBO {
 	private:
 		GLuint id;
 		GLuint width, height;
-		std::vector<Texture*> textures;
+		std::vector<unsigned int> textures;
 		bool hasDepthBuffer = false;
 		GLuint depthBuffer;
 
@@ -25,8 +27,8 @@ namespace ht { namespace graphics {
 		void bind();
 		void unbind(int width, int height);
 
-		inline GLuint getColorTexID() { return textures[0]->getID(); }
-		inline Texture* getColorTexture() { return textures[0]; }
+		inline GLuint getColorTexID() { return TextureManager::Get()->getTexture(textures[0])->getID(); }
+		inline unsigned int getColorTexture() { return textures[0]; }
 	};
 
 } }

@@ -2,6 +2,7 @@
 
 namespace ht { namespace graphics {
 	using namespace maths;
+	using namespace utils;
 
 	ShaderProgram::ShaderProgram(String VERTEX_PATH, String FRAGMENT_PATH, bool path)
 		: path(path){

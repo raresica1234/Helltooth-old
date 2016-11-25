@@ -14,38 +14,36 @@ This component allows you to submit every frame and render every frame
 
 namespace ht { namespace graphics {
 
-		class DynamicEntity : public Entity3D {
+	class DynamicEntity : public Entity3D {
 
-		protected:
-			Renderable* renderable;
+	protected:
+		Renderable* renderable;
 
-		public:
-			DynamicEntity(): Entity3D(), renderable(nullptr) { }
+	public:
+		DynamicEntity(): Entity3D(), renderable(nullptr) { }
 
-			DynamicEntity(Renderable* renderable)
-				: renderable(renderable), Entity3D() { }
+		DynamicEntity(Renderable* renderable)
+			: renderable(renderable), Entity3D() { }
 
-			DynamicEntity(Renderable* renderable, vec3 position)
-				: renderable(renderable), Entity3D(position) { }
+		DynamicEntity(Renderable* renderable, ht::maths::vec3 position)
+			: renderable(renderable), Entity3D(position) { }
 
-			DynamicEntity(Renderable* renderable, float x, float y, float z)
-				: renderable(renderable), Entity3D(x, y, z) {}
+		DynamicEntity(Renderable* renderable, float x, float y, float z)
+			: renderable(renderable), Entity3D(x, y, z) {}
 
-			~DynamicEntity() {
-				del renderable;
+		~DynamicEntity() {
+			del renderable;
+		}
+
+		friend bool operator==(DynamicEntity left, DynamicEntity& right) {
+			if ((Entity3D)left == (Entity3D)right) {
+				return true;
 			}
+			return false;
+		}
 
-			friend bool operator==(DynamicEntity left, DynamicEntity& right) {
-				if ((Entity3D)left == (Entity3D)right) {
-					return true;
-				}
-				return false;
-			}
-
-			inline const Renderable* getRenderable() const {
-				return renderable;
-			}
-
-		};
-
+		inline const Renderable* getRenderable() const {
+			return renderable;
+		}
+	};
 } }

@@ -12,6 +12,7 @@
 #include "../../utils/memory/MemoryManager.h"
 #include "model/RawModel.h"
 
+#include "../textures/TextureManager.h"
 
 namespace ht { namespace graphics {
 
@@ -51,7 +52,7 @@ namespace ht { namespace graphics {
 		inline void end() const { vao->unbindVAO(); }
 
 		//set texture
-		inline void addTexture(const Texture* texture) { textures.push_back(texture);}
+		inline void addTexture(const unsigned int &id) { textures.push_back(TextureManager::Get()->getTexture(id));}
 
 	};
 

@@ -1,9 +1,9 @@
 #include "WindowManager.h"
 
-
 namespace ht { namespace graphics {
+	using namespace utils;
 
-	std::vector<Window*> WindowManager::windows;
+	WindowManager* WindowManager::wManager = nullptr;
 
 	unsigned int WindowManager::createWindow(String title, const int width, const int height) {
 		windows.push_back(htnew Window(title, width, height));
@@ -16,19 +16,15 @@ namespace ht { namespace graphics {
 				window->resize(width, height);
 	}
 
-
 	Window* WindowManager::getWindow(unsigned int &id) {
 		if (id > windows.size())
 			HT_FATAL("Window id %i is bigger than vector size %i", id, windows.size());
 		return windows[id];
 	}
 
-
 	void WindowManager::cleanUP() {
 		for (Window* window : windows)
 			del window;
 	}
-
-
 } }
 

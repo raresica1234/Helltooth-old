@@ -8,23 +8,19 @@
 
 namespace ht { namespace graphics {
 
-	using namespace maths;
-	using namespace utils;
-
-
 	class Camera {
 	
 	private:
-		vec3 position;
-		vec3 rotation;
+		ht::maths::vec3 position;
+		ht::maths::vec3 rotation;
 
-		vec2 mouse;
+		ht::maths::vec2 mouse;
 
 		float movementSpeedFactor;
 
 		float pitchSensitivity; 
 		float yawSensitivity;
-		vec2 midPoint;
+		ht::maths::vec2 midPoint;
 
 	public:
 
@@ -34,11 +30,9 @@ namespace ht { namespace graphics {
 
 		void update();
 
-		mat4 generateViewMatrix() const;
+		ht::maths::mat4 generateViewMatrix() const;
 
 	protected:
 		void handleMouseMove(float mouseX, float mouseY);
 	};
-
-
 } }

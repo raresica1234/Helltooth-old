@@ -2,7 +2,9 @@
 
 #include <string>
 #include <vector>
+
 namespace ht { namespace graphics {
+
 	enum BlockType {
 		//VERSION BLOCK
 		VARIABLE_BLOCK = 1,
@@ -71,6 +73,5 @@ namespace ht { namespace graphics {
 		inline void deleteBlock() {
 			blocks[currentBlock].clear();
 		}
-
 	};
 } }

@@ -7,16 +7,13 @@
 
 namespace ht { namespace graphics {
 
-	using namespace maths;
-
 	class Entity3D {
 	protected:
 		//Entity data
-		vec3 m_Position;
-		vec3 m_Rotation;
-		vec3 m_Scale;
-		mutable mat4 modelMatrix;
-
+		ht::maths::vec3 m_Position;
+		ht::maths::vec3 m_Rotation;
+		ht::maths::vec3 m_Scale;
+		mutable ht::maths::mat4 modelMatrix;
 
 	public:
 
@@ -28,22 +25,22 @@ namespace ht { namespace graphics {
 		//Sets everything to 0 (default) and the scale to 1
 		Entity3D();
 
-		Entity3D(const vec3 position);
+		Entity3D(const ht::maths::vec3 position);
 
-		void rotate(vec3 &axis);
+		void rotate(ht::maths::vec3 &axis);
 
 		void scale(const float &scaleX, const float &scaleY, const float &scaleZ);
-		void scale(const vec3 scale);
+		void scale(const ht::maths::vec3 scale);
 
-		inline mat4 getModelMatrix() const { return modelMatrix; }
+		inline ht::maths::mat4 getModelMatrix() const { return modelMatrix; }
 
-		void move(vec3 &move);
+		void move(ht::maths::vec3 &move);
 
 	protected:
-		mat4 generateModelMatrix() const;
-		mat4 generateRotateMatrix() const;
-		mat4 generateTranslationMatrix() const;
-		mat4 generateScaleMatrix() const;
+		ht::maths::mat4 generateModelMatrix() const;
+		ht::maths::mat4 generateRotateMatrix() const;
+		ht::maths::mat4 generateTranslationMatrix() const;
+		ht::maths::mat4 generateScaleMatrix() const;
 
 	public:
 		bool operator==(Entity3D &other) const;

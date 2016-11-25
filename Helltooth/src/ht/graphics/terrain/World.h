@@ -1,26 +1,29 @@
 #pragma once
 
-
-#include <unordered_map>
+#include <vector>
 
 #include "../shaders/ShaderProgram.h"
-
 #include "../rendering/types/StaticEntity.h"
-
 #include "../rendering/Renderable.h"
-
 #include "TerrainShader.h"
-
-#include "../../utils/List.h"
+#include "../textures/TextureManager.h"
 
 namespace ht { namespace graphics {
 
-#define TERRAIN_SIZE 800
-#define VERTEX_COUNT 128
+	#define TERRAIN_SIZE 800
+	#define VERTEX_COUNT 128
+
+	struct Chunk {
+		ht::maths::vec2 position;
+		Renderable* chunk;
+
+		Chunk() { chunk = nullptr; }
+		Chunk(ht::maths::vec2 position, Renderable* chunk) : position(position), chunk(chunk) {}
+	};
 
 	class World : public StaticEntity {
 	private: 
-		List<Pair<vec2, Renderable*>> terrains;
+		std::vector<Chunk> chunks;
 
 		int terrainSize;
 
@@ -29,11 +32,12 @@ namespace ht { namespace graphics {
 		ShaderProgram* program;
 
 	public:
-		World(int size, vec4 terrainCounts);
+		World(int size, ht::maths::vec4 terrainCounts);
 		~World();
 
-		vec2 isUnderTerrain(vec3 position) {
-			vec2 player = vec2(position.x, position.z);
+		bool isUnderTerrain(ht::maths::vec3 position) {
+			ht::maths::vec2 player = ht::maths::vec2(position.x, position.z);
+			return true;
 		}
 
 		inline void prepare() const override {
@@ -44,7 +48,7 @@ namespace ht { namespace graphics {
 			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
 		};
 
-		inline void setProjection(mat4 projection) const override {
+		inline void setProjection(ht::maths::mat4 projection) const override {
 			program->start();
 			program->setProjection("projectionMatrix", projection);
 			program->stop();
@@ -54,16 +58,16 @@ namespace ht { namespace graphics {
 		};
 
 		inline void render() const override {
-			for (int i = 0; i < terrains.size; i++) {
-				Renderable * r = terrains[i].value;
+			for (Chunk entry : chunks) {
+				Renderable * r = entry.chunk;
 				r->prepare();
-				auto pair = terrains[i];
-				mat4 model = mat4::createIdentity();
-				vec2 position = pair.key;
 
-				model.translate(vec3(position.x * TERRAIN_SIZE, 0.0, position.y * TERRAIN_SIZE));
+
+				ht::maths::mat4 model = ht::maths::mat4::createIdentity();
+				model.translate(ht::maths::vec3(entry.position.x * TERRAIN_SIZE, 0.0, entry.position.y * TERRAIN_SIZE));
 
 				program->uniformMat4("modelMatrix", model);
+
 				r->render();
 				r->end();
 			}
@@ -71,10 +75,10 @@ namespace ht { namespace graphics {
 		};
 
 
-		__forceinline void addTexture(const Texture* texture) {
-			for (unsigned int i = 0; i < terrains.size; i++) {
-				Renderable *r = terrains[i].value;
-				r->addTexture(texture);
+		__forceinline void addTexture(const unsigned int &id) {
+			for (Chunk entry : chunks) {
+				Renderable *r = entry.chunk;
+				r->addTexture(id);
 			}
 		}
 
@@ -82,6 +86,4 @@ namespace ht { namespace graphics {
 		Renderable* generateTerrain();
 
 	};
-
-
 } }

@@ -26,7 +26,7 @@ namespace ht { namespace graphics {
 		StaticEntity(Renderable* renderable)
 			: renderable(renderable), Entity3D() { }
 
-		StaticEntity(Renderable* renderable, vec3 position)
+		StaticEntity(Renderable* renderable, ht::maths::vec3 position)
 			: renderable(renderable), Entity3D(position) { }
 
 		StaticEntity(Renderable* renderable, float x, float y, float z)
@@ -40,7 +40,7 @@ namespace ht { namespace graphics {
 		virtual void setViewMatrix(const Camera* camera) const {
 		};
 
-		virtual void setProjection(mat4 projection) const {};
+		virtual void setProjection(ht::maths::mat4 projection) const {};
 		
 		virtual void setModelMatrix() const {};
 
@@ -53,7 +53,7 @@ namespace ht { namespace graphics {
 			renderable->render();
 		};
 
-		friend bool operator==(StaticEntity left, StaticEntity& right) {
+		friend bool operator==(const StaticEntity left, const StaticEntity& right) {
 			if ((Entity3D)left == (Entity3D)right) {
 				return true;
 			}

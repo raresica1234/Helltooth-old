@@ -1,6 +1,8 @@
 #include "Camera.h"
 
 namespace ht { namespace graphics {
+	using namespace utils;
+	using namespace maths;
 
 	Camera::Camera(Window* window)
 		: position(0.0, -5.0, 0.0), rotation() {

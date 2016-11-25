@@ -10,17 +10,15 @@
 
 namespace ht { namespace graphics {
 
-	using namespace utils;
-
 	class Window {
 	private:
-		String title;
+		ht::utils::String title;
 		int width;
 		int height;
 		GLFWwindow *window;
 
 	public:
-		Window(String title, const int &width, const int &height);
+		Window(ht::utils::String title, const int &width, const int &height);
 		~Window();
 		bool closed() const;
 		void update();
