@@ -1,5 +1,5 @@
-#include <FreeImage/FreeImage.h>
 #include "FileSystem.h"
+#include <FreeImage/FreeImage.h>
 
 namespace ht { namespace assets {
 	using namespace utils;
@@ -11,17 +11,31 @@ namespace ht { namespace assets {
 		frontLoaded.store(false);
 		running.store(false);
 
+		front.store(nullptr);
+		back.store(nullptr);
 		std::thread fs(start, this);
 		fs.detach();
 	}
 
 	void FileSystem::addToQueue(utils::String path) {
-		paths.load().push_back(path);
+		Node *newNode = new Node(path);
+		if (front.load() == nullptr)
+			front.store(newNode);
+		else
+			back.load()->next = newNode;
+
+		back = newNode;
 	}
 
 	void FileSystem::loadNext() {
-		String path = paths.load().front();
-		paths.load().pop_front();
+		Node* current = front.load();
+		while (front.load() != back.load()) {
+			if (front.load()->resource.res == nullptr)
+				break;
+			current = front.load()->next;
+		}
+
+		String path = current->path;
 
 		bool success = false;
 
@@ -31,7 +45,7 @@ namespace ht { namespace assets {
 		String lastString = strings[strings.size() - 1];
 		Resource r;
 		if (lastString == ".htmodel" || lastString == ".obj") {
-			r.type = OBJ_MODEL;
+			r.type = Resource::OBJ_MODEL;
 			r.res = (void*)API::loadObjFile(path);
 			success = true;
 		}
@@ -45,15 +59,16 @@ namespace ht { namespace assets {
 			fif = FreeImage_GetFIFFromFilename(file);
 
 		if (FreeImage_FIFSupportsReading(fif)) {
-			r.type = TEXTURE;
+			r.type = Resource::TEXTURE;
 			unsigned int id = TextureManager::Get()->createTextureFromFile(path);
 			r.res = (void*)TextureManager::Get()->getTexture(id);
 			success = true;
 		}
 		if(!success)
 			HT_ERROR("[FileSystem] Resource type not supported!");
-		fifo.load().push_back(r);
-		frontLoaded.store(true);
+		current->resource = r;
+		if(current == front)
+			frontLoaded.store(frontLoaded.load() + 1);
 	}
 
 } }

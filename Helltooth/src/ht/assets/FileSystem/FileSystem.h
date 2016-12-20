@@ -14,53 +14,69 @@
 
 namespace ht { namespace assets {
 
-	enum Type {
-		OBJ_MODEL,
-		TEXTURE,
 
-		UNKOWN
+	struct Resource {
+		void* res = nullptr;
+		enum Type {
+			OBJ_MODEL,
+			TEXTURE,
+
+			UNKOWN
+		} type = UNKOWN;
 	};
 
 	class FileSystem {
 	private:
 		static FileSystem* fileSystem;
+			
+		struct Node {
+			Resource resource;
+			String path;
 
-		struct Resource {
-			void* res;
-			Type type = UNKOWN;
+			Node* next;
+
+			Node(String path) : path(path) {}
 		};
 
-		std::atomic<std::list<utils::String>> paths;
-		std::atomic<std::list<Resource>> fifo;
+		std::atomic<Node*> front;
+		std::atomic<Node*> back;
 
-		std::atomic<bool> frontLoaded;
-
+		std::atomic<int> frontLoaded;
 		std::atomic<bool> running;
+
 	public:
 
+	public:
 		FileSystem();
-
+		~FileSystem() {}
 		void addToQueue(utils::String path);
 
+		__forceinline bool hasLoadedResources() {
+			return frontLoaded.load() > 0;
+		}
+
 		__forceinline Resource getNextResource() {
-			Resource r = fifo.load().front();
-			fifo.load().pop_front();
-			if (fifo.load().size() < 1)
-				frontLoaded.store(false);
+			if (!frontLoaded.load() > 0)
+				HT_ERROR("[FileSystem] No resource loaded!");
+			else
+				return Resource();
+
+			Resource r = front.load()->resource;
+			frontLoaded.store(frontLoaded.load() - 1);
 			return r;
 		}
 
-		__forceinline RawModel* getAsModel(Resource r) {
-			if (r.type == OBJ_MODEL) {
-				return (RawModel*)r.res;
+		__forceinline graphics::RawModel* getAsModel(Resource& r) {
+			if (r.type == Resource::OBJ_MODEL) {
+				return (graphics::RawModel*)r.res;
 			}
 			HT_ERROR("[FileSystem] Resource type not correct!");
 			return nullptr;
 		}
 
-		__forceinline Texture* getAsTexture(Resource r) {
-			if (r.type == TEXTURE) {
-				return (Texture*)r.res;
+		__forceinline graphics::Texture* getAsTexture(Resource& r) {
+			if (r.type == Resource::TEXTURE) {
+				return (graphics::Texture*)r.res;
 			}
 			HT_ERROR("[FileSystem] Resource type not correct!");
 			return nullptr;
@@ -108,11 +124,39 @@ namespace ht { namespace assets {
 			
 
 			while (fs->running.load()) {
-				if (fs->paths.load().size() > 1)
+				if (fs->isNextLoadingAvaliable())
 					fs->loadNext();
 				else
 					Sleep(10);
 			}
+		}
+
+		bool isNextLoadingAvaliable() {
+			if (!front.load())
+				return false;
+
+			Node* current = front.load();
+
+			while (front.load() != back.load()) {
+				if (front.load()->resource.res == nullptr)
+					return true;
+				current = front.load()->next;
+			}
+			return false;
+		}
+
+		Resource dequeue() {
+			if (!front.load()) {
+				HT_ERROR("[FileSystem] No resource loaded!");
+				return Resource();
+			}
+
+			Node* temp = front.load();
+			Resource r = temp->resource;
+
+			front.store(front.load()->next);
+			del temp;
+			return r;
 		}
 	};
 
