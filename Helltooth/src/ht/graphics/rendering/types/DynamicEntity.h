@@ -42,7 +42,7 @@ namespace ht { namespace graphics {
 			return false;
 		}
 
-		inline const Renderable* getRenderable() const {
+		inline Renderable* getRenderable() const {
 			return renderable;
 		}
 	};

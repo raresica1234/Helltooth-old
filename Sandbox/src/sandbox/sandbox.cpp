@@ -7,6 +7,7 @@ using namespace ht;
 using namespace graphics;
 using namespace utils;
 using namespace maths;
+using namespace assets;
 
 Sandbox::Sandbox()
 	: Application("Sandbox", WIDTH, HEIGHT) {
@@ -44,7 +45,6 @@ Sandbox::Sandbox()
 	world->addTexture(TextureManager::Get()->createTextureFromFile("/res/grass.jpg"));
 
 	Renderable* model = htnew Renderable();
-	model->loadRawModel(API::loadObjFile("/res/stall.obj"));
 	model->addTexture(TextureManager::Get()->createTextureFromFile("/res/stallTexture.png"));
 	model->addTexture(TextureManager::Get()->createTextureFromFile("/res/stallTextureSpecular.png"));
 
@@ -92,11 +92,17 @@ void Sandbox::update() {
 }
 
 void Sandbox::render() {
-	layer->submit(dentity);
+	if (!objLoaded) {
+		if (FileSystem::Get()->hasLoadedResources())
+			dentity->getRenderable()->loadRawModel(FileSystem::Get()->getAsModel(FileSystem::Get()->getNextResource()));
+	}
 
-	//for (unsigned int i = 0; i < dentities.size(); i++) {
-	//	layer->submit(dentities[i]);
-	//}
+	if(objLoaded)
+		layer->submit(dentity);
+	
+	for (unsigned int i = 0; i < dentities.size(); i++) {
+		layer->submit(dentities[i]);
+	}
 	
 	fbo->bind();
 	layer->render();

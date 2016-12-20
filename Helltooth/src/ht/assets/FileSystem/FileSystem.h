@@ -14,7 +14,6 @@
 
 namespace ht { namespace assets {
 
-
 	struct Resource {
 		void* res = nullptr;
 		enum Type {
@@ -31,11 +30,11 @@ namespace ht { namespace assets {
 			
 		struct Node {
 			Resource resource;
-			String path;
+			utils::String path;
 
 			Node* next;
 
-			Node(String path) : path(path) {}
+			Node(utils::String path) : path(path) {}
 		};
 
 		std::atomic<Node*> front;
@@ -87,6 +86,10 @@ namespace ht { namespace assets {
 		__forceinline static void Init() {
 			if (!fileSystem) {
 				fileSystem = htnew FileSystem();
+
+				std::thread fs(start, fileSystem);
+				fs.detach();
+
 				return;
 			}
 			HT_ERROR("[FileSytem] Reinitialization not possible!");
@@ -124,23 +127,23 @@ namespace ht { namespace assets {
 			
 
 			while (fs->running.load()) {
-				if (fs->isNextLoadingAvaliable())
+				if (FileSystem::isNextLoadingAvaliable(fs))
 					fs->loadNext();
 				else
 					Sleep(10);
 			}
 		}
 
-		bool isNextLoadingAvaliable() {
-			if (!front.load())
+		static bool isNextLoadingAvaliable(FileSystem* fs) {
+			if (!fs->front.load())
 				return false;
 
-			Node* current = front.load();
+			Node* current = fs->front.load();
 
-			while (front.load() != back.load()) {
-				if (front.load()->resource.res == nullptr)
+			while (fs->front.load() != fs->back.load()) {
+				if (fs->front.load()->resource.res == nullptr)
 					return true;
-				current = front.load()->next;
+				current = fs->front.load()->next;
 			}
 			return false;
 		}

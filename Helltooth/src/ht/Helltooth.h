@@ -4,6 +4,7 @@
 //ASSETS
 #include "assets/Asset.h"
 #include "assets/ObjLoader.h"
+#include "assets/FileSystem/FileSystem.h"
 
 //GRAPHICS
 #include "graphics/window/Window.h"
@@ -62,7 +63,8 @@ public:
 		ht::graphics::WindowManager::Init();
 		ht::graphics::TextureManager::Init();
 		ht::graphics::ShaderManager::Init();
-		
+		ht::assets::FileSystem::Init();
+
 		ht::utils::Input::init();
 
 		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
@@ -100,6 +102,7 @@ protected:
 		ht::graphics::ShaderManager::End();
 		ht::graphics::TextureManager::End();
 		ht::graphics::WindowManager::End();
+		ht::assets::FileSystem::End();
 	}
 
 	virtual void init() {

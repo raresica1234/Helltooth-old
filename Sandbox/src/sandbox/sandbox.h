@@ -36,6 +36,8 @@ namespace sandbox {
 
 		std::vector<ht::graphics::DynamicEntity*> dentities;
 
+		bool objLoaded = false;
+
 		unsigned int id;
 
 		bool compile = false;

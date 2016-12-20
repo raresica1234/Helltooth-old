@@ -13,8 +13,6 @@ namespace ht { namespace assets {
 
 		front.store(nullptr);
 		back.store(nullptr);
-		std::thread fs(start, this);
-		fs.detach();
 	}
 
 	void FileSystem::addToQueue(utils::String path) {
