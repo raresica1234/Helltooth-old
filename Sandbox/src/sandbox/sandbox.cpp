@@ -53,7 +53,7 @@ Sandbox::Sandbox()
 	dentity->scale(3, 3, 3);
 	unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
 
-	srand(time(NULL));
+	srand(time(nullptr));
 	for (float i = 0; i < 200; i++) {
 		int x = rand() % 100 - 50;
 		int z = rand() % 100 - 50;
@@ -94,9 +94,9 @@ void Sandbox::update() {
 void Sandbox::render() {
 	layer->submit(dentity);
 
-	for (unsigned int i = 0; i < dentities.size(); i++) {
-		layer->submit(dentities[i]);
-	}
+	//for (unsigned int i = 0; i < dentities.size(); i++) {
+	//	layer->submit(dentities[i]);
+	//}
 	
 	fbo->bind();
 	layer->render();

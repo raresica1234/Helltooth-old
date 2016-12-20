@@ -30,6 +30,7 @@
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
+    <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -84,5 +85,7 @@
     <ClInclude Include="src\ht\graphics\textures\TextureManager.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
+    <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
+    <ClInclude Include="src\ht\utils\Pair.h" />
   </ItemGroup>
 </Project>

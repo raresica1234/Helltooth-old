@@ -26,7 +26,7 @@ namespace ht { namespace graphics {
 	}
 
 	void EntityRenderer3D::submit(std::vector<const DynamicEntity*> entities) {
-		for (int i = 0; i < entities.size();i++) {
+		for (unsigned int i = 0; i < entities.size();i++) {
 			submit(entities[i]);
 		}
 	}

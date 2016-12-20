@@ -21,13 +21,13 @@ namespace ht { namespace graphics {
 
 	void ShaderManager::cleanUP() {
 		if (shaders.size() > 0)
-			for (int i=0; i < shaders.size(); i++)
+			for (unsigned int i=0; i < shaders.size(); i++)
 				del shaders[i];
 	}
 
 	void ShaderManager::reCompile() {
 		HT_WARN("[ShaderManager] Shaders Recompiled!");
-		for (int i = 0; i < shaders.size(); i++)
+		for (unsigned int i = 0; i < shaders.size(); i++)
 			shaders[i]->reCompile();
 	}
 } }

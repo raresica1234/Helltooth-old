@@ -26,12 +26,25 @@ namespace ht { namespace graphics {
 			if (!sManager)
 				sManager = htnew ShaderManager();
 			else
-				HT_WARN("[ShaderManager] Reinitialization not possible!");
+				HT_ERROR("[ShaderManager] Reinitialization not possible!");
 		}
 
-		static ShaderManager* Get() { return sManager; }
+		static ShaderManager* Get() {
+			if (!sManager){
+				Init();
+				HT_ERROR("[ShaderManager] ShaderManager not initialized, initialization forced.");
+			}
+			return sManager;
+		}
 
-		static void End() { del sManager; sManager = nullptr; }
+		static void End() { 
+			if (sManager) {
+				del sManager;	
+				sManager = nullptr;
+				return;
+			}
+			HT_ERROR("[ShaderManager] Deletion not possible, ShaderManager not initialized");
+		}
 
 	};
 } }

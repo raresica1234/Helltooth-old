@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
+    <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\MasterRenderer.h" />
@@ -193,10 +194,12 @@
     <ClInclude Include="src\ht\utils\Log.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
+    <ClInclude Include="src\ht\utils\Pair.h" />
     <ClInclude Include="src\ht\utils\String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ht\assets\Asset.cpp" />
+    <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />

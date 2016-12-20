@@ -1,4 +1,5 @@
 #include "DynamicShader.h"
+#include "../../utils/Log.h"
 
 namespace ht { namespace graphics {
 
@@ -36,7 +37,7 @@ namespace ht { namespace graphics {
 
 	std::string DynamicShader::toString() {
 		std::string output;
-		for (int i = 0; i < blocks.size(); i++) {
+		for (unsigned int i = 0; i < blocks.size(); i++) {
 			if (i == MAIN_BLOCK) {
 				output += std::string("void main() { \n");
 				output += blocks[i];
@@ -65,5 +66,7 @@ namespace ht { namespace graphics {
 		case VEC4:
 			return "vec4";
 		}
+		HT_ERROR("[DynamicShader] Variable Store Type not avalible.");
+		return "error";
 	}
 } }
