@@ -97,7 +97,7 @@ namespace ht { namespace utils {
 	std::vector<String> String::split(const char delimiter) const {
 		std::vector<String> strings;
 		String split = "";
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size - 1; i++) {
 			if (data[i] == delimiter) {
 				strings.push_back(split);
 				split = "";

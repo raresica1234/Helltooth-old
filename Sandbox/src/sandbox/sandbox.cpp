@@ -53,6 +53,9 @@ Sandbox::Sandbox()
 	dentity->scale(3, 3, 3);
 	unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
 
+	//-------------------------------------------
+	FileSystem::Get()->addToQueue("/res/stall.obj");
+
 	srand(time(nullptr));
 	for (float i = 0; i < 200; i++) {
 		int x = rand() % 100 - 50;
@@ -93,8 +96,11 @@ void Sandbox::update() {
 
 void Sandbox::render() {
 	if (!objLoaded) {
-		if (FileSystem::Get()->hasLoadedResources())
-			dentity->getRenderable()->loadRawModel(FileSystem::Get()->getAsModel(FileSystem::Get()->getNextResource()));
+		if (FileSystem::Get()->hasLoadedResources()) {
+			auto r = FileSystem::Get()->getNextResource();
+			dentity->getRenderable()->loadRawModel(FileSystem::Get()->getAsModel(r));
+			objLoaded = true;
+		}
 	}
 
 	if(objLoaded)

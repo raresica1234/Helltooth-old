@@ -22,7 +22,7 @@ namespace ht { namespace assets {
 		else
 			back.load()->next = newNode;
 
-		back = newNode;
+		back.store(newNode);
 	}
 
 	void FileSystem::loadNext() {
@@ -38,11 +38,14 @@ namespace ht { namespace assets {
 		bool success = false;
 
 		//test what path is:
-		std::vector<String> strings = path.split('/');
+		std::vector<String> strings = path.split('.');
 		
 		String lastString = strings[strings.size() - 1];
+		for (int i = 0; i < lastString.size; i++) {
+			printf("%x ", lastString[i]);
+		}
 		Resource r;
-		if (lastString == ".htmodel" || lastString == ".obj") {
+		if (lastString == "htmodel" || lastString == "obj") {
 			r.type = Resource::OBJ_MODEL;
 			r.res = (void*)API::loadObjFile(path);
 			success = true;
@@ -62,11 +65,11 @@ namespace ht { namespace assets {
 			r.res = (void*)TextureManager::Get()->getTexture(id);
 			success = true;
 		}
+
 		if(!success)
 			HT_ERROR("[FileSystem] Resource type not supported!");
 		current->resource = r;
-		if(current == front)
-			frontLoaded.store(frontLoaded.load() + 1);
+		frontLoaded.store(frontLoaded.load() + 1);
 	}
 
 } }

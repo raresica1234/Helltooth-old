@@ -55,10 +55,10 @@ namespace ht { namespace assets {
 		}
 
 		__forceinline Resource getNextResource() {
-			if (!frontLoaded.load() > 0)
+			if (!(frontLoaded.load() > 0)) {
 				HT_ERROR("[FileSystem] No resource loaded!");
-			else
 				return Resource();
+			}
 
 			Resource r = front.load()->resource;
 			frontLoaded.store(frontLoaded.load() - 1);
@@ -127,23 +127,29 @@ namespace ht { namespace assets {
 			
 
 			while (fs->running.load()) {
-				if (FileSystem::isNextLoadingAvaliable(fs))
+				if (fs->isNextLoadingAvaliable())
 					fs->loadNext();
 				else
 					Sleep(10);
 			}
 		}
 
-		static bool isNextLoadingAvaliable(FileSystem* fs) {
-			if (!fs->front.load())
+		bool isNextLoadingAvaliable() {
+			if (!front.load()) 
 				return false;
 
-			Node* current = fs->front.load();
+			Node* current = front.load();
 
-			while (fs->front.load() != fs->back.load()) {
-				if (fs->front.load()->resource.res == nullptr)
+			if (current->resource.res == nullptr)
+				return true;
+
+			while (current != back.load()) {
+				if (current->resource.res == nullptr) {
+					HT_ERROR("Space found!");
 					return true;
-				current = fs->front.load()->next;
+				}
+				
+				current = current->next;
 			}
 			return false;
 		}
