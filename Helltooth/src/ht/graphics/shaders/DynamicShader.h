@@ -1,7 +1,9 @@
 #pragma once
 
-#include <string>
 #include <vector>
+#include <string>
+
+#include "../../utils/String.h"
 
 namespace ht { namespace graphics {
 
@@ -37,7 +39,7 @@ namespace ht { namespace graphics {
 	class DynamicShader {
 #define DYNAMIC_SHADER_MAGIC_NUMBER 28947.0f
 		//BLOCK 0: VERSION RESERVED!
-		std::vector<std::string> blocks;
+		std::vector<utils::String> blocks;
 
 		int currentBlock = 0;
 
@@ -51,7 +53,7 @@ namespace ht { namespace graphics {
 
 		
 
-		std::string toString();
+		utils::String toString();
 
 	private:
 		const char* storeTypeToString(VariableStoreType type);
@@ -61,13 +63,13 @@ namespace ht { namespace graphics {
 		}
 
 		inline int addBlock() {
-			blocks.push_back(std::string());
+			blocks.push_back("");
 			currentBlock = blocks.size() - 1;
 			return currentBlock;
 		}
 
-		inline void addLine(std::string line) {
-			blocks[currentBlock].append(line + ";" + "\n");
+		inline void addLine(utils::String line) {
+			blocks[currentBlock] += line + ";" + "\n";
 		}
 
 		inline void deleteBlock() {

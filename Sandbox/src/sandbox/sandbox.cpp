@@ -26,7 +26,7 @@ Sandbox::Sandbox()
 	fbo = htnew FBO(WIDTH, HEIGHT);
 	fbo->createColorTexture();
 	fbo->createDepthTexture(false);
-
+	fbo->unbind(window->getWidth(), window->getHeight());
 	guis->setMatrix(mat4::createOrthographic(-9.0f, 9.0f, 16.0f, -16.0f, -1.0f, 1.0f));
 	layer->setMatrix(mat4::createPerspective(70, 0.1f, 10000.0f, WIDTH / HEIGHT));
 
@@ -42,46 +42,46 @@ Sandbox::Sandbox()
 	world = htnew World(800, vec4(1, 1, -1,-1));
 
 	//Texture loading
-	world->addTexture(TextureManager::Get()->createTextureFromFile("/res/grass.jpg"));
+	stack[0].addTexturePath("/res/grass.jpg");
 
-	Renderable* model = htnew Renderable();
-	model->addTexture(TextureManager::Get()->createTextureFromFile("/res/stallTexture.png"));
-	model->addTexture(TextureManager::Get()->createTextureFromFile("/res/stallTextureSpecular.png"));
+	stack[1].addModelPath("/res/stall.obj");
+	stack[1].addTexturePath("/res/stallTexture.png");
+	stack[1].addTexturePath("/res/stallTextureSpecular.png");
 
-	dentity = htnew DynamicEntity(model, vec3(0.0f, 0.0f, -55.0f));
-	dentity->rotate(vec3(0, 180, 0));
-	dentity->scale(3, 3, 3);
-	unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
+	stack[2].addTexturePath("/res/cobble.jpg");
 
-	//-------------------------------------------
-	FileSystem::Get()->addToQueue("/res/stall.obj");
-
-	srand(time(nullptr));
-	for (float i = 0; i < 200; i++) {
-		int x = rand() % 100 - 50;
-		int z = rand() % 100 - 50;
-		Cube* cube = htnew Cube();
-		Renderable* model = htnew Renderable();
-		model->loadRawModel(cube->getModel());
-		del cube;
-		model->addTexture(id);
-		DynamicEntity* entity = htnew DynamicEntity(model, vec3((float)x, 0.5f, (float)z));
-		entity->scale(1, 1, 1);
-		dentities.push_back(entity);
-	}
+	//unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
+	//
+	//srand(time(nullptr));
+	//for (float i = 0; i < 200; i++) {
+	//	int x = rand() % 100 - 50;
+	//	int z = rand() % 100 - 50;
+	//	Cube* cube = htnew Cube();
+	//	Renderable* model = htnew Renderable();
+	//	model->loadRawModel(cube->getModel());
+	//	del cube;
+	//	model->addTexture(id);
+	//	DynamicEntity* entity = htnew DynamicEntity(model, vec3((float)x, 0.5f, (float)z));
+	//	entity->scale(1, 1, 1);
+	//	dentities.push_back(entity);
+	//}
 	Application::start();
 }
 
 void Sandbox::init(){
-	dentity->scale(vec3(1, 1, 1));
+	//dentity->scale(vec3(1, 1, 1));
 
 	layer->submit(world);
-	guis->submit(sentity);
+	//guis->submit(sentity);
 
+	stack.queueUp();
 	Application::init();
 }
 
 void Sandbox::update() {
+	if (!stack.isLoaded())
+		return;
+
 	layer->update();
 	guis->update();
 
@@ -95,16 +95,23 @@ void Sandbox::update() {
 }
 
 void Sandbox::render() {
-	if (!objLoaded) {
-		if (FileSystem::Get()->hasLoadedResources()) {
-			auto r = FileSystem::Get()->getNextResource();
-			dentity->getRenderable()->loadRawModel(FileSystem::Get()->getAsModel(r));
-			objLoaded = true;
-		}
+	if (!stack.isLoaded()) {
+		stack.prepareResources();
+		return;
 	}
 
-	if(objLoaded)
-		layer->submit(dentity);
+	if (stack.isLoaded() && loaded == false) {
+		world->addTexture(stack.getAsTexture(0));
+		Renderable* model = stack.getAsModel(1);
+
+		dentity = htnew DynamicEntity(model, vec3(0.0f, 0.0f, -55.0f));
+		dentity->rotate(vec3(0, 180, 0));
+		dentity->scale(3, 3, 3);
+
+		loaded = true;
+	}
+
+	layer->submit(dentity);
 	
 	for (unsigned int i = 0; i < dentities.size(); i++) {
 		layer->submit(dentities[i]);
@@ -113,10 +120,10 @@ void Sandbox::render() {
 	fbo->bind();
 	layer->render();
 	fbo->unbind(window->getWidth(), window->getHeight());
-
+	
 	layer->render();
 	guis->render();
-
+	
 	layer->cleanUP();
 	guis->cleanUP();
 }
@@ -139,7 +146,7 @@ Sandbox::~Sandbox()  {
 	del guis;
 	del layer;
 
-	del dentity;
+	//del dentity;
 	del sentity;
 
 	del quad;

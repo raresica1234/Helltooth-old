@@ -27,11 +27,16 @@ namespace ht { namespace assets {
 
 	void FileSystem::loadNext() {
 		Node* current = front.load();
-		while (front.load() != back.load()) {
-			if (front.load()->resource.res == nullptr)
+		while (current != nullptr) {
+			if (current->resource.res == nullptr)
 				break;
+			
+			if (current == back.load())
+				return;
+
 			current = front.load()->next;
 		}
+
 
 		String path = current->path;
 
@@ -61,15 +66,18 @@ namespace ht { namespace assets {
 
 		if (FreeImage_FIFSupportsReading(fif)) {
 			r.type = Resource::TEXTURE;
-			unsigned int id = TextureManager::Get()->createTextureFromFile(path);
-			r.res = (void*)TextureManager::Get()->getTexture(id);
+			String outPath;
+			VFS::resolvePhysicalPath(path, outPath);
+
+			r.res = (void*)Asset::loadTextureDataFromFile(outPath);
 			success = true;
 		}
 
 		if(!success)
 			HT_ERROR("[FileSystem] Resource type not supported!");
 		current->resource = r;
-		frontLoaded.store(frontLoaded.load() + 1);
+		int l = frontLoaded.load();
+		frontLoaded.store(l + 1);
 	}
 
 } }

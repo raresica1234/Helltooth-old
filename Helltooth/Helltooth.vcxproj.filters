@@ -31,6 +31,7 @@
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -87,5 +88,6 @@
     <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
     <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
     <ClInclude Include="src\ht\utils\Pair.h" />
+    <ClInclude Include="src\ht\assets\ResourceStack.h" />
   </ItemGroup>
 </Project>

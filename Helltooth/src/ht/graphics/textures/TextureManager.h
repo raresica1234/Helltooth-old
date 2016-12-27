@@ -23,6 +23,8 @@ namespace ht { namespace graphics {
 
 		unsigned int createTextureFromFile(ht::utils::String path);
 
+		unsigned int createTextureFromData(ht::assets::TextureData* data);
+
 		const Texture* getTexture(unsigned int id);
 
 		inline unsigned int addTexture(const Texture* texture) {

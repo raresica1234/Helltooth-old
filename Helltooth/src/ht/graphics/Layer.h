@@ -26,6 +26,8 @@ namespace ht { namespace graphics {
 
 	public:
 		Layer(unsigned int shader, Camera* camera = nullptr);
+		Layer(ShaderProgram* shader, Camera* camera = nullptr);
+
 		~Layer();
 
 		void setMatrix(maths::mat4 &projectionMatrix);

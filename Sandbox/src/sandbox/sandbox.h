@@ -34,6 +34,8 @@ namespace sandbox {
 		ht::graphics::StaticEntity* sentity;
 		ht::graphics::DynamicEntity* dentity;
 
+		ht::assets::ResourceStack stack;
+
 		std::vector<ht::graphics::DynamicEntity*> dentities;
 
 		bool objLoaded = false;

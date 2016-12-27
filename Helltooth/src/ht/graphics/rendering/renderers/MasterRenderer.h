@@ -21,6 +21,7 @@ namespace ht { namespace graphics {
 
 	public:
 		MasterRenderer(unsigned int shaderProgram, Camera* camera);
+		MasterRenderer(ShaderProgram* shaderProgram, Camera* camera);
 
 		~MasterRenderer();
 

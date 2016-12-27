@@ -1,11 +1,12 @@
 #include "HelltoothTexture.h"
+#include "Asset.h"
 
 namespace ht { namespace assets {
 
 	using namespace utils;
 	using namespace graphics;
 
-	HelltoothTexture::HelltoothTexture(String filePath) {
+	HelltoothTexture::HelltoothTexture(String filePath, unsigned int data) {
 		Cereal::Buffer buffer = Cereal::Buffer(1);
 		buffer.readFile(filePath.c_str());
 
@@ -22,12 +23,21 @@ namespace ht { namespace assets {
 
 		if (texture) del texture;
 
-		byte* data = pixels->getRawArray<byte>(new byte[pixels->getCount()]);
+		byte* pdata = pixels->getRawArray<byte>(new byte[pixels->getCount()]);
+		if (data != 1) {
+			texture = htnew Texture();
+			texture->loadPixelArray(pdata, width, height, bpp);
+		}
+		else {
+			this->data = htnew TextureData();
+			this->data->pixels = htnew BYTE[pixels->getCount()];
+			memcpy(this->data->pixels, pdata, pixels->getCount());
+			this->data->width = (unsigned int)width;
+			this->data->height = (unsigned int)height;
+			this->data->bpp = bpp;
+		}
 
-		texture = htnew Texture();
-		texture->loadPixelArray(data, width, height, bpp);
-
-		del[] data;
+		del[] pdata;
 
 		del database;
 	}

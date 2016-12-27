@@ -50,8 +50,8 @@ namespace ht { namespace assets {
 		~FileSystem() {}
 		void addToQueue(utils::String path);
 
-		__forceinline bool hasLoadedResources() {
-			return frontLoaded.load() > 0;
+		__forceinline bool hasLoadedResources(unsigned int size = 1) {
+			return frontLoaded.load() >= size;
 		}
 
 		__forceinline Resource getNextResource() {
@@ -62,6 +62,7 @@ namespace ht { namespace assets {
 
 			Resource r = front.load()->resource;
 			frontLoaded.store(frontLoaded.load() - 1);
+			dequeue();
 			return r;
 		}
 
@@ -73,15 +74,13 @@ namespace ht { namespace assets {
 			return nullptr;
 		}
 
-		__forceinline graphics::Texture* getAsTexture(Resource& r) {
+		__forceinline assets::TextureData* getAsTextureData(Resource& r) {
 			if (r.type == Resource::TEXTURE) {
-				return (graphics::Texture*)r.res;
+				return (assets::TextureData*)r.res;
 			}
 			HT_ERROR("[FileSystem] Resource type not correct!");
 			return nullptr;
 		}
-
-		__forceinline bool isFrontLoaded() { return frontLoaded.load(); }
 
 		__forceinline static void Init() {
 			if (!fileSystem) {
@@ -151,6 +150,9 @@ namespace ht { namespace assets {
 				
 				current = current->next;
 			}
+			if (back.load()->resource.res == nullptr)
+				return true;
+
 			return false;
 		}
 
@@ -162,8 +164,7 @@ namespace ht { namespace assets {
 
 			Node* temp = front.load();
 			Resource r = temp->resource;
-
-			front.store(front.load()->next);
+			front.store(temp->next);
 			del temp;
 			return r;
 		}

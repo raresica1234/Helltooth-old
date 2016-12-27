@@ -54,6 +54,8 @@ namespace ht { namespace graphics {
 		//set texture
 		inline void addTexture(const unsigned int &id) { textures.push_back(TextureManager::Get()->getTexture(id));}
 
+		inline void addTexture(const Texture* texture) { textures.push_back(texture); }
+
 	};
 
 } }

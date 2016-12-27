@@ -18,9 +18,20 @@
 
 namespace ht { namespace assets {
 
+	struct TextureData {
+		BYTE* pixels;
+		unsigned int width;
+		unsigned int height;
+		unsigned short bpp;
+
+		~TextureData() { del[] pixels; }
+	};
+
 	class Asset {
 	public:
 		static const ht::graphics::Texture* loadTextureFromFile(ht::utils::String path);
+
+		static TextureData* loadTextureDataFromFile(ht::utils::String path);
 
 		static ht::graphics::RawModel* loadModelFromFile(ht::utils::String path);
 

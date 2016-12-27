@@ -11,6 +11,13 @@ namespace ht { namespace graphics {
 			eRenderer->setCamera(camera);
 	}
 
+	MasterRenderer::MasterRenderer(ShaderProgram* shaderProgram, Camera* camera)
+		: program(shaderProgram), camera(camera) {
+		eRenderer = htnew EntityRenderer3D(shaderProgram);
+		if (camera)
+			eRenderer->setCamera(camera);
+	}
+
 	MasterRenderer::~MasterRenderer() {
 		del eRenderer;
 	}

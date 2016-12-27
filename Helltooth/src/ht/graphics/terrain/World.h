@@ -75,6 +75,13 @@ namespace ht { namespace graphics {
 		};
 
 
+		__forceinline void addTexture(const Texture* texture) {
+			for (Chunk entry : chunks) {
+				Renderable *r = entry.chunk;
+				r->addTexture(texture);
+			}
+		}
+
 		__forceinline void addTexture(const unsigned int &id) {
 			for (Chunk entry : chunks) {
 				Renderable *r = entry.chunk;

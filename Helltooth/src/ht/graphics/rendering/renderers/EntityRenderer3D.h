@@ -31,6 +31,8 @@ namespace ht { namespace graphics {
 		
 		//Constructor takes in ShaderProgram
 		EntityRenderer3D(unsigned int program);
+		EntityRenderer3D(ShaderProgram* program);
+
 		~EntityRenderer3D();
 
 		//Push entity (Renderable, entity)

@@ -146,6 +146,7 @@
     <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
+    <ClInclude Include="src\ht\assets\ResourceStack.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\MasterRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\DynamicEntity.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\StaticEntity.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
+    <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
     <ClCompile Include="src\ht\graphics\API.cpp" />
     <ClCompile Include="src\ht\graphics\Camera.cpp" />
     <ClCompile Include="src\ht\graphics\Layer.cpp" />

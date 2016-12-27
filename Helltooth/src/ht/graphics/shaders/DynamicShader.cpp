@@ -2,46 +2,47 @@
 #include "../../utils/Log.h"
 
 namespace ht { namespace graphics {
+	using namespace utils;
 
 	DynamicShader::DynamicShader(unsigned int version, bool core) {
-		blocks.push_back(std::string("#version ") + std::to_string(version) + (core == true ? std::string(" core") : std::string()) + std::string("\n"));
+		blocks.push_back(String("#version ") + std::to_string(version).c_str() + String(core == true ? " core" : String()) + "\n");
 		for (int i = 1; i <= MAIN_BLOCK; i++)
 			addBlock();
 	}
 	void DynamicShader::addVariable(const char* name, VariableStoreType storeType, VariableType type, float value) {
 		selectBlock(VARIABLE_BLOCK + type);
-		if(value == DYNAMIC_SHADER_MAGIC_NUMBER)
-			addLine((type == UNIFORM ? std::string("uniform ") : std::string()) + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name));
-		else 
-			addLine((type == UNIFORM ? std::string("uniform ") : std::string()) + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name) + std::string(" = ") + std::to_string(value));
+		if (value == DYNAMIC_SHADER_MAGIC_NUMBER)
+			addLine(String(type == UNIFORM ? "uniform " : "") + storeTypeToString(storeType) + " " + name);
+		else
+			addLine(String(type == UNIFORM ? "uniform " : "") + storeTypeToString(storeType) + " " + name + " = " + std::to_string(value).c_str());
 
 	}
 
 	void DynamicShader::addInputVariable(const char* name, VariableStoreType storeType, InputType type) {
 		selectBlock(0);
 		if (type != FRAGMENT)
-			addLine(std::string("layout(location = ") + std::to_string(type) + std::string(") in ") + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name));
+			addLine(String("layout(location = ") + std::to_string(type).c_str() + ") in " + storeTypeToString(storeType) + " " + name);
 		else
-			addLine(std::string("in ") + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name));
+			addLine(String("in ") + storeTypeToString(storeType) + " " + name);
 	}
 
 	void DynamicShader::addOutputVariable(const char* name, VariableStoreType storeType) {
 		selectBlock(3);
-		addLine(std::string("out ") + std::string(storeTypeToString(storeType)) + std::string(" ") + std::string(name));
+		addLine(String("out ") + storeTypeToString(storeType) + " " + name);
 	}
 
 	void DynamicShader::addMainCode(const char* line) {
 		selectBlock(MAIN_BLOCK);
-		addLine(std::string(line));
+		addLine(String(line));
 	}
 
-	std::string DynamicShader::toString() {
-		std::string output;
+	utils::String DynamicShader::toString() {
+		utils::String output;
 		for (unsigned int i = 0; i < blocks.size(); i++) {
 			if (i == MAIN_BLOCK) {
-				output += std::string("void main() { \n");
+				output += "void main() { \n";
 				output += blocks[i];
-				output += std::string("} \n");
+				output += "} \n";
 				continue;
 			}
 			output += blocks[i];

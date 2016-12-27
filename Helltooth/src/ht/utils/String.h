@@ -33,6 +33,14 @@ namespace ht { namespace utils {
 		void operator+=(const String &other);
 		void operator+=(const char &other);
 
+		inline void clear() {
+			if (data)
+				del[] data;
+			data = htnew char[1];
+			data[0] = 0;
+			size = 1;
+		}
+
 		inline void operator=(const String& other) {
 			if (data != nullptr)
 				del[] data;

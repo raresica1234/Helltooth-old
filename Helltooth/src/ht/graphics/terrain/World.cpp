@@ -11,11 +11,9 @@ namespace ht { namespace graphics {
 				Renderable* current = generateTerrain();
 				chunks.push_back(Chunk(vec2(x, y), current));
 			}
-		std::string vertex = shader.generateVertex(), fragment = shader.generateFragment();
-		
-		const char *vertexC = vertex.c_str(), *fragmentC = fragment.c_str();
+		utils::String vertex = shader.generateVertex(), fragment = shader.generateFragment();
 
-		unsigned int id = API::createShader(vertexC, fragmentC, false);
+		unsigned int id = API::createShader(vertex, fragment, false);
 		program = ShaderManager::Get()->getProgram(id);
 	}
 
