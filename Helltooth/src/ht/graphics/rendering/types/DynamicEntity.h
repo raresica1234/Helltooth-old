@@ -16,7 +16,7 @@ namespace ht { namespace graphics {
 
 	class DynamicEntity : public Entity3D {
 
-	protected:
+	public:
 		Renderable* renderable;
 
 	public:

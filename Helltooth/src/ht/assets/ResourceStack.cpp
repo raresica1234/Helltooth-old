@@ -34,7 +34,7 @@ namespace ht { namespace assets {
 	}
 
 	void ResourceStack::prepareResources() {
-		Path& path = paths[loaded];
+		Path path = paths[loaded];
 		
 		if (FileSystem::Get()->hasLoadedResources(path.paths.size())) {
 			if (path.type == path.MODEL) {
@@ -49,7 +49,8 @@ namespace ht { namespace assets {
 				resources.push_back((void*)renderable);
 			}
 			else if(path.type == path.TEXTURE) {
-				TextureData* textureData = FileSystem::Get()->getAsTextureData(FileSystem::Get()->getNextResource());
+				auto res = FileSystem::Get()->getNextResource();
+				TextureData* textureData = FileSystem::Get()->getAsTextureData(res);
 				unsigned int id = TextureManager::Get()->createTextureFromData(textureData);
 				const Texture* texture = TextureManager::Get()->getTexture(id);
 				resources.push_back((void*)texture);

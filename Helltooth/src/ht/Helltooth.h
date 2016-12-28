@@ -111,12 +111,12 @@ protected:
 			if (counter->update()) update();
 
 			counter->render();
-			render();
 			if (!loaded) {
 				loadingScreen->submit(e);
 				loadingScreen->render();
 				loadingScreen->cleanUP();
 			}
+			render();
 			if(counter->tick()) tick();
 
 			window->update();

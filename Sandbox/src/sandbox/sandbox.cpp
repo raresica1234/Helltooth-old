@@ -44,35 +44,39 @@ Sandbox::Sandbox()
 	//Texture loading
 	stack[0].addTexturePath("/res/grass.jpg");
 
-	stack[1].addModelPath("/res/stall.obj");
+	stack[1].addModelPath("/res/sponza.obj");
 	stack[1].addTexturePath("/res/stallTexture.png");
 	stack[1].addTexturePath("/res/stallTextureSpecular.png");
 
 	stack[2].addTexturePath("/res/cobble.jpg");
 
-	//unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
-	//
-	//srand(time(nullptr));
-	//for (float i = 0; i < 200; i++) {
-	//	int x = rand() % 100 - 50;
-	//	int z = rand() % 100 - 50;
-	//	Cube* cube = htnew Cube();
-	//	Renderable* model = htnew Renderable();
-	//	model->loadRawModel(cube->getModel());
-	//	del cube;
-	//	model->addTexture(id);
-	//	DynamicEntity* entity = htnew DynamicEntity(model, vec3((float)x, 0.5f, (float)z));
-	//	entity->scale(1, 1, 1);
-	//	dentities.push_back(entity);
-	//}
+	unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
+	
+	dentity = htnew DynamicEntity(nullptr, vec3(0.0f, 0.0f, -55.0f));
+	dentity->rotate(vec3(0, 180, 0));
+	dentity->scale(3, 3, 3);
+
+	srand(time(nullptr));
+	for (float i = 0; i < 200; i++) {
+		int x = rand() % 100 - 50;
+		int z = rand() % 100 - 50;
+		Cube* cube = htnew Cube();
+		Renderable* model = htnew Renderable();
+		model->loadRawModel(cube->getModel());
+		del cube;
+		model->addTexture(id);
+		DynamicEntity* entity = htnew DynamicEntity(model, vec3((float)x, 0.5f, (float)z));
+		entity->scale(1, 1, 1);
+		dentities.push_back(entity);
+	}
 	Application::start();
 }
 
 void Sandbox::init(){
-	//dentity->scale(vec3(1, 1, 1));
+	dentity->scale(vec3(1, 1, 1));
 
 	layer->submit(world);
-	//guis->submit(sentity);
+	guis->submit(sentity);
 
 	stack.queueUp();
 	Application::init();
@@ -102,11 +106,9 @@ void Sandbox::render() {
 
 	if (stack.isLoaded() && loaded == false) {
 		world->addTexture(stack.getAsTexture(0));
-		Renderable* model = stack.getAsModel(1);
+		dentity->renderable = stack.getAsModel(1);
 
-		dentity = htnew DynamicEntity(model, vec3(0.0f, 0.0f, -55.0f));
-		dentity->rotate(vec3(0, 180, 0));
-		dentity->scale(3, 3, 3);
+		
 
 		loaded = true;
 	}
@@ -145,8 +147,9 @@ Sandbox::~Sandbox()  {
 
 	del guis;
 	del layer;
+	if(dentity)
+		del dentity;
 
-	//del dentity;
 	del sentity;
 
 	del quad;

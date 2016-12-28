@@ -42,6 +42,7 @@ namespace ht { namespace assets {
 
 		std::atomic<int> frontLoaded;
 		std::atomic<bool> running;
+		std::atomic<bool> dequeing;
 
 	public:
 
@@ -60,10 +61,7 @@ namespace ht { namespace assets {
 				return Resource();
 			}
 
-			Resource r = front.load()->resource;
-			frontLoaded.store(frontLoaded.load() - 1);
-			dequeue();
-			return r;
+			return dequeue();
 		}
 
 		__forceinline graphics::RawModel* getAsModel(Resource& r) {
@@ -126,7 +124,7 @@ namespace ht { namespace assets {
 			
 
 			while (fs->running.load()) {
-				if (fs->isNextLoadingAvaliable())
+				if (fs->isNextLoadingAvaliable()) 
 					fs->loadNext();
 				else
 					Sleep(10);
@@ -134,38 +132,62 @@ namespace ht { namespace assets {
 		}
 
 		bool isNextLoadingAvaliable() {
-			if (!front.load()) 
+			while (dequeing.load())
+				Sleep(10);
+
+			if (!front.load()) {
 				return false;
+			}
 
 			Node* current = front.load();
 
-			if (current->resource.res == nullptr)
+			if (current->resource.res == nullptr) {
 				return true;
+			}
 
 			while (current != back.load()) {
 				if (current->resource.res == nullptr) {
-					HT_ERROR("Space found!");
 					return true;
 				}
 				
 				current = current->next;
 			}
-			if (back.load()->resource.res == nullptr)
+
+			if (back.load()->resource.res == nullptr) {
 				return true;
+			}
 
 			return false;
 		}
 
 		Resource dequeue() {
+			dequeing.store(true);
 			if (!front.load()) {
+				frontLoaded.store(0);
 				HT_ERROR("[FileSystem] No resource loaded!");
+				dequeing.store(false);
 				return Resource();
 			}
+			int current = frontLoaded.load();
+			frontLoaded.store(current - 1);
 
 			Node* temp = front.load();
 			Resource r = temp->resource;
 			front.store(temp->next);
+			bool dele = false;
+			if (temp == back.load() && frontLoaded.load() == 0) {
+				dele = true;
+			}
 			del temp;
+
+
+			if (dele) {
+				front.store(nullptr);
+				back.store(nullptr);
+			}
+			
+
+			dequeing.store(false);
 			return r;
 		}
 	};

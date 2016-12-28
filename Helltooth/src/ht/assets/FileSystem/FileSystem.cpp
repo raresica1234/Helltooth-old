@@ -8,8 +8,10 @@ namespace ht { namespace assets {
 	FileSystem* FileSystem::fileSystem = nullptr;
 
 	FileSystem::FileSystem() {
-		frontLoaded.store(false);
+		frontLoaded.store(0);
+
 		running.store(false);
+		dequeing.store(false);
 
 		front.store(nullptr);
 		back.store(nullptr);
@@ -27,15 +29,15 @@ namespace ht { namespace assets {
 
 	void FileSystem::loadNext() {
 		Node* current = front.load();
-		while (current != nullptr) {
+		while (current != nullptr || current != back.load()) {
 			if (current->resource.res == nullptr)
 				break;
-			
-			if (current == back.load())
-				return;
 
-			current = front.load()->next;
+			current = current->next;
 		}
+
+		if (current->resource.res != nullptr)
+			return;
 
 
 		String path = current->path;
