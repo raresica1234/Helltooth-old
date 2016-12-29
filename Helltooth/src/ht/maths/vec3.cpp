@@ -32,4 +32,19 @@ namespace ht {	namespace maths {
 			left.z *= right.z;
 			return left;
 		}
+
+		bool vec3::operator==(vec3 other) {
+			return (x == other.x) && (y == other.y) && (z == other.z);
+		}
+
+		bool vec3::operator!=(vec3 other) {
+			if (x != other.x)
+				return true;
+			if (y != other.y)
+				return true;
+			if (z != other.z)
+				return true;
+			return false;
+		}
+
 } }

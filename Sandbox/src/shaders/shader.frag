@@ -1,6 +1,5 @@
 #version 330 core
 
-in float render;
 in vec3 normal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
@@ -13,9 +12,6 @@ layout(location = 0) out vec4 color;
 float ambientLight = 0.2;
 
 void main(){
-	if(render){
-		discard;
-	}
 	
 	color = texture(textures[0], pass_textureCoords);
 	vec4 currentSpecular = texture(textures[1], pass_textureCoords);

@@ -29,9 +29,9 @@
     <ClCompile Include="src\ht\utils\Input.cpp" />
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
-    <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
+    <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -47,7 +47,6 @@
     <ClInclude Include="src\ht\graphics\rendering\renderers\EntityRenderer3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
-    <ClInclude Include="src\ht\assets\ObjLoader.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
@@ -89,5 +88,6 @@
     <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
     <ClInclude Include="src\ht\utils\Pair.h" />
     <ClInclude Include="src\ht\assets\ResourceStack.h" />
+    <ClInclude Include="src\ht\assets\ObjLoader.h" />
   </ItemGroup>
 </Project>

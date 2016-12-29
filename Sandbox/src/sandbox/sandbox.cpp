@@ -41,18 +41,21 @@ Sandbox::Sandbox()
 
 	world = htnew World(800, vec4(1, 1, -1,-1));
 
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
 	//Texture loading
 	stack[0].addTexturePath("/res/grass.jpg");
 
-	stack[1].addModelPath("/res/sponza.obj");
-	stack[1].addTexturePath("/res/stallTexture.png");
-	stack[1].addTexturePath("/res/stallTextureSpecular.png");
+	stack[1].addModelPath("/res/cube.obj");
+	stack[1].addTexturePath("/res/cube.png");
+	//stack[1].addTexturePath("/res/stallTextureSpecular.png");
 
 	stack[2].addTexturePath("/res/cobble.jpg");
 
 	unsigned int id = TextureManager::Get()->createTextureFromFile("/res/cobble.png");
 	
-	dentity = htnew DynamicEntity(nullptr, vec3(0.0f, 0.0f, -55.0f));
+	dentity = htnew DynamicEntity(nullptr, vec3(0.0f, 10.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	dentity->scale(3, 3, 3);
 
@@ -73,7 +76,7 @@ Sandbox::Sandbox()
 }
 
 void Sandbox::init(){
-	dentity->scale(vec3(1, 1, 1));
+	dentity->scale(vec3(5, 5, 5));
 
 	layer->submit(world);
 	guis->submit(sentity);
@@ -83,8 +86,17 @@ void Sandbox::init(){
 }
 
 void Sandbox::update() {
-	if (!stack.isLoaded())
+	if (!stack.isLoaded()) {
+		stack.prepareResources();
 		return;
+	}
+
+	if (loaded == false && stack.isLoaded()) {
+		world->addTexture(stack.getAsTexture(0));
+		dentity->renderable = stack.getAsModel(1);
+
+		loaded = true;
+	}
 
 	layer->update();
 	guis->update();
@@ -99,19 +111,8 @@ void Sandbox::update() {
 }
 
 void Sandbox::render() {
-	if (!stack.isLoaded()) {
-		stack.prepareResources();
+	if (!loaded || !stack.isLoaded())
 		return;
-	}
-
-	if (stack.isLoaded() && loaded == false) {
-		world->addTexture(stack.getAsTexture(0));
-		dentity->renderable = stack.getAsModel(1);
-
-		
-
-		loaded = true;
-	}
 
 	layer->submit(dentity);
 	

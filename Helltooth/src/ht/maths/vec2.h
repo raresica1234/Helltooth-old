@@ -15,12 +15,16 @@ namespace ht {	namespace maths {
 		friend vec2 operator+(vec2 left, vec2& right);
 		friend vec2 operator-(vec2 left, vec2& right);
 		friend vec2 operator*(vec2 left, vec2& right);
+		bool operator==(vec2 other);
+		bool operator!=(vec2 other);
 
 		__forceinline bool operator<(const vec2& other) const {
 			float proda = x * y;
 			float prodb = other.x * other.y;
 			return proda < prodb;
 		}
+
+
 	};
 } }
 

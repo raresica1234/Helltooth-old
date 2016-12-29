@@ -29,4 +29,17 @@ namespace ht { namespace maths {
 		left.y *= right.y;
 		return left;
 	}
+
+	bool vec2::operator==(vec2 other) {
+		return (x == other.x) && (y == other.y);
+	}
+
+	bool vec2::operator!=(vec2 other) {
+		if (x != other.x)
+			return true;
+		if (y != other.y)
+			return true;
+		return false;
+	}
+
 } }
