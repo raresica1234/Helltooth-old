@@ -31,6 +31,8 @@ namespace ht { namespace graphics {
 
 		ShaderProgram* program;
 
+		friend struct PerlinNoise;
+
 	public:
 		World(int size, ht::maths::vec4 terrainCounts);
 		~World();
@@ -90,6 +92,9 @@ namespace ht { namespace graphics {
 		}
 
 	private:
+		maths::vec3 generateNormal(float x, float y, float distance);
+		float getHeight(float x, float y, float distance);
+
 		Renderable* generateTerrain();
 
 	};
