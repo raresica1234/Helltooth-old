@@ -15,7 +15,6 @@ out vec3 toCameraVector;
 out vec2 pass_textureCoords;
 
 vec3 lightPosition = vec3(0, -1.0, -1.0);
-bool in_frustum(vec4 Pclip);
 
 void main() {
 	vec4 worldPosition = modelMatrix * vec4(position, 1.0);

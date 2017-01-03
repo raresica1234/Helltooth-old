@@ -41,9 +41,6 @@ Sandbox::Sandbox()
 
 	world = htnew World(800, vec4(1, 1, -1,-1));
 
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
 	//Texture loading
 	stack[0].addTexturePath("/res/grass.jpg");
 

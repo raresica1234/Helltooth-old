@@ -18,8 +18,12 @@ namespace ht {	namespace maths {
 		bool operator==(vec3 other);
 		bool operator!=(vec3 other);
 
+		inline float length() {
+			return sqrt(x * x + y * y + z * z);
+		}
+
 		inline void normalize() {
-			float length = sqrt(x * x + y * y + z * z);
+			float length = this->length();
 			if (length != 0) {
 				this->x = x / length;
 				this->y = y / length;
