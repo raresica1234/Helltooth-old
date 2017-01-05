@@ -4,15 +4,19 @@ in vec3 normal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
 in vec2 pass_textureCoords;
+in float visibility;
 
 uniform sampler2D textures[32];
+uniform vec4 skyColor;
 
 layout(location = 0) out vec4 color;
 
 float ambientLight = 0.2;
 
-void main(){
-	
+void main() {
+	if(visibility < 0.1)
+		discard;
+
 	color = texture(textures[0], pass_textureCoords);
 	vec4 currentSpecular = texture(textures[1], pass_textureCoords);
 
@@ -36,4 +40,5 @@ void main(){
 
 	color = color * max(brightness * dampedFactor, ambientLight);
 	//color = vec4(normal.x / 2 +0.3, normal.y, normal.z, pass_textureCoords.x);
+	color = mix(skyColor, color, visibility);
 }

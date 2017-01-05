@@ -58,6 +58,9 @@ namespace ht { namespace graphics {
 				program->start();
 				if (camera)
 					program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+				program->uniform1f("density", API::getFog().density);
+				program->uniform1f("gradient", API::getFog().gradient);
+				program->uniform4f("skyColor", vec4(.3f, .4f, .7f, 1.f));
 				program->setProjection("projectionMatrix", projectionMatrix);
 				program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
 				sEntity->render();

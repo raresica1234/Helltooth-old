@@ -26,6 +26,11 @@ namespace ht { namespace graphics {
 		static unsigned int type;
 		static unsigned int mode;
 
+		static struct Fog {
+			float density = 0.007f;
+			float gradient = 1.5f;
+		} fog;
+
 	public:
 		API(const unsigned int& type, const unsigned int& mode) {
 			this->type = type;
@@ -37,7 +42,8 @@ namespace ht { namespace graphics {
 		static unsigned int createShader(ht::utils::String VERTEX_PATH, ht::utils::String FRAGMENT_PATH, bool path = true);
 		static unsigned int createWindow(ht::utils::String title, const int &width, const int &height);
 
-		inline static bool is3D() { return mode == API_MODE_3D; }
-		inline static bool is2D() { return mode == API_MODE_2D; }
+		__forceinline static bool is3D() { return mode == API_MODE_3D; }
+		__forceinline static bool is2D() { return mode == API_MODE_2D; }
+		__forceinline static Fog getFog() { return fog; }
 	};
 } }

@@ -76,7 +76,7 @@ void Sandbox::init(){
 	dentity->scale(vec3(5, 5, 5));
 
 	layer->submit(world);
-	guis->submit(sentity);
+	//guis->submit(sentity);
 
 	stack.queueUp();
 	Application::init();
@@ -117,12 +117,12 @@ void Sandbox::render() {
 		layer->submit(dentities[i]);
 	}
 	
-	fbo->bind();
-	layer->render();
-	fbo->unbind(window->getWidth(), window->getHeight());
+	//fbo->bind();
+	//layer->render();
+	//fbo->unbind(window->getWidth(), window->getHeight());
 	
 	layer->render();
-	guis->render();
+	//guis->render();
 	
 	layer->cleanUP();
 	guis->cleanUP();

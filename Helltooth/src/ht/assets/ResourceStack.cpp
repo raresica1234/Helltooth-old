@@ -20,11 +20,7 @@ namespace ht { namespace assets {
 		return *this;
 	}
 
-	ResourceStack::~ResourceStack() {
-		for (void* resource : resources)
-			if(resource)
-				del resource;
-	}
+	ResourceStack::~ResourceStack() { }
 
 	void ResourceStack::queueUp() {
 		for (Path path : paths) 

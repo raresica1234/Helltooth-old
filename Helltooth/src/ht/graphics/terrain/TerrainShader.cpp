@@ -30,16 +30,29 @@ namespace ht { namespace graphics {
 		vertexShader.addVariable("modelMatrix", MAT4, UNIFORM);
 		vertexShader.addVariable("viewMatrix", MAT4, UNIFORM);
 		vertexShader.addVariable("lightPosition = vec3(0.0, 10000.0, 0.0)", VEC3);
+		vertexShader.addVariable("density", FLOAT, UNIFORM);
+		vertexShader.addVariable("gradient", FLOAT, UNIFORM);
 
 		vertexShader.addOutputVariable("textureCoordinates", VEC2);
 		vertexShader.addOutputVariable("surfaceNormal", VEC3);
 		vertexShader.addOutputVariable("toLightVector", VEC3);
+		vertexShader.addOutputVariable("visibility", FLOAT);
+
+		/*float distance = length(positionRelativeToCam.xyz);
+		visibility = exp(-pow(distance * density, gradient));
+		visibility = clamp(visibility, 0.0, 1.0);*/
 
 		vertexShader.addMainCode("vec4 worldPosition = modelMatrix * vec4(position, 1.0)");
-		vertexShader.addMainCode("gl_Position = projectionMatrix * viewMatrix * worldPosition");
+		vertexShader.addMainCode("vec4 positionRelativeToCam = viewMatrix * worldPosition");
+		vertexShader.addMainCode("gl_Position = projectionMatrix * positionRelativeToCam");
+
 		vertexShader.addMainCode("surfaceNormal = (modelMatrix * vec4(normals,0.0)).xyz");
 		vertexShader.addMainCode("textureCoordinates = textureCoords");
 		vertexShader.addMainCode("toLightVector = lightPosition - worldPosition.xyz");
+
+		vertexShader.addMainCode("float distance = length(positionRelativeToCam.xyz)");
+		vertexShader.addMainCode("visibility = exp(-pow(distance * density, gradient))");
+		vertexShader.addMainCode("visibility = clamp(visibility, 0.0, 1.0)");
 		/*R"(
 
 		#version 330 core
@@ -62,12 +75,15 @@ namespace ht { namespace graphics {
 		fragmentShader.addInputVariable("textureCoordinates", VEC2, FRAGMENT);
 		fragmentShader.addInputVariable("surfaceNormal", VEC3, FRAGMENT);
 		fragmentShader.addInputVariable("toLightVector", VEC3, FRAGMENT);
+		fragmentShader.addInputVariable("visibility", FLOAT, FRAGMENT);
 
 		fragmentShader.addVariable("textures[32]", SAMPLER2D, UNIFORM);
-
+		fragmentShader.addVariable("skyColor", VEC4, UNIFORM);
 		fragmentShader.addOutputVariable("color", VEC4);
 
-		fragmentShader.addMainCode("float dotl = dot(normalize(surfaceNormal), normalize(toLightVector))");
+		fragmentShader.addMainCode("if (visibility < 0.1) discard");
+
+		fragmentShader.addMainCode("float dotl = dot(surfaceNormal, normalize(toLightVector))");
 		fragmentShader.addMainCode("float brightness = max(dotl, 0.5)");
 		switch (type) {
 		case TILING_SHADER:
@@ -76,6 +92,8 @@ namespace ht { namespace graphics {
 			//fragmentShader.addMainCode("color = vec4(surfaceNormal, 1.0)");
 			break;
 		}
+
+		fragmentShader.addMainCode("color = mix(skyColor, color, visibility)");
 	} 
 
 

@@ -48,6 +48,9 @@ namespace ht { namespace graphics {
 
 		inline void setViewMatrix(const Camera* camera) const override {
 			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+			program->uniform1f("density", API::getFog().density);
+			program->uniform1f("gradient", API::getFog().gradient);
+			program->uniform4f("skyColor", maths::vec4(.3f, .4f, .7f, 1.f));
 		};
 
 		inline void setProjection(ht::maths::mat4 projection) const override {

@@ -15,3 +15,7 @@ Intermidiates/
 *.opendb
 *.db
 *.exe
+Helltooth.lib
+*.vspx
+*.etl
+*.psess
