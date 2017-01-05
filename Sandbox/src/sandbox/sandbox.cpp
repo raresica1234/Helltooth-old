@@ -44,8 +44,8 @@ Sandbox::Sandbox()
 	//Texture loading
 	stack[0].addTexturePath("/res/grass.jpg");
 
-	stack[1].addModelPath("/res/cube.obj");
-	stack[1].addTexturePath("/res/cube.png");
+	stack[1].addModelPath("/res/pencil.obj");
+	stack[1].addTexturePath("/res/pencilAlbedo.png");
 	//stack[1].addTexturePath("/res/stallTextureSpecular.png");
 
 	stack[2].addTexturePath("/res/cobble.jpg");

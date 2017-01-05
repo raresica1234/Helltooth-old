@@ -100,7 +100,7 @@ namespace ht { namespace assets {
 				verticesArray[i * 3 + 1] = position.y;
 				verticesArray[i * 3 + 2] = position.z;
 				texturesArray[i * 2] = textureCoord.x;
-				texturesArray[i * 2 + 1] = 1 - textureCoord.y;
+				texturesArray[i * 2 + 1] = textureCoord.y;
 				normalsArray[i * 3] = normalVector.x;
 				normalsArray[i * 3 + 1] = normalVector.y;
 				normalsArray[i * 3 + 2] = normalVector.z;
