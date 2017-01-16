@@ -2,7 +2,7 @@
 
 #include "../Renderable.h"
 #include "../../shaders/ShaderProgram.h"
-#include "../Entity3D.h"
+#include "../Entity.h"
 
 #include "../../../utils/memory/MemoryManager.h"
 
@@ -14,29 +14,29 @@ This component allows you to submit every frame and render every frame
 
 namespace ht { namespace graphics {
 
-	class DynamicEntity : public Entity3D {
+	class DynamicEntity : public Entity {
 
 	public:
 		Renderable* renderable;
 
 	public:
-		DynamicEntity(): Entity3D(), renderable(nullptr) { }
+		DynamicEntity() : Entity(), renderable(nullptr) { this->type = DYNAMIC_ENTITY; }
 
 		DynamicEntity(Renderable* renderable)
-			: renderable(renderable), Entity3D() { }
+			: renderable(renderable), Entity() { this->type = DYNAMIC_ENTITY; }
 
 		DynamicEntity(Renderable* renderable, ht::maths::vec3 position)
-			: renderable(renderable), Entity3D(position) { }
+			: renderable(renderable), Entity(position) { this->type = DYNAMIC_ENTITY; }
 
 		DynamicEntity(Renderable* renderable, float x, float y, float z)
-			: renderable(renderable), Entity3D(x, y, z) {}
+			: renderable(renderable), Entity(x, y, z) { this->type = DYNAMIC_ENTITY; }
 
 		~DynamicEntity() {
 			del renderable;
 		}
 
 		friend bool operator==(DynamicEntity left, DynamicEntity& right) {
-			if ((Entity3D)left == (Entity3D)right) {
+			if ((Entity)left == (Entity)right) {
 				return true;
 			}
 			return false;

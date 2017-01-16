@@ -39,21 +39,26 @@ namespace ht { namespace graphics {
 
 		bool isUnderTerrain(ht::maths::vec3 position) {
 			ht::maths::vec2 player = ht::maths::vec2(position.x, position.z);
-			return true;
+			float height = getHeight(player.x, player.y, (float)TERRAIN_SIZE / ((float)VERTEX_COUNT - 1));
+			if (height > position.y)
+				return true;
+			return false;
 		}
 
 		inline void prepare() const override {
 			program->start();
 		};
 
-		inline void setViewMatrix(const Camera* camera) const override {
-			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+		inline void setViewMatrix(maths::mat4 camera) const override {
+			program->uniformMat4("viewMatrix", camera);
 			program->uniform1f("density", API::getFog().density);
 			program->uniform1f("gradient", API::getFog().gradient);
 			program->uniform4f("skyColor", maths::vec4(.3f, .4f, .7f, 1.f));
 		};
 
 		inline void setProjection(ht::maths::mat4 projection) const override {
+			if (program->hasProjection())
+				return;
 			program->start();
 			program->setProjection("projectionMatrix", projection);
 			program->stop();

@@ -2,7 +2,7 @@
 
 #include "../Renderable.h"
 #include "../../shaders/ShaderProgram.h"
-#include "../Entity3D.h"
+#include "../Entity.h"
 
 #include "../../Camera.h"
 
@@ -14,33 +14,33 @@ This component allows you to submit once, but render every frame.
 */
 namespace ht { namespace graphics {
 
-	class StaticEntity : public Entity3D {
+	class StaticEntity : public Entity {
 
 	protected:
 		Renderable* renderable = nullptr;
 		bool hasShader = false;
 
 	public:
-		StaticEntity() : Entity3D(), renderable(nullptr) { }
+		StaticEntity() : Entity(), renderable(nullptr) { this->type = STATIC_ENTITY; }
 
 		StaticEntity(Renderable* renderable)
-			: renderable(renderable), Entity3D() { }
+			: renderable(renderable), Entity() { this->type = STATIC_ENTITY; }
 
-		StaticEntity(Renderable* renderable, ht::maths::vec3 position)
-			: renderable(renderable), Entity3D(position) { }
+		StaticEntity(Renderable* renderable, maths::vec3 position)
+			: renderable(renderable), Entity(position) { this->type = STATIC_ENTITY; }
 
 		StaticEntity(Renderable* renderable, float x, float y, float z)
-			: renderable(renderable), Entity3D(x, y, z) {}
+			: renderable(renderable), Entity(x, y, z) { this->type = STATIC_ENTITY; }
 
 		virtual void prepare() const {
 			if(renderable)
 				renderable->prepare();
 		};
 
-		virtual void setViewMatrix(const Camera* camera) const {
+		virtual void setViewMatrix(maths::mat4 camera) const {
 		};
 
-		virtual void setProjection(ht::maths::mat4 projection) const {};
+		virtual void setProjection(maths::mat4 projection) const {};
 		
 		virtual void setModelMatrix() const {};
 
@@ -54,7 +54,7 @@ namespace ht { namespace graphics {
 		};
 
 		friend bool operator==(const StaticEntity left, const StaticEntity& right) {
-			if ((Entity3D)left == (Entity3D)right) {
+			if ((Entity)left == (Entity)right) {
 				return true;
 			}
 			return false;
@@ -67,7 +67,5 @@ namespace ht { namespace graphics {
 
 		inline bool hasOwnShader() const { return hasShader; }
 
-
 	};
-
 } }

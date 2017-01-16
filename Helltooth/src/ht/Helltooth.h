@@ -1,6 +1,6 @@
 #pragma once
 
-
+#pragma region Helltooth
 //ASSETS
 #include "assets/Asset.h"
 #include "assets/ObjLoader.h"
@@ -13,15 +13,17 @@
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
 
-#include "graphics/window/Window.h"
-#include "graphics/window/WindowManager.h"
 
 #include "graphics/rendering/Renderable.h"
-#include "graphics/rendering/Entity3D.h"
+#include "graphics/rendering/Entity.h"
 #include "graphics/rendering/FBO.h"
 
-#include "graphics/rendering/renderers/EntityRenderer3D.h"
-#include "graphics/rendering/renderers/MasterRenderer.h"
+#include "graphics/rendering/2D/Sprite.h"
+
+#include "graphics/rendering/renderers/Renderer.h"
+#include "graphics/rendering/renderers/SimpleRenderer.h"
+
+#include "graphics/rendering/renderers/2D/BatchRenderer2D.h"
 
 #include "graphics/rendering/model/Cube.h"
 #include "graphics/rendering/model/Quad.h"
@@ -38,6 +40,11 @@
 #include "graphics/textures/Texture.h"
 #include "graphics/textures/TextureManager.h"
 
+#include "graphics/ui/GUILayer.h"
+#include "graphics/ui/GUIItem.h"
+
+#include "graphics/window/Window.h"
+#include "graphics/window/WindowManager.h"
 //MATHS
 #include "maths/vec2.h"
 #include "maths/vec3.h"
@@ -57,6 +64,7 @@
 //TOOLS
 #include "tools/Cereal/Cereal.h"
 #include "tools/VFS/VFS.h"
+#pragma endregion Engine includes
 
 class Application {
 private:
@@ -65,14 +73,16 @@ private:
 	ht::graphics::ShaderProgram* program;
 	ht::graphics::DynamicShader vertex;
 	ht::graphics::DynamicShader fragment;
-
+	
 protected:
+	std::vector<ht::graphics::Layer*> layers;
 	ht::graphics::Window* window;
 	ht::utils::FpsCounter *counter;
 
 	bool loaded = false;
 
 public:
+#pragma region Application
 	Application(const char* title, int width, int height, int MAX_UPS = 60)
 		:vertex(330, true), fragment(330, true) {
 		ht::graphics::WindowManager::Init();
@@ -82,13 +92,13 @@ public:
 
 		ht::utils::Input::init();
 
-		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
 		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
 		HT_WARN("%s", std::string("| | | |    | | | |            | | | |    "));
 		HT_WARN("%s", std::string("| |_| | ___| | | |_ ___   ___ | |_| |__  "));
 		HT_WARN("%s", std::string("|  _  |/ _ \\ | | __/ _ \\ / _ \\| __| '_ \\ "));
 		HT_WARN("%s", std::string("| | | |  __/ | | || (_) | (_) | |_| | | |"));
 		HT_WARN("%s", std::string("\\_| |_/\\___|_|_|\\__\\___/ \\___/ \\__|_| |_|"));
+		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
 		window = ht::graphics::WindowManager::Get()->getWindow(wID);
 		counter = htnew ht::utils::FpsCounter(MAX_UPS);
 		
@@ -98,9 +108,13 @@ public:
 		del e;
 		del program;
 		del counter;
+		while (!layers.empty()) {
+			del PopLayer();
+		}
 	}
-
-protected:
+#pragma endregion Constructor - Deconstructor
+public:
+#pragma region Application
 	void start() {
 		counter->init();
 
@@ -111,11 +125,7 @@ protected:
 			if (counter->update()) update();
 
 			counter->render();
-			if (!loaded) {
-				loadingScreen->submit(e);
-				loadingScreen->render();
-				loadingScreen->cleanUP();
-			}
+			
 			render();
 			if(counter->tick()) tick();
 
@@ -161,11 +171,55 @@ protected:
 
 		e = htnew ht::graphics::DynamicEntity(r);
 		e->move(ht::maths::vec3(0.0f, 0.0f, 1.0f));
+
+		if (!loaded) {
+			loadingScreen->submit(e);
+			loadingScreen->render();
+			loadingScreen->cleanUP();
+		}
 	}
 
-	virtual void render() = 0;
+	virtual void render() {
+		if (!loaded) {
+			loadingScreen->submit(e);
+			loadingScreen->render();
+			loadingScreen->cleanUP();
+			return;
+		}
+		for (ht::graphics::Layer* layer : layers) {
+			layer->render();
+		}
+	}
 
-	virtual void update() = 0;
+	virtual void update() {
+		if (!loaded) {
+			for (ht::graphics::Layer* layer : layers)
+				layer->load(loaded);
+		}
+		for (ht::graphics::Layer* layer : layers)
+			layer->update();
+	}
 
 	virtual void tick() {}
+#pragma endregion Basic functions
+
+	void PushLayer(ht::graphics::Layer* layer) {
+		layer->init();
+		layers.push_back(layer);
+	}
+
+	ht::graphics::Layer* PopLayer() {
+		ht::graphics::Layer* layer = layers.back();
+		layers.pop_back();
+		return layer;
+	}
+
+	void PopLayer(ht::graphics::Layer* layer) {
+		for (unsigned int i = 0; i < layers.size(); i++) 
+			if (layers[i] == layer) {
+				layers.erase(layers.begin() + i);
+				break;
+			}
+		
+	}
 };

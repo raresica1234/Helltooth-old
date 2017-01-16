@@ -3,11 +3,8 @@
   <ItemGroup>
     <ClCompile Include="src\ht\graphics\API.cpp" />
     <ClCompile Include="src\ht\graphics\Layer.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\Entity3D.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\renderers\EntityRenderer3D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\renderers\MasterRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
@@ -32,19 +29,19 @@
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Entity.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\renderers\SimpleRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
-    <ClInclude Include="src\ht\graphics\rendering\renderers\MasterRenderer.h" />
-    <ClInclude Include="src\ht\graphics\rendering\types\DynamicEntity.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\StaticEntity.h" />
     <ClInclude Include="src\ht\graphics\API.h" />
     <ClInclude Include="src\ht\graphics\Camera.h" />
     <ClInclude Include="src\ht\graphics\Layer.h" />
-    <ClInclude Include="src\ht\graphics\rendering\Entity3D.h" />
-    <ClInclude Include="src\ht\graphics\rendering\renderers\EntityRenderer3D.h" />
     <ClInclude Include="src\ht\graphics\rendering\FBO.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Cube.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
@@ -89,5 +86,17 @@
     <ClInclude Include="src\ht\utils\Pair.h" />
     <ClInclude Include="src\ht\assets\ResourceStack.h" />
     <ClInclude Include="src\ht\assets\ObjLoader.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\Renderer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Entity.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\SimpleRenderer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\types\DynamicEntity.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.h" />
+    <ClInclude Include="src\ht\graphics\rendering\2D\Sprite.h" />
+    <ClInclude Include="src\ht\graphics\ui\GUILayer.h" />
+    <ClInclude Include="src\ht\graphics\ui\GUIItem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\ht\graphics\ui\UiShader.vert" />
+    <None Include="src\ht\graphics\ui\UiShader.frag" />
   </ItemGroup>
 </Project>

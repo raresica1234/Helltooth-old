@@ -14,7 +14,7 @@ namespace ht { namespace assets {
 
 	class HelltoothTexture {
 	private:
-		friend class Asset;
+		//friend class Asset;
 		friend struct TextureData;
 
 		ht::graphics::Texture* texture = nullptr;

@@ -1,27 +1,32 @@
 #pragma once
 
+#include <vector>
+
 #include "Camera.h"
+
 #include "shaders/ShaderProgram.h"
 #include "shaders/ShaderManager.h"
-#include "rendering/renderers/MasterRenderer.h"
-#include "rendering/Entity3D.h"
+
+#include "rendering/Entity.h"
 #include "rendering/Renderable.h"
-#include "../maths/mat4.h"
+
+#include "rendering/renderers/Renderer.h"
+#include "rendering/renderers/SimpleRenderer.h"
 
 #include "rendering/types/DynamicEntity.h"
 #include "rendering/types/StaticEntity.h"
 
-#include "../utils/memory/MemoryManager.h"
+#include "../maths/mat4.h"
 
-#include <vector>
+#include "../utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 
 	class Layer {
-	private:
+	protected:
 		maths::mat4 projectionMatrix;
 		ShaderProgram* shader;
-		MasterRenderer* renderer;
+		Renderer* renderer;
 		Camera* camera;
 
 	public:
@@ -30,18 +35,34 @@ namespace ht { namespace graphics {
 
 		~Layer();
 
-		void setMatrix(maths::mat4 &projectionMatrix);
+		virtual void setMatrix(maths::mat4 &projectionMatrix);
 
-		void submit(Renderable* renderable, Entity3D &entity);
-		void submit(Renderable* renderable, const std::vector<Entity3D> entityList);
-		void submit(const StaticEntity *entity);
-		void submit(const DynamicEntity *entity);
+		__forceinline void submit(Entity* e) {
+			renderer->submit(e);
+		}
 
-		void render();
-		void update();
+		virtual void init() {}
+		virtual void load(bool &loaded) {  }
+
+		virtual void render() {
+			renderer->prepare();
+			shader->start();
+			renderer->render();
+			shader->stop();
+		}
+
+		virtual void update() {
+			if (camera)
+				camera->update();
+			if (!shader->hasProjection())
+				setMatrix(projectionMatrix);
+		}
 
 		void cleanUP();
 		void forceCleanUP();
 		void reloadTextures();
+
+	protected:
+		virtual void defaultRenderer();
 	};
 } }

@@ -146,11 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\layers\GUI3D.cpp" />
+    <ClCompile Include="src\layers\Test3D.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\sandbox\sandbox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sandbox\sandbox.h" />
+    <ClInclude Include="src\layers\GUI3D.h" />
+    <ClInclude Include="src\layers\Test3D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\texture.httexture" />

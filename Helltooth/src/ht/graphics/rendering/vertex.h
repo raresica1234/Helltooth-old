@@ -79,6 +79,13 @@ namespace ht { namespace graphics {
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 		}
 
+		void storeIndices(const GLushort *data, const GLsizei count) {
+			bindIBO();
+			this->indicesCount = count;
+
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLushort), data, GL_STATIC_DRAW);
+		}
+
 		//Bind IBO
 		inline void bindIBO() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id); }
 

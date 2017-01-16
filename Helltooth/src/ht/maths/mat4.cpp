@@ -126,15 +126,13 @@ namespace ht { namespace maths {
 		return vec3(
 			left.columns[0].x * right.x + left.columns[1].x * right.y + left.columns[2].x * right.z + left.columns[3].x,
 			left.columns[0].y * right.x + left.columns[1].y * right.y + left.columns[2].y * right.z + left.columns[3].y,
-			left.columns[0].z * right.x + left.columns[1].z * right.y + left.columns[3].z * right.z + left.columns[3].z
-			);
+			left.columns[0].z * right.x + left.columns[1].z * right.y + left.columns[3].z * right.z + left.columns[3].z);
 	}
 
 	vec2 operator*(mat4 left, const vec2 &right) {
 		return vec2(
 			left.columns[0].x * right.x + left.columns[1].x * right.y + left.columns[2].x + left.columns[3].x,
-			left.columns[0].y * right.x + left.columns[1].y * right.y + left.columns[2].y + left.columns[3].y
-			);
+			left.columns[0].y * right.x + left.columns[1].y * right.y + left.columns[2].y + left.columns[3].y);
 	}
 
 	mat4 mat4::operator*=(const mat4& other) {

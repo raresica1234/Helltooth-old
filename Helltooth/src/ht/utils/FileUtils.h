@@ -14,7 +14,7 @@ namespace ht { namespace utils {
 		static String read_file(const char* filepath) {
 			FILE* file = fopen(filepath, "rt");
 			if (!file) {
-				HT_FATAL("[FILEUTILS] Cannot read %s", filepath);
+				HT_FATAL("[FILEUTILS] Cannot read %c", filepath);
 				return nullptr;
 			}
 			fseek(file, 0, SEEK_END);
