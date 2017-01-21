@@ -14,7 +14,7 @@ out float texID;
 
 void main() {
 
-	gl_Position = /*projectionMatrix */ vec4(position, 1.0);
+	gl_Position = projectionMatrix * vec4(position, 1.0);
 
 	textureCoord = uvs;
 	color = colors;

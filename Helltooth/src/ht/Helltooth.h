@@ -186,8 +186,9 @@ public:
 			loadingScreen->cleanUP();
 			return;
 		}
-		for (ht::graphics::Layer* layer : layers) {
-			layer->render();
+
+		for (unsigned int i = 0; i < layers.size(); i ++) {
+			layers[i]->render();
 		}
 	}
 
@@ -220,6 +221,5 @@ public:
 				layers.erase(layers.begin() + i);
 				break;
 			}
-		
 	}
 };

@@ -12,6 +12,7 @@ namespace ht { namespace graphics {
 	}
 
 	void BatchRenderer2D::begin() {
+		vao.bindVAO();
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
@@ -36,26 +37,26 @@ namespace ht { namespace graphics {
 			}
 		}
 		maths::vec4 sprite = e->data;
-		
-		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, 0);
-		buffer->uv = e->uvs[0];
-		buffer->textureID = e->textureID;
-		buffer->color = e->color;
-		buffer++;
 
-		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, 0);
-		buffer->uv = e->uvs[1];
-		buffer->textureID = e->textureID;
-		buffer->color = e->color; 
-		buffer++;
-
-		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, 0);
-		buffer->uv = e->uvs[2];
-		buffer->textureID = e->textureID;
-		buffer->color = e->color;
-		buffer++;
-
-		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, 0);
+		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, 1);
+		buffer->uv = e->uvs[0];													 
+		buffer->textureID = e->textureID;										 
+		buffer->color = e->color;												 
+		buffer++;																 
+																				 
+		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, 1);
+		buffer->uv = e->uvs[1];													 
+		buffer->textureID = e->textureID;										 
+		buffer->color = e->color; 												 
+		buffer++;																 
+																				 
+		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, 1);
+		buffer->uv = e->uvs[2];													 
+		buffer->textureID = e->textureID;										 
+		buffer->color = e->color;												 
+		buffer++;																 
+																				 
+		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, 1);
 		buffer->uv = e->uvs[3];
 		buffer->textureID = e->textureID;
 		buffer->color = e->color;
@@ -78,7 +79,7 @@ namespace ht { namespace graphics {
 		vao.bindVAO();
 		ibo->bindIBO();
 
-		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, NULL);
 
 		ibo->unbindIBO();
 		vao.unbindVAO();
@@ -89,7 +90,7 @@ namespace ht { namespace graphics {
 
 	void BatchRenderer2D::init() {
 		glGenBuffers(1, &vbo);
-
+		
 		vao.bindVAO();
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
@@ -104,7 +105,6 @@ namespace ht { namespace graphics {
 		glVertexAttribPointer(SHADER_TID_INDEX, 1, GL_FLOAT, GL_FALSE, RENDERER_VERTEX_SIZE, (const GLvoid*)(5 * sizeof(GLfloat)));
 		glVertexAttribPointer(SHADER_COLOR_INDEX, 4, GL_UNSIGNED_BYTE, GL_TRUE, RENDERER_VERTEX_SIZE, (const GLvoid*)(6 * sizeof(GLfloat)));
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		GLushort* indices = htnew GLushort[RENDERER_INDICES_SIZE];
 
@@ -122,8 +122,12 @@ namespace ht { namespace graphics {
 		}
 
 		ibo = htnew IBO();
-		ibo->storeIndices(indices, RENDERER_INDICES_SIZE);
+		ibo->bindIBO();
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, RENDERER_INDICES_SIZE * sizeof(GLushort), indices, GL_STATIC_DRAW);
+
 		ibo->unbindIBO();
+
+		vao.unbindVAO();
 	}
 
 

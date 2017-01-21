@@ -15,5 +15,5 @@ void main() {
 	} else {
 		out_color = color;
 	}
-	out_color = vec4(1.0, 1.0, 1.0, 1.0);
-})"
+}
+)"

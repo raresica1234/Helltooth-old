@@ -1,7 +1,8 @@
 #include "GUI3D.h"
 
-GUI::GUI() {
-	sprite = htnew Sprite(-.33, -.33, .44, .44, vec4(0.3, 0.223, 0.82, 1.0));
+GUI::GUI()
+	: GUILayer() {
+	sprite = htnew Sprite(-.33, -.33, .44, .44, vec4(0.f, 0.f, 0.f, 1.f));
 	GUILayer::setMatrix(mat4::createOrthographic(-1., 1., 1., -1., -1., 1.));
 }
 
@@ -10,7 +11,10 @@ GUI::~GUI() {
 }
 
 void GUI::render() {
+	GUILayer::begin();
+
 	GUILayer::submit(sprite);
+
 	GUILayer::render();
 }
 

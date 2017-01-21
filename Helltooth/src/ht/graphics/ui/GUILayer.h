@@ -8,13 +8,11 @@ namespace ht { namespace graphics {
 
 	class GUILayer : public Layer {
 	private:
-		BatchRenderer2D* renderer;
-
-		bool begin = false;
-
 		static utils::String uiShaderVert;
 		static utils::String uiShaderFrag;
 
+	protected:
+		BatchRenderer2D* renderer;
 		ShaderProgram* shader;
 
 	public:
@@ -23,22 +21,24 @@ namespace ht { namespace graphics {
 
 		void setMatrix(maths::mat4 &projectionMatrix) override;
 
-		void submit(Sprite* sprite) {
+		__forceinline void begin() {
+			//glEnable(GL_BLEND);
+			//glBlendFunc(GL_ONE, GL_ONE);
+			renderer->begin();
 			shader->start();
-			if (!begin) {
-				renderer->begin();
-				begin = true;
-			}
+		}
+
+		void submit(Sprite* sprite) {
 			renderer->submit(sprite);
 		}
 
 		void load(bool &loaded) override { loaded = true; }
 
 		void render() override {
-			begin = false;
 			renderer->end();
 			renderer->render();
 			shader->stop();
+			//glDisable(GL_BLEND);
 		}
 
 		void update() override;

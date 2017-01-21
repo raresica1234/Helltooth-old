@@ -59,6 +59,7 @@ void Test3D::update() {
 }
 
 void Test3D::render() {
+	glEnable(GL_DEPTH_TEST);
 	if (!loaded)
 		return;
 
@@ -70,6 +71,7 @@ void Test3D::render() {
 	Layer::render();
 
 	cleanUP();
+	glDisable(GL_DEPTH_TEST);
 }
 
 void Test3D::load(bool &loaded) {

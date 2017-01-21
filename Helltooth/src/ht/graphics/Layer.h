@@ -42,7 +42,7 @@ namespace ht { namespace graphics {
 		}
 
 		virtual void init() {}
-		virtual void load(bool &loaded) {  }
+		virtual void load(bool &loaded) { loaded = true; }
 
 		virtual void render() {
 			renderer->prepare();

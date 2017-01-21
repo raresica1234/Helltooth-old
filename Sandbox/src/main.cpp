@@ -7,6 +7,7 @@
 
 #include "layers/Test3D.h"
 #include "layers/GUI3D.h"
+
 using namespace ht;
 using namespace graphics;
 using namespace maths;
@@ -33,7 +34,7 @@ public:
 
 	}
 	void init() override {
-		//PushLayer(htnew Test3D(window));
+		PushLayer(htnew Test3D(window));
 		PushLayer(htnew GUI());
 		Application::init();
 	}

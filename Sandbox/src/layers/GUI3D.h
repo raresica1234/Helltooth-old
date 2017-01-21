@@ -21,6 +21,5 @@ public:
 	~GUI();
 
 	void render() override;
-
 	void update() override;
 };
