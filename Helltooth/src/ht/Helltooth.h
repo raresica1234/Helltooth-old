@@ -79,7 +79,9 @@ protected:
 	ht::graphics::Window* window;
 	ht::utils::FpsCounter *counter;
 
-	bool loaded = false;
+	bool loaded[50];
+
+	bool loadeds = false;
 
 public:
 #pragma region Application
@@ -180,7 +182,7 @@ public:
 	}
 
 	virtual void render() {
-		if (!loaded) {
+		if (!allLoaded()) {
 			loadingScreen->submit(e);
 			loadingScreen->render();
 			loadingScreen->cleanUP();
@@ -193,10 +195,11 @@ public:
 	}
 
 	virtual void update() {
-		if (!loaded) {
-			for (ht::graphics::Layer* layer : layers)
-				layer->load(loaded);
-		}
+		if(!allLoaded())
+			for (int i = 0; i < layers.size(); i++) 
+				if (loaded[i] != true)
+					layers[i]->load(loaded[i]);		
+		
 		for (ht::graphics::Layer* layer : layers)
 			layer->update();
 	}
@@ -222,4 +225,16 @@ public:
 				break;
 			}
 	}
+
+	private:
+		bool allLoaded() {
+			if (loadeds)
+				return loadeds;
+
+			loadeds = true;
+			for (int i = 0; i < layers.size(); i++)
+				loadeds = (loadeds == true && loaded[i] == true) ? true : false;
+			return loadeds;
+		}
+
 };

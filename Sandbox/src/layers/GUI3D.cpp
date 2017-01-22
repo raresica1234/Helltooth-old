@@ -2,7 +2,7 @@
 
 GUI::GUI()
 	: GUILayer() {
-	sprite = htnew Sprite(-.33, -.33, .44, .44, vec4(0.f, 0.f, 0.f, 1.f));
+	sprite = htnew Sprite(-.33, -.33, .44, .44, vec4(0.f, 0.f, 0.f, .3f));
 	GUILayer::setMatrix(mat4::createOrthographic(-1., 1., 1., -1., -1., 1.));
 }
 
