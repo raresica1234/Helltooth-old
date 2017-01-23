@@ -16,7 +16,7 @@
 #define HT_LEVEL_MESSAGE	0x07
 
 //Log level
-#define HT_LOG_LEVEL		3
+#define HT_LOG_LEVEL		5
 
 //Log levels
 #define HT_LOG_FATAL		0

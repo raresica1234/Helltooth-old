@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Windows.h>
+
 #include <FreeImage/FreeImage.h>
 #include <GL/glew.h>
-
 
 #include "ObjLoader.h"
 #include "HelltoothTexture.h"

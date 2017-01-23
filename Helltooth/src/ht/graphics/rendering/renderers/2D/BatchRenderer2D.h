@@ -5,6 +5,8 @@
 #include "../../../textures/TextureManager.h"
 #include "../../Vertex.h"
 
+#include "graphics/ui/font/FontManager.h"
+
 #include "../../2D/Sprite.h"
 
 #include <list>
@@ -42,9 +44,11 @@ namespace ht { namespace graphics {
 		void end();
 		void render();
 
+		void submitText(utils::String text, float x, float y, maths::vec4 color);
+
 	private:
 		void init();
-
+		void submitTexture(float id);
 	};
 
 

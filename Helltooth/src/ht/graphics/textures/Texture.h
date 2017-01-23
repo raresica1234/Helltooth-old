@@ -28,7 +28,7 @@ namespace ht { namespace graphics {
 		inline void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 
 		//loading textures
-		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp) const;
+		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap = GL_REPEAT) const;
 
 		void createAttachment(int width, int height, int type);
 

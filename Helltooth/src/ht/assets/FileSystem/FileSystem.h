@@ -4,10 +4,11 @@
 #include <list>
 #include <thread>
 
+#include "../Asset.h"
+
 #include "../../utils/String.h"
 #include "../../utils/Pair.h"
 
-#include "../Asset.h"
 #include "../../graphics/rendering/Renderable.h"
 #include "../../graphics/textures/Texture.h"
 #include "../../graphics/textures/TextureManager.h"
@@ -44,7 +45,6 @@ namespace ht { namespace assets {
 		std::atomic<bool> running;
 		std::atomic<bool> dequeing;
 
-	public:
 
 	public:
 		FileSystem();

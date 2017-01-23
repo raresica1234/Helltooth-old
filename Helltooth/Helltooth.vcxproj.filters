@@ -9,7 +9,6 @@
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
-    <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat4.cpp" />
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />
@@ -25,7 +24,6 @@
     <ClCompile Include="src\ht\utils\String.cpp" />
     <ClCompile Include="src\ht\utils\Input.cpp" />
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
-    <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
     <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
@@ -33,6 +31,9 @@
     <ClCompile Include="src\ht\graphics\rendering\renderers\SimpleRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.cpp" />
     <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\font\FontManager.cpp" />
+    <ClCompile Include="src\ht\graphics\window\Window.cpp" />
+    <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -51,7 +52,6 @@
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
-    <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
     <ClInclude Include="src\ht\maths\mat4.h" />
     <ClInclude Include="src\ht\maths\maths.h" />
@@ -80,7 +80,6 @@
     <ClInclude Include="src\ht\graphics\terrain\World.h" />
     <ClInclude Include="src\ht\utils\String.h" />
     <ClInclude Include="src\ht\graphics\textures\TextureManager.h" />
-    <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
     <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
     <ClInclude Include="src\ht\utils\Pair.h" />
@@ -94,6 +93,9 @@
     <ClInclude Include="src\ht\graphics\rendering\2D\Sprite.h" />
     <ClInclude Include="src\ht\graphics\ui\GUILayer.h" />
     <ClInclude Include="src\ht\graphics\ui\GUIItem.h" />
+    <ClInclude Include="src\ht\graphics\ui\font\FontManager.h" />
+    <ClInclude Include="src\ht\graphics\window\Window.h" />
+    <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

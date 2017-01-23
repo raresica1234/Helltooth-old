@@ -37,7 +37,7 @@ namespace ht { namespace graphics {
 			y += height;
 			createSprite(x, y, width, height, col);
 		}
-		Sprite(float x, float y, float width, float height, Texture* texture) {
+		Sprite(float x, float y, float width, float height, const Texture* texture) {
 			x += width / 2;
 			y += height / 2;
 			createSprite(x, y, width, height, texture->getID(), true);
@@ -54,10 +54,10 @@ namespace ht { namespace graphics {
 			
 			data = maths::vec4(x, y, width, height);
 			
-			uvs[0] = maths::vec2(0, 1);
-			uvs[1] = maths::vec2(0, 0);
-			uvs[2] = maths::vec2(1, 0);
-			uvs[3] = maths::vec2(1, 1);
+			uvs[0] = maths::vec2(0, 0);
+			uvs[1] = maths::vec2(0, 1);
+			uvs[2] = maths::vec2(1, 1);
+			uvs[3] = maths::vec2(1, 0);
 		}
 	};
 

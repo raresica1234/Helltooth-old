@@ -1,14 +1,16 @@
 #pragma once
 
 #pragma region Helltooth
-//ASSETS
+#pragma region assets
 #include "assets/Asset.h"
 #include "assets/ObjLoader.h"
 #include "assets/ResourceStack.h"
 
 #include "assets/FileSystem/FileSystem.h"
+#pragma endregion
 
-//GRAPHICS
+
+#pragma region graphics
 #include "graphics/API.h"
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
@@ -40,19 +42,25 @@
 #include "graphics/textures/Texture.h"
 #include "graphics/textures/TextureManager.h"
 
+#include "graphics/ui/font/FontManager.h"
+
 #include "graphics/ui/GUILayer.h"
 #include "graphics/ui/GUIItem.h"
 
 #include "graphics/window/Window.h"
 #include "graphics/window/WindowManager.h"
-//MATHS
+
+#pragma endregion
+
+#pragma region maths
 #include "maths/vec2.h"
 #include "maths/vec3.h"
 #include "maths/vec4.h"
 
 #include "maths/mat4.h"
+#pragma endregion
 
-//UTILS
+#pragma region utils + tools
 #include "utils/Input.h"
 #include "utils/FileUtils.h"
 #include "utils/FpsCounter.h"
@@ -64,6 +72,7 @@
 //TOOLS
 #include "tools/Cereal/Cereal.h"
 #include "tools/VFS/VFS.h"
+#pragma endregion
 #pragma endregion Engine includes
 
 class Application {
@@ -91,7 +100,7 @@ public:
 		ht::graphics::TextureManager::Init();
 		ht::graphics::ShaderManager::Init();
 		ht::assets::FileSystem::Init();
-
+		ht::graphics::FontManager::Init();
 		ht::utils::Input::init();
 
 		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
@@ -134,6 +143,7 @@ public:
 			window->update();
 		}
 
+		ht::graphics::FontManager::End();
 		ht::graphics::ShaderManager::End();
 		ht::graphics::TextureManager::End();
 		ht::graphics::WindowManager::End();

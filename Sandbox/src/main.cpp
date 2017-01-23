@@ -28,6 +28,7 @@ public:
 		VFS::mount("shaders", "src/shaders");
 		VFS::mount("res", "res/models/");
 		VFS::mount("res", "res/textures/");
+		VFS::mount("res", "res/fonts/");
 	}
 
 	~Main() {
@@ -35,7 +36,7 @@ public:
 	}
 	void init() override {
 		PushLayer(htnew Test3D(window));
-		PushLayer(htnew GUI());
+		PushLayer(htnew GUI(window));
 		Application::init();
 	}
 

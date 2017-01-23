@@ -15,8 +15,10 @@ using namespace utils;
 
 class GUI : public GUILayer {
 	Sprite* sprite = nullptr;
+	Texture* texture;
+
 public:
-	GUI();
+	GUI(Window* window);
 
 	~GUI();
 

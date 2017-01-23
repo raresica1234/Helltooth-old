@@ -1,6 +1,8 @@
 #include "BatchRenderer2D.h"
 
 namespace ht { namespace graphics {
+	using namespace maths;
+	using namespace utils;
 
 	BatchRenderer2D::BatchRenderer2D() {
 		init();
@@ -17,12 +19,13 @@ namespace ht { namespace graphics {
 		buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-	void BatchRenderer2D::submit(Sprite* e) {
+
+	void BatchRenderer2D::submitTexture(float id) {
 		unsigned int tid;
-		if (e->textureID  > 0.5) {
+		if (id  > 0.5) {
 			bool found = false;
-			for (unsigned int i = 0; i < tids.size(); i++) 
-				if (tids[i] == e->textureID) {
+			for (unsigned int i = 0; i < tids.size(); i++)
+				if (tids[i] == id) {
 					found = true;
 					tid = i + 1;
 				}
@@ -32,10 +35,14 @@ namespace ht { namespace graphics {
 					render();
 					begin();
 				}
-				tids.push_back(e->textureID);
+				tids.push_back(id);
 				tid = tids.size();
 			}
 		}
+	}
+
+	void BatchRenderer2D::submit(Sprite* e) {
+		submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
 		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, 1);
@@ -63,6 +70,60 @@ namespace ht { namespace graphics {
 		buffer++;
 		
 		indexCount += 6;
+	}
+
+	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
+		Font f = FontManager::Get()->getFont();
+		unsigned int id = f.texture->getID();
+		submitTexture(id);
+
+		float xPos = x;
+		float yPos = y;
+		
+		int r = color.x * 255.0f;
+		int g = color.y * 255.0f;
+		int b = color.z * 255.0f;
+		int a = color.w * 255.0f;
+		unsigned int col = a << 24 | b << 16 | g << 8 | r;
+
+		unsigned int size = f.size;
+
+		for (int i = 0; i < text.size; i++) {
+			Glyph g = f.glyphs[text[i]];
+			vec4 uv = g.uv;
+
+			float xa = xPos + g.offset.x;
+			float ya = yPos - g.offset.y;
+
+			buffer->position = vec3(xa, ya, 1);
+			buffer->color = col;
+			buffer->uv = vec2(uv.x, uv.z);
+			buffer->textureID = id;
+			buffer++;
+
+			buffer->position = vec3(xa + size, ya, 1);
+			buffer->color = col;
+			buffer->uv = vec2(uv.y, uv.z);
+			buffer->textureID = id;
+			buffer++;
+
+			buffer->position = vec3(xa + size, ya + size, 1);
+			buffer->color = col;
+			buffer->uv = vec2(uv.y, uv.w);
+			buffer->textureID = id;
+			buffer++;
+
+			buffer->position = vec3(xa, ya + size, 1);
+			buffer->color = col;
+			buffer->uv = vec2(uv.x, uv.w);
+			buffer->textureID = id;
+			buffer++;
+
+			indexCount += 6;
+
+			xPos += g.advance.x;
+		}
+
 	}
 
 	void BatchRenderer2D::end() {

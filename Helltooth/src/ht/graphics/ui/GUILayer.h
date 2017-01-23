@@ -23,13 +23,16 @@ namespace ht { namespace graphics {
 
 		__forceinline void begin() {
 			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			renderer->begin();
 			shader->start();
 		}
 
 		void submit(Sprite* sprite) {
 			renderer->submit(sprite);
+		}
+
+		void submit(utils::String text, float x, float y, maths::vec4 col) {
+			renderer->submitText(text, x, y, col);
 		}
 
 		void load(bool &loaded) override { loaded = true; }
