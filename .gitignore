@@ -10,7 +10,6 @@
 *.lastbuildstate
 *.suo
 *.sdf
-*.user
 Intermidiates/
 *.opendb
 *.db
