@@ -56,20 +56,20 @@ namespace ht { namespace graphics {
 
 		Font& font = fonts[identifier];
 
-		FT_Set_Pixel_Sizes(face, size, size);
+		FT_Set_Char_Size(face, 64 * size, 64 * size, 100.f, 100.f);
 		FT_Select_Charmap(face, FT_ENCODING_UNICODE);
 
 		for (char i = start; i < end; i++) {
 			unsigned int id = FT_Get_Char_Index(face, i);
-
+		
 			FT_Load_Glyph(face, id, 0);
 			FT_GlyphSlot gs = face->glyph;
-
+		
 			FT_Render_Glyph(gs, FT_RENDER_MODE_NORMAL);
 			FT_Bitmap bitmap = gs->bitmap;
 			
 			FT_Glyph_Metrics metrics = gs->metrics;
-
+		
 			Glyph glyph;
 		
 			glyph.unicodeCharacter = i;
@@ -78,45 +78,43 @@ namespace ht { namespace graphics {
 			glyph.offset.y = (metrics.horiBearingY >> 6) - (metrics.height >> 6);
 			glyph.bitmapSize.x = bitmap.width;
 			glyph.bitmapSize.y = bitmap.rows;
-
+		
 			unsigned int bitmap_size = bitmap.rows * bitmap.width;
-
+		
 			glyph.bitmap = htnew unsigned char[bitmap_size];
-			memcpy(glyph.bitmap, gs->bitmap.buffer, bitmap_size);
-
+			memcpy(glyph.bitmap, bitmap.buffer, bitmap_size);
+		
 			if (glyph.bitmapSize.x > segmentWidth)  segmentWidth = glyph.bitmapSize.x;
 			if (glyph.bitmapSize.y > segmentHeight) segmentHeight = glyph.bitmapSize.y;
-
+		
 			charMap[i] = glyph;
 		}
 
 		unsigned int bitmapSquareSize = (unsigned int)ceilf(sqrtf((float)numCharacters));
 		unsigned int bitmapWidth = bitmapSquareSize * segmentWidth;
 		unsigned int bitmapHeight = bitmapSquareSize * segmentHeight;
-
+		
 		unsigned char* bitmapData = new unsigned char[bitmapWidth * bitmapHeight];
 		memset(bitmapData, 0, bitmapWidth * bitmapHeight);
-
+		
 		float xStep = (float)segmentWidth / (float)bitmapWidth;
 		float yStep = (float)segmentHeight / (float)bitmapHeight;
-
+		
 		unsigned int currentGlyph = 0;
-
+		
 		for (char i = start; i < end; i++) {
-			Glyph glyph = charMap[i];
-
+			Glyph& glyph = charMap[i];
+		
 			int xStart = currentGlyph % bitmapSquareSize;
 			int yStart = currentGlyph / bitmapSquareSize;
-
-			glyph.uv.x = (float)xStart * xStep;
-			glyph.uv.y = (float)yStart * yStep;
-			glyph.uv.z = glyph.uv.x + xStep;
-			glyph.uv.w = glyph.uv.y + yStep;
-
-			font.glyphs[i] = glyph;
-
+		
+			glyph.u0 = (float)xStart * xStep;
+			glyph.v0 = (float)yStart * yStep;
+			glyph.u1 = glyph.u0 + xStep;
+			glyph.v1 = glyph.v0 + yStep;
+		
 			unsigned int yOffset = segmentHeight - glyph.bitmapSize.y;
-
+		
 			for (int y = 0; y < glyph.bitmapSize.y; y++) {
 				int ya = (yStart * segmentHeight) + y + yOffset;
 				for (int x = 0; x < glyph.bitmapSize.x; x++) {
@@ -124,14 +122,17 @@ namespace ht { namespace graphics {
 					bitmapData[xa + ya * bitmapWidth] = glyph.bitmap[x + y * (int)glyph.bitmapSize.x];
 				}
 			}
-
+		
 			currentGlyph++;
 			del[] glyph.bitmap;
+		
+			font.glyphs[i] = glyph;
 		}
 
 		font.texture = htnew Texture();
 		font.size = size;
-		font.texture->loadPixelArray(bitmapData, bitmapWidth, bitmapHeight, 8, GL_CLAMP_TO_BORDER);
+		font.texture->loadPixelArray(bitmapData, bitmapWidth,bitmapHeight, 8, GL_CLAMP_TO_BORDER);
+		
 		selectFont(identifier);
 	}
 

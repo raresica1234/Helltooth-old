@@ -25,20 +25,15 @@ namespace ht { namespace maths {
 	mat4 mat4::createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &near, const float &far) {
 		mat4 result = createIdentity();
 
-		float xdist = right - left;
-		float ydist = top - bottom;
-		float zdist = far - near;
+		result.elements[0 + 0 * 4] = 2.0f / (right - left);
+		result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
+		result.elements[2 + 2 * 4] = -2.0f / (far - near);
 
-		result.elements[0 + 0 * 4] = (2.0f * near) / xdist;
-		result.elements[1 + 1 * 4] = (2.0f * near) / ydist;
+		result.elements[0 + 3 * 4] = -((right + left) / (right - left));
+		result.elements[1 + 3 * 4] = -((top + bottom) / (top - bottom));
+		result.elements[2 + 3 * 4] = -((far + near) / (near - far));
 
-		result.elements[2 + 0 * 4] = (right + left) / xdist;
-		result.elements[2 + 1 * 4] = (top + bottom) / ydist;
-		result.elements[2 + 2 * 4] = -(far + near) / zdist;
-		result.elements[2 + 3 * 4] = -1.0f;
-
-		result.elements[3 + 2 * 4] = -(2.0f * far * near) / zdist;
-		result.elements[3 + 3 * 4] = 0;
+		result.elements[3 + 3 * 4] = 1;
 
 		return result;
 	}

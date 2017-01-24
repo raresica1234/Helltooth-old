@@ -85,37 +85,35 @@ namespace ht { namespace graphics {
 		int b = color.z * 255.0f;
 		int a = color.w * 255.0f;
 		unsigned int col = a << 24 | b << 16 | g << 8 | r;
-
 		unsigned int size = f.size;
 
 		for (int i = 0; i < text.size; i++) {
 			Glyph g = f.glyphs[text[i]];
-			vec4 uv = g.uv;
 
 			float xa = xPos + g.offset.x;
 			float ya = yPos - g.offset.y;
 
 			buffer->position = vec3(xa, ya, 1);
 			buffer->color = col;
-			buffer->uv = vec2(uv.x, uv.z);
+			buffer->uv = vec2(g.u0, g.v1);
 			buffer->textureID = id;
 			buffer++;
 
 			buffer->position = vec3(xa + size, ya, 1);
 			buffer->color = col;
-			buffer->uv = vec2(uv.y, uv.z);
+			buffer->uv = vec2(g.u0, g.v0);
 			buffer->textureID = id;
 			buffer++;
 
 			buffer->position = vec3(xa + size, ya + size, 1);
 			buffer->color = col;
-			buffer->uv = vec2(uv.y, uv.w);
+			buffer->uv = vec2(g.u1, g.v0);
 			buffer->textureID = id;
 			buffer++;
 
 			buffer->position = vec3(xa, ya + size, 1);
 			buffer->color = col;
-			buffer->uv = vec2(uv.x, uv.w);
+			buffer->uv = vec2(g.u1, g.v1);
 			buffer->textureID = id;
 			buffer++;
 

@@ -35,7 +35,7 @@ public:
 
 	}
 	void init() override {
-		PushLayer(htnew Test3D(window));
+		//PushLayer(htnew Test3D(window));
 		PushLayer(htnew GUI(window));
 		Application::init();
 	}

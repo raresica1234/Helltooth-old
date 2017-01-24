@@ -24,7 +24,7 @@ namespace ht { namespace graphics {
 		maths::vec2 offset;
 		maths::vec2 bitmapSize;
 
-		maths::vec4 uv;
+		float u0, v0, u1, v1;
 
 		unsigned char* bitmap = nullptr;
 	};
