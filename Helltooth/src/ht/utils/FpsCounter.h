@@ -8,6 +8,8 @@ namespace ht { namespace utils {
 	private:
 		unsigned int ups, fps, MAX_UPS;
 
+		unsigned int lastFps, lastUps;
+
 		float updateTick;
 		float time = 0.0f;
 
@@ -17,17 +19,17 @@ namespace ht { namespace utils {
 		unsigned __int64 currentTime, lastTime;
 
 	private:
-		inline void restart()
+		__forceinline void restart()
 		{
 			begin = getCounter();
 		}
 
-		inline float getElapsedTime()
+		__forceinline float getElapsedTime()
 		{
 			return (float)(getCounter() - begin) / freq;
 		};
 
-		inline bool isOver(float secs)
+		__forceinline bool isOver(float secs)
 		{
 			if (secs >= getElapsedTime())
 			{
@@ -40,7 +42,7 @@ namespace ht { namespace utils {
 
 	public:
 
-		FpsCounter(const unsigned int MAX_UPS) {
+		__forceinline FpsCounter(const unsigned int MAX_UPS) {
 			this->MAX_UPS = MAX_UPS;
 
 			ups = 0;
@@ -52,13 +54,11 @@ namespace ht { namespace utils {
 			restart();
 		}
 
-		~FpsCounter() { }
-
-		void init() {
+		__forceinline void init() {
 			lastTime = getTime();
 		}
 
-		bool update() {
+		__forceinline bool update() {
 			currentTime = getTime();
 			if (getElapsedTime() - time >= updateTick) {
 				ups++;
@@ -68,13 +68,15 @@ namespace ht { namespace utils {
 			return false;
 		}
 
-		void render() {
+		__forceinline void render() {
 			fps++;
 		}
 
-		bool tick() {
+		__forceinline bool tick() {
 			if ((currentTime - lastTime) > 0.5) {
 				HT_INFO("fps %i ups %i", fps, ups);
+				lastFps = fps;
+				lastUps = ups;
 				ups = 0;
 				fps = 0;
 				lastTime = currentTime;
@@ -83,7 +85,10 @@ namespace ht { namespace utils {
 			return false;
 		}
 
-		unsigned __int64 getTime() {
+		__forceinline unsigned int getFPS() { return lastFps; }
+		__forceinline unsigned int getUPS() { return lastUps; }
+
+		__forceinline unsigned __int64 getTime() {
 			LARGE_INTEGER time, frequency;
 
 			QueryPerformanceCounter(&time);
@@ -92,7 +97,7 @@ namespace ht { namespace utils {
 			return time.QuadPart / frequency.QuadPart;
 		}
 
-		unsigned __int64 getCounter() {
+		__forceinline unsigned __int64 getCounter() {
 			LARGE_INTEGER time;
 
 			QueryPerformanceCounter(&time);
@@ -100,7 +105,7 @@ namespace ht { namespace utils {
 			return time.QuadPart;
 		}
 
-		unsigned __int64 getFrequency() {
+		__forceinline unsigned __int64 getFrequency() {
 			LARGE_INTEGER time;
 
 			QueryPerformanceFrequency(&time);

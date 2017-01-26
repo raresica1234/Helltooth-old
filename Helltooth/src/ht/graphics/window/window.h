@@ -29,6 +29,17 @@ namespace ht { namespace graphics {
 
 		inline GLFWwindow* getWindow() const { return window; }
 
+		__forceinline maths::vec2 getDPI() {
+			HDC m = GetDC(0);
+
+			int x = GetDeviceCaps(m, LOGPIXELSX);
+			int y = GetDeviceCaps(m, LOGPIXELSY);
+
+			ReleaseDC(0, m);
+
+			return maths::vec2(x, y);
+		}
+
 		inline bool compare(GLFWwindow* window) {
 			return this->window == window;
 		}

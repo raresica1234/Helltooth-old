@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Postscript (Type1/Type2) hints recorder (specification).             */
 /*                                                                         */
-/*  Copyright 2001-2016 by                                                 */
+/*  Copyright 2001, 2002, 2003, 2006, 2008, 2014 by                        */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -28,8 +28,8 @@
   /**************************************************************************/
 
 
-#ifndef PSHREC_H_
-#define PSHREC_H_
+#ifndef __PSHREC_H__
+#define __PSHREC_H__
 
 
 #include <ft2build.h>
@@ -61,8 +61,12 @@ FT_BEGIN_HEADER
 
 
   /* hint flags */
-#define PS_HINT_FLAG_GHOST   1U
-#define PS_HINT_FLAG_BOTTOM  2U
+  typedef enum  PS_Hint_Flags_
+  {
+    PS_HINT_FLAG_GHOST  = 1,
+    PS_HINT_FLAG_BOTTOM = 2
+
+  } PS_Hint_Flags;
 
 
   /* hint descriptor */
@@ -166,7 +170,7 @@ FT_BEGIN_HEADER
 FT_END_HEADER
 
 
-#endif /* PSHREC_H_ */
+#endif /* __PS_HINTER_RECORD_H__ */
 
 
 /* END */

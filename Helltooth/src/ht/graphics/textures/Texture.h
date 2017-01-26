@@ -18,6 +18,8 @@ namespace ht { namespace graphics {
 	public:
 		//Constructor
 		Texture();
+		Texture(unsigned int width, unsigned int height, unsigned int bpp);
+
 		//Deconstrucotr
 		inline ~Texture() {
 			glDeleteTextures(1, &textureID);
@@ -27,8 +29,10 @@ namespace ht { namespace graphics {
 		inline void bind() const { glBindTexture(GL_TEXTURE_2D, textureID); }
 		inline void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 
+		void setPixels(void* pixels, unsigned int width, unsigned int height, unsigned int bpp);
+
 		//loading textures
-		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap = GL_REPEAT) const;
+		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap = GL_REPEAT, int mipmap = GL_LINEAR_MIPMAP_LINEAR) const;
 
 		void createAttachment(int width, int height, int type);
 

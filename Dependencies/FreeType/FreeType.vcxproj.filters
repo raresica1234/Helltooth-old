@@ -30,9 +30,6 @@
     <ClCompile Include="src\base\ftdebug.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\base\ftfntfmt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\base\ftfstype.c">
       <Filter>Source Files</Filter>
     </ClCompile>

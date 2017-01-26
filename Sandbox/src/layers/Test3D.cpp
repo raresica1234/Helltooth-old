@@ -52,8 +52,8 @@ void Test3D::update() {
 
 	for (unsigned int i = 0; i < dentities.size(); i++) {
 		if (world->isUnderTerrain(dentities[i]->getPosition()))
-			dentities[i]->move(vec3(.0f, .1f, .0f));
-		dentities[i]->rotate(vec3(0, 1.0f, 0));
+			dentities[i]->move(maths::vec3(.0f, .1f, .0f));
+		dentities[i]->rotate(maths::vec3(0, 1.0f, 0));
 	}
 	Layer::update();
 }

@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    PNG Bitmap glyph support.                                            */
 /*                                                                         */
-/*  Copyright 2013-2016 by                                                 */
-/*  Google, Inc.                                                           */
+/*  Copyright 2013 by Google, Inc.                                         */
 /*  Written by Stuart Gill and Behdad Esfahbod.                            */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -17,8 +16,8 @@
 /***************************************************************************/
 
 
-#ifndef PNGSHIM_H_
-#define PNGSHIM_H_
+#ifndef __PNGSHIM_H__
+#define __PNGSHIM_H__
 
 
 #include <ft2build.h>
@@ -44,7 +43,7 @@ FT_BEGIN_HEADER
 
 FT_END_HEADER
 
-#endif /* PNGSHIM_H_ */
+#endif /* __PNGSHIM_H__ */
 
 
 /* END */

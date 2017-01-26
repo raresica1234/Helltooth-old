@@ -20,8 +20,8 @@ namespace ht { namespace graphics {
 	}
 
 
-	void BatchRenderer2D::submitTexture(float id) {
-		unsigned int tid;
+	unsigned int BatchRenderer2D::submitTexture(float id) {
+		unsigned int tid = 0;
 		if (id  > 0.5) {
 			bool found = false;
 			for (unsigned int i = 0; i < tids.size(); i++)
@@ -39,33 +39,35 @@ namespace ht { namespace graphics {
 				tid = tids.size();
 			}
 		}
+
+		return tid;
 	}
 
 	void BatchRenderer2D::submit(Sprite* e) {
-		submitTexture(e->textureID);
+		unsigned int tid = submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
 		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, 1);
-		buffer->uv = e->uvs[0];													 
-		buffer->textureID = e->textureID;										 
-		buffer->color = e->color;												 
-		buffer++;																 
-																				 
+		buffer->uv = e->uvs[0];
+		buffer->textureID = tid;
+		buffer->color = e->color;
+		buffer++;
+		
 		buffer->position = maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, 1);
-		buffer->uv = e->uvs[1];													 
-		buffer->textureID = e->textureID;										 
-		buffer->color = e->color; 												 
-		buffer++;																 
-																				 
+		buffer->uv = e->uvs[1];
+		buffer->textureID = tid;
+		buffer->color = e->color;
+		buffer++;
+		
 		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, 1);
 		buffer->uv = e->uvs[2];													 
-		buffer->textureID = e->textureID;										 
+		buffer->textureID = tid;
 		buffer->color = e->color;												 
 		buffer++;																 
-																				 
+		
 		buffer->position = maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, 1);
 		buffer->uv = e->uvs[3];
-		buffer->textureID = e->textureID;
+		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
@@ -73,55 +75,76 @@ namespace ht { namespace graphics {
 	}
 
 	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
-		Font f = FontManager::Get()->getFont();
-		unsigned int id = f.texture->getID();
-		submitTexture(id);
+		Font& f = FontManager::Get()->getFont();
 
-		float xPos = x;
-		float yPos = y;
-		
+		unsigned int tid = submitTexture(f.atlas->id);
+
+		ftgl::texture_font_t* ftFont = f.font;
+
+		maths::vec2 scale = vec2(1, 1);
+
 		int r = color.x * 255.0f;
 		int g = color.y * 255.0f;
 		int b = color.z * 255.0f;
 		int a = color.w * 255.0f;
+
 		unsigned int col = a << 24 | b << 16 | g << 8 | r;
-		unsigned int size = f.size;
 
-		for (int i = 0; i < text.size; i++) {
-			Glyph g = f.glyphs[text[i]];
+		for (unsigned int i = 0; i < text.size - 1; i++) {
+			char c = text[i];
+			ftgl::texture_glyph_t* glyph = texture_font_get_glyph(ftFont, c);
 
-			float xa = xPos + g.offset.x;
-			float ya = yPos - g.offset.y;
+			if (glyph) {
+				if (i > 0) {
+					float kerning = ftgl::texture_glyph_get_kerning(glyph, text[i - 1]);
+					x += kerning / scale.x;
+				}
 
-			buffer->position = vec3(xa, ya, 1);
-			buffer->color = col;
-			buffer->uv = vec2(g.u0, g.v1);
-			buffer->textureID = id;
-			buffer++;
+				if (c == '\n') {
+					y -= (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (f.size + 6) / 3)) / scale.y;
+					x = x;
+					continue;
+				}
+				
 
-			buffer->position = vec3(xa + size, ya, 1);
-			buffer->color = col;
-			buffer->uv = vec2(g.u0, g.v0);
-			buffer->textureID = id;
-			buffer++;
+				float x0 = x  + glyph->offset_x;
+				float y0 = y  + glyph->offset_y;
+				float x1 = x0 + glyph->width;
+				float y1 = y0 - glyph->height;
 
-			buffer->position = vec3(xa + size, ya + size, 1);
-			buffer->color = col;
-			buffer->uv = vec2(g.u1, g.v0);
-			buffer->textureID = id;
-			buffer++;
+				float u0 = glyph->s0;
+				float v0 = glyph->t0;
+				float u1 = glyph->s1;
+				float v1 = glyph->t1;
 
-			buffer->position = vec3(xa, ya + size, 1);
-			buffer->color = col;
-			buffer->uv = vec2(g.u1, g.v1);
-			buffer->textureID = id;
-			buffer++;
+				buffer->position = maths::vec3(x0, y0, 0.1f);
+				buffer->uv = maths::vec2(u0, v0);
+				buffer->textureID = tid;
+				buffer->color = col;
+				buffer++;
 
-			indexCount += 6;
+				buffer->position = maths::vec3(x0, y1, 0.1f);
+				buffer->uv = maths::vec2(u0, v1);
+				buffer->textureID = tid;
+				buffer->color = col;
+				buffer++;
 
-			xPos += g.advance.x;
+				buffer->position = maths::vec3(x1, y1, 0.1f);
+				buffer->uv = maths::vec2(u1, v1);
+				buffer->textureID = tid;
+				buffer->color = col;
+				buffer++;
+
+				buffer->position = maths::vec3(x1, y0, 0.1f);
+				buffer->uv = maths::vec2(u1, v0);
+				buffer->textureID = tid;
+				buffer->color = col;
+				buffer++;
+
+				indexCount += 6;
+				x += glyph->advance_x / scale.x;
+			}
 		}
-
 	}
 
 	void BatchRenderer2D::end() {

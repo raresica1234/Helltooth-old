@@ -16,12 +16,20 @@ using namespace utils;
 class GUI : public GUILayer {
 	Sprite* sprite = nullptr;
 	Texture* texture;
+	Window* window;
+	FpsCounter *counter;
+
+	String fpsDisplay;
+
+	int save = 0;
 
 public:
-	GUI(Window* window);
+	GUI(Window* window, FpsCounter *counter);
 
 	~GUI();
 
 	void render() override;
 	void update() override;
+
+	void tick() override;
 };

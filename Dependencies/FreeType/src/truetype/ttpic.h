@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    The FreeType position independent code services for truetype module. */
 /*                                                                         */
-/*  Copyright 2009-2016 by                                                 */
+/*  Copyright 2009, 2012, 2013 by                                          */
 /*  Oran Agra and Mickey Gabel.                                            */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,12 +16,11 @@
 /***************************************************************************/
 
 
-#ifndef TTPIC_H_
-#define TTPIC_H_
+#ifndef __TTPIC_H__
+#define __TTPIC_H__
 
 
-#include FT_INTERNAL_PIC_H
-
+FT_BEGIN_HEADER
 
 #ifndef FT_CONFIG_OPTION_PIC
 
@@ -37,8 +36,6 @@
 #include FT_SERVICE_TRUETYPE_GLYF_H
 #include FT_SERVICE_PROPERTIES_H
 
-
-FT_BEGIN_HEADER
 
   typedef struct  TTModulePIC_
   {
@@ -71,13 +68,14 @@ FT_BEGIN_HEADER
   FT_Error
   tt_driver_class_pic_init( FT_Library  library );
 
-FT_END_HEADER
-
 #endif /* FT_CONFIG_OPTION_PIC */
 
  /* */
 
-#endif /* TTPIC_H_ */
+
+FT_END_HEADER
+
+#endif /* __TTPIC_H__ */
 
 
 /* END */

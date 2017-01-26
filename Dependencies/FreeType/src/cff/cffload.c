@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    OpenType and CFF data/program tables loader (body).                  */
 /*                                                                         */
-/*  Copyright 1996-2016 by                                                 */
+/*  Copyright 1996-2014 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -357,7 +357,7 @@
 
       case 3:
         for ( ; p < p_end; p += 3, poff++ )
-          poff[0] = FT_PEEK_UOFF3( p );
+          poff[0] = FT_PEEK_OFF3( p );
         break;
 
       default:
@@ -382,15 +382,13 @@
   static FT_Error
   cff_index_get_pointers( CFF_Index   idx,
                           FT_Byte***  table,
-                          FT_Byte**   pool,
-                          FT_ULong*   pool_size )
+                          FT_Byte**   pool )
   {
     FT_Error   error     = FT_Err_Ok;
     FT_Memory  memory    = idx->stream->memory;
 
     FT_Byte**  t         = NULL;
     FT_Byte*   new_bytes = NULL;
-    FT_ULong   new_size;
 
 
     *table = NULL;
@@ -402,11 +400,10 @@
         goto Exit;
     }
 
-    new_size = idx->data_size + idx->count;
-
-    if ( idx->count > 0                                &&
-         !FT_NEW_ARRAY( t, idx->count + 1 )            &&
-         ( !pool || !FT_ALLOC( new_bytes, new_size ) ) )
+    if ( idx->count > 0                                        &&
+         !FT_NEW_ARRAY( t, idx->count + 1 )                    &&
+         ( !pool || !FT_ALLOC( new_bytes,
+                               idx->data_size + idx->count ) ) )
     {
       FT_ULong  n, cur_offset;
       FT_ULong  extra = 0;
@@ -462,8 +459,6 @@
 
       if ( pool )
         *pool = new_bytes;
-      if ( pool_size )
-        *pool_size = new_size;
     }
 
   Exit:
@@ -506,8 +501,8 @@
           {
             element++;
             off2 = cff_index_read_offset( idx, &error );
-
-          } while ( off2 == 0 && element < idx->count );
+          }
+          while ( off2 == 0 && element < idx->count );
         }
       }
       else   /* use offsets table */
@@ -602,8 +597,7 @@
 
     if ( !FT_ALLOC( name, byte_len + 1 ) )
     {
-      if ( byte_len )
-        FT_MEM_COPY( name, bytes, byte_len );
+      FT_MEM_COPY( name, bytes, byte_len );
       name[byte_len] = 0;
     }
     cff_index_forget_element( idx, &bytes );
@@ -815,7 +809,7 @@
     /* When multiple GIDs map to the same CID, we choose the lowest */
     /* GID.  This is not described in any spec, but it matches the  */
     /* behaviour of recent Acroread versions.                       */
-    for ( j = (FT_Long)num_glyphs - 1; j >= 0; j-- )
+    for ( j = num_glyphs - 1; j >= 0 ; j-- )
       charset->cids[charset->sids[j]] = (FT_UShort)j;
 
     charset->max_cid    = max_cid;
@@ -877,8 +871,8 @@
     FT_UShort  glyph_sid;
 
 
-    /* If the offset is greater than 2, we have to parse the charset */
-    /* table.                                                        */
+    /* If the the offset is greater than 2, we have to parse the */
+    /* charset table.                                            */
     if ( offset > 2 )
     {
       FT_UInt  j;
@@ -1322,12 +1316,7 @@
     CFF_Private      priv = &font->private_dict;
 
 
-    cff_parser_init( &parser,
-                     CFF_CODE_TOPDICT,
-                     &font->font_dict,
-                     library,
-                     0,
-                     0 );
+    cff_parser_init( &parser, CFF_CODE_TOPDICT, &font->font_dict, library );
 
     /* set defaults */
     FT_MEM_ZERO( top, sizeof ( *top ) );
@@ -1381,12 +1370,7 @@
       priv->expansion_factor = (FT_Fixed)( 0.06 * 0x10000L );
       priv->blue_scale       = (FT_Fixed)( 0.039625 * 0x10000L * 1000 );
 
-      cff_parser_init( &parser,
-                       CFF_CODE_PRIVATE,
-                       priv,
-                       library,
-                       top->num_designs,
-                       top->num_axes );
+      cff_parser_init( &parser, CFF_CODE_PRIVATE, priv, library );
 
       if ( FT_STREAM_SEEK( base_offset + font->font_dict.private_offset ) ||
            FT_FRAME_ENTER( font->font_dict.private_size )                 )
@@ -1416,7 +1400,7 @@
         goto Exit;
 
       error = cff_index_get_pointers( &font->local_subrs_index,
-                                      &font->local_subrs, NULL, NULL );
+                                      &font->local_subrs, NULL );
       if ( error )
         goto Exit;
     }
@@ -1463,7 +1447,7 @@
     FT_ULong         base_offset;
     CFF_FontRecDict  dict;
     CFF_IndexRec     string_index;
-    FT_UInt          subfont_index;
+    FT_Int           subfont_index;
 
 
     FT_ZERO( font );
@@ -1494,17 +1478,16 @@
 
     /* read the name, top dict, string and global subrs index */
     if ( FT_SET_ERROR( cff_index_init( &font->name_index,
-                                       stream, 0 ) )                       ||
+                                       stream, 0 ) )                  ||
          FT_SET_ERROR( cff_index_init( &font->font_dict_index,
-                                       stream, 0 ) )                       ||
+                                       stream, 0 ) )                  ||
          FT_SET_ERROR( cff_index_init( &string_index,
-                                       stream, 1 ) )                       ||
+                                       stream, 1 ) )                  ||
          FT_SET_ERROR( cff_index_init( &font->global_subrs_index,
-                                       stream, 1 ) )                       ||
+                                       stream, 1 ) )                  ||
          FT_SET_ERROR( cff_index_get_pointers( &string_index,
                                                &font->strings,
-                                               &font->string_pool,
-                                               &font->string_pool_size ) ) )
+                                               &font->string_pool ) ) )
       goto Exit;
 
     font->num_strings = string_index.count;
@@ -1512,9 +1495,9 @@
     if ( pure_cff )
     {
       /* well, we don't really forget the `disabled' fonts... */
-      subfont_index = (FT_UInt)( face_index & 0xFFFF );
+      subfont_index = face_index;
 
-      if ( face_index > 0 && subfont_index >= font->name_index.count )
+      if ( subfont_index >= (FT_Int)font->name_index.count )
       {
         FT_ERROR(( "cff_font_load:"
                    " invalid subfont index for pure CFF font (%d)\n",
@@ -1631,7 +1614,7 @@
     font->num_glyphs = font->charstrings_index.count;
 
     error = cff_index_get_pointers( &font->global_subrs_index,
-                                    &font->global_subrs, NULL, NULL );
+                                    &font->global_subrs, NULL );
 
     if ( error )
       goto Exit;

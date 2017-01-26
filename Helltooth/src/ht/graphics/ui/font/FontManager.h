@@ -2,8 +2,9 @@
 
 #include <unordered_map>
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#include <freetype-gl.h>
+#include <texture-atlas.h>
+#include <texture-font.h>
 
 #include "graphics/textures/Texture.h"
 #include "graphics/window/WindowManager.h"
@@ -30,11 +31,15 @@ namespace ht { namespace graphics {
 	};
 
 	struct Font {
-		Texture* texture = nullptr;
-		std::unordered_map<char, Glyph> glyphs;
+		ftgl::texture_font_t* font;
+		ftgl::texture_atlas_t* atlas;
+		maths::vec2 scale;
+		float size;
 
-		unsigned int size;
-
+		Font() {
+			scale.x = 1;
+			scale.y = 1;
+		}
 	};
 
 	class FontManager {
@@ -44,16 +49,16 @@ namespace ht { namespace graphics {
 		
 		static FontManager* manager;
 
-		FT_Library library;
 
 	private:
 		FontManager();
 		~FontManager();
 
 	public:
-		void addFont(utils::String path, utils::String identifier, unsigned int size);
+		void addFont(utils::String path, utils::String identifier, float size);
 
 		void selectFont(utils::String identifier);
+
 
 		__forceinline Font getFont() { return selected; }
 

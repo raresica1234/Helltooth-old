@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Auto-fitter glyph loading routines (specification).                  */
 /*                                                                         */
-/*  Copyright 2003-2016 by                                                 */
+/*  Copyright 2003-2005, 2011-2013 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,15 +16,16 @@
 /***************************************************************************/
 
 
-#ifndef AFLOADER_H_
-#define AFLOADER_H_
+#ifndef __AFLOADER_H__
+#define __AFLOADER_H__
 
 #include "afhints.h"
-#include "afmodule.h"
 #include "afglobal.h"
 
 
 FT_BEGIN_HEADER
+
+  typedef struct AF_ModuleRec_*  AF_Module;
 
   /*
    *  The autofitter module's (global) data structure to communicate with
@@ -41,7 +42,8 @@ FT_BEGIN_HEADER
     AF_FaceGlobals    globals;
 
     /* current glyph data */
-    AF_GlyphHints     hints;
+    FT_GlyphLoader    gloader;
+    AF_GlyphHintsRec  hints;
     AF_StyleMetrics   metrics;
     FT_Bool           transformed;
     FT_Matrix         trans_matrix;
@@ -53,39 +55,31 @@ FT_BEGIN_HEADER
   } AF_LoaderRec, *AF_Loader;
 
 
-  FT_LOCAL( void )
-  af_loader_init( AF_Loader      loader,
-                  AF_GlyphHints  hints );
+  FT_LOCAL( FT_Error )
+  af_loader_init( AF_Module  module );
 
 
   FT_LOCAL( FT_Error )
-  af_loader_reset( AF_Loader  loader,
-                   AF_Module  module,
+  af_loader_reset( AF_Module  module,
                    FT_Face    face );
 
 
   FT_LOCAL( void )
-  af_loader_done( AF_Loader  loader );
+  af_loader_done( AF_Module  module );
 
 
   FT_LOCAL( FT_Error )
-  af_loader_load_glyph( AF_Loader  loader,
-                        AF_Module  module,
+  af_loader_load_glyph( AF_Module  module,
                         FT_Face    face,
                         FT_UInt    gindex,
                         FT_Int32   load_flags );
-
-  FT_LOCAL_DEF( FT_Int32 )
-  af_loader_compute_darkening( AF_Loader  loader,
-                               FT_Face    face,
-                               FT_Pos     standard_width );
 
 /* */
 
 
 FT_END_HEADER
 
-#endif /* AFLOADER_H_ */
+#endif /* __AFLOADER_H__ */
 
 
 /* END */

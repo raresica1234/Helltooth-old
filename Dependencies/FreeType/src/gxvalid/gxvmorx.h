@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    TrueTypeGX/AAT common definition for morx table (specification).     */
 /*                                                                         */
-/*  Copyright 2005-2016 by                                                 */
-/*  suzuki toshiya, Masatake YAMATO, Red Hat K.K.,                         */
+/*  Copyright 2005 by suzuki toshiya, Masatake YAMATO, Red Hat K.K.,       */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -25,8 +24,8 @@
 /***************************************************************************/
 
 
-#ifndef GXVMORX_H_
-#define GXVMORX_H_
+#ifndef __GXVMORX_H__
+#define __GXVMORX_H__
 
 
 #include "gxvalid.h"
@@ -62,7 +61,7 @@
                                     GXV_Validator  gxvalid );
 
 
-#endif /* GXVMORX_H_ */
+#endif /* __GXVMORX_H__ */
 
 
 /* END */

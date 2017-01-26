@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Auxiliary functions for PostScript fonts (body).                     */
 /*                                                                         */
-/*  Copyright 1996-2016 by                                                 */
+/*  Copyright 1996-2014 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -81,7 +81,7 @@
     table->max_elems = count;
     table->init      = 0xDEADBEEFUL;
     table->num_elems = 0;
-    table->block     = NULL;
+    table->block     = 0;
     table->capacity  = 0;
     table->cursor    = 0;
 
@@ -165,14 +165,20 @@
   /*    reallocation fails.                                                */
   /*                                                                       */
   FT_LOCAL_DEF( FT_Error )
-  ps_table_add( PS_Table  table,
-                FT_Int    idx,
-                void*     object,
-                FT_UInt   length )
+  ps_table_add( PS_Table    table,
+                FT_Int      idx,
+                void*       object,
+                FT_PtrDist  length )
   {
     if ( idx < 0 || idx >= table->max_elems )
     {
       FT_ERROR(( "ps_table_add: invalid index\n" ));
+      return FT_THROW( Invalid_Argument );
+    }
+
+    if ( length < 0 )
+    {
+      FT_ERROR(( "ps_table_add: invalid length\n" ));
       return FT_THROW( Invalid_Argument );
     }
 
@@ -594,9 +600,6 @@
       error = FT_THROW( Invalid_File_Format );
     }
 
-    if ( cur > limit )
-      cur = limit;
-
     parser->error  = error;
     parser->cursor = cur;
   }
@@ -622,8 +625,8 @@
 
 
     token->type  = T1_TOKEN_TYPE_NONE;
-    token->start = NULL;
-    token->limit = NULL;
+    token->start = 0;
+    token->limit = 0;
 
     /* first of all, skip leading whitespace */
     ps_parser_skip_spaces( parser );
@@ -704,7 +707,7 @@
 
     if ( !token->limit )
     {
-      token->start = NULL;
+      token->start = 0;
       token->type  = T1_TOKEN_TYPE_NONE;
     }
 
@@ -929,7 +932,7 @@
                FT_Memory  memory )
   {
     FT_Byte*    cur = *cursor;
-    FT_UInt     len = 0;
+    FT_PtrDist  len = 0;
     FT_Int      count;
     FT_String*  result;
     FT_Error    error;
@@ -969,7 +972,7 @@
       }
     }
 
-    len = (FT_UInt)( cur - *cursor );
+    len = cur - *cursor;
     if ( cur >= limit || FT_ALLOC( result, len + 1 ) )
       return 0;
 
@@ -1087,9 +1090,9 @@
 
     for ( ; count > 0; count--, idx++ )
     {
-      FT_Byte*    q      = (FT_Byte*)objects[idx] + field->offset;
+      FT_Byte*    q = (FT_Byte*)objects[idx] + field->offset;
       FT_Long     val;
-      FT_String*  string = NULL;
+      FT_String*  string;
 
 
       skip_spaces( &cur, limit );
@@ -1217,7 +1220,7 @@
       case T1_FIELD_TYPE_MM_BBOX:
         {
           FT_Memory  memory = parser->memory;
-          FT_Fixed*  temp   = NULL;
+          FT_Fixed*  temp;
           FT_Int     result;
           FT_UInt    i;
 
@@ -1227,22 +1230,20 @@
 
           for ( i = 0; i < 4; i++ )
           {
-            result = ps_tofixedarray( &cur, limit, (FT_Int)max_objects,
+            result = ps_tofixedarray( &cur, limit, max_objects,
                                       temp + i * max_objects, 0 );
             if ( result < 0 || (FT_UInt)result < max_objects )
             {
               FT_ERROR(( "ps_parser_load_field:"
-                         " expected %d integer%s in the %s subarray\n"
+                         " expected %d integers in the %s subarray\n"
                          "                     "
                          " of /FontBBox in the /Blend dictionary\n",
-                         max_objects, max_objects > 1 ? "s" : "",
+                         max_objects,
                          i == 0 ? "first"
                                 : ( i == 1 ? "second"
                                            : ( i == 2 ? "third"
                                                       : "fourth" ) ) ));
               error = FT_THROW( Invalid_File_Format );
-
-              FT_FREE( temp );
               goto Exit;
             }
 
@@ -1320,7 +1321,7 @@
       goto Exit;
     }
     if ( (FT_UInt)num_elements > field->array_max )
-      num_elements = (FT_Int)field->array_max;
+      num_elements = field->array_max;
 
     old_cursor = parser->cursor;
     old_limit  = parser->limit;
@@ -1378,7 +1379,7 @@
   ps_parser_to_bytes( PS_Parser  parser,
                       FT_Byte*   bytes,
                       FT_Offset  max_bytes,
-                      FT_ULong*  pnum_bytes,
+                      FT_Long*   pnum_bytes,
                       FT_Bool    delimiters )
   {
     FT_Error  error = FT_Err_Ok;
@@ -1552,7 +1553,7 @@
       FT_GlyphLoader_Rewind( loader );
 
       builder->hints_globals = size->internal;
-      builder->hints_funcs   = NULL;
+      builder->hints_funcs   = 0;
 
       if ( hinting )
         builder->hints_funcs = glyph->internal->glyph_hints;

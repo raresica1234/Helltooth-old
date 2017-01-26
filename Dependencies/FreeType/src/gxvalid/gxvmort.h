@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    TrueTypeGX/AAT common definition for mort table (specification).     */
 /*                                                                         */
-/*  Copyright 2004-2016 by                                                 */
-/*  suzuki toshiya, Masatake YAMATO, Red Hat K.K.,                         */
+/*  Copyright 2004, 2005 by suzuki toshiya, Masatake YAMATO, Red Hat K.K., */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -25,8 +24,8 @@
 /***************************************************************************/
 
 
-#ifndef GXVMORT_H_
-#define GXVMORT_H_
+#ifndef __GXVMORT_H__
+#define __GXVMORT_H__
 
 #include "gxvalid.h"
 #include "gxvcommn.h"
@@ -88,7 +87,7 @@
                                     GXV_Validator  gxvalid );
 
 
-#endif /* GXVMORT_H_ */
+#endif /* __GXVMORT_H__ */
 
 
 /* END */

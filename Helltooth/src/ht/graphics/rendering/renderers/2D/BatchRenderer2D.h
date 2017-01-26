@@ -48,7 +48,7 @@ namespace ht { namespace graphics {
 
 	private:
 		void init();
-		void submitTexture(float id);
+		unsigned int submitTexture(float id);
 	};
 
 

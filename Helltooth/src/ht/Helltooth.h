@@ -214,7 +214,10 @@ public:
 			layer->update();
 	}
 
-	virtual void tick() {}
+	virtual void tick() {
+		for (ht::graphics::Layer* layer : layers)
+			layer->tick();
+	}
 #pragma endregion Basic functions
 
 	void PushLayer(ht::graphics::Layer* layer) {

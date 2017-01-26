@@ -8,8 +8,7 @@
 /*  be used to parse compressed PCF fonts, as found with many X11 server   */
 /*  distributions.                                                         */
 /*                                                                         */
-/*  Copyright 2005-2016 by                                                 */
-/*  David Turner.                                                          */
+/*  Copyright 2005, 2006, 2007, 2008 by David Turner.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
 /*  modified, and distributed under the terms of the FreeType project      */
@@ -19,8 +18,8 @@
 /*                                                                         */
 /***************************************************************************/
 
-#ifndef FTZOPEN_H_
-#define FTZOPEN_H_
+#ifndef __FT_ZOPEN_H__
+#define __FT_ZOPEN_H__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -116,8 +115,8 @@
     FT_Int       in_eof;
 
     FT_Byte      buf_tab[16];
-    FT_UInt      buf_offset;
-    FT_UInt      buf_size;
+    FT_Int       buf_offset;
+    FT_Int       buf_size;
     FT_Bool      buf_clear;
     FT_Offset    buf_total;
 
@@ -166,7 +165,7 @@
 
 /* */
 
-#endif /* FTZOPEN_H_ */
+#endif /* __FT_ZOPEN_H__ */
 
 
 /* END */

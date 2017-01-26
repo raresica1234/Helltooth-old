@@ -58,6 +58,8 @@ namespace ht { namespace graphics {
 				setMatrix(projectionMatrix);
 		}
 
+		virtual void tick() {}
+
 		void cleanUP();
 		void forceCleanUP();
 		void reloadTextures();

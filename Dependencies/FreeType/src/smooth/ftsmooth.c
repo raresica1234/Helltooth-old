@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Anti-aliasing renderer interface (body).                             */
 /*                                                                         */
-/*  Copyright 2000-2016 by                                                 */
+/*  Copyright 2000-2006, 2009-2013 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -230,7 +230,7 @@
     }
 
     /* allocate new one */
-    if ( FT_ALLOC( bitmap->buffer, (FT_ULong)( pitch * height ) ) )
+    if ( FT_ALLOC( bitmap->buffer, (FT_ULong)pitch * height ) )
       goto Exit;
     else
       have_buffer = TRUE;
@@ -243,8 +243,8 @@
 
     bitmap->pixel_mode = FT_PIXEL_MODE_GRAY;
     bitmap->num_grays  = 256;
-    bitmap->width      = (unsigned int)width;
-    bitmap->rows       = (unsigned int)height;
+    bitmap->width      = width;
+    bitmap->rows       = height;
     bitmap->pitch      = pitch;
 
     /* translate outline to render it into the bitmap */
@@ -428,8 +428,7 @@
   }
 
 
-  FT_DEFINE_RENDERER(
-    ft_smooth_renderer_class,
+  FT_DEFINE_RENDERER( ft_smooth_renderer_class,
 
       FT_MODULE_RENDERER,
       sizeof ( FT_RendererRec ),
@@ -438,25 +437,25 @@
       0x10000L,
       0x20000L,
 
-      NULL,    /* module specific interface */
+      0,    /* module specific interface */
 
-      (FT_Module_Constructor)ft_smooth_init,  /* module_init   */
-      (FT_Module_Destructor) NULL,            /* module_done   */
-      (FT_Module_Requester)  NULL,            /* get_interface */
+      (FT_Module_Constructor)ft_smooth_init,
+      (FT_Module_Destructor) 0,
+      (FT_Module_Requester)  0
+    ,
 
     FT_GLYPH_FORMAT_OUTLINE,
 
-    (FT_Renderer_RenderFunc)   ft_smooth_render,     /* render_glyph    */
-    (FT_Renderer_TransformFunc)ft_smooth_transform,  /* transform_glyph */
-    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,   /* get_glyph_cbox  */
-    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,   /* set_mode        */
+    (FT_Renderer_RenderFunc)   ft_smooth_render,
+    (FT_Renderer_TransformFunc)ft_smooth_transform,
+    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,
+    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,
 
-    (FT_Raster_Funcs*)&FT_GRAYS_RASTER_GET           /* raster_class    */
+    (FT_Raster_Funcs*)    &FT_GRAYS_RASTER_GET
   )
 
 
-  FT_DEFINE_RENDERER(
-    ft_smooth_lcd_renderer_class,
+  FT_DEFINE_RENDERER( ft_smooth_lcd_renderer_class,
 
       FT_MODULE_RENDERER,
       sizeof ( FT_RendererRec ),
@@ -465,25 +464,24 @@
       0x10000L,
       0x20000L,
 
-      NULL,    /* module specific interface */
+      0,    /* module specific interface */
 
-      (FT_Module_Constructor)ft_smooth_init,  /* module_init   */
-      (FT_Module_Destructor) NULL,            /* module_done   */
-      (FT_Module_Requester)  NULL,            /* get_interface */
+      (FT_Module_Constructor)ft_smooth_init,
+      (FT_Module_Destructor) 0,
+      (FT_Module_Requester)  0
+    ,
 
     FT_GLYPH_FORMAT_OUTLINE,
 
-    (FT_Renderer_RenderFunc)   ft_smooth_render_lcd,  /* render_glyph    */
-    (FT_Renderer_TransformFunc)ft_smooth_transform,   /* transform_glyph */
-    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,    /* get_glyph_cbox  */
-    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,    /* set_mode        */
+    (FT_Renderer_RenderFunc)   ft_smooth_render_lcd,
+    (FT_Renderer_TransformFunc)ft_smooth_transform,
+    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,
+    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,
 
-    (FT_Raster_Funcs*)&FT_GRAYS_RASTER_GET            /* raster_class    */
+    (FT_Raster_Funcs*)    &FT_GRAYS_RASTER_GET
   )
 
-
-  FT_DEFINE_RENDERER(
-    ft_smooth_lcdv_renderer_class,
+  FT_DEFINE_RENDERER( ft_smooth_lcdv_renderer_class,
 
       FT_MODULE_RENDERER,
       sizeof ( FT_RendererRec ),
@@ -492,20 +490,21 @@
       0x10000L,
       0x20000L,
 
-      NULL,    /* module specific interface */
+      0,    /* module specific interface */
 
-      (FT_Module_Constructor)ft_smooth_init,  /* module_init   */
-      (FT_Module_Destructor) NULL,            /* module_done   */
-      (FT_Module_Requester)  NULL,            /* get_interface */
+      (FT_Module_Constructor)ft_smooth_init,
+      (FT_Module_Destructor) 0,
+      (FT_Module_Requester)  0
+    ,
 
     FT_GLYPH_FORMAT_OUTLINE,
 
-    (FT_Renderer_RenderFunc)   ft_smooth_render_lcd_v,  /* render_glyph    */
-    (FT_Renderer_TransformFunc)ft_smooth_transform,     /* transform_glyph */
-    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,      /* get_glyph_cbox  */
-    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,      /* set_mode        */
+    (FT_Renderer_RenderFunc)   ft_smooth_render_lcd_v,
+    (FT_Renderer_TransformFunc)ft_smooth_transform,
+    (FT_Renderer_GetCBoxFunc)  ft_smooth_get_cbox,
+    (FT_Renderer_SetModeFunc)  ft_smooth_set_mode,
 
-    (FT_Raster_Funcs*)&FT_GRAYS_RASTER_GET              /* raster_class    */
+    (FT_Raster_Funcs*)    &FT_GRAYS_RASTER_GET
   )
 
 

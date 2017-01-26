@@ -36,8 +36,8 @@
 /***************************************************************************/
 
 
-#ifndef CF2INTRP_H_
-#define CF2INTRP_H_
+#ifndef __CF2INTRP_H__
+#define __CF2INTRP_H__
 
 
 #include "cf2ft.h"
@@ -77,7 +77,7 @@ FT_BEGIN_HEADER
 FT_END_HEADER
 
 
-#endif /* CF2INTRP_H_ */
+#endif /* __CF2INTRP_H__ */
 
 
 /* END */

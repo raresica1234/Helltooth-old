@@ -43,6 +43,12 @@ namespace ht { namespace graphics {
 			createSprite(x, y, width, height, texture->getID(), true);
 		}
 
+		Sprite(float x, float y, float width, float height, unsigned int tID) {
+			x += width / 2;
+			y += height / 2;
+			createSprite(x, y, width, height, tID, true);
+		}
+
 		~Sprite() {}
 
 	private:

@@ -36,8 +36,8 @@
 /***************************************************************************/
 
 
-#ifndef CF2HINTS_H_
-#define CF2HINTS_H_
+#ifndef __CF2HINTS_H__
+#define __CF2HINTS_H__
 
 
 FT_BEGIN_HEADER
@@ -220,7 +220,7 @@ FT_BEGIN_HEADER
 
     /* character space miter limit threshold */
     CF2_Fixed  miterLimit;
-    /* vertical/horizontal snap distance in character space */
+    /* vertical/horzizontal snap distance in character space */
     CF2_Fixed  snapThreshold;
 
     FT_Vector  offsetStart0;  /* first and second points of first */
@@ -283,7 +283,7 @@ FT_BEGIN_HEADER
 FT_END_HEADER
 
 
-#endif /* CF2HINTS_H_ */
+#endif /* __CF2HINTS_H__ */
 
 
 /* END */

@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Anti-aliasing renderer interface (specification).                    */
 /*                                                                         */
-/*  Copyright 1996-2016 by                                                 */
+/*  Copyright 1996-2001 by                                                 */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,8 +16,8 @@
 /***************************************************************************/
 
 
-#ifndef FTSMOOTH_H_
-#define FTSMOOTH_H_
+#ifndef __FTSMOOTH_H__
+#define __FTSMOOTH_H__
 
 
 #include <ft2build.h>
@@ -43,7 +43,7 @@ FT_BEGIN_HEADER
 
 FT_END_HEADER
 
-#endif /* FTSMOOTH_H_ */
+#endif /* __FTSMOOTH_H__ */
 
 
 /* END */

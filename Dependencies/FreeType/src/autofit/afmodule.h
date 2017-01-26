@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Auto-fitter module implementation (specification).                   */
 /*                                                                         */
-/*  Copyright 2003-2016 by                                                 */
+/*  Copyright 2003-2005, 2009, 2012, 2013 by                               */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,20 +16,24 @@
 /***************************************************************************/
 
 
-#ifndef AFMODULE_H_
-#define AFMODULE_H_
+#ifndef __AFMODULE_H__
+#define __AFMODULE_H__
 
 #include <ft2build.h>
 #include FT_INTERNAL_OBJECTS_H
 #include FT_MODULE_H
+
+#include "afloader.h"
 
 
 FT_BEGIN_HEADER
 
 
   /*
-   *  This is the `extended' FT_Module structure that holds the
-   *  autofitter's global data.
+   *  This is the `extended' FT_Module structure which holds the
+   *  autofitter's global data.  Right before hinting a glyph, the data
+   *  specific to the glyph's face (blue zones, stem widths, etc.) are
+   *  loaded into `loader' (see function `af_loader_reset').
    */
 
   typedef struct  AF_ModuleRec_
@@ -38,21 +42,18 @@ FT_BEGIN_HEADER
 
     FT_UInt       fallback_style;
     FT_UInt       default_script;
-#ifdef AF_CONFIG_OPTION_USE_WARPER
-    FT_Bool       warping;
-#endif
-    FT_Bool       no_stem_darkening;
-    FT_Int        darken_params[8];
 
-  } AF_ModuleRec, *AF_Module;
+    AF_LoaderRec  loader[1];
+
+  } AF_ModuleRec;
 
 
-FT_DECLARE_MODULE( autofit_module_class )
+FT_DECLARE_MODULE(autofit_module_class)
 
 
 FT_END_HEADER
 
-#endif /* AFMODULE_H_ */
+#endif /* __AFMODULE_H__ */
 
 
 /* END */

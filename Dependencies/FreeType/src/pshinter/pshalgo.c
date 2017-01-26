@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    PostScript hinting algorithm (body).                                 */
 /*                                                                         */
-/*  Copyright 2001-2016 by                                                 */
+/*  Copyright 2001-2010, 2012-2014 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used        */
@@ -30,14 +30,16 @@
 
 
 #ifdef DEBUG_HINTER
-  PSH_Hint_Table  ps_debug_hint_table = NULL;
-  PSH_HintFunc    ps_debug_hint_func  = NULL;
-  PSH_Glyph       ps_debug_glyph      = NULL;
+  PSH_Hint_Table  ps_debug_hint_table = 0;
+  PSH_HintFunc    ps_debug_hint_func  = 0;
+  PSH_Glyph       ps_debug_glyph      = 0;
 #endif
 
 
 #define  COMPUTE_INFLEXS  /* compute inflection points to optimize `S' */
                           /* and similar glyphs                        */
+#define  STRONGER         /* slightly increase the contrast of smooth  */
+                          /* hinting                                   */
 
 
   /*************************************************************************/
@@ -65,13 +67,13 @@
   {
     FT_FREE( table->zones );
     table->num_zones = 0;
-    table->zone      = NULL;
+    table->zone      = 0;
 
     FT_FREE( table->sort );
     FT_FREE( table->hints );
     table->num_hints   = 0;
     table->max_hints   = 0;
-    table->sort_global = NULL;
+    table->sort_global = 0;
   }
 
 
@@ -119,7 +121,7 @@
       PSH_Hint   hint2;
 
 
-      hint->parent = NULL;
+      hint->parent = 0;
       for ( ; count > 0; count--, sorted++ )
       {
         hint2 = sorted[0];
@@ -192,7 +194,7 @@
     table->sort_global = table->sort + count;
     table->num_hints   = 0;
     table->num_zones   = 0;
-    table->zone        = NULL;
+    table->zone        = 0;
 
     /* initialize the `table->hints' array */
     {
@@ -779,7 +781,7 @@
            * It turns out though that minimizing the total number of lit
            * pixels is also important, so position C), with one edge
            * aligned with a pixel boundary is actually preferable
-           * to A).  There are also more possible positions for C) than
+           * to A).  There are also more possibile positions for C) than
            * for A) or B), so it involves less distortion of the overall
            * character shape.
            */
@@ -802,7 +804,7 @@
             }
 
             /* We choose between B) and C) above based on the amount
-             * of fractional stem width; for small amounts, choose
+             * of fractinal stem width; for small amounts, choose
              * C) always, for large amounts, B) always, and inbetween,
              * pick whichever one involves less stem movement.
              */
@@ -888,6 +890,9 @@
   /*************************************************************************/
   /*************************************************************************/
 
+#define PSH_ZONE_MIN  -3200000L
+#define PSH_ZONE_MAX  +3200000L
+
 #define xxDEBUG_ZONES
 
 
@@ -905,6 +910,10 @@
              zone->max );
   }
 
+#else
+
+#define psh_print_zone( x )  do { } while ( 0 )
+
 #endif /* DEBUG_ZONES */
 
 
@@ -916,8 +925,102 @@
   /*************************************************************************/
   /*************************************************************************/
 
+#if 1
+
 #define  psh_corner_is_flat      ft_corner_is_flat
 #define  psh_corner_orientation  ft_corner_orientation
+
+#else
+
+  FT_LOCAL_DEF( FT_Int )
+  psh_corner_is_flat( FT_Pos  x_in,
+                      FT_Pos  y_in,
+                      FT_Pos  x_out,
+                      FT_Pos  y_out )
+  {
+    FT_Pos  ax = x_in;
+    FT_Pos  ay = y_in;
+
+    FT_Pos  d_in, d_out, d_corner;
+
+
+    if ( ax < 0 )
+      ax = -ax;
+    if ( ay < 0 )
+      ay = -ay;
+    d_in = ax + ay;
+
+    ax = x_out;
+    if ( ax < 0 )
+      ax = -ax;
+    ay = y_out;
+    if ( ay < 0 )
+      ay = -ay;
+    d_out = ax + ay;
+
+    ax = x_out + x_in;
+    if ( ax < 0 )
+      ax = -ax;
+    ay = y_out + y_in;
+    if ( ay < 0 )
+      ay = -ay;
+    d_corner = ax + ay;
+
+    return ( d_in + d_out - d_corner ) < ( d_corner >> 4 );
+  }
+
+  static FT_Int
+  psh_corner_orientation( FT_Pos  in_x,
+                          FT_Pos  in_y,
+                          FT_Pos  out_x,
+                          FT_Pos  out_y )
+  {
+    FT_Int  result;
+
+
+    /* deal with the trivial cases quickly */
+    if ( in_y == 0 )
+    {
+      if ( in_x >= 0 )
+        result = out_y;
+      else
+        result = -out_y;
+    }
+    else if ( in_x == 0 )
+    {
+      if ( in_y >= 0 )
+        result = -out_x;
+      else
+        result = out_x;
+    }
+    else if ( out_y == 0 )
+    {
+      if ( out_x >= 0 )
+        result = in_y;
+      else
+        result = -in_y;
+    }
+    else if ( out_x == 0 )
+    {
+      if ( out_y >= 0 )
+        result = -in_x;
+      else
+        result =  in_x;
+    }
+    else /* general case */
+    {
+      long long  delta = (long long)in_x * out_y - (long long)in_y * out_x;
+
+      if ( delta == 0 )
+        result = 0;
+      else
+        result = 1 - 2 * ( delta < 0 );
+    }
+
+    return result;
+  }
+
+#endif /* !1 */
 
 
 #ifdef COMPUTE_INFLEXS
@@ -1046,7 +1149,7 @@
     glyph->num_points   = 0;
     glyph->num_contours = 0;
 
-    glyph->memory = NULL;
+    glyph->memory = 0;
   }
 
 
@@ -1171,8 +1274,8 @@
          FT_NEW_ARRAY( glyph->contours, outline->n_contours ) )
       goto Exit;
 
-    glyph->num_points   = (FT_UInt)outline->n_points;
-    glyph->num_contours = (FT_UInt)outline->n_contours;
+    glyph->num_points   = outline->n_points;
+    glyph->num_contours = outline->n_contours;
 
     {
       FT_UInt      first = 0, next, n;
@@ -1182,15 +1285,15 @@
 
       for ( n = 0; n < glyph->num_contours; n++ )
       {
-        FT_UInt    count;
+        FT_Int     count;
         PSH_Point  point;
 
 
-        next  = (FT_UInt)outline->contours[n] + 1;
+        next  = outline->contours[n] + 1;
         count = next - first;
 
         contour->start = points + first;
-        contour->count = count;
+        contour->count = (FT_UInt)count;
 
         if ( count > 0 )
         {
@@ -1593,12 +1696,16 @@
       mask++;
       for ( ; num_masks > 1; num_masks--, mask++ )
       {
-        FT_UInt  next = FT_MIN( mask->end_point, glyph->num_points );
+        FT_UInt  next;
+        FT_Int   count;
 
 
-        if ( next > first )
+        next  = mask->end_point > glyph->num_points
+                  ? glyph->num_points
+                  : mask->end_point;
+        count = next - first;
+        if ( count > 0 )
         {
-          FT_UInt    count = next - first;
           PSH_Point  point = glyph->points + first;
 
 
@@ -1941,7 +2048,7 @@
       /* count the number of strong points in this contour */
       next      = start + contour->count;
       fit_count = 0;
-      first     = NULL;
+      first     = 0;
 
       for ( point = start; point < next; point++ )
         if ( psh_point_is_fitted( point ) )

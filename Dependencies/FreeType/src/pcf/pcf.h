@@ -25,8 +25,8 @@ THE SOFTWARE.
 */
 
 
-#ifndef PCF_H_
-#define PCF_H_
+#ifndef __PCF_H__
+#define __PCF_H__
 
 
 #include <ft2build.h>
@@ -148,9 +148,9 @@ FT_BEGIN_HEADER
     int            nprops;
     PCF_Property   properties;
 
-    FT_ULong       nmetrics;
+    FT_Long        nmetrics;
     PCF_Metric     metrics;
-    FT_ULong       nencodings;
+    FT_Long        nencodings;
     PCF_Encoding   encodings;
 
     FT_Short       defaultChar;
@@ -226,13 +226,12 @@ FT_BEGIN_HEADER
 #define GLYPHPADOPTIONS  4 /* I'm not sure about this */
 
   FT_LOCAL( FT_Error )
-  pcf_load_font( FT_Stream  stream,
-                 PCF_Face   face,
-                 FT_Long    face_index );
+  pcf_load_font( FT_Stream,
+                 PCF_Face );
 
 FT_END_HEADER
 
-#endif /* PCF_H_ */
+#endif /* __PCF_H__ */
 
 
 /* END */

@@ -85,7 +85,7 @@ namespace ht { namespace utils {
 		append(other);
 		return *this;
 	}
-	
+
 	void String::operator+=(const String &other){
 		append(other);
 	}

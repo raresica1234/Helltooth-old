@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    Type 42 objects manager (specification).                             */
 /*                                                                         */
-/*  Copyright 2002-2016 by                                                 */
-/*  Roberto Alameda.                                                       */
+/*  Copyright 2002, 2003, 2006, 2007, 2011 by Roberto Alameda.             */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
 /*  modified, and distributed under the terms of the FreeType project      */
@@ -16,8 +15,8 @@
 /***************************************************************************/
 
 
-#ifndef T42OBJS_H_
-#define T42OBJS_H_
+#ifndef __T42OBJS_H__
+#define __T42OBJS_H__
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -56,6 +55,7 @@ FT_BEGIN_HEADER
   {
     FT_DriverRec     root;
     FT_Driver_Class  ttclazz;
+    void*            extension_component;
 
   } T42_DriverRec, *T42_Driver;
 
@@ -118,7 +118,7 @@ FT_BEGIN_HEADER
 FT_END_HEADER
 
 
-#endif /* T42OBJS_H_ */
+#endif /* __T42OBJS_H__ */
 
 
 /* END */

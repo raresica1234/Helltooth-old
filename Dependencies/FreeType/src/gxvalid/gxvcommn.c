@@ -4,8 +4,8 @@
 /*                                                                         */
 /*    TrueTypeGX/AAT common tables validation (body).                      */
 /*                                                                         */
-/*  Copyright 2004-2016 by                                                 */
-/*  suzuki toshiya, Masatake YAMATO, Red Hat K.K.,                         */
+/*  Copyright 2004, 2005, 2009, 2010, 2013                                 */
+/*  by suzuki toshiya, Masatake YAMATO, Red Hat K.K.,                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -202,7 +202,7 @@
       *max = (FT_Byte)FT_MAX( *max, val );
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
   }
 
 
@@ -231,7 +231,7 @@
       *max = (FT_Byte)FT_MAX( *max, val );
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
   }
 
 
@@ -367,7 +367,7 @@
     if ( *nUnits_p == 0 )
       *nUnits_p = binSrchHeader.nUnits;
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -449,7 +449,7 @@
       gxvalid->lookupval_func( i, &value, gxvalid );
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -486,7 +486,7 @@
       p += unitSize;
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
   }
 
 
@@ -555,7 +555,7 @@
     gxv_LookupTable_fmt2_skip_endmarkers( p, unitSize, gxvalid );
     p += gxvalid->subtable_length;
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -636,7 +636,7 @@
     gxv_LookupTable_fmt2_skip_endmarkers( p, unitSize, gxvalid );
     p += gxvalid->subtable_length;
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -657,7 +657,7 @@
       p += unitSize;
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
   }
 
 
@@ -709,7 +709,7 @@
     gxv_LookupTable_fmt6_skip_endmarkers( p, unitSize, gxvalid );
     p += gxvalid->subtable_length;
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -746,7 +746,7 @@
       gxvalid->lookupval_func( (FT_UShort)( firstGlyph + i ), &value, gxvalid );
     }
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
     GXV_EXIT;
   }
 
@@ -795,7 +795,7 @@
     func( p, limit, gxvalid );
     p += gxvalid->subtable_length;
 
-    gxvalid->subtable_length = (FT_ULong)( p - table );
+    gxvalid->subtable_length = p - table;
 
     GXV_EXIT;
   }
@@ -844,7 +844,7 @@
 
   FT_LOCAL_DEF( void )
   gxv_ctlPoint_validate( FT_UShort      gid,
-                         FT_UShort      ctl_point,
+                         FT_Short       ctl_point,
                          GXV_Validator  gxvalid )
   {
     FT_Face       face;
@@ -852,7 +852,7 @@
 
     FT_GlyphSlot  glyph;
     FT_Outline    outline;
-    FT_UShort     n_points;
+    short         n_points;
 
 
     face = gxvalid->face;
@@ -865,7 +865,8 @@
 
     glyph    = face->glyph;
     outline  = glyph->outline;
-    n_points = (FT_UShort)outline.n_points;
+    n_points = outline.n_points;
+
 
     if ( !( ctl_point < n_points ) )
       FT_INVALID_DATA;
@@ -900,7 +901,7 @@
     for ( i = 0; i < nnames; i++ )
     {
       if ( FT_Get_Sfnt_Name( gxvalid->face, i, &name ) != FT_Err_Ok )
-        continue;
+        continue ;
 
       if ( name.name_id == name_index )
         goto Out;
@@ -1159,6 +1160,10 @@
       case GXV_GLYPHOFFSET_LONG:
         glyphOffset.l = FT_NEXT_LONG( p );
         break;
+
+      default:
+        GXV_SET_ERR_IF_PARANOID( FT_INVALID_FORMAT );
+        goto Exit;
       }
 
       if ( NULL != gxvalid->statetable.entry_validate_func )
@@ -1170,6 +1175,7 @@
                                                  gxvalid );
     }
 
+  Exit:
     *length_p = (FT_UShort)( p - table );
 
     GXV_EXIT;
@@ -1443,7 +1449,7 @@
     GXV_TRACE(( "parsed: maxState=%d, maxEntry=%d\n",
                 *maxState_p, *maxEntry_p ));
 
-    *length_p = (FT_ULong)( p - table );
+    *length_p = p - table;
 
     GXV_EXIT;
   }
@@ -1472,7 +1478,7 @@
     if ( ( p + ( maxEntry + 1 ) * entrySize ) > limit )
       FT_INVALID_TOO_SHORT;
 
-    for (entry = 0; entry <= maxEntry; entry++ )
+    for (entry = 0; entry <= maxEntry ; entry++ )
     {
       FT_UShort                        newState_idx;
       FT_UShort                        flags;
@@ -1544,7 +1550,7 @@
     }
 
   Exit:
-    *length_p = (FT_ULong)( p - table );
+    *length_p = p - table;
 
     GXV_EXIT;
   }
@@ -1599,7 +1605,7 @@
     else
       setup_func = gxv_XStateTable_subtable_setup;
 
-    setup_func( (FT_ULong)( limit - table ),
+    setup_func( limit - table,
                 classTable,
                 stateArray,
                 entryTable,

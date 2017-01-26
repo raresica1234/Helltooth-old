@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType sbits manager (body).                                       */
 /*                                                                         */
-/*  Copyright 2000-2016 by                                                 */
+/*  Copyright 2000-2006, 2009-2011, 2013, 2014 by                          */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -52,9 +52,7 @@
     if ( pitch < 0 )
       pitch = -pitch;
 
-    size = (FT_ULong)pitch * bitmap->rows;
-    if ( !size )
-      return FT_Err_Ok;
+    size = (FT_ULong)( pitch * bitmap->rows );
 
     if ( !FT_ALLOC( sbit->buffer, size ) )
       FT_MEM_COPY( sbit->buffer, bitmap->buffer, size );
@@ -183,7 +181,7 @@
 
       /* now, compute size */
       if ( asize )
-        *asize = (FT_ULong)FT_ABS( sbit->pitch ) * sbit->height;
+        *asize = FT_ABS( sbit->pitch ) * sbit->height;
 
     } /* glyph loading successful */
 
@@ -217,7 +215,7 @@
     FT_UInt     gindex = gquery->gindex;
     FTC_Family  family = gquery->family;
 
-    FTC_SFamilyClass  clazz = FTC_CACHE_SFAMILY_CLASS( cache );
+    FTC_SFamilyClass  clazz = FTC_CACHE__SFAMILY_CLASS( cache );
     FT_UInt           total;
     FT_UInt           node_count;
 
@@ -304,7 +302,7 @@
           pitch = -pitch;
 
         /* add the size of a given glyph image */
-        size += (FT_Offset)pitch * sbit->height;
+        size += pitch * sbit->height;
       }
     }
 

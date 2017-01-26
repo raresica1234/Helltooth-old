@@ -1,5 +1,9 @@
 #include "FontManager.h"
 
+#include <FreeImage/FreeImage.h>
+
+#define FONT_TEXTURE_SIZE 512
+
 namespace ht { namespace graphics {
 	using namespace utils;
 	using namespace maths;
@@ -8,131 +12,30 @@ namespace ht { namespace graphics {
 
 
 	FontManager::FontManager() {
-		FT_Error error = FT_Init_FreeType(&library);
-
-		if (error) {
-			HT_FATAL("[FontManager] An error occurred when initializing FreeType!");
-		}
 	}
 
 	FontManager::~FontManager() {
-		for (auto entry : fonts)
-			del entry.second.texture;
-		
-		FT_Done_FreeType(library);
+		for (auto entry : fonts) {
+			ftgl::texture_atlas_delete(entry.second.atlas);
+			ftgl::texture_font_delete(entry.second.font);
+		}
 	}
 
 	void FontManager::selectFont(utils::String identifier) {
 		selected = fonts[identifier];
 	}
 
-	void FontManager::addFont(String path, String identifier, unsigned int size) {
+	void FontManager::addFont(String path, String identifier, float size) {
 		String realPath;
 		VFS::resolvePhysicalPath(path, realPath);
-		FT_Face face;
-		FT_Error error = FT_New_Face(library, realPath.c_str(), 0, &face);
+		
+		Font f = Font();
+		f.atlas = ftgl::texture_atlas_new(FONT_TEXTURE_SIZE, FONT_TEXTURE_SIZE, 2);
+		f.font = ftgl::texture_font_new_from_file(f.atlas, size, realPath.c_str());
 
-		HT_MSG("[FontManager] Font %s loaded!", face->family_name);
+		f.size = size;
+		fonts[identifier] = f;
 
-		if (error == FT_Err_Unknown_File_Format) {
-			HT_FATAL("[FontManager] Font format not supported!");
-		}
-		else if (error) {
-			HT_FATAL("[FontManager] An error occurred when loading the font");
-		}
-
-		std::unordered_map<unsigned int, Glyph> charMap;
-
-		//do something with those numChars
-
-		unsigned int segmentWidth = 0;
-		unsigned int segmentHeight = 0;
-
-
-		char start = 0x21;
-		char end = 0x7E;
-
-		unsigned int numCharacters = end - start;
-
-		Font& font = fonts[identifier];
-
-		FT_Set_Char_Size(face, 64 * size, 64 * size, 100.f, 100.f);
-		FT_Select_Charmap(face, FT_ENCODING_UNICODE);
-
-		for (char i = start; i < end; i++) {
-			unsigned int id = FT_Get_Char_Index(face, i);
-		
-			FT_Load_Glyph(face, id, 0);
-			FT_GlyphSlot gs = face->glyph;
-		
-			FT_Render_Glyph(gs, FT_RENDER_MODE_NORMAL);
-			FT_Bitmap bitmap = gs->bitmap;
-			
-			FT_Glyph_Metrics metrics = gs->metrics;
-		
-			Glyph glyph;
-		
-			glyph.unicodeCharacter = i;
-			glyph.advance.x = gs->advance.x >> 6;
-			glyph.offset.x = metrics.horiBearingX >> 6;
-			glyph.offset.y = (metrics.horiBearingY >> 6) - (metrics.height >> 6);
-			glyph.bitmapSize.x = bitmap.width;
-			glyph.bitmapSize.y = bitmap.rows;
-		
-			unsigned int bitmap_size = bitmap.rows * bitmap.width;
-		
-			glyph.bitmap = htnew unsigned char[bitmap_size];
-			memcpy(glyph.bitmap, bitmap.buffer, bitmap_size);
-		
-			if (glyph.bitmapSize.x > segmentWidth)  segmentWidth = glyph.bitmapSize.x;
-			if (glyph.bitmapSize.y > segmentHeight) segmentHeight = glyph.bitmapSize.y;
-		
-			charMap[i] = glyph;
-		}
-
-		unsigned int bitmapSquareSize = (unsigned int)ceilf(sqrtf((float)numCharacters));
-		unsigned int bitmapWidth = bitmapSquareSize * segmentWidth;
-		unsigned int bitmapHeight = bitmapSquareSize * segmentHeight;
-		
-		unsigned char* bitmapData = new unsigned char[bitmapWidth * bitmapHeight];
-		memset(bitmapData, 0, bitmapWidth * bitmapHeight);
-		
-		float xStep = (float)segmentWidth / (float)bitmapWidth;
-		float yStep = (float)segmentHeight / (float)bitmapHeight;
-		
-		unsigned int currentGlyph = 0;
-		
-		for (char i = start; i < end; i++) {
-			Glyph& glyph = charMap[i];
-		
-			int xStart = currentGlyph % bitmapSquareSize;
-			int yStart = currentGlyph / bitmapSquareSize;
-		
-			glyph.u0 = (float)xStart * xStep;
-			glyph.v0 = (float)yStart * yStep;
-			glyph.u1 = glyph.u0 + xStep;
-			glyph.v1 = glyph.v0 + yStep;
-		
-			unsigned int yOffset = segmentHeight - glyph.bitmapSize.y;
-		
-			for (int y = 0; y < glyph.bitmapSize.y; y++) {
-				int ya = (yStart * segmentHeight) + y + yOffset;
-				for (int x = 0; x < glyph.bitmapSize.x; x++) {
-					int xa = (xStart * segmentWidth) + x;
-					bitmapData[xa + ya * bitmapWidth] = glyph.bitmap[x + y * (int)glyph.bitmapSize.x];
-				}
-			}
-		
-			currentGlyph++;
-			del[] glyph.bitmap;
-		
-			font.glyphs[i] = glyph;
-		}
-
-		font.texture = htnew Texture();
-		font.size = size;
-		font.texture->loadPixelArray(bitmapData, bitmapWidth,bitmapHeight, 8, GL_CLAMP_TO_BORDER);
-		
 		selectFont(identifier);
 	}
 

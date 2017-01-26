@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    AFM parser (specification).                                          */
 /*                                                                         */
-/*  Copyright 2006-2016 by                                                 */
+/*  Copyright 2006 by                                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,8 +16,8 @@
 /***************************************************************************/
 
 
-#ifndef AFMPARSE_H_
-#define AFMPARSE_H_
+#ifndef __AFMPARSE_H__
+#define __AFMPARSE_H__
 
 
 #include <ft2build.h>
@@ -61,7 +61,6 @@ FT_BEGIN_HEADER
       char*     s;
       FT_Fixed  f;
       FT_Int    i;
-      FT_UInt   u;
       FT_Bool   b;
 
     } u;
@@ -73,7 +72,7 @@ FT_BEGIN_HEADER
   FT_LOCAL( FT_Int )
   afm_parser_read_vals( AFM_Parser  parser,
                         AFM_Value   vals,
-                        FT_Int      n );
+                        FT_UInt     n );
 
   /* read the next key from the next line or column */
   FT_LOCAL( char* )
@@ -83,7 +82,7 @@ FT_BEGIN_HEADER
 
 FT_END_HEADER
 
-#endif /* AFMPARSE_H_ */
+#endif /* __AFMPARSE_H__ */
 
 
 /* END */

@@ -44,6 +44,8 @@ namespace ht { namespace graphics {
 			glDisable(GL_BLEND);
 		}
 
+		void tick() override {}
+
 		void update() override;
 	};
 

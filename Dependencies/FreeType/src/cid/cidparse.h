@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    CID-keyed Type1 parser (specification).                              */
 /*                                                                         */
-/*  Copyright 1996-2016 by                                                 */
+/*  Copyright 1996-2004, 2014 by                                           */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -16,8 +16,8 @@
 /***************************************************************************/
 
 
-#ifndef CIDPARSE_H_
-#define CIDPARSE_H_
+#ifndef __CIDPARSE_H__
+#define __CIDPARSE_H__
 
 
 #include <ft2build.h>
@@ -64,11 +64,11 @@ FT_BEGIN_HEADER
     FT_Stream     stream;
 
     FT_Byte*      postscript;
-    FT_ULong      postscript_len;
+    FT_Long       postscript_len;
 
     FT_ULong      data_offset;
 
-    FT_ULong      binary_length;
+    FT_Long       binary_length;
 
     CID_FaceInfo  cid;
     FT_Int        num_dict;
@@ -117,7 +117,7 @@ FT_BEGIN_HEADER
 
 FT_END_HEADER
 
-#endif /* CIDPARSE_H_ */
+#endif /* __CIDPARSE_H__ */
 
 
 /* END */

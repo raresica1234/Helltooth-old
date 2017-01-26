@@ -4,8 +4,7 @@
 /*                                                                         */
 /*    TrueTypeGX/AAT feat table validation (specification).                */
 /*                                                                         */
-/*  Copyright 2004-2016 by                                                 */
-/*  suzuki toshiya, Masatake YAMATO, Red Hat K.K.,                         */
+/*  Copyright 2004, 2005 by suzuki toshiya, Masatake YAMATO, Red Hat K.K., */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -25,8 +24,8 @@
 /***************************************************************************/
 
 
-#ifndef GXVFEAT_H_
-#define GXVFEAT_H_
+#ifndef __GXVFEAT_H__
+#define __GXVFEAT_H__
 
 
 #include "gxvalid.h"
@@ -167,7 +166,7 @@
   };
 
 
-#endif /* GXVFEAT_H_ */
+#endif /* __GXVFEAT_H__ */
 
 
 /* END */

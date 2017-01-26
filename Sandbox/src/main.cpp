@@ -35,8 +35,8 @@ public:
 
 	}
 	void init() override {
-		//PushLayer(htnew Test3D(window));
-		PushLayer(htnew GUI(window));
+		PushLayer(htnew Test3D(window));
+		PushLayer(htnew GUI(window, counter));
 		Application::init();
 	}
 
@@ -57,6 +57,7 @@ public:
 				layer->reloadTextures();
 			compile = false;
 		}
+		Application::tick();
 	}
 };
 
