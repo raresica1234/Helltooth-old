@@ -34,6 +34,10 @@ namespace ht { namespace graphics {
 		
 		VertexData* buffer;
 
+		std::vector<maths::mat4> transformationStack;
+
+		maths::mat4* transformationBack = nullptr;
+
 		std::vector<float> tids;
 	public:
 		BatchRenderer2D();
@@ -45,6 +49,24 @@ namespace ht { namespace graphics {
 		void render();
 
 		void submitText(utils::String text, float x, float y, maths::vec4 color);
+
+		__forceinline void push(maths::mat4& matrix, bool override = false) {
+			if (override)
+				transformationStack.push_back(matrix);
+			else
+				transformationStack.push_back(transformationStack.back() * matrix);
+
+			transformationBack = &transformationStack.back();
+		}
+
+		__forceinline void pop() {
+			if (transformationStack.size() > 1)
+				transformationStack.pop_back();
+			else
+				HT_WARN("[BatchRenderer2D] Can not pop matrix from transformation stack. Transformation Stack empty.");
+
+			transformationBack = &transformationStack.back();
+		}
 
 	private:
 		void init();

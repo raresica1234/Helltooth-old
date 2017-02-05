@@ -10,8 +10,8 @@ namespace ht { namespace graphics {
 							#include "UiShader.frag"
 							;
 
-	GUILayer::GUILayer()
-		: Layer(nullptr) {
+	GUILayer::GUILayer(const unsigned int &width, const unsigned int &height)
+		: Layer(nullptr), width(width), height(height) {
 		renderer = htnew BatchRenderer2D();
 		unsigned int id = API::createShader(GUILayer::uiShaderVert, GUILayer::uiShaderFrag, false);
 		shader = ShaderManager::Get()->getProgram(id);
@@ -35,6 +35,7 @@ namespace ht { namespace graphics {
 	void GUILayer::setMatrix(maths::mat4 &projectionMatrix) {
 		shader->start();
 		shader->setProjection("projectionMatrix", projectionMatrix);
+		this->projectionMatrix = projectionMatrix;
 	}
 
 	void GUILayer::update() {}

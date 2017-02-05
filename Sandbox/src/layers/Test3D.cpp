@@ -75,10 +75,8 @@ void Test3D::render() {
 void Test3D::load(bool &loaded) {
 	if (!stack.isLoaded()) {
 		stack.prepareResources();
-		loaded = false;
-		return;
 	}
-	loaded = true;
+	loaded = this->loaded;
 }
 
 Test3D::~Test3D() {

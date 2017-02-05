@@ -7,7 +7,8 @@ namespace ht { namespace graphics {
 
 	unsigned int TextureManager::createTextureFromFile(String path) {
 		String output;
-		VFS::resolvePhysicalPath(path, output);
+		if (!VFS::resolvePhysicalPath(path, output))
+			HT_FATAL("[TextureManager] Cannot open \"%s\"", path.c_str());
 		const Texture* tex = assets::Asset::loadTextureFromFile(output.c_str());
 		textures.push_back(tex);
 		return textures.size() - 1;

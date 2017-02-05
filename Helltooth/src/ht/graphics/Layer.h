@@ -62,7 +62,7 @@ namespace ht { namespace graphics {
 
 		void cleanUP();
 		void forceCleanUP();
-		void reloadTextures();
+		virtual void reloadTextures();
 
 	protected:
 		virtual void defaultRenderer();

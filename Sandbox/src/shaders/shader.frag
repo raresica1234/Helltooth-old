@@ -30,7 +30,6 @@ void main() {
 	float diffuseDot = dot(unitNormal, tolightDirection);
 	float brightness = max(diffuseDot, ambientLight);
 
-
 	float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
 
 	specularFactor = max(specularFactor, 0.0);

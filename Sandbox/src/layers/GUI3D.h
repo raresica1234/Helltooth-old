@@ -23,6 +23,8 @@ class GUI : public GUILayer {
 
 	int save = 0;
 
+	mat4 transform;
+
 public:
 	GUI(Window* window, FpsCounter *counter);
 

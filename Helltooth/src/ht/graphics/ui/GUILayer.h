@@ -15,8 +15,10 @@ namespace ht { namespace graphics {
 		BatchRenderer2D* renderer;
 		ShaderProgram* shader;
 
+		unsigned int width, height;
+
 	public:
-		GUILayer();
+		GUILayer(const unsigned int &width, const unsigned int &height);
 		~GUILayer();
 
 		void setMatrix(maths::mat4 &projectionMatrix) override;
@@ -32,7 +34,7 @@ namespace ht { namespace graphics {
 		}
 
 		void submit(utils::String text, float x, float y, maths::vec4 col) {
-			renderer->submitText(text, x, y, col);
+			renderer->submitText(text, x, height - y, col);
 		}
 
 		void load(bool &loaded) override { loaded = true; }
@@ -47,6 +49,18 @@ namespace ht { namespace graphics {
 		void tick() override {}
 
 		void update() override;
+
+		void reloadTextures() override {
+			shader->start();
+			GLint texIDs[] = {
+				0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
+				10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+				20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+				30, 31
+			};
+			shader->uniform1iv("textures", texIDs, 32);
+			shader->setProjection("projectionMatrix", projectionMatrix);
+		}
 	};
 
 } }
