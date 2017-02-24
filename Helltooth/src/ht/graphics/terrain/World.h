@@ -73,8 +73,7 @@ namespace ht { namespace graphics {
 				r->prepare();
 
 
-				ht::maths::mat4 model = ht::maths::mat4::createIdentity();
-				model.translate(ht::maths::vec3(entry.position.x * TERRAIN_SIZE, 0.0, entry.position.y * TERRAIN_SIZE));
+				maths::mat4 model = maths::mat4().translate(entry.position.x * TERRAIN_SIZE, 0.0, entry.position.y * TERRAIN_SIZE);
 
 				program->uniformMat4("modelMatrix", model);
 

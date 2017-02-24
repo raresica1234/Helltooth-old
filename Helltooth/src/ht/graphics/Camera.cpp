@@ -16,10 +16,10 @@ namespace ht { namespace graphics {
 
 	Camera::~Camera() {}
 
-	void Camera::update() {
-		mouse = Input::getPosition();
+	void Camera::update(const Event& e) {
+		mouse = vec2(e.mouseX, e.mouseY);
 
-		if (Input::getButton(GLFW_MOUSE_BUTTON_2))
+		if (e.isButtonPressed(GLFW_MOUSE_BUTTON_2))
 			handleMouseMove(mouse.x, mouse.y);
 
 		midPoint.x = mouse.x;
@@ -33,25 +33,25 @@ namespace ht { namespace graphics {
 		float sinYRot = sin(toRadians(rotation.y));
 		float cosYRot = cos(toRadians(rotation.y));
 
-		if (Input::getKey(GLFW_KEY_W)) {
+		if (e.isPressed(GLFW_KEY_W)) {
 			movement.x += sinYRot * cosXRot;
 			movement.y += sinXRot;
 			movement.z += cosYRot * cosXRot;
 		}
 
-		if (Input::getKey(GLFW_KEY_S)) {
+		if (e.isPressed(GLFW_KEY_S)) {
 			movement.x += -sinYRot * cosXRot;
 			movement.y += -sinXRot;
 			movement.z += -cosYRot * cosXRot;
 		}
 
 
-		if (Input::getKey(GLFW_KEY_A)) {
+		if (e.isPressed(GLFW_KEY_A)) {
 			movement.x += cosYRot;
 			movement.z += -sinYRot;
 		}
 
-		if (Input::getKey(GLFW_KEY_D)) {
+		if (e.isPressed(GLFW_KEY_D)) {
 			movement.x += -cosYRot;
 			movement.z += sinYRot;
 		}
@@ -64,15 +64,11 @@ namespace ht { namespace graphics {
 		position.y += movement.y;
 		position.z += movement.z;
 
+		viewMatrix = mat4().rotate(rotation).translate(position);
 	}
 
 	mat4 Camera::generateViewMatrix() const {
-		mat4 rotation = mat4::createIdentity();
-		rotation.rotate(vec3(this->rotation.x, this->rotation.y, this->rotation.z));
-
-		mat4 translation = mat4::createIdentity();
-		translation.translate(vec3(position.x, position.y, position.z));
-		return rotation * translation;
+		return viewMatrix;
 	}
 
 	void Camera::handleMouseMove(float mouseX, float mouseY) {

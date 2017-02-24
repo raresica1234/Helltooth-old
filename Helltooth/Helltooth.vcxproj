@@ -180,6 +180,7 @@
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
+    <ClInclude Include="src\ht\maths\mat3.h" />
     <ClInclude Include="src\ht\maths\mat4.h" />
     <ClInclude Include="src\ht\maths\maths.h" />
     <ClInclude Include="src\ht\maths\vec2.h" />
@@ -199,7 +200,7 @@
     <ClInclude Include="src\ht\tools\VFS\VFS.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
-    <ClInclude Include="src\ht\utils\Input.h" />
+    <ClInclude Include="src\ht\utils\input\Input.h" />
     <ClInclude Include="src\ht\utils\Log.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
@@ -232,12 +233,13 @@
     <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
+    <ClCompile Include="src\ht\maths\mat3.cpp" />
     <ClCompile Include="src\ht\maths\mat4.cpp" />
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />
     <ClCompile Include="src\ht\maths\vec4.cpp" />
     <ClCompile Include="src\ht\tools\VFS\src\Manager.cpp" />
-    <ClCompile Include="src\ht\utils\Input.cpp" />
+    <ClCompile Include="src\ht\utils\input\Input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />
     <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>

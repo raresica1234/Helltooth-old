@@ -57,37 +57,8 @@ namespace ht { namespace graphics {
 	//Generate the model matrix of the entity
 	//Used for shader
 	mat4 Entity::generateModelMatrix() const {
-		mat4 result = mat4::createIdentity();
-		result.translate(m_Position);
-
-		mat4 rotate = mat4::createIdentity();
-		rotate.rotate(m_Rotation);
-
-		result = result * rotate;
-
-		mat4 move = mat4::createIdentity();
-		move.scale(m_Scale);
-
-		result = result * move;
+		mat4 result = mat4().translate(m_Position).rotate(m_Rotation).scale(m_Scale);
 		return result;
-	}
-	
-	mat4 Entity::generateRotateMatrix() const {
-		mat4 rotate = mat4::createIdentity();
-		rotate.rotate(m_Rotation);
-		return rotate;
-	}
-
-	mat4 Entity::generateTranslationMatrix() const {
-		mat4 result = mat4::createIdentity();
-		result.translate(m_Position);
-		return result;
-	}
-
-	mat4 Entity::generateScaleMatrix() const {
-		mat4 move = mat4::createIdentity();
-		move.scale(m_Scale);
-		return move;
 	}
 
 	//Operator used for testing if two entities are the same

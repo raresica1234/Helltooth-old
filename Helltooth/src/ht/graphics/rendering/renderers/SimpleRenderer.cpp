@@ -30,20 +30,14 @@ namespace ht { namespace graphics {
 	}
 
 	void SimpleRenderer::prepare() {
-		if (camera)
-			program->uniformMat4("viewMatrix", camera->generateViewMatrix());
+		if (!program->hasProjection())
+			program->setProjection("projectionMatrix", projectionMatrix);
 	}
 
 	void SimpleRenderer::render() {
-		if (!program->hasProjection())
-			program->setProjection("projectionMatrix", projectionMatrix);
-		mat4 cameraMatrix;
-		if (camera) {
+		mat4 cameraMatrix = mat4();
+		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
-		}
-		else {
-			cameraMatrix = mat4::createIdentity();
-		}
 		program->uniformMat4("viewMatrix", cameraMatrix);
 		if(!dynamicEntities.empty())
 			for (auto& entry : dynamicEntities) {

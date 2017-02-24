@@ -42,12 +42,9 @@ namespace ht { namespace graphics {
 		HT_WARN("OpenGL Vendor: %s", glGetString(GL_VENDOR));
 		HT_WARN("GLFW Version: %i", glfwGetVersion);
 		HT_WARN("GLEW  Version: %i", GLEW_VERSION);
-		
-		utils::Input::init();
 
-		glfwSetKeyCallback(window, utils::key_callback);
-		glfwSetMouseButtonCallback(window, utils::mouse_button_callback);
-		glfwSetCursorPosCallback(window, utils::cursor_position_callback);
+		Input::Get()->addWindow(window);
+		Input::Get()->addCallbacks();
 
 		glfwSwapInterval(0);
 		glEnable(GL_DEPTH_TEST);

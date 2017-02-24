@@ -3,12 +3,6 @@
 Test3D::Test3D(Window* window)
 	: Layer(API::createShader("/shaders/shader.vert", "/shaders/shader.frag"), htnew Camera(window)){
 	renderer = htnew SimpleRenderer(shader, camera);
-#if HAS_FBO
-	fbo = htnew FBO(WIDTH, HEIGHT);
-	fbo->createColorTexture();
-	fbo->createDepthTexture(false);
-	fbo->unbind(window->getWidth(), window->getHeight());
-#endif
 	setMatrix(mat4::createPerspective(70, 0.1f, 500.0f, WIDTH / HEIGHT));
 	world = htnew World(32, vec4(1, 1, -1, -1));
 
@@ -37,7 +31,7 @@ Test3D::Test3D(Window* window)
 	}
 }
 
-void Test3D::update() {
+void Test3D::update(const Event& e) {
 	if (!stack.isLoaded())
 		return;
 
@@ -55,7 +49,8 @@ void Test3D::update() {
 			dentities[i]->move(maths::vec3(.0f, .1f, .0f));
 		dentities[i]->rotate(maths::vec3(0, 1.0f, 0));
 	}
-	Layer::update();
+
+	Layer::update(e);
 }
 
 void Test3D::render() {
@@ -86,7 +81,4 @@ Test3D::~Test3D() {
 	del sentity;
 	del world;
 	del dentity;
-#if HAS_FBO
-	del fbo;
-#endif
 }

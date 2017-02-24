@@ -51,9 +51,6 @@ namespace ht { namespace graphics {
 
 	protected:
 		ht::maths::mat4 generateModelMatrix() const;
-		ht::maths::mat4 generateRotateMatrix() const;
-		ht::maths::mat4 generateTranslationMatrix() const;
-		ht::maths::mat4 generateScaleMatrix() const;
 
 	public:
 		bool operator==(Entity &other) const;

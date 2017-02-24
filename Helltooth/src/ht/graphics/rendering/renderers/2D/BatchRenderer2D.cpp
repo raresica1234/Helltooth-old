@@ -5,7 +5,7 @@ namespace ht { namespace graphics {
 	using namespace utils;
 
 	BatchRenderer2D::BatchRenderer2D() {
-		transformationStack.push_back(mat4::createIdentity());
+		transformationStack.push_back(mat3());
 		transformationBack = &transformationStack.back();
 
 		init();
@@ -50,25 +50,25 @@ namespace ht { namespace graphics {
 		unsigned int tid = submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
-		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, 1);
+		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, .1f);
 		buffer->uv = e->uvs[0];
 		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, 1);
+		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, .1f);
 		buffer->uv = e->uvs[1];
 		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, 1);
+		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, .1f);
 		buffer->uv = e->uvs[2];													 
 		buffer->textureID = tid;
 		buffer->color = e->color;												 
 		buffer++;																 
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, 1);
+		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, .1f);
 		buffer->uv = e->uvs[3];
 		buffer->textureID = tid;
 		buffer->color = e->color;
@@ -77,7 +77,7 @@ namespace ht { namespace graphics {
 		indexCount += 6;
 	}
 
-	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
+	void BatchRenderer2D::submitText(String text, float x, float y, unsigned int color) {
 		Font& f = FontManager::Get()->getFont();
 
 		unsigned int tid = submitTexture(f.atlas->id);
@@ -85,13 +85,6 @@ namespace ht { namespace graphics {
 		ftgl::texture_font_t* ftFont = f.font;
 
 		maths::vec2 scale = vec2(1, 1);
-
-		int r = color.x * 255.0f;
-		int g = color.y * 255.0f;
-		int b = color.z * 255.0f;
-		int a = color.w * 255.0f;
-
-		unsigned int col = a << 24 | b << 16 | g << 8 | r;
 
 		for (unsigned int i = 0; i < text.size - 1; i++) {
 			char c = text[i];
@@ -108,7 +101,6 @@ namespace ht { namespace graphics {
 					x = x;
 					continue;
 				}
-				
 
 				float x0 = x  + glyph->offset_x;
 				float y0 = y  + glyph->offset_y;
@@ -123,31 +115,41 @@ namespace ht { namespace graphics {
 				buffer->position = *transformationBack * maths::vec3(x0, y0, 0.1f);
 				buffer->uv = maths::vec2(u0, v0);
 				buffer->textureID = tid;
-				buffer->color = col;
+				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x0, y1, 0.1f);
 				buffer->uv = maths::vec2(u0, v1);
 				buffer->textureID = tid;
-				buffer->color = col;
+				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x1, y1, 0.1f);
 				buffer->uv = maths::vec2(u1, v1);
 				buffer->textureID = tid;
-				buffer->color = col;
+				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x1, y0, 0.1f);
 				buffer->uv = maths::vec2(u1, v0);
 				buffer->textureID = tid;
-				buffer->color = col;
+				buffer->color = color;
 				buffer++;
 
 				indexCount += 6;
-				x += glyph->advance_x / scale.x;
+				x += glyph->advance_x;
 			}
 		}
+	}
+
+	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
+		int r = color.x * 255.0f;
+		int g = color.y * 255.0f;
+		int b = color.z * 255.0f;
+		int a = color.w * 255.0f;
+
+		unsigned int col = a << 24 | b << 16 | g << 8 | r;
+		submitText(text, x, y, col);
 	}
 
 	void BatchRenderer2D::end() {

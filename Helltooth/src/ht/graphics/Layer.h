@@ -16,9 +16,10 @@
 #include "rendering/types/DynamicEntity.h"
 #include "rendering/types/StaticEntity.h"
 
-#include "../maths/mat4.h"
+#include "maths/mat4.h"
 
-#include "../utils/memory/MemoryManager.h"
+#include "utils/memory/MemoryManager.h"
+#include "utils/input/Input.h"
 
 namespace ht { namespace graphics {
 
@@ -51,9 +52,9 @@ namespace ht { namespace graphics {
 			shader->stop();
 		}
 
-		virtual void update() {
+		virtual void update(const utils::Event& e) {
 			if (camera)
-				camera->update();
+				camera->update(e);
 			if (!shader->hasProjection())
 				setMatrix(projectionMatrix);
 		}

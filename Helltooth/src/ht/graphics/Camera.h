@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../maths/mat4.h"
-#include "../utils/Input.h"
+#include "maths/mat4.h"
+#include "utils/input/Input.h"
+
 #include <GLFW/glfw3.h>
 
 #include "window/window.h"
@@ -22,13 +23,15 @@ namespace ht { namespace graphics {
 		float yawSensitivity;
 		ht::maths::vec2 midPoint;
 
+		maths::mat4 viewMatrix;
+
 	public:
 
 		Camera(Window* window);
 
 		~Camera();
 
-		void update();
+		void update(const utils::Event& e);
 
 		ht::maths::mat4 generateViewMatrix() const;
 

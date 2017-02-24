@@ -15,33 +15,17 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	FontManager::Get()->addFont("/res/verdana.ttf", "Verdana", 18);
 	FontManager::Get()->addFont("/res/consola.ttf", "Jenna", 24);
 	Font& f = FontManager::Get()->getFont();
-
-	sprite = htnew Sprite(500, 400, 200, 200, f.atlas->id);
-
-	transform = mat4::createIdentity();
-	transform.rotate(vec3(0.f, 30.f, .0f));
-	
 }
 
 GUI::~GUI() {
-	del sprite;
 }
 
 void GUI::render() {
 	GUILayer::begin();
 
-	//GUILayer::submit(sprite);
-
 	std::string fps = std::to_string(counter->getFPS());
-#if HAS_TRANSFORMATION_STACK
-	renderer->push(transform);
 	FontManager::Get()->selectFont("Arial");
 	GUILayer::submit(fpsDisplay, 20, 50, maths::vec4(1.f, 1.f, 1.f, 1.f));
-	renderer->pop();
-#else
-	FontManager::Get()->selectFont("Arial");
-	GUILayer::submit(fpsDisplay, 20, 50, maths::vec4(1.f, 1.f, 1.f, 1.f));
-#endif
 
 	FontManager::Get()->selectFont("Jenna");
 	GUILayer::submit(String("GLVersion: ") + (const char*)glGetString(GL_VERSION), 20, 80, vec4(1.f,1.f,1.f,1.f));
@@ -56,4 +40,4 @@ void GUI::tick() {
 	fpsDisplay += std::to_string(counter->getUPS()).c_str();
 }
 
-void GUI::update() {}
+void GUI::update(const Event& e) {}

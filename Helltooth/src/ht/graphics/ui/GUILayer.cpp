@@ -38,6 +38,6 @@ namespace ht { namespace graphics {
 		this->projectionMatrix = projectionMatrix;
 	}
 
-	void GUILayer::update() {}
+	void GUILayer::update(const utils::Event& e) {}
 
 } }

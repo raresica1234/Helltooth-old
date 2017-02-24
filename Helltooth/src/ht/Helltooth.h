@@ -61,7 +61,7 @@
 #pragma endregion
 
 #pragma region utils + tools
-#include "utils/Input.h"
+#include "utils/input/Input.h"
 #include "utils/FileUtils.h"
 #include "utils/FpsCounter.h"
 #include "utils/String.h"
@@ -101,7 +101,7 @@ public:
 		ht::graphics::ShaderManager::Init();
 		ht::assets::FileSystem::Init();
 		ht::graphics::FontManager::Init();
-		ht::utils::Input::init();
+		ht::utils::Input::Init();
 
 		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
 		HT_WARN("%s", std::string("| | | |    | | | |            | | | |    "));
@@ -112,7 +112,6 @@ public:
 		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
 		window = ht::graphics::WindowManager::Get()->getWindow(wID);
 		counter = htnew ht::utils::FpsCounter(MAX_UPS);
-		
 	}
 
 	~Application() {
@@ -210,8 +209,10 @@ public:
 				if (loaded[i] != true)
 					layers[i]->load(loaded[i]);		
 		
+		const ht::utils::Event& e = ht::utils::Input::Get()->pullEvents();
+
 		for (ht::graphics::Layer* layer : layers)
-			layer->update();
+			layer->update(e);
 	}
 
 	virtual void tick() {

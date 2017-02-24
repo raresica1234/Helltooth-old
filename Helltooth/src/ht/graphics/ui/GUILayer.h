@@ -48,7 +48,7 @@ namespace ht { namespace graphics {
 
 		void tick() override {}
 
-		void update() override;
+		void update(const utils::Event& e) override;
 
 		void reloadTextures() override {
 			shader->start();

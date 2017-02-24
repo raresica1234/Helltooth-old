@@ -20,7 +20,7 @@ private:
 
 public:
 	Main()
-		: Application("Vand gaini", 1024, 768, 60) {
+		: Application("Vand gaini", 1280, 720, 60) {
 		glClearColor(0.3f, 0.4f, 0.7f, 1.0f);
 
 		API::API(API_OPENGL, API_MODE_3D);
@@ -41,8 +41,8 @@ public:
 	}
 
 	void update() override {
-		if (Input::getKey(GLFW_KEY_R))
-			compile = true;
+		//if (Input::getKey(GLFW_KEY_R))
+		//	compile = true;
 		Application::update();
 	}
 

@@ -12,8 +12,6 @@ using namespace maths;
 using namespace assets;
 using namespace utils;
 
-#define HAS_FBO 0
-
 #define WIDTH 1280
 #define HEIGHT 720
 
@@ -30,10 +28,6 @@ private:
 
 	bool loaded = false;
 
-#if HAS_FBO
-	FBO* fbo;
-#endif
-
 	unsigned int width;
 	unsigned int height;
 
@@ -42,7 +36,7 @@ public:
 	~Test3D();
 
 	void init() override {
-		//dentity->scale(vec3(5, 5, 5));
+		dentity->scale(5, 5, 5);
 
 		submit(world);
 
@@ -51,7 +45,7 @@ public:
 
 	void load(bool &loaded);
 
-	void update() override;
+	void update(const Event& e) override;
 	void render() override;
 
 	void defaultRenderer() override { /*no renderer -> otherwise memory leak*/ }

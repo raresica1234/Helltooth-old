@@ -14,7 +14,6 @@ using namespace utils;
 
 
 class GUI : public GUILayer {
-	Sprite* sprite = nullptr;
 	Texture* texture;
 	Window* window;
 	FpsCounter *counter;
@@ -23,7 +22,7 @@ class GUI : public GUILayer {
 
 	int save = 0;
 
-	mat4 transform;
+	mat3 transform;
 
 public:
 	GUI(Window* window, FpsCounter *counter);
@@ -31,7 +30,7 @@ public:
 	~GUI();
 
 	void render() override;
-	void update() override;
+	void update(const Event& e) override;
 
 	void tick() override;
 };
