@@ -4,7 +4,6 @@ namespace ht { namespace utils {
 
 	std::unordered_map<String, std::vector<String>> VFS::mountPoints;
 
-
 	void VFS::mount(const String& virtualPath, const String& physicalPath) {
 		String path = String();
 		if (physicalPath[physicalPath.size - 1] == '/') {

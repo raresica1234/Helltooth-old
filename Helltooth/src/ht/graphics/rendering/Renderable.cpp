@@ -1,6 +1,5 @@
 #include "Renderable.h"
 
-
 namespace ht { namespace graphics {
 
 	Renderable::Renderable()

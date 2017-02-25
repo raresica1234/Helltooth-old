@@ -9,9 +9,7 @@ namespace ht { namespace utils {
 		event = Event();
 	}
 
-	Input::~Input() {
-
-	}
+	Input::~Input() {}
 
 	void Input::addWindow(GLFWwindow* window) {
 		this->window = window;

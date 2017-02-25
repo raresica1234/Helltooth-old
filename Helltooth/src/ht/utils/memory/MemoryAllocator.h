@@ -4,8 +4,7 @@
 
 namespace ht { namespace utils {
 
-	class MemoryAllocator
-	{
+	class MemoryAllocator {
 	private:
 		static float allocated;
 		static bool initialized;

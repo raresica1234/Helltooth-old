@@ -4,14 +4,14 @@
 #include <list>
 #include <thread>
 
-#include "../Asset.h"
+#include "assets/Asset.h"
 
-#include "../../utils/String.h"
-#include "../../utils/Pair.h"
+#include "utils/String.h"
+#include "utils/Pair.h"
 
-#include "../../graphics/rendering/Renderable.h"
-#include "../../graphics/textures/Texture.h"
-#include "../../graphics/textures/TextureManager.h"
+#include "graphics/rendering/Renderable.h"
+#include "graphics/textures/Texture.h"
+#include "graphics/textures/TextureManager.h"
 
 namespace ht { namespace assets {
 
@@ -41,7 +41,7 @@ namespace ht { namespace assets {
 		std::atomic<Node*> front;
 		std::atomic<Node*> back;
 
-		std::atomic<int> frontLoaded;
+		std::atomic<unsigned int> frontLoaded;
 		std::atomic<bool> running;
 		std::atomic<bool> dequeing;
 

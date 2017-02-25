@@ -27,7 +27,7 @@
 
 #define MAGIC_NUMBER	0x524d
 
-#include "../../../utils/memory/MemoryManager.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace Cereal {
 

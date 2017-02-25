@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../graphics/rendering/model/RawModel.h"
-
-#include "../maths/maths.h"
-#include "../maths/vec2.h"
-#include "../maths/vec3.h"
-
 #include <vector>
 
-#include "../utils/Log.h"
-#include "../utils/memory/MemoryManager.h"
-#include "../utils/String.h"
+#include "graphics/rendering/model/RawModel.h"
+
+#include "maths/maths.h"
+#include "maths/vec2.h"
+#include "maths/vec3.h"
+
+#include "utils/Log.h"
+#include "utils/memory/MemoryManager.h"
+#include "utils/String.h"
 
 namespace ht { namespace assets {
 
@@ -57,10 +57,10 @@ namespace ht { namespace assets {
 		}
 
 		__forceinline static void processVertex(maths::vec3 &vertex, std::vector<Vertex> &vertices, std::vector<GLuint> &indices) {
-			GLuint index = vertex.x - 1;
+			GLuint index = (GLuint)vertex.x - 1;
 			Vertex& currentVertex = vertices[index];
-			GLint textureIndex = vertex.y - 1;
-			GLint normalIndex = vertex.z - 1;
+			GLint textureIndex = (GLint)vertex.y - 1;
+			GLint normalIndex = (GLint)vertex.z - 1;
 			if (!currentVertex.isSet()) {
 				currentVertex.textureIndex = textureIndex;
 				currentVertex.normalIndex = normalIndex;

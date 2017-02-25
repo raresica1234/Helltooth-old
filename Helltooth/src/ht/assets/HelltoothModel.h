@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../graphics/rendering/model/RawModel.h"
-#include "../tools/Cereal/Cereal.h"
+#include "graphics/rendering/model/RawModel.h"
+#include "tools/Cereal/Cereal.h"
 
-#include "../utils/String.h"
+#include "utils/String.h"
 
 namespace ht { namespace assets {
 	

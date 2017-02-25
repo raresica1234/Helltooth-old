@@ -2,16 +2,16 @@
 #include <vector>
 #include "Renderer.h"
 
+#include "../../Camera.h"
+
 #include "../types/DynamicEntity.h"
 #include "../types/StaticEntity.h"
-
-#include "../../Camera.h"
 
 #include "../../shaders/ShaderProgram.h"
 #include "../../shaders/ShaderManager.h"
 
-#include "../../../utils/Log.h"
-#include "../../../utils/memory/MemoryManager.h"
+#include "utils/Log.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

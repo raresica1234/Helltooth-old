@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../maths/vec3.h"
-#include "../../maths/mat4.h"
 #include "Renderable.h"
 
+#include "maths/vec3.h"
+#include "maths/mat4.h"
 
 namespace ht { namespace graphics {
 

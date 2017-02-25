@@ -1,15 +1,17 @@
 #pragma once
 
-#include "../assets/Asset.h"
-#include "../assets/ObjLoader.h"
+#include "assets/Asset.h"
+#include "assets/ObjLoader.h"
 
 #include "shaders/ShaderManager.h"
+
 #include "rendering/model/RawModel.h"
+
 #include "window/WindowManager.h"
 
-#include "../tools/VFS/VFS.h"
+#include "tools/VFS/VFS.h"
 
-#include "../utils/String.h"
+#include "utils/String.h"
 
 #define API_MODE_2D 0
 #define API_MODE_3D 1

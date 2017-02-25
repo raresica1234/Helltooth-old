@@ -9,7 +9,6 @@
 #include "assets/FileSystem/FileSystem.h"
 #pragma endregion
 
-
 #pragma region graphics
 #include "graphics/API.h"
 #include "graphics/Camera.h"
@@ -205,7 +204,7 @@ public:
 
 	virtual void update() {
 		if(!allLoaded())
-			for (int i = 0; i < layers.size(); i++) 
+			for (unsigned int i = 0; i < layers.size(); i++)
 				if (loaded[i] != true)
 					layers[i]->load(loaded[i]);		
 		
@@ -246,7 +245,7 @@ public:
 				return loadeds;
 
 			loadeds = true;
-			for (int i = 0; i < layers.size(); i++)
+			for (unsigned int i = 0; i < layers.size(); i++)
 				loadeds = (loadeds == true && loaded[i] == true) ? true : false;
 			return loadeds;
 		}

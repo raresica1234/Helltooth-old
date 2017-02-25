@@ -3,12 +3,12 @@
 #include <iostream>
 #include <vector>
 
-#include "../graphics/textures/Texture.h"
+#include "utils/memory/MemoryManager.h"
+#include "graphics/textures/Texture.h"
 
-#include "../utils/memory/MemoryManager.h"
-#include "../utils/String.h"
+#include "utils/String.h"
 
-#include "../tools/Cereal/Cereal.h"
+#include "tools/Cereal/Cereal.h"
 
 namespace ht { namespace assets {
 

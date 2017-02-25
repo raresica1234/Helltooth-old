@@ -1,9 +1,12 @@
 #pragma once
+
+#include "../Entity.h"
 #include "../../Camera.h"
+
 #include "../../shaders/ShaderProgram.h"
 
-#include "../../../maths/mat4.h"
-#include "../Entity.h"
+#include "maths/mat4.h"
+
 namespace ht { namespace graphics {
 
 	class Renderer {

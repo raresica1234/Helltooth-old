@@ -6,9 +6,8 @@
 #define RAWMODEL_COLORS 3
 
 #include <GL/glew.h>
-#include "../../../utils/memory/MemoryManager.h"
 
-#include <stdio.h>
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

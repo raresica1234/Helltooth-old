@@ -1,10 +1,11 @@
 #pragma once
 
 #include "../Renderable.h"
-#include "../../shaders/ShaderProgram.h"
 #include "../Entity.h"
 
-#include "../../../utils/memory/MemoryManager.h"
+#include "../../shaders/ShaderProgram.h"
+
+#include "utils/memory/MemoryManager.h"
 
 /*
 DynamicRenderable component:

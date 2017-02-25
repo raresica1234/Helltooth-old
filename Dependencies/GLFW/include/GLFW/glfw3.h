@@ -29,9 +29,15 @@
 #ifndef _glfw3_h_
 #define _glfw3_h_
 
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
 
 
 /*************************************************************************
@@ -3352,6 +3358,10 @@ GLFWAPI GLFWglproc glfwGetProcAddress(const char* procname);
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifdef APIENTRY
+#undef APIENTRY
 #endif
 
 #endif /* _glfw3_h_ */

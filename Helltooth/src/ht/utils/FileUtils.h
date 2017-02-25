@@ -4,8 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "memory/MemoryManager.h"
 #include "String.h"
+
+#include "memory/MemoryManager.h"
 
 namespace ht { namespace utils {
 

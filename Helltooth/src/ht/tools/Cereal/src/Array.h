@@ -24,7 +24,7 @@
 #include "Writer.h" // Same as Field.h
 #include "Internal.h"
 
-#include "../../../utils/memory/MemoryManager.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace Cereal {
 

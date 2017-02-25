@@ -47,7 +47,7 @@ namespace ht { namespace graphics {
 	}
 
 	void BatchRenderer2D::submit(Sprite* e) {
-		unsigned int tid = submitTexture(e->textureID);
+		float tid = (float)submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
 		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, .1f);
@@ -80,7 +80,7 @@ namespace ht { namespace graphics {
 	void BatchRenderer2D::submitText(String text, float x, float y, unsigned int color) {
 		Font& f = FontManager::Get()->getFont();
 
-		unsigned int tid = submitTexture(f.atlas->id);
+		unsigned int tid = submitTexture((float)f.atlas->id);
 
 		ftgl::texture_font_t* ftFont = f.font;
 
@@ -114,25 +114,25 @@ namespace ht { namespace graphics {
 
 				buffer->position = *transformationBack * maths::vec3(x0, y0, 0.1f);
 				buffer->uv = maths::vec2(u0, v0);
-				buffer->textureID = tid;
+				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x0, y1, 0.1f);
 				buffer->uv = maths::vec2(u0, v1);
-				buffer->textureID = tid;
+				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x1, y1, 0.1f);
 				buffer->uv = maths::vec2(u1, v1);
-				buffer->textureID = tid;
+				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
 				buffer->position = *transformationBack * maths::vec3(x1, y0, 0.1f);
 				buffer->uv = maths::vec2(u1, v0);
-				buffer->textureID = tid;
+				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
@@ -143,10 +143,10 @@ namespace ht { namespace graphics {
 	}
 
 	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
-		int r = color.x * 255.0f;
-		int g = color.y * 255.0f;
-		int b = color.z * 255.0f;
-		int a = color.w * 255.0f;
+		int r = (int)(color.x * 255.0f);
+		int g = (int)(color.y * 255.0f);
+		int b = (int)(color.z * 255.0f);
+		int a = (int)(color.w * 255.0f);
 
 		unsigned int col = a << 24 | b << 16 | g << 8 | r;
 		submitText(text, x, y, col);
@@ -160,7 +160,7 @@ namespace ht { namespace graphics {
 	void BatchRenderer2D::render() {
 		for (unsigned int i = 0; i < tids.size(); i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, tids[i]);
+			glBindTexture(GL_TEXTURE_2D, (GLuint)tids[i]);
 		}
 
 		vao.bindVAO();

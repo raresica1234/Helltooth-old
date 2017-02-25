@@ -3,7 +3,8 @@
 #include <vector>
 #include <string>
 
-#include "../../utils/String.h"
+#include "utils/String.h"
+#include "utils/Log.h"
 
 namespace ht { namespace graphics {
 

@@ -4,9 +4,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "../../utils/Log.h"
-#include "../../utils/input/Input.h"
-#include "../../utils/String.h"
+#include "utils/Log.h"
+#include "utils/input/Input.h"
+#include "utils/String.h"
 
 namespace ht { namespace graphics {
 

@@ -1,11 +1,13 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "../textures/Texture.h"
-#include "../textures/TextureManager.h"
-#include "../../utils/memory/MemoryManager.h"
 
 #include <vector>
+
+#include "utils/memory/MemoryManager.h"
+
+#include "../textures/Texture.h"
+#include "../textures/TextureManager.h"
 
 namespace ht { namespace graphics {
 

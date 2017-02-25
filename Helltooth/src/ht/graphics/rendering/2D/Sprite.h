@@ -2,11 +2,11 @@
 
 #include <GL/glew.h>
 
-#include "../../../maths/vec2.h"
-#include "../../../maths/vec3.h"
-#include "../../../maths/vec4.h"
+#include "maths/vec2.h"
+#include "maths/vec3.h"
+#include "maths/vec4.h"
 
-#include "../../textures/Texture.h"
+#include "graphics/textures/Texture.h"
 
 namespace ht { namespace graphics {
 
@@ -25,10 +25,10 @@ namespace ht { namespace graphics {
 		unsigned int color;
 
 		Sprite(float x, float y, float width, float height, maths::vec4 color) {
-			int r = color.x * 255.0f;
-			int g = color.y * 255.0f;
-			int b = color.z * 255.0f;
-			int a = color.w * 255.0f;
+			int r = (int)(color.x * 255.0f);
+			int g = (int)(color.y * 255.0f);
+			int b = (int)(color.z * 255.0f);
+			int a = (int)(color.w * 255.0f);
 
 			unsigned int col = a << 24 | b << 16 | g << 8 | r;
 			width = width / 2;
@@ -54,7 +54,7 @@ namespace ht { namespace graphics {
 	private:
 		void createSprite(float x, float y, float width, float height, unsigned int textureID, bool hasTexture = false) {
 			if (hasTexture)
-				this->textureID = textureID;
+				this->textureID = (float)textureID;
 			else
 				this->color = textureID;
 			

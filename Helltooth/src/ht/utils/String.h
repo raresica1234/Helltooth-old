@@ -1,11 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include "memory/MemoryManager.h"
-
 #include <vector>
 
 #include "Log.h"
+
+#include "memory/MemoryManager.h"
 
 namespace ht { namespace utils {
 

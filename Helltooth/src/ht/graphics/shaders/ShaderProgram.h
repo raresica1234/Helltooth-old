@@ -2,17 +2,19 @@
 
 #include <GL/glew.h>
 
-#include "../../utils/FileUtils.h"
-#include "../../tools/VFS/VFS.h"
-#include "../../maths/vec2.h"
-#include "../../maths/vec3.h"
-#include "../../maths/vec4.h"
-#include "../../maths/mat4.h"
-
-#include "../../utils/Log.h"
-#include "../../utils/String.h"
-
 #include <math.h>
+
+#include "tools/VFS/VFS.h"
+
+#include "maths/vec2.h"
+#include "maths/vec3.h"
+#include "maths/vec4.h"
+#include "maths/mat4.h"
+
+#include "utils/Log.h"
+#include "utils/String.h"
+#include "utils/FileUtils.h"
+
 
 namespace ht { namespace graphics { 
 

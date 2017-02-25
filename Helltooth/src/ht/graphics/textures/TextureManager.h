@@ -1,14 +1,13 @@
 #pragma once
 
-#include "../../utils/String.h"
-
 #include "Texture.h"
 
-#include "../../assets/Asset.h"
+#include "assets/Asset.h"
 
-#include "../../tools/VFS/VFS.h"
+#include "tools/VFS/VFS.h"
 
-#include "../../utils/memory/MemoryManager.h"
+#include "utils/String.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

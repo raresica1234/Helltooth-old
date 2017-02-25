@@ -48,9 +48,6 @@ namespace ht { namespace assets {
 		std::vector<String> strings = path.split('.');
 		
 		String lastString = strings[strings.size() - 1];
-		for (int i = 0; i < lastString.size; i++) {
-			printf("%x ", lastString[i]);
-		}
 		Resource r;
 		if (lastString == "htmodel" || lastString == "obj") {
 			r.type = Resource::OBJ_MODEL;

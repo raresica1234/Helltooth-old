@@ -1,12 +1,13 @@
 #pragma once
 
 #include "../Renderable.h"
-#include "../../shaders/ShaderProgram.h"
 #include "../Entity.h"
+
+#include "../../shaders/ShaderProgram.h"
 
 #include "../../Camera.h"
 
-#include "../../../utils/memory/MemoryManager.h"
+#include "utils/memory/MemoryManager.h"
 /*
 StaticRenderable component:
 To be used when rendering statical entities

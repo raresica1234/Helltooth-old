@@ -1,13 +1,12 @@
 #pragma once
+
 #include <iostream>
+
 namespace ht { namespace maths {
 
 	struct vec4 {
 
-		float x;
-		float y;
-		float z;
-		float w;
+		float x, y, z, w;
 
 		vec4();
 		vec4(const float &x, const float &y, const float &z, const float &w);

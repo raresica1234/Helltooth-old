@@ -4,11 +4,11 @@
 
 #include "FileSystem/FileSystem.h"
 
-#include "../utils/String.h"
-#include "../utils/memory/MemoryManager.h"
+#include "graphics/rendering/Renderable.h"
+#include "graphics/textures/Texture.h"
 
-#include "../graphics/rendering/Renderable.h"
-#include "../graphics/textures/Texture.h"
+#include "utils/String.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace assets {
 

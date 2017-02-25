@@ -1,17 +1,19 @@
 #pragma once
 
+#include <list>
 #include "../Renderer.h"
-#include "../../../textures/Texture.h"
-#include "../../../textures/TextureManager.h"
-#include "../../Vertex.h"
 
 #include "graphics/ui/font/FontManager.h"
+
+#include "graphics/textures/Texture.h"
+#include "graphics/textures/TextureManager.h"
+
+#include "graphics/rendering/Vertex.h"
 
 #include "../../2D/Sprite.h"
 
 #include "maths/mat3.h"
 
-#include <list>
 
 namespace ht { namespace graphics {
 

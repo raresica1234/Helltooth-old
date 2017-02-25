@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../utils/memory/MemoryManager.h"
-
 #include <GL/glew.h>
+#include "utils/memory/MemoryManager.h"
+
 #include <FreeImage/FreeImage.h>
 
 namespace ht { namespace graphics {

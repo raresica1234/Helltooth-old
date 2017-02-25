@@ -3,14 +3,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <vector>
+
 #include "window.h"
 
-#include "../../utils/memory/MemoryManager.h"
+#include "utils/Log.h"
+#include "utils/String.h"
 
-#include "../../utils/Log.h"
-#include "../../utils/String.h"
-
-#include <vector>
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

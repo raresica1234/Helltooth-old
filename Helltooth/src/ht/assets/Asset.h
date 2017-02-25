@@ -9,12 +9,12 @@
 #include "HelltoothTexture.h"
 #include "HelltoothModel.h"
 
-#include "../graphics/textures/Texture.h"
+#include "graphics/textures/Texture.h"
 
-#include "../utils/memory/MemoryManager.h"
-#include "../utils/FileUtils.h"
-#include "../utils/Log.h"
-#include "../utils/String.h"
+#include "utils/memory/MemoryManager.h"
+#include "utils/FileUtils.h"
+#include "utils/Log.h"
+#include "utils/String.h"
 
 namespace ht { namespace assets {
 

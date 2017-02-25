@@ -1,5 +1,4 @@
 #include "DynamicShader.h"
-#include "../../utils/Log.h"
 
 namespace ht { namespace graphics {
 	using namespace utils;

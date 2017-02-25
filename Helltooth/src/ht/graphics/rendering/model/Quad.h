@@ -1,9 +1,11 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include "../Renderable.h"
+
 #include "RawModel.h"
-#include "../../../utils/memory/MemoryManager.h"
+#include "../Renderable.h"
+
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

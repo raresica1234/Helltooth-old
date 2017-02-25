@@ -3,7 +3,7 @@
 #include <sstream>
 #include <unordered_map>
 
-#include "../../../utils/String.h"
+#include "utils/String.h"
 
 namespace ht { namespace utils {
 
@@ -24,8 +24,6 @@ namespace ht { namespace utils {
 			return (stat(path.c_str(), &buffer) == 0);
 		}
 	};
-
-
 
 } }
 

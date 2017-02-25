@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../../utils/memory/MemoryManager.h"
-
-#include "ShaderProgram.h"
 #include <vector>
 
-#include "../../utils/Log.h"
-#include "../../utils/String.h"
+#include "ShaderProgram.h"
+
+#include "utils/Log.h"
+#include "utils/String.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 

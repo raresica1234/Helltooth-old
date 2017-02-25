@@ -64,7 +64,7 @@ namespace ht { namespace utils {
 	bool String::operator!=(const String& other) {
 		if (size != other.size)
 			return true;
-		for (int i = 0; i < size; i++)
+		for (unsigned int i = 0; i < size; i++)
 			if (data[i] == other[i])
 				return false;
 		return true;
@@ -74,7 +74,7 @@ namespace ht { namespace utils {
 		if (size != other.size)
 			return false;
 		
-		for (int i = 0; i < size; i++) {
+		for (unsigned int i = 0; i < size; i++) {
 			if (data[i] != other.data[i])
 				return false;
 		}
@@ -97,7 +97,7 @@ namespace ht { namespace utils {
 	std::vector<String> String::split(const char delimiter) const {
 		std::vector<String> strings;
 		String split = "";
-		for (int i = 0; i < size - 1; i++) {
+		for (unsigned int i = 0; i < size - 1; i++) {
 			if (data[i] == delimiter) {
 				strings.push_back(split);
 				split = "";

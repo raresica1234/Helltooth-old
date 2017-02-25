@@ -2,10 +2,13 @@
 
 #include <vector>
 
+#include "TerrainShader.h"
+
 #include "../shaders/ShaderProgram.h"
+
 #include "../rendering/types/StaticEntity.h"
 #include "../rendering/Renderable.h"
-#include "TerrainShader.h"
+
 #include "../textures/TextureManager.h"
 
 namespace ht { namespace graphics {

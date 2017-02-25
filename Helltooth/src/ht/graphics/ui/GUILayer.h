@@ -1,6 +1,8 @@
 #pragma once
-#include "../rendering/renderers/2D/BatchRenderer2D.h"
+
 #include "../Layer.h"
+
+#include "../rendering/renderers/2D/BatchRenderer2D.h"
 
 #include "../../utils/String.h"
 

@@ -37,7 +37,7 @@ namespace ht { namespace assets {
 				Renderable* renderable = htnew Renderable();
 				RawModel* model = FileSystem::Get()->getAsModel(FileSystem::Get()->getNextResource());
 				renderable->loadRawModel(model);
-				for (int i = 1; i < path.paths.size(); i++) {
+				for (unsigned int i = 1; i < path.paths.size(); i++) {
 					TextureData* textureData = FileSystem::Get()->getAsTextureData(FileSystem::Get()->getNextResource());
 					unsigned int id = TextureManager::Get()->createTextureFromData(textureData);
 					renderable->addTexture(TextureManager::Get()->getTexture(id));
