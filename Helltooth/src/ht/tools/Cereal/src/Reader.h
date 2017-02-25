@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,15 @@
 
 #include "Internal.h"
 
+#include "utils/memory/MemoryManager.h"
+
 namespace Cereal {
 
 	class Reader
 	{
 	public:
 		template<typename T>
-		static T readBytes(byte* src, int pointer)
+		static T readBytes(byte* src, unsigned int pointer)
 		{
 			T value = 0;
 
@@ -39,7 +41,7 @@ namespace Cereal {
 		}
 
 		template<>
-		static float readBytes<float>(byte* src, int pointer)
+		static float readBytes<float>(byte* src, unsigned int pointer)
 		{
 			unsigned int value = 0;
 
@@ -50,38 +52,38 @@ namespace Cereal {
 
 			float result;
 
-			memcpy_s(&result, 4, &value, 4);
+			memcpy_s(&result, sizeof(float), &value, sizeof(float));
 
 			return result;
 		}
 
 		template<>
-		static bool readBytes<bool>(byte* src, int pointer)	{ return src[pointer] != 0; }
+		static bool readBytes<bool>(byte* src, unsigned int pointer) { return src[pointer] != 0; }
 
 		template<>
-		static double readBytes<double>(byte* src, int pointer)
+		static double readBytes<double>(byte* src, unsigned int pointer)
 		{
 			unsigned long long value = src[pointer] << (sizeof(int) * 8 - 8);
 
-			for (int i = pointer; i < (int)pointer + (int) sizeof(float); i++)
+			for (int i = 0; i < (int) sizeof(double); i++)
 			{
 				value |= (src[pointer + i] << ((sizeof(int) * 8 - 8) - (i * 8)));
 			}
 
 			double result;
-			memcpy_s(&result, 4, &value, 4);
+			memcpy_s(&result, sizeof(double), &value, sizeof(double));
 
 			return result;
 		}
 
 		template<>
-		static std::string readBytes<std::string>(byte* src, int pointer)
+		static std::string readBytes<std::string>(byte* src, unsigned int pointer)
 		{
 			std::string value = "";
 
 			unsigned short size = readBytes<unsigned short>(src, pointer);
 
-			for (int i = pointer + 2; i < pointer + size + 2; i++)
+			for (unsigned int i = pointer + 2; i < pointer + size + 2; i++)
 			{
 				value += readBytes<char>(src, i);
 			}

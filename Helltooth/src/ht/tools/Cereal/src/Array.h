@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -34,6 +34,7 @@ namespace Cereal {
 		std::string name;
 		DataType dataType;
 		unsigned int count; // item count
+		unsigned int size = 0;
 		byte* data;
 
 		template<class T>
@@ -45,14 +46,39 @@ namespace Cereal {
 			//Setting the data
 			if (data) del[] data;
 
-			data = new byte[sizeof(T) * count];
+			data = htnew byte[sizeof(T) * count];
 
-			assert(count < 1073741824); // Maximum item count (overflow of pointer and buffer)
+			assert((count * sizeof(T)) < 4294967296); // Maximum item count (overflow of pointer and buffer)
 
 			unsigned int pointer = 0;
 
 			for (unsigned int i = 0; i < count; i++)
 				pointer = Writer::writeBytes<T>(data, pointer, value[i]);
+		}
+
+		template<>
+		void setData<std::string>(DataType type, std::string* value, unsigned int count)
+		{
+			this->count = count;
+			this->dataType = type;
+
+			//Setting the data
+			if (data) del[] data;
+
+			size = 0;
+
+			for (unsigned int i = 0; i < count; i++)
+			{
+				size += 2;
+				size += value[i].length();
+			}
+
+			data = htnew byte[size];
+
+			unsigned int pointer = 0;
+
+			for (unsigned int i = 0; i < count; i++)
+				pointer = Writer::writeBytes<std::string>(data, pointer, value[i]);
 		}
 
 	public:
@@ -65,7 +91,7 @@ namespace Cereal {
 		Array(std::string name, float* value, unsigned int count) : name(name), data(nullptr) { setData<float>(DataType::DATA_FLOAT, value, count); }
 		Array(std::string name, long long* value, unsigned int count) : name(name), data(nullptr) { setData<long long>(DataType::DATA_LONG_LONG, value, count); }
 		Array(std::string name, double* value, unsigned int count) : name(name), data(nullptr) { setData<double>(DataType::DATA_DOUBLE, value, count); }
-
+		Array(std::string name, std::string* value, unsigned int count) : name(name), data(nullptr) { setData<std::string>(DataType::DATA_STRING, value, count); }
 		~Array() { if (data) del[] data; }
 
 		bool write(Buffer& buffer) const
@@ -77,7 +103,14 @@ namespace Cereal {
 			buffer.writeBytes<byte>(this->dataType);
 			buffer.writeBytes<unsigned int>(this->count);
 
-			for (unsigned int i = 0; i < sizeOf(dataType) * count; i++)
+			unsigned int s;
+
+			if (dataType != DataType::DATA_STRING)
+				s = sizeOf(dataType) * count;
+			else
+				s = size;
+
+			for (unsigned int i = 0; i < s; i++)
 				buffer.writeBytes<byte>(data[i]);
 
 			return true;
@@ -96,11 +129,29 @@ namespace Cereal {
 
 			if (data) del[] data;
 
-			data = htnew byte[count * sizeOf(dataType)];
+			if (dataType != DATA_STRING)
+			{
+				data = htnew byte[count * sizeOf(dataType)];
 
-			memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
+				memcpy(data, ((byte*)buffer.getStart() + buffer.getOffset()), count * sizeOf(dataType));
 
-			buffer.addOffset(count * sizeOf(dataType));
+				buffer.addOffset(count * sizeOf(dataType));
+			}
+			else
+			{
+				unsigned int start = buffer.getOffset();
+
+				for (unsigned int i = 0; i < count; i++)
+				{
+					buffer.readBytes<std::string>();
+				}
+
+				size = buffer.getOffset() - start;
+
+				data = htnew byte[size];
+
+				memcpy(data, ((byte*)buffer.getStart() + start), size);
+			}
 		}
 
 		inline unsigned int getCount() const { return count; }
@@ -108,7 +159,7 @@ namespace Cereal {
 		inline const std::string& getName() const { return name; }
 
 		template<class T>
-		inline std::vector<T>& getArray() const
+		inline std::vector<T> getArray() const
 		{
 			std::vector<T> ret;
 
@@ -119,6 +170,23 @@ namespace Cereal {
 				ret.push_back(Reader::readBytes<T>(data, pointer));
 
 				pointer += sizeof(T);
+			}
+
+			return ret;
+		}
+
+		template<>
+		inline std::vector<std::string> getArray() const
+		{
+			std::vector<std::string> ret;
+
+			unsigned int pointer = 0;
+
+			for (unsigned int i = 0; i < count; i++)
+			{
+				ret.push_back(Reader::readBytes<std::string>(data, pointer));
+
+				pointer += Reader::readBytes<unsigned short>(data, pointer) + sizeof(unsigned short);
 			}
 
 			return ret;
@@ -140,7 +208,13 @@ namespace Cereal {
 			return mem;
 		}
 
-		inline unsigned int getSize() const { return sizeof(byte) + sizeof(short) + name.length() + sizeof(byte) + sizeof(int) + count * sizeOf(dataType); }
+		inline unsigned int getSize() const
+		{
+			if(dataType != DataType::DATA_STRING)
+				return sizeof(byte) + sizeof(short) + name.length() + sizeof(byte) + sizeof(int) + count * sizeOf(dataType);
+			else
+				return sizeof(byte) + sizeof(short) + name.length() + sizeof(byte) + sizeof(int) + size;
+		}
 	};
 
 }

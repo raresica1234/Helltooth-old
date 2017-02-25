@@ -59,16 +59,6 @@
     <ClInclude Include="src\ht\maths\vec2.h" />
     <ClInclude Include="src\ht\maths\vec3.h" />
     <ClInclude Include="src\ht\maths\vec4.h" />
-    <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Array.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Buffer.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Database.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Field.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Header.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Internal.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
-    <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\Log.h" />
@@ -98,6 +88,16 @@
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\maths\mat3.h" />
     <ClInclude Include="src\ht\utils\input\Input.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Array.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Buffer.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Database.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Field.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Header.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Internal.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
+    <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
+    <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

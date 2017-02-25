@@ -31,6 +31,10 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ============================================================================
  */
+
+#pragma warning(disable: 4047)
+#pragma warning(disable: 4090)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

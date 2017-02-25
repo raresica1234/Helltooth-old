@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -21,13 +21,15 @@
 
 #include "Internal.h"
 
+#include "utils/memory/MemoryManager.h"
+
 namespace Cereal {
 
 	class Writer
 	{
 	public:
 		template<typename T>
-		static unsigned int writeBytes(byte* dest, int pointer, T value)
+		static unsigned int writeBytes(byte* dest, unsigned int pointer, T value)
 		{
 			for (unsigned int i = 0; i < sizeof(T); i++)
 			{
@@ -38,7 +40,7 @@ namespace Cereal {
 		}
 
 		template<>
-		static unsigned int writeBytes<std::string>(byte* dest, int pointer, std::string string)
+		static unsigned int writeBytes<std::string>(byte* dest, unsigned int pointer, std::string string)
 		{
 			const unsigned short size = (unsigned short)string.length();
 
@@ -55,7 +57,7 @@ namespace Cereal {
 		}
 
 		template<>
-		static unsigned int writeBytes<float>(byte* dest, int pointer, float data)
+		static unsigned int writeBytes<float>(byte* dest, unsigned int pointer, float data)
 		{
 			unsigned int x;
 
@@ -65,7 +67,7 @@ namespace Cereal {
 		}
 
 		template<>
-		static unsigned int writeBytes<double>(byte* dest, int pointer, double data)
+		static unsigned int writeBytes<double>(byte* dest, unsigned int pointer, double data)
 		{
 			unsigned long long x;
 

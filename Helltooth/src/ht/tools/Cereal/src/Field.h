@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ namespace Cereal {
 			if (data) del[] data;
 
 			//Setting the data
-			data = new byte[sizeof(T)];
+			data = htnew byte[sizeof(T)];
 			Writer::writeBytes<T>(data, 0, value);
 		}
 
@@ -77,9 +77,9 @@ namespace Cereal {
 		Field(std::string name, double value) : name(name) { setData<double>(DataType::DATA_DOUBLE, value); }
 		Field(std::string name, std::string value) : name(name) { setData<std::string>(DataType::DATA_STRING, value); }
 
-		~Field() { if(data) del[] data; }
+		~Field() { if(data) delete[] data; }
 
-		unsigned int write(Buffer& buffer) const
+		bool write(Buffer& buffer) const
 		{
 			if (!buffer.hasSpace(this->getSize())) return false;
 

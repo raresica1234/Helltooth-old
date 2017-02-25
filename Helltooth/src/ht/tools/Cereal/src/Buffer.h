@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ namespace Cereal {
 		unsigned int offset;
 
 	public:
-		Buffer(unsigned int size) : size(size), start(htnew byte[size]) { clean(); }
+		Buffer(unsigned int size) : size(size), start(new byte[size]) { clean(); }
 		Buffer(byte* start, unsigned int size) : size(size), start(start) { clean(); }
 		Buffer(byte* start, unsigned int size, unsigned int offset, bool clean = false) : size(size), start(start), offset(offset) { if (clean) this->clean(); }
 
@@ -90,7 +90,7 @@ namespace Cereal {
 
 			for (int i = offset; i < (int)offset + (int)sizeof(float); i++)
 			{
-				value |= (start[offset + i] << ((sizeof(int) * 8 - 8) - (i * 8)));
+				value |= (start[i] << ((sizeof(int) * 8 - 8) - (i * 8)));
 			}
 
 			double result;
@@ -149,7 +149,7 @@ namespace Cereal {
 		{
 			unsigned int x;
 
-			*(unsigned int*)&x = (unsigned int)data;
+			*(unsigned int*)&x = *(unsigned int*)&data;
 
 			writeBytes<unsigned int>(x);
 
@@ -161,7 +161,7 @@ namespace Cereal {
 		{
 			unsigned long long x;
 
-			*(unsigned long long*)&x = (unsigned long long)data;
+			*(unsigned long long*)&x = *(unsigned long long*)&data;
 
 			writeBytes<unsigned long long>(x);
 
@@ -170,7 +170,7 @@ namespace Cereal {
 
 		void shrink()
 		{
-			byte* temp = htnew byte[offset];
+			byte* temp = new byte[offset];
 
 			memcpy(temp, start, offset);
 

@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -103,7 +103,7 @@ namespace Cereal {
 
 			for (int i = 0; i < fieldCount; i++)
 			{
-				Field* field = htnew Field;
+				Field* field = new Field;
 
 				field->read(buffer);
 				this->addField(field);
@@ -113,7 +113,7 @@ namespace Cereal {
 
 			for (int i = 0; i < arrayCount; i++)
 			{
-				Array* array = htnew Array;
+				Array* array = new Array;
 
 				array->read(buffer);
 				this->addArray(array);

@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -25,9 +25,9 @@
 #include "Database.h"
 #include "Buffer.h"
 
-#define MAGIC_NUMBER	0x524d
-
 #include "utils/memory/MemoryManager.h"
+
+#define MAGIC_NUMBER	0x524d
 
 namespace Cereal {
 
@@ -66,7 +66,7 @@ namespace Cereal {
 
 				buffer.setOffset(offs);
 
-				Database* db = htnew Database;
+				Database* db = new Database;
 
 				db->read(buffer);
 				this->addDatabase(db);
@@ -77,7 +77,7 @@ namespace Cereal {
 		{
 			if (!buffer.hasSpace(this->getSize())) return false;
 
-			assert(databases.size() < 255);
+			assert(databases.size() < 256);
 
 			buffer.writeBytes<unsigned short>(MAGIC_NUMBER);
 			buffer.writeBytes<byte>((byte)databases.size());

@@ -1,4 +1,4 @@
-//  Cereal: A C++ Serialization library
+//  Cereal: A C++/C# Serialization library
 //  Copyright (C) 2016  The Cereal Team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -65,7 +65,7 @@ namespace Cereal {
 
 				for (unsigned short i = 0; i < objectCount; i++)
 				{
-					Object* obj = htnew Object;
+					Object* obj = new Object;
 
 					obj->read(buffer);
 					this->addObject(obj);
@@ -109,9 +109,9 @@ namespace Cereal {
 			return true;
 		}
 
-		inline unsigned long long getSize() const
+		inline unsigned int getSize() const
 		{
-			unsigned long long ret = sizeof(short);
+			unsigned int ret = sizeof(short);
 
 			switch (version)
 			{
