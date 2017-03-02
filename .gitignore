@@ -19,3 +19,8 @@ Helltooth.lib
 *.etl
 *.psess
 Dependencies/Helltooth
+bin/res/
+bin/src/
+bin/*.httexture
+bin/Release/res/
+bin/Release/.httexture
