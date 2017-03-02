@@ -16,7 +16,7 @@ namespace ht { namespace maths {
 	}
 
 	mat3::mat3() {
-		memset(&elements, 0, 3 * 3);
+		memset(&elements, 0, sizeof(elements));
 		elements[0 + 0 * 3] = 1.f;
 		elements[1 + 1 * 3] = 1.f;
 		elements[2 + 2 * 3] = 1.f;

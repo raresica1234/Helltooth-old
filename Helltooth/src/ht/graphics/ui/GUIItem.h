@@ -3,6 +3,11 @@
 #include <vector>
 
 #include "../rendering/2D/Sprite.h"
+#include "../rendering/renderers/2D/BatchRenderer2D.h"
+
+#include "maths/mat3.h"
+
+#include "utils/input/Input.h"
 
 namespace ht { namespace graphics { namespace ui {
 
@@ -14,10 +19,6 @@ namespace ht { namespace graphics { namespace ui {
 		bool visible = true;
 
 	public:
-		GUIItem(maths::vec2 position) {
-			GUIItem(position.x, position.y);
-		}
-
 		GUIItem(const float x, const float y) {
 			transformation = maths::mat3();
 			transformation.translate(x, y);
@@ -39,12 +40,11 @@ namespace ht { namespace graphics { namespace ui {
 			renderer->pop();
 		}
 
-		//virtual void update(Event &e) = 0;
-
+		virtual void update(const utils::Event &e) = 0;
+		
 	protected:
 		virtual void addSprite(Sprite* sprite) {}
 
 	};
-
 
 } } }

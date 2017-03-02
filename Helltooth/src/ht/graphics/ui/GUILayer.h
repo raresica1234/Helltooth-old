@@ -35,8 +35,12 @@ namespace ht { namespace graphics {
 			renderer->submit(sprite);
 		}
 
-		void submit(utils::String text, float x, float y, maths::vec4 col) {
-			renderer->submitText(text, x, height - y, col);
+		void submit(utils::String text, float x, float y, maths::vec4 col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
+			renderer->submitText(text, x, height - y, col, scale);
+		}
+
+		void submit(utils::String text, float x, float y, unsigned int col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
+			renderer->submitText(text, x, height - y, col, scale);
 		}
 
 		void load(bool &loaded) override { loaded = true; }

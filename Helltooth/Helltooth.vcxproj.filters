@@ -35,6 +35,7 @@
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat3.cpp" />
     <ClCompile Include="src\ht\utils\input\Input.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
     <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
     <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

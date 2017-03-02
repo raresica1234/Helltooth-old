@@ -52,8 +52,8 @@ namespace ht { namespace graphics {
 		void end();
 		void render();
 
-		void submitText(utils::String text, float x, float y, unsigned int color);
-		void submitText(utils::String text, float x, float y, maths::vec4 color);
+		void submitText(utils::String text, float x, float y, unsigned int color, maths::vec2 scale);
+		void submitText(utils::String text, float x, float y, maths::vec4 color, maths::vec2 scale);
 
 		__forceinline void push(maths::mat3& matrix, bool override = false) {
 			if (override)

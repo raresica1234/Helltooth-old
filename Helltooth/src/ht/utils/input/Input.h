@@ -48,7 +48,7 @@ namespace ht { namespace utils {
 		}
 
 		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			event.keys[key] = action == GLFW_PRESS ? true : false;
+			event.keys[key] = action == GLFW_RELEASE ? false : true;
 		}
 
 		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
@@ -57,7 +57,7 @@ namespace ht { namespace utils {
 		}
 
 		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-			event.mouse_buttons[button] = action == GLFW_PRESS ? true : false;
+			event.mouse_buttons[button] = action == GLFW_RELEASE ? false : true;
 		}
 
 		friend void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {

@@ -15,6 +15,8 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	FontManager::Get()->addFont("/res/verdana.ttf", "Verdana", 18);
 	FontManager::Get()->addFont("/res/consola.ttf", "Jenna", 24);
 	Font& f = FontManager::Get()->getFont();
+
+	sprite = htnew Sprite(100, 100, 200, 300, vec4(1.0, 0.3, 0.5, 0.7));
 }
 
 GUI::~GUI() {
@@ -25,10 +27,12 @@ void GUI::render() {
 
 	std::string fps = std::to_string(counter->getFPS());
 	FontManager::Get()->selectFont("Arial");
-	GUILayer::submit(fpsDisplay, 20, 50, maths::vec4(1.f, 1.f, 1.f, 1.f));
+	GUILayer::submit(fpsDisplay, 20, 50, maths::vec4(1.f, 1.f, 1.f, 1.f), maths::vec2(2.f,2.f));
 
 	FontManager::Get()->selectFont("Jenna");
 	GUILayer::submit(String("GLVersion: ") + (const char*)glGetString(GL_VERSION), 20, 80, vec4(1.f,1.f,1.f,1.f));
+
+	//GUILayer::submit(sprite);
 
 	GUILayer::render();
 }

@@ -77,14 +77,12 @@ namespace ht { namespace graphics {
 		indexCount += 6;
 	}
 
-	void BatchRenderer2D::submitText(String text, float x, float y, unsigned int color) {
+	void BatchRenderer2D::submitText(String text, float x, float y, unsigned int color, maths::vec2 scale) {
 		Font& f = FontManager::Get()->getFont();
 
 		unsigned int tid = submitTexture((float)f.atlas->id);
 
 		ftgl::texture_font_t* ftFont = f.font;
-
-		maths::vec2 scale = vec2(1, 1);
 
 		for (unsigned int i = 0; i < text.size - 1; i++) {
 			char c = text[i];
@@ -102,10 +100,10 @@ namespace ht { namespace graphics {
 					continue;
 				}
 
-				float x0 = x  + glyph->offset_x;
-				float y0 = y  + glyph->offset_y;
-				float x1 = x0 + glyph->width;
-				float y1 = y0 - glyph->height;
+				float x0 = x  + (glyph->offset_x / scale.x);
+				float y0 = y + glyph->offset_y / scale.y;
+				float x1 = x0 + (glyph->width / scale.x);
+				float y1 = y0 - (glyph->height / scale.y);
 
 				float u0 = glyph->s0;
 				float v0 = glyph->t0;
@@ -137,19 +135,19 @@ namespace ht { namespace graphics {
 				buffer++;
 
 				indexCount += 6;
-				x += glyph->advance_x;
+				x += glyph->advance_x / scale.x;
 			}
 		}
 	}
 
-	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color) {
+	void BatchRenderer2D::submitText(String text, float x, float y, vec4 color, vec2 scale) {
 		int r = (int)(color.x * 255.0f);
 		int g = (int)(color.y * 255.0f);
 		int b = (int)(color.z * 255.0f);
 		int a = (int)(color.w * 255.0f);
 
 		unsigned int col = a << 24 | b << 16 | g << 8 | r;
-		submitText(text, x, y, col);
+		submitText(text, x, y, col, scale);
 	}
 
 	void BatchRenderer2D::end() {

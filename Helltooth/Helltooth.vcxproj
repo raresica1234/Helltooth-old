@@ -177,6 +177,7 @@
     <ClInclude Include="src\ht\graphics\ui\font\FontManager.h" />
     <ClInclude Include="src\ht\graphics\ui\GUIItem.h" />
     <ClInclude Include="src\ht\graphics\ui\GUILayer.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\graphics\ui\font\FontManager.cpp" />
     <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat3.cpp" />
