@@ -23,9 +23,6 @@ namespace ht { namespace maths {
 
 		mat3();
 
-		mat3& translate(const float &x, const float &y);
-		mat3& translate(const vec2 &translation);
-
 		mat3& scale(const float &x, const float &y);
 		mat3& scale(const vec2 &scale);
 

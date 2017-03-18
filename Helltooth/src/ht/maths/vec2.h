@@ -5,7 +5,6 @@
 namespace ht {	namespace maths {
 
 	struct vec2 {
-
 		float x, y;
 
 		vec2();

@@ -22,6 +22,10 @@ namespace ht { namespace graphics {
 			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
 			30, 31
 		};
+
+		id = 0;
+		w = WindowManager::Get()->getWindow(id);
+
 		shader->uniform1iv("textures", texIDs, 32);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -37,7 +41,5 @@ namespace ht { namespace graphics {
 		shader->setProjection("projectionMatrix", projectionMatrix);
 		this->projectionMatrix = projectionMatrix;
 	}
-
-	void GUILayer::update(const utils::Event& e) {}
 
 } }

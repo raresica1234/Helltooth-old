@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../Layer.h"
+#include "GUIItem.h"
 
+#include "../Layer.h"
 #include "../rendering/renderers/2D/BatchRenderer2D.h"
+
+#include "items/Label.h"
 
 #include "../../utils/String.h"
 
@@ -13,10 +16,13 @@ namespace ht { namespace graphics {
 		static utils::String uiShaderVert;
 		static utils::String uiShaderFrag;
 
+		std::vector<ui::GUIItem*> items;
+		
+		Window* w;
 	protected:
 		BatchRenderer2D* renderer;
 		ShaderProgram* shader;
-
+		
 		unsigned int width, height;
 
 	public:
@@ -31,32 +37,51 @@ namespace ht { namespace graphics {
 			shader->start();
 		}
 
-		void submit(Sprite* sprite) {
+		__forceinline ui::Label* createLabel(utils::String text, float x, float y, float width,
+			float height, utils::String font, maths::vec2 space = maths::vec2(0.0f, 0.0f)) {
+			ui::Label* label = htnew ui::Label(text, x, this->height - y, width, height, font, space);
+			items.push_back(label);
+			return label;
+		}
+
+		__forceinline void submit(Sprite* sprite) {
 			renderer->submit(sprite);
 		}
 
-		void submit(utils::String text, float x, float y, maths::vec4 col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
+		__forceinline void submit(utils::String text, float x, float y, maths::vec4 col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
 			renderer->submitText(text, x, height - y, col, scale);
 		}
 
-		void submit(utils::String text, float x, float y, unsigned int col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
+		__forceinline void submit(utils::String text, float x, float y, unsigned int col, maths::vec2 scale = maths::vec2(1.f, 1.f)) {
 			renderer->submitText(text, x, height - y, col, scale);
 		}
 
-		void load(bool &loaded) override { loaded = true; }
+		__forceinline void submitGUI() {
+			for (ui::GUIItem* item : items) {
+				item->submit(renderer);
+			}
+		}
 
-		void render() override {
+		__forceinline void load(bool &loaded) override { loaded = true; }
+
+		__forceinline void render() override {
 			renderer->end();
 			renderer->render();
 			shader->stop();
 			glDisable(GL_BLEND);
 		}
 
-		void tick() override {}
+		__forceinline void tick() override {}
 
-		void update(const utils::Event& e) override;
+		__forceinline void update(const utils::Event& e) override {
+			utils::Event event = e;
+			event.mouseY = height - e.mouseY / w->getHeight() * height;
+			event.mouseX = e.mouseX / w->getWidth() * width;
+			for (ui::GUIItem* item : items)
+				item->update(event);
+		}
 
-		void reloadTextures() override {
+		 __forceinline void reloadTextures() override {
 			shader->start();
 			GLint texIDs[] = {
 				0,  1,  2,  3,  4,  5,  6,  7,  8,  9,

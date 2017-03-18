@@ -22,18 +22,6 @@ namespace ht { namespace maths {
 		elements[2 + 2 * 3] = 1.f;
 	}
 
-	mat3& mat3::translate(const float &x, const float &y) {
-		mat3 add;
-		add[0 + 2 * 3] = x;
-		add[1 + 2 * 3] = y;
-		*this *= add;
-		return *this;
-	}
-
-	mat3& mat3::translate(const vec2 &translation) {
-		return translate(translation.x, translation.y);
-	}
-
 	mat3& mat3::scale(const float &x, const float &y) {
 		mat3 add;
 		add[0 + 2 * 3] = x;

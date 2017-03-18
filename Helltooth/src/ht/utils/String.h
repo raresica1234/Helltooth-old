@@ -33,7 +33,7 @@ namespace ht { namespace utils {
 		void operator+=(const String &other);
 		void operator+=(const char &other);
 
-		inline void clear() {
+		__forceinline void clear() {
 			if (data)
 				del[] data;
 			data = htnew char[1];
@@ -41,7 +41,7 @@ namespace ht { namespace utils {
 			size = 1;
 		}
 
-		inline void operator=(const String& other) {
+		__forceinline void operator=(const String& other) {
 			if (data != nullptr)
 				del[] data;
 
@@ -55,22 +55,18 @@ namespace ht { namespace utils {
 			memcpy(data, other.data, size);
 		}
 
-		inline void operator=(const char* str) {
+		__forceinline void operator=(const char* str) {
 			if(data)
 				del[] data;
 
-			size = 0;
-			while (str[size++] != '\0')
-				;
-
+			size = strlen(str) + 1;
 			data = htnew char[size];
 			memcpy(data, str, size);
 			data[size - 1] = 0;
 		}
 
-		__forceinline void operator+=(char &other) {
-			append(other);
-		}
+		__forceinline void operator+=(char &other) { append(other); }
+		__forceinline void operator+=(String &other) { append(other); }
 
 		__forceinline char operator[](unsigned int index) const {
 			HT_ASSERT(index < size, "Index size %i bigger than string size %i!", index, size);

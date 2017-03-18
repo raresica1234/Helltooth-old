@@ -46,6 +46,8 @@
 #include "graphics/ui/GUILayer.h"
 #include "graphics/ui/GUIItem.h"
 
+#include "graphics/ui/items/Label.h"
+
 #include "graphics/window/Window.h"
 #include "graphics/window/WindowManager.h"
 

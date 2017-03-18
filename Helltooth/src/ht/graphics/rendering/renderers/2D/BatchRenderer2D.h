@@ -38,9 +38,9 @@ namespace ht { namespace graphics {
 		
 		VertexData* buffer;
 
-		std::vector<maths::mat3> transformationStack;
+		std::vector<maths::mat4> transformationStack;
 
-		maths::mat3* transformationBack = nullptr;
+		maths::mat4* transformationBack = nullptr;
 
 		std::vector<float> tids;
 	public:
@@ -55,7 +55,7 @@ namespace ht { namespace graphics {
 		void submitText(utils::String text, float x, float y, unsigned int color, maths::vec2 scale);
 		void submitText(utils::String text, float x, float y, maths::vec4 color, maths::vec2 scale);
 
-		__forceinline void push(maths::mat3& matrix, bool override = false) {
+		__forceinline void push(maths::mat4& matrix, bool override = false) {
 			if (override)
 				transformationStack.push_back(matrix);
 			else

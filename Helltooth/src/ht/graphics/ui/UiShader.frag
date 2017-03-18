@@ -16,7 +16,7 @@ void main() {
 		if(text.a > 0.5)
 			out_color = text;
 		else
-			out_color.w = 0.0;
+			discard;
 
 	} else {
 		out_color = color;

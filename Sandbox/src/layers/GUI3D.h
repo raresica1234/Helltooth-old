@@ -8,15 +8,20 @@
 
 using namespace ht;
 using namespace graphics;
+using namespace ui;
 using namespace maths;
 using namespace assets;
 using namespace utils;
 
+extern vec4 color;
 
 class GUI : public GUILayer {
 	Texture* texture;
 	Window* window;
 	FpsCounter *counter;
+
+	Label* label;
+	Label* label2;
 
 	String fpsDisplay;
 
@@ -31,7 +36,8 @@ public:
 	~GUI();
 
 	void render() override;
-	void update(const Event& e) override;
 
 	void tick() override;
+
+	void update(const Event &e) override;
 };

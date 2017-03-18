@@ -7,8 +7,7 @@ namespace ht { namespace utils {
 			String();
 			return;
 		}
-		while (str[size++] != '\0')
-			;
+		size = strlen(str) + 1;
 		data = htnew char[size];
 		memcpy(data, str, size);
 	}

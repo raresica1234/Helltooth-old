@@ -5,7 +5,7 @@ namespace ht { namespace graphics {
 	using namespace utils;
 
 	BatchRenderer2D::BatchRenderer2D() {
-		transformationStack.push_back(mat3());
+		transformationStack.push_back(mat4());
 		transformationBack = &transformationStack.back();
 
 		init();
@@ -47,16 +47,18 @@ namespace ht { namespace graphics {
 	}
 
 	void BatchRenderer2D::submit(Sprite* e) {
-		float tid = (float)submitTexture(e->textureID);
+		float tid = 0;
+		if(e->hasTexture)
+			tid = (float)submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
-		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y - sprite.w, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y, .1f);
 		buffer->uv = e->uvs[0];
 		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x - sprite.z, sprite.y + sprite.w, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y + sprite.w, .1f);
 		buffer->uv = e->uvs[1];
 		buffer->textureID = tid;
 		buffer->color = e->color;
@@ -68,7 +70,7 @@ namespace ht { namespace graphics {
 		buffer->color = e->color;												 
 		buffer++;																 
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y - sprite.w, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y, .1f);
 		buffer->uv = e->uvs[3];
 		buffer->textureID = tid;
 		buffer->color = e->color;
@@ -93,14 +95,11 @@ namespace ht { namespace graphics {
 					float kerning = ftgl::texture_glyph_get_kerning(glyph, text[i - 1]);
 					x += kerning / scale.x;
 				}
+				float x0;
 
-				if (c == '\n') {
-					y -= (glyph->advance_y > 0.0f ? glyph->advance_y : (glyph->height + (f.size + 6) / 3)) / scale.y;
-					x = x;
-					continue;
-				}
+				if(i == 0) x0 = x + (glyph->offset_x / scale.x) / 2.f;
+				else x0 = x + glyph->offset_x / scale.x;
 
-				float x0 = x  + (glyph->offset_x / scale.x);
 				float y0 = y + glyph->offset_y / scale.y;
 				float x1 = x0 + (glyph->width / scale.x);
 				float y1 = y0 - (glyph->height / scale.y);
@@ -134,8 +133,8 @@ namespace ht { namespace graphics {
 				buffer->color = color;
 				buffer++;
 
-				indexCount += 6;
 				x += glyph->advance_x / scale.x;
+				indexCount += 6;
 			}
 		}
 	}
