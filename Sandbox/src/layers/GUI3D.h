@@ -22,6 +22,7 @@ class GUI : public GUILayer {
 
 	Label* label;
 	Label* label2;
+	Button* button;
 
 	String fpsDisplay;
 

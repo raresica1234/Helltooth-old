@@ -6,6 +6,7 @@
 #include "../rendering/renderers/2D/BatchRenderer2D.h"
 
 #include "items/Label.h"
+#include "items/Button.h"
 
 #include "../../utils/String.h"
 
@@ -42,6 +43,13 @@ namespace ht { namespace graphics {
 			ui::Label* label = htnew ui::Label(text, x, this->height - y, width, height, font, space);
 			items.push_back(label);
 			return label;
+		}
+
+		__forceinline ui::Button* createButton(utils::String text, float x, float y, float width,
+			float height, utils::String font, maths::vec2 space = maths::vec2(0.0f, 0.0f)) {
+			ui::Button* button = htnew ui::Button(text, x, this->height - y, width, height, font, space);
+			items.push_back(button);
+			return button;
 		}
 
 		__forceinline void submit(Sprite* sprite) {

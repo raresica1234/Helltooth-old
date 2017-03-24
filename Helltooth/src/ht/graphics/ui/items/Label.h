@@ -30,7 +30,7 @@ namespace ht { namespace graphics { namespace ui {
 			RIGHT
 		} align = CENTER;
 
-		unsigned int backgroundColor = 0, foreColor = 0x000000FF;
+		unsigned int foreColor = 0x000000FF;
 
 		Sprite* background = nullptr;
 
@@ -40,12 +40,11 @@ namespace ht { namespace graphics { namespace ui {
 		~Label() { if (background) del background; }
 
 		__forceinline void setBackgroundColor(unsigned int color) {
-			backgroundColor = color;
 			if (!background) {
 				background = htnew Sprite(0, 0, size.z, size.w);
 				sprites.push_back(background);
 			}
-			background->setColor(backgroundColor);
+			background->setColor(color);
 		}
 
 		__forceinline void setText(utils::String &text) {

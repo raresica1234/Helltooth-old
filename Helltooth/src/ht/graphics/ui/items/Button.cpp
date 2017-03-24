@@ -1,10 +1,10 @@
-#include "Label.h"
+#include "Button.h"
 
 namespace ht { namespace graphics { namespace ui {
 	using namespace maths;
 	using namespace utils;
 
-	Label::Label(String text, float x, float y, float width, float height,utils::String font, maths::vec2 space)
+	Button::Button(String text, float x, float y, float width, float height, utils::String font, maths::vec2 space)
 		: GUIItem(x, y, width, height), text(text), space(space), font(font) {
 
 		FontManager::Get()->selectFont(font);
@@ -17,7 +17,7 @@ namespace ht { namespace graphics { namespace ui {
 		textPosition.y = space.y - (size.z / scale.y);
 	}
 
-	void Label::submit(BatchRenderer2D* renderer) {
+	void Button::submit(BatchRenderer2D* renderer) {
 		if (!visible) return;
 
 		FontManager::Get()->selectFont(font);
@@ -25,12 +25,12 @@ namespace ht { namespace graphics { namespace ui {
 		renderer->push(transformation, true);
 		renderer->submitText(text, textPosition.x, textPosition.y, foreColor, scale);
 		for (Sprite* sprite : sprites)
-			if(sprite)
+			if (sprite)
 				renderer->submit(sprite);
 		renderer->pop();
 	}
 
-	vec3 Label::getSize() {
+	vec3 Button::getSize() {
 		Font f = FontManager::Get()->getFont();
 
 		vec3 size;
@@ -53,11 +53,10 @@ namespace ht { namespace graphics { namespace ui {
 				//if (i == 0)
 				//	size.x += glyph->width;
 				//else
-					size.x += glyph->advance_x;
+				size.x += glyph->advance_x;
 			}
 		}
 		return size;
 	}
 
 } } }
-
