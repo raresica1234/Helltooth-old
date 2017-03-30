@@ -7,6 +7,7 @@
 
 #include "items/Label.h"
 #include "items/Button.h"
+#include "items/Image.h"
 
 #include "../../utils/String.h"
 
@@ -40,16 +41,28 @@ namespace ht { namespace graphics {
 
 		__forceinline ui::Label* createLabel(utils::String text, float x, float y, float width,
 			float height, utils::String font, maths::vec2 space = maths::vec2(0.0f, 0.0f)) {
-			ui::Label* label = htnew ui::Label(text, x, this->height - y, width, height, font, space);
+			ui::Label* label = htnew ui::Label(text, x, this->height - y - height, width, height, font, space);
 			items.push_back(label);
 			return label;
 		}
 
 		__forceinline ui::Button* createButton(utils::String text, float x, float y, float width,
 			float height, utils::String font, maths::vec2 space = maths::vec2(0.0f, 0.0f)) {
-			ui::Button* button = htnew ui::Button(text, x, this->height - y, width, height, font, space);
+			ui::Button* button = htnew ui::Button(text, x, this->height - y - height, width, height, font, space);
 			items.push_back(button);
 			return button;
+		}
+
+		__forceinline ui::Image* createImage(const Texture* texture, float x, float y, float width, float height) {
+			ui::Image* image = htnew ui::Image(texture, x, this->height - y - height, width, height);
+			items.push_back(image);
+			return image;
+		}
+		
+		__forceinline ui::Image* createImage(unsigned int textureID, float x, float y, float width, float height) {
+			ui::Image* image = htnew ui::Image(textureID, x, this->height - y - height, width, height);
+			items.push_back(image);
+			return image;
 		}
 
 		__forceinline void submit(Sprite* sprite) {

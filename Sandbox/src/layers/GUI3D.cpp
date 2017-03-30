@@ -21,13 +21,13 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	sprite = htnew Sprite(100, 100, 200, 300);
 	sprite->setColor(vec4(0.3, 0.4, 0.7, 1.0));
 
-	label = createLabel("Don't look", 20, 50, 400, 40, "Arial", vec2(10, 2));
+	label = createLabel("Don't look", 20, 10, 400, 40, "Arial", vec2(10, 2));
 	label->setBackgroundColor(vec4(0.3, 0.4, 0.7, 1.f));
 
 	color.w = 1.0f;
 	utils::String s = String("GLVersion: ") + (const char*)glGetString(GL_VERSION);
 
-	label2 = createLabel(s, 20, 90, 1800, 40, "Jenna", vec2(10, 2));
+	label2 = createLabel(s, 20, 50, 1800, 40, "Jenna", vec2(10, 2));
 	label2->setBackgroundColor(vec4(0.3, 0.4, 0.7, 1.f));
 	label2->onHover([](const Event &e) {
 		color.z += 0.01f;
@@ -47,12 +47,19 @@ GUI::GUI(Window* window, FpsCounter *counter)
 		}
 	});
 
-	button = createButton("Don't press me!", 700, 1000, 600, 150, "Verdana", vec2(100, 40));
+	button = createButton("Don't press me!", 700, 800, 600, 150, "Verdana", vec2(100, 40));
 	button->setBackgroundColor(0xFF0000db);
 	button->setPressedColor(0xFF03db00);
 	button->onClick([](const Event& e) {
 		unsigned int i = 0;
 		glfwSetWindowShouldClose(WindowManager::Get()->getWindow(i)->getWindow(), 1);
+	});
+
+	texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
+
+	image = createImage(texture, 200, 500, 400, 400);
+	image->onClick([](const Event& e) {
+		HT_ERROR("An error occured when you pressed the image! \nStop doing that, idiot!");
 	});
 }
 

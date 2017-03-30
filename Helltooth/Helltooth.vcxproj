@@ -178,6 +178,7 @@
     <ClInclude Include="src\ht\graphics\ui\GUIItem.h" />
     <ClInclude Include="src\ht\graphics\ui\GUILayer.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Button.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="src\ht\graphics\ui\font\FontManager.cpp" />
     <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />

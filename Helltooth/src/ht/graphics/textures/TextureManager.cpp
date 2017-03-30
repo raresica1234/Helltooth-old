@@ -2,6 +2,7 @@
 
 namespace ht { namespace graphics {
 	using namespace utils;
+	using namespace assets;
 
 	TextureManager* TextureManager::tManager = nullptr;
 
@@ -9,12 +10,12 @@ namespace ht { namespace graphics {
 		String output;
 		if (!VFS::resolvePhysicalPath(path, output))
 			HT_FATAL("[TextureManager] Cannot open \"%s\"", path.c_str());
-		const Texture* tex = assets::Asset::loadTextureFromFile(output.c_str());
+		const Texture* tex = Asset::loadTextureFromFile(output.c_str());
 		textures.push_back(tex);
 		return textures.size() - 1;
 	}
 
-	unsigned int TextureManager::createTextureFromData(ht::assets::TextureData* data) {
+	unsigned int TextureManager::createTextureFromData(TextureData* data) {
 		Texture* texture = htnew Texture();
 		texture->loadPixelArray(data->pixels, data->width, data->height, data->bpp);
 		del data;

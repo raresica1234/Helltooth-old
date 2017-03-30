@@ -44,7 +44,7 @@ namespace ht { namespace assets {
 
 	void HelltoothTexture::StoreAsHelltoothTexture(String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize) {
 		Cereal::Field* field1 = htnew Cereal::Field("width", width);
-		Cereal::Field* field2 = htnew Cereal::Field("height", width);
+		Cereal::Field* field2 = htnew Cereal::Field("height", height);
 		Cereal::Field* field3 = htnew Cereal::Field("bpp", bpp);
 
 		Cereal::Array* array = htnew Cereal::Array("pixels", pixels, dataSize);

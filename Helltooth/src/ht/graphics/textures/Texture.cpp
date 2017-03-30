@@ -33,6 +33,7 @@ namespace ht { namespace graphics {
 
 
 	bool Texture::loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap, int mipmap) const {
+		glBindTexture(GL_TEXTURE_2D, textureID);
 		switch (bpp) {
 		case 24:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, pixels); break;

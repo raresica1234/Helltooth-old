@@ -37,6 +37,7 @@
     <ClCompile Include="src\ht\utils\input\Input.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -102,6 +103,7 @@
     <ClInclude Include="src\ht\tools\Cereal\Cereal.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Button.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

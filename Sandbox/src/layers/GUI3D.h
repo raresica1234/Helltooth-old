@@ -16,7 +16,7 @@ using namespace utils;
 extern vec4 color;
 
 class GUI : public GUILayer {
-	Texture* texture;
+	const Texture* texture;
 	Window* window;
 	FpsCounter *counter;
 
@@ -24,10 +24,13 @@ class GUI : public GUILayer {
 	Label* label2;
 	Button* button;
 
+	Image* image;
+
 	String fpsDisplay;
 
 	int save = 0;
 	Sprite* sprite;
+
 
 	mat3 transform;
 
