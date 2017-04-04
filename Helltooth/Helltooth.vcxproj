@@ -180,6 +180,7 @@
     <ClInclude Include="src\ht\graphics\ui\items\Button.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\TextInput.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\TextInput.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat3.cpp" />

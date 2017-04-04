@@ -38,6 +38,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\TextInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Button.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\TextInput.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />
