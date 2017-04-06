@@ -27,7 +27,6 @@
     <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\renderers\SimpleRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.cpp" />
     <ClCompile Include="src\ht\graphics\ui\GUILayer.cpp" />
     <ClCompile Include="src\ht\graphics\ui\font\FontManager.cpp" />
@@ -38,7 +37,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
-    <ClCompile Include="src\ht\graphics\ui\items\TextInput.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -81,7 +80,6 @@
     <ClInclude Include="src\ht\assets\ObjLoader.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\Renderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Entity.h" />
-    <ClInclude Include="src\ht\graphics\rendering\renderers\SimpleRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\DynamicEntity.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.h" />
     <ClInclude Include="src\ht\graphics\rendering\2D\Sprite.h" />
@@ -105,7 +103,8 @@
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Button.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
-    <ClInclude Include="src\ht\graphics\ui\items\TextInput.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\ForwardRenderer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

@@ -22,7 +22,7 @@
 #include "graphics/rendering/2D/Sprite.h"
 
 #include "graphics/rendering/renderers/Renderer.h"
-#include "graphics/rendering/renderers/SimpleRenderer.h"
+#include "graphics/rendering/renderers/ForwardRenderer.h"
 
 #include "graphics/rendering/renderers/2D/BatchRenderer2D.h"
 

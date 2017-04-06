@@ -1,17 +1,17 @@
-#include "SimpleRenderer.h"
+#include "ForwardRenderer.h"
 
 namespace ht { namespace graphics {
 	using namespace maths;
 
-	SimpleRenderer::SimpleRenderer(unsigned int programID, Camera* camera)
+	ForwardRenderer::ForwardRenderer(unsigned int programID, Camera* camera)
 		: Renderer(camera, ShaderManager::Get()->getProgram(programID)) { }
 
-	SimpleRenderer::SimpleRenderer(ShaderProgram* program, Camera* camera)
+	ForwardRenderer::ForwardRenderer(ShaderProgram* program, Camera* camera)
 		: Renderer(camera, program) {}
 
-	SimpleRenderer::~SimpleRenderer() {}
+	ForwardRenderer::~ForwardRenderer() {}
 
-	void SimpleRenderer::submit(const Entity* entity) {
+	void ForwardRenderer::submit(const Entity* entity) {
 		if (entity->getType() == DYNAMIC_ENTITY) {
 			DynamicEntity* dynamicEntity = (DynamicEntity*)entity;
 			dynamicEntities[dynamicEntity->getRenderable()].push_back(*entity);
@@ -29,12 +29,12 @@ namespace ht { namespace graphics {
 		}
 	}
 
-	void SimpleRenderer::prepare() {
+	void ForwardRenderer::prepare() {
 		if (!program->hasProjection())
 			program->setProjection("projectionMatrix", projectionMatrix);
 	}
 
-	void SimpleRenderer::render() {
+	void ForwardRenderer::render() {
 		mat4 cameraMatrix = mat4();
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
@@ -68,11 +68,11 @@ namespace ht { namespace graphics {
 			}
 	}
 
-	void SimpleRenderer::cleanUP() {
+	void ForwardRenderer::cleanUP() {
 		dynamicEntities.clear();
 	}
 
-	void SimpleRenderer::forceCleanUP() {
+	void ForwardRenderer::forceCleanUP() {
 		staticEntities.clear();
 	}
 

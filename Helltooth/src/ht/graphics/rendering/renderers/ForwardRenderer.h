@@ -15,16 +15,16 @@
 
 namespace ht { namespace graphics {
 
-	class SimpleRenderer: public Renderer {
+	class ForwardRenderer: public Renderer {
 	private:
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;
 
 	public:
-		SimpleRenderer(unsigned int programID, Camera* camera);
-		SimpleRenderer(ShaderProgram* program, Camera* camera);
+		ForwardRenderer(unsigned int programID, Camera* camera);
+		ForwardRenderer(ShaderProgram* program, Camera* camera);
 
-		~SimpleRenderer();
+		~ForwardRenderer();
 
 		void submit(const Entity* entity) override;
 

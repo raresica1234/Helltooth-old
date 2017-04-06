@@ -2,7 +2,7 @@
 
 Test3D::Test3D(Window* window)
 	: Layer(API::createShader("/shaders/shader.vert", "/shaders/shader.frag"), htnew Camera(window)){
-	renderer = htnew SimpleRenderer(shader, camera);
+	renderer = htnew ForwardRenderer(shader, camera);
 	setMatrix(mat4::createPerspective(70, 0.1f, 500.0f, WIDTH / HEIGHT));
 	world = htnew World(32, vec4(1, 1, -1, -1));
 

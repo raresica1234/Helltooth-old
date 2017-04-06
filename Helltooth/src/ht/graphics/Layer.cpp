@@ -65,6 +65,6 @@ namespace ht { namespace graphics {
 	}
 
 	void Layer::defaultRenderer() {
-		renderer = htnew SimpleRenderer(shader, camera);
+		renderer = htnew ForwardRenderer(shader, camera);
 	}
 } }

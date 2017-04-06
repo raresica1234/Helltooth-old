@@ -11,7 +11,7 @@
 #include "rendering/Renderable.h"
 
 #include "rendering/renderers/Renderer.h"
-#include "rendering/renderers/SimpleRenderer.h"
+#include "rendering/renderers/ForwardRenderer.h"
 
 #include "rendering/types/DynamicEntity.h"
 #include "rendering/types/StaticEntity.h"
