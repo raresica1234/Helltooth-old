@@ -1,8 +1,8 @@
 #include "Test3D.h"
 
 Test3D::Test3D(Window* window)
-	: Layer(API::createShader("/shaders/shader.vert", "/shaders/shader.frag"), htnew Camera(window)){
-	renderer = htnew ForwardRenderer(shader, camera);
+	: Layer(htnew Camera(window)){
+	//renderer = htnew ForwardRenderer(camera);
 	setMatrix(mat4::createPerspective(70, 0.1f, 500.0f, WIDTH / HEIGHT));
 	world = htnew World(32, vec4(1, 1, -1, -1));
 
@@ -10,7 +10,6 @@ Test3D::Test3D(Window* window)
 
 	stack[1].addModelPath("/res/stall.obj");
 	stack[1].addTexturePath("/res/stallTexture.png");
-	stack[1].addTexturePath("/res/stallTextureSpecular.png");
 
 	stack[2].addTexturePath("/res/cobble.jpg");
 

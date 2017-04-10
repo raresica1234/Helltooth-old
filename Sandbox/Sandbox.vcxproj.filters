@@ -20,10 +20,6 @@
     <ClInclude Include="src\layers\GUI3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\shader.frag" />
-    <None Include="src\shaders\shader.vert" />
     <None Include="res\texture.httexture" />
-    <None Include="src\shaders\quad.vert" />
-    <None Include="src\shaders\quad.frag" />
   </ItemGroup>
 </Project>

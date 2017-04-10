@@ -109,5 +109,7 @@
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.frag" />
   </ItemGroup>
 </Project>

@@ -11,18 +11,21 @@
 #include "../../shaders/ShaderManager.h"
 
 #include "utils/Log.h"
+#include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 
 	class ForwardRenderer: public Renderer {
 	private:
+		static utils::String vertexShader;
+		static utils::String fragmentShader;
+
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;
 
 	public:
-		ForwardRenderer(unsigned int programID, Camera* camera);
-		ForwardRenderer(ShaderProgram* program, Camera* camera);
+		ForwardRenderer(Camera* camera);
 
 		~ForwardRenderer();
 

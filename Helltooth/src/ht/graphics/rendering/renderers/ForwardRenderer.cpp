@@ -2,13 +2,18 @@
 
 namespace ht { namespace graphics {
 	using namespace maths;
+	using namespace utils;
 
-	ForwardRenderer::ForwardRenderer(unsigned int programID, Camera* camera)
-		: Renderer(camera, ShaderManager::Get()->getProgram(programID)) { }
+	String ForwardRenderer::vertexShader = 
+		#include "shaders/ForwardRendererBasic.vert"
+		;
 
-	ForwardRenderer::ForwardRenderer(ShaderProgram* program, Camera* camera)
-		: Renderer(camera, program) {}
+	String ForwardRenderer::fragmentShader =
+		#include "shaders/ForwardRendererBasic.frag"
+		;
 
+	ForwardRenderer::ForwardRenderer(Camera* camera)
+		: Renderer(camera, ShaderManager::Get()->loadProgram(vertexShader, fragmentShader, false)) { }
 	ForwardRenderer::~ForwardRenderer() {}
 
 	void ForwardRenderer::submit(const Entity* entity) {
@@ -30,6 +35,7 @@ namespace ht { namespace graphics {
 	}
 
 	void ForwardRenderer::prepare() {
+		program->start();
 		if (!program->hasProjection())
 			program->setProjection("projectionMatrix", projectionMatrix);
 	}
@@ -62,7 +68,6 @@ namespace ht { namespace graphics {
 					sEntity->end();
 				}
 				else {
-					program->uniformMat4("viewMatrix", cameraMatrix);
 					program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
 				}
 			}

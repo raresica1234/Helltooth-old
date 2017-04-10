@@ -1,0 +1,31 @@
+R"(#version 330 core
+
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 textureCoords;
+layout (location = 2) in vec3 normals;
+
+uniform mat4 projectionMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+
+uniform float density;
+uniform float gradient;
+
+out DATA {
+	vec2 textureCoords;
+	float visibility;
+} vs_out;
+
+void main() {
+	vec4 positionRelativeToCamera = viewMatrix * modelMatrix * vec4(position, 1.0);
+	gl_Position = projectionMatrix * positionRelativeToCamera;
+
+	vs_out.textureCoords = textureCoords;
+
+	float distance = length(positionRelativeToCamera.xyz);
+
+	vs_out.visibility = exp(-pow(distance * density, gradient));
+	vs_out.visibility = clamp(vs_out.visibility, 0.0, 1.0);
+}
+
+)"

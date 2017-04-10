@@ -47,20 +47,22 @@ GUI::GUI(Window* window, FpsCounter *counter)
 		}
 	});
 
-	button = createButton("Don't press me!", 700, 800, 600, 150, "Verdana", vec2(100, 40));
-	button->setBackgroundColor(0xFF0000db);
-	button->setPressedColor(0xFF03db00);
-	button->onClick([](const Event& e) {
-		unsigned int i = 0;
-		glfwSetWindowShouldClose(WindowManager::Get()->getWindow(i)->getWindow(), 1);
-	});
-
-	texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
-
-	image = createImage(texture, 200, 500, 400, 400);
-	image->onClick([](const Event& e) {
-		HT_ERROR("An error occured when you pressed the image! \nStop doing that, idiot!");
-	});
+	//button = createButton("Don't press me!", 700, 800, 600, 150, "Verdana", vec2(100, 40));
+	//button->setBackgroundColor(0xFF0000db);
+	//button->setPressedColor(0xFF03db00);
+	//button->onClick([](const Event& e) {
+	//	unsigned int i = 0;
+	//	if (e.mouse_buttons[0])
+	//		glfwSetWindowShouldClose(WindowManager::Get()->getWindow(i)->getWindow(), 1);
+	//});
+	//
+	//texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
+	//
+	//image = createImage(texture, 200, 500, 400, 400);
+	//image->onClick([](const Event& e) {
+	//	if(e.mouse_buttons[0])
+	//		HT_ERROR("An error occured when you pressed the image! \nStop doing that, idiot!");
+	//});
 }
 
 GUI::~GUI() {

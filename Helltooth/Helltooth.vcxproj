@@ -251,6 +251,8 @@
     <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />
     <None Include="src\ht\graphics\ui\UiShader.vert" />
   </ItemGroup>

@@ -26,13 +26,11 @@ namespace ht { namespace graphics {
 	class Layer {
 	protected:
 		maths::mat4 projectionMatrix;
-		ShaderProgram* shader;
 		Renderer* renderer;
 		Camera* camera;
 
 	public:
-		Layer(unsigned int shader, Camera* camera = nullptr);
-		Layer(ShaderProgram* shader, Camera* camera = nullptr);
+		Layer(Camera* camera = nullptr);
 
 		~Layer();
 
@@ -47,25 +45,31 @@ namespace ht { namespace graphics {
 
 		virtual void render() {
 			renderer->prepare();
-			shader->start();
 			renderer->render();
-			shader->stop();
 		}
 
-		virtual void update(const utils::Event& e) {
+		__forceinline virtual void update(const utils::Event& e) {
 			if (camera)
 				camera->update(e);
-			if (!shader->hasProjection())
-				setMatrix(projectionMatrix);
 		}
 
-		virtual void tick() {}
+		__forceinline virtual void tick() {}
 
-		void cleanUP();
-		void forceCleanUP();
-		virtual void reloadTextures();
+		__forceinline void cleanUP() {
+			renderer->cleanUP();
+		}
+
+		__forceinline void forceCleanUP() {
+			renderer->forceCleanUP();
+		}
+
+		__forceinline virtual void reloadTextures() {
+			renderer->reloadTextures();
+		}
 
 	protected:
-		virtual void defaultRenderer();
+		__forceinline virtual void defaultRenderer() {
+			renderer = htnew ForwardRenderer(camera);
+		}
 	};
 } }

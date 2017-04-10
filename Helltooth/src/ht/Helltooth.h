@@ -172,7 +172,7 @@ public:
 
 		program = htnew ht::graphics::ShaderProgram(vertex.toString(), fragment.toString(), false);
 		
-		loadingScreen = htnew ht::graphics::Layer(program);
+		loadingScreen = htnew ht::graphics::Layer();
 		loadingScreen->setMatrix(ht::maths::mat4::createOrthographic(-1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f));
 
 		auto r = htnew ht::graphics::Renderable();
