@@ -21,6 +21,7 @@ private:
 	World* world;
 	StaticEntity* sentity;
 	DynamicEntity* dentity;
+	Skybox* box;
 
 	ResourceStack stack;
 
@@ -30,6 +31,7 @@ private:
 
 	unsigned int width;
 	unsigned int height;
+
 
 public:
 	Test3D(Window* window);

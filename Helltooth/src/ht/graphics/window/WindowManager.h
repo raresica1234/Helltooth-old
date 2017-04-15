@@ -22,7 +22,7 @@ namespace ht { namespace graphics {
 	public:
 		unsigned int createWindow(ht::utils::String title, const int width, const int height);
 		void resize(GLFWwindow* glfwwindow, int width, int height);
-		Window* getWindow(unsigned int &id);
+		Window* getWindow(unsigned int id);
 		void cleanUP();
 
 		static void Init() { 

@@ -16,7 +16,7 @@ namespace ht { namespace graphics {
 				window->resize(width, height);
 	}
 
-	Window* WindowManager::getWindow(unsigned int &id) {
+	Window* WindowManager::getWindow(unsigned int id) {
 		if (id > windows.size())
 			HT_FATAL("Window id %i is bigger than vector size %i", id, windows.size());
 		return windows[id];

@@ -20,6 +20,22 @@ namespace ht { namespace assets {
 		return *this;
 	}
 
+	Path& Path::addSkyboxPath(String path) {
+		type = CUBEMAP;
+
+		std::vector<String> strings = path.split('.');
+
+		String additions[6] = { "_left", "_right", "_top", "_bottom", "_back", "_front" };
+
+		for (int i = 0; i < 6; i++) {
+			String currPath = strings[0];
+			currPath += additions[i] + "." + strings[1];
+			paths.push_back(currPath);
+		}
+
+		return *this;
+	}
+
 	ResourceStack::~ResourceStack() { }
 
 	void ResourceStack::queueUp() {
@@ -50,6 +66,14 @@ namespace ht { namespace assets {
 				unsigned int id = TextureManager::Get()->createTextureFromData(textureData);
 				const Texture* texture = TextureManager::Get()->getTexture(id);
 				resources.push_back((void*)texture);
+			}
+			else if (path.type == path.CUBEMAP) {
+				Skybox* skybox = htnew Skybox();
+				for (unsigned int i = 0; i < path.paths.size(); i++) {
+					TextureData* textureData = FileSystem::Get()->getAsTextureData(FileSystem::Get()->getNextResource());
+					skybox->addTexture(textureData, (Face)((unsigned int)RIGHT + i));
+				}
+				resources.push_back((void*)skybox);
 			}
 			loaded++;
 		}

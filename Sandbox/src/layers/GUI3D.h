@@ -31,7 +31,6 @@ class GUI : public GUILayer {
 	int save = 0;
 	Sprite* sprite;
 
-
 	mat3 transform;
 
 public:

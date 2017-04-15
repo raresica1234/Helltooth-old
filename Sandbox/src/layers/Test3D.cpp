@@ -13,6 +13,8 @@ Test3D::Test3D(Window* window)
 
 	stack[2].addTexturePath("/res/cobble.jpg");
 
+	stack[3].addSkyboxPath("/res/violentdays.png");
+
 	dentity = htnew DynamicEntity(nullptr, vec3(0.0f, 10.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));
 	dentity->scale(3, 3, 3);
@@ -38,6 +40,10 @@ void Test3D::update(const Event& e) {
 		world->addTexture(stack.getAsTexture(0));
 		dentity->renderable = stack.getAsModel(1);
 		Texture* texture = stack.getAsTexture(2);
+		box = stack.getAsSkybox(3);
+
+		submit(box);
+
 		for (DynamicEntity* dentity : dentities)
 			dentity->getRenderable()->addTexture(texture);
 		loaded = true;
@@ -80,4 +86,5 @@ Test3D::~Test3D() {
 	del sentity;
 	del world;
 	del dentity;
+	del box;
 }

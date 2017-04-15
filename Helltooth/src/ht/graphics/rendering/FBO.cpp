@@ -38,7 +38,6 @@ namespace ht { namespace graphics {
 		}
 	}
 
-
 	void FBO::bind() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, id);

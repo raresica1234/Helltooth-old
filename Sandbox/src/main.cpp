@@ -29,6 +29,7 @@ public:
 		VFS::mount("res", "res/models/");
 		VFS::mount("res", "res/textures/");
 		VFS::mount("res", "res/fonts/");
+		VFS::mount("res", "res/skybox/");
 	}
 
 	~Main() {

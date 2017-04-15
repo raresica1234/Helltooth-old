@@ -18,7 +18,7 @@ namespace ht { namespace assets {
 	}
 
 	void FileSystem::addToQueue(utils::String path) {
-		Node *newNode = new Node(path);
+		Node *newNode = htnew Node(path);
 		if (front.load() == nullptr)
 			front.store(newNode);
 		else

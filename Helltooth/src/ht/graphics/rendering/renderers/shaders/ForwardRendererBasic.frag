@@ -11,10 +11,10 @@ uniform vec4 skyColor;
 layout(location = 0) out vec4 color;
 
 void main() {
-	if(fs_in.visibility < 0.1)
-		discard;
+	//if(fs_in.visibility < 0.1)
+	//	discard;
 
 	color = texture(textures[0], fs_in.textureCoords);
-	color = mix(skyColor, color, fs_in.visibility);
+	//color = mix(skyColor, color, fs_in.visibility);
 }
 )"

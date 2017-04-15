@@ -161,7 +161,7 @@ public:
 
 		vertex.addMainCode("gl_Position = vec4(position.x *2, position.y *2, position.z, 1.0)");
 		vertex.addMainCode("textureCoordinates.x = textureCoords.x");
-		vertex.addMainCode("textureCoordinates.y = 1 - textureCoords.y");
+		vertex.addMainCode("textureCoordinates.y = textureCoords.y");
 
 		fragment.addInputVariable("textureCoordinates", ht::graphics::VEC2, ht::graphics::FRAGMENT);
 		fragment.addVariable("textures[32]", ht::graphics::SAMPLER2D, ht::graphics::UNIFORM);

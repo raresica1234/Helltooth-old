@@ -6,6 +6,8 @@
 
 #include "graphics/rendering/Renderable.h"
 #include "graphics/textures/Texture.h"
+#include "graphics/rendering/Skybox.h"
+
 
 #include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
@@ -17,6 +19,7 @@ namespace ht { namespace assets {
 		enum Type {
 			MODEL,
 			TEXTURE,
+			CUBEMAP,
 
 			UNKOWN
 		} type = UNKOWN;
@@ -25,6 +28,7 @@ namespace ht { namespace assets {
 
 		Path& addModelPath(utils::String path);
 		Path& addTexturePath(utils::String path);
+		Path& addSkyboxPath(utils::String path);
 	};
 
 	class ResourceStack {
@@ -56,6 +60,16 @@ namespace ht { namespace assets {
 			}
 
 			return (graphics::Texture*)resources[id];
+		}
+
+		__forceinline graphics::Skybox* getAsSkybox(unsigned int id) {
+			Path p = paths[id];
+			if (p.type != p.CUBEMAP) {
+				HT_ERROR("[ResourceStack] Type is not compatible!");
+				return nullptr;
+			}
+
+			return (graphics::Skybox*)resources[id];
 		}
 
 		void queueUp();

@@ -156,6 +156,7 @@
     <ClInclude Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\ForwardRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\Renderer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Skybox.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\DynamicEntity.h" />
     <ClInclude Include="src\ht\graphics\rendering\types\StaticEntity.h" />
     <ClInclude Include="src\ht\graphics\API.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
@@ -253,6 +255,8 @@
   <ItemGroup>
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
+    <None Include="src\ht\graphics\shaders\default\skybox.frag" />
+    <None Include="src\ht\graphics\shaders\default\skybox.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />
     <None Include="src\ht\graphics\ui\UiShader.vert" />
   </ItemGroup>

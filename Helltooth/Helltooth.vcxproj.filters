@@ -38,6 +38,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Button.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -105,11 +106,14 @@
     <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\ForwardRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Light.h" />
+    <ClInclude Include="src\ht\graphics\rendering\Skybox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.frag" />
+    <None Include="src\ht\graphics\shaders\default\skybox.frag" />
+    <None Include="src\ht\graphics\shaders\default\skybox.vert" />
   </ItemGroup>
 </Project>
