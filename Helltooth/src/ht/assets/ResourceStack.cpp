@@ -23,15 +23,7 @@ namespace ht { namespace assets {
 	Path& Path::addSkyboxPath(String path) {
 		type = CUBEMAP;
 
-		std::vector<String> strings = path.split('.');
-
-		String additions[6] = { "_left", "_right", "_top", "_bottom", "_back", "_front" };
-
-		for (int i = 0; i < 6; i++) {
-			String currPath = strings[0];
-			currPath += additions[i] + "." + strings[1];
-			paths.push_back(currPath);
-		}
+		paths.push_back(path);
 
 		return *this;
 	}
@@ -69,10 +61,8 @@ namespace ht { namespace assets {
 			}
 			else if (path.type == path.CUBEMAP) {
 				Skybox* skybox = htnew Skybox();
-				for (unsigned int i = 0; i < path.paths.size(); i++) {
-					TextureData* textureData = FileSystem::Get()->getAsTextureData(FileSystem::Get()->getNextResource());
-					skybox->addTexture(textureData, (Face)((unsigned int)RIGHT + i));
-				}
+				Cubemap* cubemap = FileSystem::Get()->getAsCubemap(FileSystem::Get()->getNextResource());
+				skybox->addCubemap(cubemap);
 				resources.push_back((void*)skybox);
 			}
 			loaded++;

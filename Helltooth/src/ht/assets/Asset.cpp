@@ -26,6 +26,7 @@ namespace ht { namespace assets {
 
 		if (FreeImage_FIFSupportsReading(fif)) dib = FreeImage_Load(fif, file);
 
+		FreeImage_FlipVertical(dib);
 
 		BYTE* pixels = FreeImage_GetBits(dib);
 
@@ -71,7 +72,6 @@ namespace ht { namespace assets {
 
 		if (FreeImage_FIFSupportsReading(fif)) dib = FreeImage_Load(fif, file);
 
-
 		BYTE* pixels = FreeImage_GetBits(dib);
 
 		GLsizei width = FreeImage_GetWidth(dib);
@@ -88,12 +88,22 @@ namespace ht { namespace assets {
 		HelltoothTexture::StoreAsHelltoothTexture(fileName, result, width, height, bpp, size);
 
 		TextureData* data = htnew TextureData();
-		data->pixels = pixels;
+		data->pixels = result;
 		data->width = width;
 		data->height = height;
 		data->bpp = bpp;
 
 		return data;
+	}
+
+	Cubemap* Asset::loadCubemapFromFile(utils::String path) {
+		if (exists(path)) {
+			HelltoothCubemap cubemap(path);
+			HT_INFO("[Asset] Cubemap \"%s\" loaded!", path);
+			return cubemap.getCubemap();
+		}
+		else
+			HT_ERROR("[Asset] Cubemap \"%s\" not found", path);
 	}
 
 	RawModel* Asset::loadModelFromFile(String path) {

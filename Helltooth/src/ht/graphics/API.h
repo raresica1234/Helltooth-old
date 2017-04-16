@@ -40,6 +40,7 @@ namespace ht { namespace graphics {
 		}
 
 		static RawModel* loadObjFile(ht::utils::String path);
+		static assets::Cubemap* loadCubemap(utils::String path);
 
 		static unsigned int createShader(ht::utils::String VERTEX_PATH, ht::utils::String FRAGMENT_PATH, bool path = true);
 		static unsigned int createWindow(ht::utils::String title, const int &width, const int &height);

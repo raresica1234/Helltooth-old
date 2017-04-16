@@ -19,6 +19,16 @@ namespace ht { namespace graphics {
 		}
 	}
 
+	assets::Cubemap* API::loadCubemap(utils::String path) {
+		String resolvedpath;
+		if (utils::VFS::resolvePhysicalPath(path, resolvedpath))
+			return assets::Asset::loadCubemapFromFile(resolvedpath);
+		else {
+			HT_FATAL("[API] Can not load \"%s\"", path.c_str());
+			return nullptr;
+		}
+	}
+
 	unsigned int API::createShader(String VERTEX_PATH, String FRAGMENT_PATH, bool path) {
 		return ShaderManager::Get()->loadProgram(VERTEX_PATH, FRAGMENT_PATH, path);
 	}

@@ -20,6 +20,7 @@ namespace ht { namespace assets {
 		enum Type {
 			OBJ_MODEL,
 			TEXTURE,
+			CUBEMAP,
 
 			UNKOWN
 		} type = UNKOWN;
@@ -67,6 +68,14 @@ namespace ht { namespace assets {
 		__forceinline graphics::RawModel* getAsModel(Resource& r) {
 			if (r.type == Resource::OBJ_MODEL) {
 				return (graphics::RawModel*)r.res;
+			}
+			HT_ERROR("[FileSystem] Resource type not correct!");
+			return nullptr;
+		}
+
+		__forceinline Cubemap* getAsCubemap(Resource& r) {
+			if (r.type == Resource::CUBEMAP) {
+				return (Cubemap*)r.res;
 			}
 			HT_ERROR("[FileSystem] Resource type not correct!");
 			return nullptr;

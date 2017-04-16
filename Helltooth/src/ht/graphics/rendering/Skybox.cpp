@@ -72,16 +72,28 @@ namespace ht { namespace graphics {
 		program->stop();
 	}
 
-	void Skybox::addTexture(assets::TextureData* textureData, Face face) {
+	void Skybox::addCubemap(assets::Cubemap* cubemap) {
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-		switch (textureData->bpp) {
+		switch (cubemap->bpp) {
 		case 24:
-			glTexImage2D((GLenum)face, 0, GL_RGB, textureData->width, textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, textureData->pixels); break;
-
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->right);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->left);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->top);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->bottom);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->front);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, cubemap->width, cubemap->height, 0, GL_BGR, GL_UNSIGNED_BYTE, cubemap->back);
+			break;
 		case 32:
-			glTexImage2D((GLenum)face, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, textureData->pixels); break;
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->right);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->left);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->top);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->bottom);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->front);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, cubemap->width, cubemap->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, cubemap->back);
+			break;
 		}
-		del textureData;
+
+		del cubemap;
 	}
 
 } }

@@ -54,6 +54,11 @@ namespace ht { namespace assets {
 			r.res = (void*)API::loadObjFile(path);
 			success = true;
 		}
+		else if (lastString == "htcubemap") {
+			r.type = Resource::CUBEMAP;
+			r.res = (void*)API::loadCubemap(path);
+			success = true;
+		}
 		
 		const char* file = path.c_str();
 

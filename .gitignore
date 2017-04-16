@@ -25,3 +25,5 @@ bin/*.httexture
 bin/Release/res/
 bin/Release/.httexture
 .vs/
+*.httexture
+*.htmodel

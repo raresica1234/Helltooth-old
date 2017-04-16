@@ -13,7 +13,7 @@ Test3D::Test3D(Window* window)
 
 	stack[2].addTexturePath("/res/cobble.jpg");
 
-	stack[3].addSkyboxPath("/res/violentdays.png");
+	stack[3].addSkyboxPath("/res/violentdays.htcubemap");
 
 	dentity = htnew DynamicEntity(nullptr, vec3(0.0f, 10.0f, -55.0f));
 	dentity->rotate(vec3(0, 180, 0));

@@ -8,7 +8,6 @@
 #include "graphics/textures/Texture.h"
 #include "graphics/rendering/Skybox.h"
 
-
 #include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
 

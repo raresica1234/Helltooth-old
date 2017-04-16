@@ -12,15 +12,6 @@
 
 namespace ht { namespace graphics {
 
-	enum Face {
-		RIGHT = GL_TEXTURE_CUBE_MAP_POSITIVE_X,
-		LEFT = GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
-		TOP = GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
-		BOTTOM = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
-		BACK = GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
-		FRONT = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
-	};
-
 	class Skybox : public StaticEntity {
 	private:
 		static utils::String skyboxVertex;
@@ -41,7 +32,7 @@ namespace ht { namespace graphics {
 		void prepare() const;
 		void render() const;
 
-		void addTexture(assets::TextureData* textureData, Face face);
+		void addCubemap(assets::Cubemap* cubemap);
 	};
 
 } } 

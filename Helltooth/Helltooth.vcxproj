@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
     <ClInclude Include="src\ht\assets\FileSystem\FileSystem.h" />
+    <ClInclude Include="src\ht\assets\HelltoothCubemap.h" />
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
     <ClInclude Include="src\ht\assets\ObjLoader.h" />
@@ -215,6 +216,7 @@
   <ItemGroup>
     <ClCompile Include="src\ht\assets\Asset.cpp" />
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="src\ht\assets\HelltoothCubemap.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />

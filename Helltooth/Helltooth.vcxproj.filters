@@ -39,6 +39,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
+    <ClCompile Include="src\ht\assets\HelltoothCubemap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="src\ht\graphics\rendering\renderers\ForwardRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Light.h" />
     <ClInclude Include="src\ht\graphics\rendering\Skybox.h" />
+    <ClInclude Include="src\ht\assets\HelltoothCubemap.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

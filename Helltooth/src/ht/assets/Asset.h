@@ -8,6 +8,7 @@
 #include "ObjLoader.h"
 #include "HelltoothTexture.h"
 #include "HelltoothModel.h"
+#include "HelltoothCubemap.h"
 
 #include "graphics/textures/Texture.h"
 
@@ -29,11 +30,13 @@ namespace ht { namespace assets {
 
 	class Asset {
 	public:
-		static const ht::graphics::Texture* loadTextureFromFile(ht::utils::String path);
+		static const graphics::Texture* loadTextureFromFile(utils::String path);
 
-		static TextureData* loadTextureDataFromFile(ht::utils::String path);
+		static TextureData* loadTextureDataFromFile(utils::String path);
 
-		static ht::graphics::RawModel* loadModelFromFile(ht::utils::String path);
+		static graphics::RawModel* loadModelFromFile(utils::String path);
+
+		static Cubemap* loadCubemapFromFile(utils::String path);
 
 	protected:
 		inline static bool exists(ht::utils::String path) {
