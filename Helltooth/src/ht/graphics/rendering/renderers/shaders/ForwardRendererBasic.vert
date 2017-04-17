@@ -13,7 +13,6 @@ uniform float gradient;
 
 out DATA {
 	vec2 textureCoords;
-	float visibility;
 } vs_out;
 
 void main() {
@@ -21,11 +20,6 @@ void main() {
 	gl_Position = projectionMatrix * positionRelativeToCamera;
 
 	vs_out.textureCoords = textureCoords;
-
-	float distance = length(positionRelativeToCamera.xyz);
-
-	vs_out.visibility = exp(-pow(distance * density, gradient));
-	vs_out.visibility = clamp(vs_out.visibility, 0.0, 1.0);
 }
 
 )"

@@ -80,9 +80,9 @@ namespace ht { namespace utils {
 		return true;
 	}
 
-	String String::operator+(const String& other){
-		append(other);
-		return *this;
+	String operator+(String& left, const String& right) {
+		left.append(right);
+		return left;
 	}
 
 	void String::operator+=(const String &other){

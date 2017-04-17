@@ -82,7 +82,6 @@ void Test3D::load(bool &loaded) {
 Test3D::~Test3D() {
 	for (DynamicEntity* e : dentities)
 		del e;
-	del camera;
 	del sentity;
 	del world;
 	del dentity;

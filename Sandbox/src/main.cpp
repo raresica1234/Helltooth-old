@@ -7,6 +7,7 @@
 
 #include "layers/Test3D.h"
 #include "layers/GUI3D.h"
+#include "layers/SponzaTest.h"
 
 using namespace ht;
 using namespace graphics;
@@ -36,7 +37,8 @@ public:
 
 	}
 	void init() override {
-		PushLayer(htnew Test3D(window));
+		PushLayer(htnew SponzaTest(window));
+		//PushLayer(htnew Test3D(window));
 		PushLayer(htnew GUI(window, counter));
 		Application::init();
 	}

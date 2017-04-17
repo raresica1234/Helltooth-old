@@ -15,7 +15,7 @@ out DATA {
 void main() {
 	vs_out.position = position;
 
-	vec3 pos = vec3(position.x * 200.0f, position.y * 200.0f, position.z * 200.0f);
+	vec3 pos = vec3(position.x * 900.0f, position.y * 900.0f, position.z * 900.0f);
 	gl_Position = projectionMatrix * viewMatrix * vec4(pos, 1.0);
 }
 )"

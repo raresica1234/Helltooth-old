@@ -39,7 +39,6 @@ namespace ht { namespace assets {
 
 	void ResourceStack::prepareResources() {
 		Path path = paths[loaded];
-		
 		if (FileSystem::Get()->hasLoadedResources(path.paths.size())) {
 			if (path.type == path.MODEL) {
 				Renderable* renderable = htnew Renderable();

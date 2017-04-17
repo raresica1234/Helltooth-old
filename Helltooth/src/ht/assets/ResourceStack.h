@@ -77,6 +77,8 @@ namespace ht { namespace assets {
 
 		Path& operator[](unsigned int id);
 
+		__forceinline unsigned int getSize() { return paths.size(); }
+
 	};
 
 
