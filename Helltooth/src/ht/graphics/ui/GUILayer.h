@@ -89,7 +89,7 @@ namespace ht { namespace graphics {
 			renderer->end();
 			renderer->render();
 			shader->stop();
-			glDisable(GL_BLEND);
+			//glDisable(GL_BLEND);
 		}
 
 		__forceinline void tick() override {}

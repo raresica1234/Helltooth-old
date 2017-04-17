@@ -5,7 +5,7 @@ SponzaTest::SponzaTest(Window* window)
 	
 	VFS::mount("res", "res/Sponza-out");
 
-	Layer::setMatrix(mat4::createPerspective(70.0f, 0.001f, 10000.0f, WIDTH / HEIGHT));
+	Layer::setMatrix(mat4::createPerspective(70.0f, 0.1f, 10000.0f, WIDTH / HEIGHT));
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -19,7 +19,7 @@ SponzaTest::SponzaTest(Window* window)
 	};
 
 	String resources[] = {
-		String("model.obj"), String("albedo.tga"), String("normal.tga"), String("metallic.tga"), String("roughness.tga")
+		String("model.obj"), String("albedo.tga"), String("normal.tga") , String("metallic.tga"), String("roughness.tga")
 	};
 
 	//skybox
@@ -38,7 +38,7 @@ SponzaTest::SponzaTest(Window* window)
 	//Stack size - skybox (1)
 	for (int i = 0; i < stack.getSize() - 1; i++) {
 		sponzaScene.push_back(htnew DynamicEntity(nullptr, 0.f, 0.f, 0.f));
-		sponzaScene[i]->scale(0.0005f, 0.0005f, 0.0005f);
+		sponzaScene[i]->scale(0.000005f, 0.000005f, 0.000005f);
 	}
 
 }
