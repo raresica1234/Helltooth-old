@@ -29,7 +29,8 @@ namespace ht { namespace utils {
 
 		bool operator!=(const String& other);
 		bool operator==(const String& other) const;
-		friend String operator+(String& left, const String& right);
+		friend String operator+(String left, const String& right);
+		friend String operator+(String left, const char* right);
 		void operator+=(const String &other);
 		void operator+=(const char &other);
 

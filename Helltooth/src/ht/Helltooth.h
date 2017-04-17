@@ -14,10 +14,11 @@
 #include "graphics/Camera.h"
 #include "graphics/Layer.h"
 
-
 #include "graphics/rendering/Renderable.h"
 #include "graphics/rendering/Entity.h"
 #include "graphics/rendering/FBO.h"
+#include "graphics/rendering/Skybox.h"
+#include "graphics/rendering/Light.h"
 
 #include "graphics/rendering/2D/Sprite.h"
 
@@ -223,8 +224,8 @@ public:
 #pragma endregion Basic functions
 
 	void PushLayer(ht::graphics::Layer* layer) {
-		layer->init();
 		layers.push_back(layer);
+		layer->init();
 	}
 
 	ht::graphics::Layer* PopLayer() {

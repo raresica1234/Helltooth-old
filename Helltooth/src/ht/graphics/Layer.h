@@ -67,6 +67,8 @@ namespace ht { namespace graphics {
 			renderer->reloadTextures();
 		}
 
+		__forceinline virtual void pushLight(Light* light) { renderer->addLight(light); }
+		__forceinline virtual void popLight() { renderer->popLight(); }
 	protected:
 		__forceinline virtual void defaultRenderer() {
 			renderer = htnew ForwardRenderer(camera);

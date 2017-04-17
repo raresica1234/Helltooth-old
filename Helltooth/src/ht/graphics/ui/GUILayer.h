@@ -35,6 +35,7 @@ namespace ht { namespace graphics {
 
 		__forceinline void begin() {
 			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			renderer->begin();
 			shader->start();
 		}
@@ -89,7 +90,7 @@ namespace ht { namespace graphics {
 			renderer->end();
 			renderer->render();
 			shader->stop();
-			//glDisable(GL_BLEND);
+			glDisable(GL_BLEND);
 		}
 
 		__forceinline void tick() override {}

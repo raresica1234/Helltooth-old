@@ -4,6 +4,8 @@
 #include "maths/vec3.h"
 #include "maths/maths.h"
 
+#include "utils/String.h"
+
 namespace ht { namespace graphics {
 	enum LIGHT_TYPE {
 		LIGHT_TYPE_NONE,
@@ -24,6 +26,10 @@ namespace ht { namespace graphics {
 
 		__forceinline int getLightType() { return lightType; }
 
+		__forceinline virtual void uniform(utils::String name, ShaderProgram* program) {
+			program->uniform1i((name + ".type").c_str(), (int)lightType);
+			program->uniform3f((name + ".color").c_str(), color);
+		}
 	};
 
 	class DirectionalLight : public Light {
@@ -34,6 +40,13 @@ namespace ht { namespace graphics {
 		DirectionalLight(const maths::vec3& color, const maths::vec3& direction) : Light(color), direction(direction) { lightType = LIGHT_TYPE_DIRECTIONAL; }
 
 		__forceinline maths::vec3& getDirection() { return direction; }
+
+		__forceinline void uniform(utils::String name, ShaderProgram* program) override {
+			Light::uniform(name, program);
+			program->uniform3f((name + ".direction").c_str(), direction);
+		}
+
+		__forceinline void setDirection(maths::vec3& direction) { this->direction = direction; }
 
 	};
 
@@ -51,6 +64,14 @@ namespace ht { namespace graphics {
 		__forceinline maths::vec3& getPosition() { return position; }
 
 		__forceinline maths::vec3& getAttenuation() { return attenuation; }
+
+		__forceinline virtual void uniform(utils::String name, ShaderProgram* program) override {
+			Light::uniform(name, program);
+			program->uniform3f((name + ".position").c_str(), position);
+			program->uniform3f((name + ".attenuation").c_str(), attenuation);
+		}
+
+		__forceinline void setAttenuation(maths::vec3 &attenuation) { this->attenuation = attenuation; }
 	};
 
 	class SpotLight : public PointLight {
@@ -70,6 +91,43 @@ namespace ht { namespace graphics {
 		__forceinline maths::vec3& getDirection() { return direction; }
 		__forceinline float& getCutoff() { return cutOffExponent.x; }
 		__forceinline float& getExponent() { return cutOffExponent.y; }
+
+		__forceinline void setCutoffExponent(maths::vec2 &cutoffExponent) { this->cutOffExponent = cutoffExponent; }
+		__forceinline void setDirection(maths::vec3 &direction) { this->direction = direction; }
+		__forceinline void setColor(maths::vec3 &color) { this->color = color; }
+
+		__forceinline void uniform(utils::String name, ShaderProgram* program) override {
+			PointLight::uniform(name, program);
+			program->uniform3f((name + ".direction").c_str(), direction);
+			program->uniform2f((name + ".cutoffExponent").c_str(), cutOffExponent);
+		}
 	};
+
+	class LightStack {
+		std::vector<Light*> lights;
+
+	public:
+		LightStack() {
+			lights.reserve(32);
+		}
+
+		void pushLight(Light* light) { lights.push_back(light); }
+
+		Light& operator[](unsigned int id) { return *lights[id]; }
+
+		__forceinline void uniform(utils::String name, ShaderProgram* program) {
+			for (unsigned int i = 0; i < lights.size(); i++) {
+				std::string current = std::to_string(i);
+				utils::String currentName = name + "[" + utils::String(current.c_str()) + "]";
+				lights[i]->uniform(currentName, program);
+			}
+		}
+
+		__forceinline void popLight() { lights.pop_back(); }
+		__forceinline void clear() { lights.clear(); }
+
+		__forceinline unsigned int size() { return lights.size(); }
+	};
+
 } }
 

@@ -13,7 +13,8 @@ namespace ht { namespace graphics {
 		;
 
 	ForwardRenderer::ForwardRenderer(Camera* camera)
-		: Renderer(camera, ShaderManager::Get()->loadProgram(vertexShader, fragmentShader, false)) { }
+		: Renderer(camera, ShaderManager::Get()->loadProgram(vertexShader, fragmentShader, false)) {
+	}
 	ForwardRenderer::~ForwardRenderer() {}
 
 	void ForwardRenderer::submit(const Entity* entity) {
@@ -30,7 +31,7 @@ namespace ht { namespace graphics {
 			return;
 		}
 		else {
-			HT_FATAL("[MasterRenderer] Entity type not supported!");
+			HT_FATAL("[ForwardRenderer] Entity type not supported!");
 		}
 	}
 
@@ -44,21 +45,47 @@ namespace ht { namespace graphics {
 		mat4 cameraMatrix = mat4();
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
+
+		program->start();
 		program->uniformMat4("viewMatrix", cameraMatrix);
-		if(!dynamicEntities.empty())
+		if (!program->hasProjection())
+			program->setProjection("projectionMatrix", projectionMatrix);
+
+
+		if (!dynamicEntities.empty())
 			for (auto& entry : dynamicEntities) {
 				entry.first->prepare();
 				for (Entity& entity : entry.second) {
 					program->uniformMat4("modelMatrix", entity.getModelMatrix());
-					if (!program->hasProjection())
-						program->setProjection("projectionMatrix", projectionMatrix);
 					entry.first->render();
 				}
 				entry.first->end();
 			}
 
-		if(!staticEntities.empty())
-			for (unsigned int i = 0; i < staticEntities.size(); i++ ) {
+		glDepthFunc(GL_EQUAL);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE);
+
+		for (unsigned int i = 0; i < stack->size(); i++) {
+			Light light = stack->operator[](i);
+			light.uniform("light", program);
+
+			if (!dynamicEntities.empty())
+				for (auto& entry : dynamicEntities) {
+					entry.first->prepare();
+					for (Entity& entity : entry.second) {
+						program->uniformMat4("modelMatrix", entity.getModelMatrix());
+						entry.first->render();
+					}
+					entry.first->end();
+				}
+		}
+
+		glDepthFunc(GL_LESS);
+		glDisable(GL_BLEND);
+
+		if (!staticEntities.empty())
+			for (unsigned int i = 0; i < staticEntities.size(); i++) {
 				const StaticEntity* sEntity = staticEntities[i];
 				sEntity->prepare();
 				if (sEntity->hasOwnShader()) {

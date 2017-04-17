@@ -17,18 +17,20 @@ namespace ht { namespace graphics {
 		ShaderProgram* program;
 
 		maths::mat4 projectionMatrix;
+		LightStack* stack;
+
 
 		Renderer(Camera* camera, ShaderProgram* program)
 			: camera(camera), program(program) {
 			reloadTextures();
+			stack = htnew LightStack();
 		}
 
 		Renderer(Camera* camera, unsigned int programID)
 			: camera(camera), program(ShaderManager::Get()->getProgram(programID)) {
 			reloadTextures();
+			stack = htnew LightStack();
 		}
-
-		std::vector<Light*> lights;
 
 	public:
 		void setProjection(maths::mat4 projectionMatrix) { 
@@ -43,7 +45,7 @@ namespace ht { namespace graphics {
 		virtual void forceCleanUP() = 0;
 
 		virtual void addLight(Light* light) {
-			lights.push_back(light);
+			stack->pushLight(light);
 		}
 
 		void reloadTextures() {
@@ -61,9 +63,12 @@ namespace ht { namespace graphics {
 		}
 
 		virtual void popLight() {
-			lights.pop_back();
+			stack->popLight();
 		}
 
+		virtual void clearLights() {
+			stack->clear();
+		}
 	};
 
 

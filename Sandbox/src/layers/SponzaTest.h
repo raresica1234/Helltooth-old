@@ -13,8 +13,8 @@ using namespace maths;
 using namespace assets;
 using namespace utils;
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH (float)1280
+#define HEIGHT (float)720
 
 class SponzaTest : public Layer {
 private:
@@ -24,6 +24,10 @@ private:
 
 	bool loaded = false;
 
+	PointLight* lamp;
+	PointLight* lamp2;
+
+	maths::vec3 direction = vec3(1,0,0);
 public:
 	SponzaTest(Window* window);
 	~SponzaTest();

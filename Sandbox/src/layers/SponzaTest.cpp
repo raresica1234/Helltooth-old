@@ -40,7 +40,8 @@ SponzaTest::SponzaTest(Window* window)
 		sponzaScene.push_back(htnew DynamicEntity(nullptr, 0.f, 0.f, 0.f));
 		sponzaScene[i]->scale(0.000005f, 0.000005f, 0.000005f);
 	}
-
+	lamp = htnew PointLight(vec3(0, 5000, 0), vec3(0, 0, 1), vec3(0,0,0));
+	lamp2 = htnew PointLight(vec3(0, 5, 0), vec3(1, 0, 0), vec3(0, 0, 0));
 }
 
 SponzaTest::~SponzaTest() {
@@ -52,6 +53,8 @@ SponzaTest::~SponzaTest() {
 
 void SponzaTest::init() {
 	stack.queueUp();
+	pushLight(lamp);
+	pushLight(lamp2);
 }
 
 void SponzaTest::load(bool &loaded) {

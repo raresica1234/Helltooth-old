@@ -24,6 +24,7 @@ namespace ht { namespace graphics {
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;
 
+
 	public:
 		ForwardRenderer(Camera* camera);
 
