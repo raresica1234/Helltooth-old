@@ -1,7 +1,7 @@
 #include "SponzaTest.h"
 
 SponzaTest::SponzaTest(Window* window)
-	:Layer(htnew Camera(window)) {
+	:Layer(htnew Camera(window), true) {
 	
 	VFS::mount("res", "res/Sponza-out");
 
@@ -40,8 +40,10 @@ SponzaTest::SponzaTest(Window* window)
 		sponzaScene.push_back(htnew DynamicEntity(nullptr, 0.f, 0.f, 0.f));
 		sponzaScene[i]->scale(0.000005f, 0.000005f, 0.000005f);
 	}
-	lamp = htnew PointLight(vec3(0, 5000, 0), vec3(0, 0, 1), vec3(0,0,0));
-	lamp2 = htnew PointLight(vec3(0, 5, 0), vec3(1, 0, 0), vec3(0, 0, 0));
+	lamp = htnew PointLight(vec3(500, 0.1f, 0), vec3(0, 0, 1), vec3(0.23, .0025f, 0.f));
+	lamp2 = htnew PointLight(vec3(-500, 0.1f, 0), vec3(1, 0, 0), vec3(0.23, .0025f, 0.f));
+	sun = htnew DirectionalLight(vec3(1, 1, 1), vec3(-0.25, -1, -0.25));
+	sun2 = htnew DirectionalLight(vec3(1, 1, 1), vec3(0.25, -1, 0.25));
 }
 
 SponzaTest::~SponzaTest() {
@@ -49,12 +51,15 @@ SponzaTest::~SponzaTest() {
 	for (int i = 0; i < sponzaScene.size(); i++)
 		del sponzaScene[i];
 	del box;
+	del lamp, lamp2, sun, sun2;
 }
 
 void SponzaTest::init() {
 	stack.queueUp();
 	pushLight(lamp);
 	pushLight(lamp2);
+	pushLight(sun);
+	pushLight(sun2);
 }
 
 void SponzaTest::load(bool &loaded) {

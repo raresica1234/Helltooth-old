@@ -4,13 +4,35 @@ namespace ht { namespace graphics {
 	using namespace utils;
 	using namespace maths;
 
-	String DeferredRenderer::geometryPassVertex;
-	String DeferredRenderer::geometryPassFragment;
+	String DeferredRenderer::geometryPassVertex =
+		#include "shaders/DeferredRendererGeometryPass.vert"
+		;
+
+	String DeferredRenderer::geometryPassFragment = 
+		#include "shaders/DeferredRendererGeometryPass.frag"
+		;
+
+	String DeferredRenderer::basicProgramVert =
+		#include "shaders/DeferredRendererBasic.vert"
+		;
+
+	String DeferredRenderer::basicProgramFrag =
+		#include "shaders/DeferredRendererBasic.frag"
+		;
 
 	DeferredRenderer::DeferredRenderer(Camera* camera) 
-		:Renderer(camera, ShaderManager::Get()->loadProgram(geometryPassVertex, geometryPassFragment, false)), w(WindowManager::Get()->getWindow(0)) {
+		: Renderer(camera, ShaderManager::Get()->loadProgram(geometryPassVertex, geometryPassFragment, false)), w(WindowManager::Get()->getWindow(0)) {
 		Window* w = WindowManager::Get()->getWindow(0);
 		gbuffer = htnew GBuffer();
+
+		unsigned int lightingPassID = ShaderManager::Get()->loadProgram(basicProgramVert, basicProgramFrag, false);
+
+		lightingPass = ShaderManager::Get()->getProgram(lightingPassID);
+
+		Quad* quadModel = htnew Quad();
+		quad = htnew Renderable();
+		quad->loadRawModel(quadModel->getModel());
+		del quadModel;
 	}
 
 	DeferredRenderer::~DeferredRenderer() {
@@ -31,7 +53,7 @@ namespace ht { namespace graphics {
 			return;
 		}
 		else {
-			HT_FATAL("[MasterRenderer] Entity type not supported!");
+			HT_FATAL("[DeferredRenderer] Entity type not supported!");
 		}
 	}
 
@@ -42,7 +64,7 @@ namespace ht { namespace graphics {
 	}
 
 	void DeferredRenderer::render() {
-		gbuffer->bind;
+		gbuffer->bind();
 		program->start();
 		mat4 cameraMatrix = mat4();
 		if (camera)
@@ -77,6 +99,17 @@ namespace ht { namespace graphics {
 
 		program->stop();
 		gbuffer->unbind(w->getWidth(), w->getHeight());
+
+		//lightingPass->start();
+		//quad->prepare();
+		//for (int i = 0; i < 4; i++) {
+		//	glActiveTexture(GL_TEXTURE0 + i);
+		//	glBindTexture(GL_TEXTURE_2D, (*gbuffer)[i]->getID());
+		//}
+		//
+		//quad->render();
+		//lightingPass->stop();
+		//quad->end();
 	}
 
 	void DeferredRenderer::cleanUP() {
@@ -85,5 +118,17 @@ namespace ht { namespace graphics {
 
 	void DeferredRenderer::forceCleanUP() {
 		staticEntities.clear();
+	}
+
+	void DeferredRenderer::reloadTextures() {
+		Renderer::reloadTextures();
+		GLint texIDs[] = {
+			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
+			10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+			30, 31
+		};
+		lightingPass->start();
+		lightingPass->uniform1iv("textures", texIDs, 32);
 	}
 } }

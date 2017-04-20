@@ -113,7 +113,7 @@ namespace ht { namespace graphics {
 
 		void pushLight(Light* light) { lights.push_back(light); }
 
-		Light& operator[](unsigned int id) { return *lights[id]; }
+		Light* operator[](unsigned int id) { return lights[id]; }
 
 		__forceinline void uniform(utils::String name, ShaderProgram* program) {
 			for (unsigned int i = 0; i < lights.size(); i++) {

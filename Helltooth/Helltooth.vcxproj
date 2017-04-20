@@ -153,8 +153,10 @@
     <ClInclude Include="src\ht\assets\ObjLoader.h" />
     <ClInclude Include="src\ht\assets\ResourceStack.h" />
     <ClInclude Include="src\ht\graphics\rendering\2D\Sprite.h" />
+    <ClInclude Include="src\ht\graphics\rendering\GBuffer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Light.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\DeferredRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\ForwardRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\Renderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\Skybox.h" />
@@ -226,8 +228,10 @@
     <ClCompile Include="src\ht\graphics\Layer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Entity.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\GBuffer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\2D\BatchRenderer2D.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\renderers\DeferredRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
@@ -255,8 +259,14 @@
     <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.vert" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererDirectionalLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererPointLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererSpotLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererGeometryPass.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererGeometryPass.vert" />
     <None Include="src\ht\graphics\shaders\default\skybox.frag" />
     <None Include="src\ht\graphics\shaders\default\skybox.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />

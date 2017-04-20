@@ -8,13 +8,29 @@ namespace ht { namespace graphics {
 		#include "shaders/ForwardRendererBasic.vert"
 		;
 
-	String ForwardRenderer::fragmentShader =
-		#include "shaders/ForwardRendererBasic.frag"
+	String ForwardRenderer::fragmentDirectional =
+		#include "shaders/ForwardRendererDirectionalLight.frag"
+		;
+
+	String ForwardRenderer::fragmentPoint = 
+		#include "shaders/ForwardRendererPointLight.frag"
+		;
+
+	String ForwardRenderer::fragmentSpot =
+		#include "shaders/ForwardRendererSpotLight.frag"
 		;
 
 	ForwardRenderer::ForwardRenderer(Camera* camera)
-		: Renderer(camera, ShaderManager::Get()->loadProgram(vertexShader, fragmentShader, false)) {
+		: Renderer(camera, nullptr) {
+		unsigned int directionalID = ShaderManager::Get()->loadProgram(vertexShader, fragmentDirectional, false);
+		unsigned int pointID = ShaderManager::Get()->loadProgram(vertexShader, fragmentPoint, false);
+		unsigned int spotID = ShaderManager::Get()->loadProgram(vertexShader, fragmentSpot, false);
+
+		directional = ShaderManager::Get()->getProgram(directionalID);
+		point = ShaderManager::Get()->getProgram(pointID);
+		spot = ShaderManager::Get()->getProgram(spotID);
 	}
+
 	ForwardRenderer::~ForwardRenderer() {}
 
 	void ForwardRenderer::submit(const Entity* entity) {
@@ -36,9 +52,7 @@ namespace ht { namespace graphics {
 	}
 
 	void ForwardRenderer::prepare() {
-		program->start();
-		if (!program->hasProjection())
-			program->setProjection("projectionMatrix", projectionMatrix);
+		//lololololololo
 	}
 
 	void ForwardRenderer::render() {
@@ -46,38 +60,51 @@ namespace ht { namespace graphics {
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
 
-		program->start();
-		program->uniformMat4("viewMatrix", cameraMatrix);
-		if (!program->hasProjection())
-			program->setProjection("projectionMatrix", projectionMatrix);
-
-
-		if (!dynamicEntities.empty())
-			for (auto& entry : dynamicEntities) {
-				entry.first->prepare();
-				for (Entity& entity : entry.second) {
-					program->uniformMat4("modelMatrix", entity.getModelMatrix());
-					entry.first->render();
-				}
-				entry.first->end();
-			}
-
-		glDepthFunc(GL_EQUAL);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_ONE, GL_ONE);
-
 		for (unsigned int i = 0; i < stack->size(); i++) {
-			Light light = stack->operator[](i);
-			light.uniform("light", program);
+			if (i == 1) {
+				glDepthFunc(GL_EQUAL);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_ONE, GL_ONE);
+			}
+			Light* light = (*stack)[i];
+
+			ShaderProgram* curr = nullptr;
+
+			switch (light->getLightType()) {
+			case LIGHT_TYPE_DIRECTIONAL:
+				curr = directional;
+				break;
+			case LIGHT_TYPE_POINT:
+				curr = point;
+				break;
+			case LIGHT_TYPE_SPOT:
+				curr = spot;
+				break;
+			}
+			curr->start();
+			light->uniform("light", curr);
+
+			curr->uniformMat4("viewMatrix", cameraMatrix);
+
+			if (!curr->hasProjection())
+				curr->setProjection("projectionMatrix", projectionMatrix);
 
 			if (!dynamicEntities.empty())
 				for (auto& entry : dynamicEntities) {
 					entry.first->prepare();
 					for (Entity& entity : entry.second) {
-						program->uniformMat4("modelMatrix", entity.getModelMatrix());
+						curr->uniformMat4("modelMatrix", entity.getModelMatrix());
 						entry.first->render();
 					}
 					entry.first->end();
+				}
+			if(!staticEntities.empty())
+				for (unsigned int i = 0; i < staticEntities.size(); i++) {
+					const StaticEntity* sEntity = staticEntities[i];
+					sEntity->prepare();
+					if (!sEntity->hasOwnShader())
+						curr->uniformMat4("modelMatrix", sEntity->getModelMatrix());
+					
 				}
 		}
 
@@ -94,10 +121,25 @@ namespace ht { namespace graphics {
 					sEntity->render();
 					sEntity->end();
 				}
-				else {
-					program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
-				}
 			}
+	}
+
+	void ForwardRenderer::reloadTextures() {
+		GLint texIDs[] = {
+			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
+			10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+			30, 31
+		};
+
+		directional->start();
+		directional->uniform1iv("textures", texIDs, 32);
+
+		point->start();
+		point->uniform1iv("textures", texIDs, 32);
+
+		spot->start();
+		spot->uniform1iv("textures", texIDs, 32);
 	}
 
 	void ForwardRenderer::cleanUP() {

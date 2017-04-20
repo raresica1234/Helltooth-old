@@ -23,7 +23,8 @@ void main() {
 
 	vs_out.textureCoords = textureCoords;
 	vs_out.position = worldPosition.xyz;
-	vs_out.normal = normals;
+
+	vs_out.normal = (modelMatrix * vec4(normals, 0.0)).xyz;
 }
 
 )"

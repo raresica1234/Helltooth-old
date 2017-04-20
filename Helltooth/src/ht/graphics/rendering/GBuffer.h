@@ -3,6 +3,9 @@
 #include "graphics/window/Window.h"
 #include "graphics/window/WindowManager.h"
 
+#include "graphics/textures/Texture.h"
+#include "graphics/textures/TextureManager.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -16,8 +19,7 @@ namespace ht { namespace graphics {
 
 		GLuint fbo;
 
-		GLuint textures[4]; // position, normal, diffuse, textcoord
-		GLuint depthTexture;
+		std::vector<Texture*> textures;
 
 		int width, height;
 
@@ -27,5 +29,10 @@ namespace ht { namespace graphics {
 
 		void bind();
 		void unbind(const int &width, const int &height);
+
+		Texture* operator[](unsigned int id) { return textures[id]; }
+		__forceinline Texture* getDepthTexture() { return textures[4]; }
+
+		__forceinline unsigned int getSize() { return textures.size() - 1; }
 	};
 } }

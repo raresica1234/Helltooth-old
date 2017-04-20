@@ -19,11 +19,14 @@ namespace ht { namespace graphics {
 	class ForwardRenderer: public Renderer {
 	private:
 		static utils::String vertexShader;
-		static utils::String fragmentShader;
+		static utils::String fragmentDirectional;
+		static utils::String fragmentPoint;
+		static utils::String fragmentSpot;
 
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;
 
+		ShaderProgram *directional, *point, *spot;
 
 	public:
 		ForwardRenderer(Camera* camera);
@@ -36,6 +39,7 @@ namespace ht { namespace graphics {
 		void render() override;
 		void cleanUP() override;
 		void forceCleanUP() override;
+		void reloadTextures() override;
 	};
 
 

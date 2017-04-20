@@ -27,6 +27,9 @@ private:
 	PointLight* lamp;
 	PointLight* lamp2;
 
+	DirectionalLight* sun;
+	DirectionalLight* sun2;
+
 	maths::vec3 direction = vec3(1,0,0);
 public:
 	SponzaTest(Window* window);
@@ -39,5 +42,5 @@ public:
 	void tick() override;
 	void render() override;
 
-	void defaultRenderer() override { /*no renderer -> otherwise memory leak*/ }
+	//void defaultRenderer() override { /*no renderer -> otherwise memory leak*/ }
 };

@@ -58,11 +58,10 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	//
 	//texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
 	//
-	//image = createImage(texture, 200, 500, 400, 400);
-	//image->onClick([](const Event& e) {
-	//	if(e.mouse_buttons[0])
-	//		HT_ERROR("An error occured when you pressed the image! \nStop doing that, idiot!");
-	//});
+	diffuse = createImage((unsigned int)0, 40.f, 40.f, 700.f, 500.f);
+	position = createImage((unsigned int)1, 740.f, 40.f, 700.f, 500.f);
+	//uvs = createImage((unsigned int)2, 40.f, 540.f, 700.f, 500.f);
+	normal = createImage((unsigned int)2, 740.f, 540.f, 700.f, 500.f);
 }
 
 GUI::~GUI() {

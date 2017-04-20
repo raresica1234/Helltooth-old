@@ -2,8 +2,8 @@
 
 namespace ht { namespace graphics { 
 
-	Layer::Layer(Camera* camera)
-		:camera(camera){
+	Layer::Layer(Camera* camera, bool deferred)
+		:camera(camera), deferred(deferred) {
 		defaultRenderer();
 	}
 

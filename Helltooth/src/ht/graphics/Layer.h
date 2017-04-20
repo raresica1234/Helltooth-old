@@ -12,6 +12,7 @@
 
 #include "rendering/renderers/Renderer.h"
 #include "rendering/renderers/ForwardRenderer.h"
+#include "rendering/renderers/DeferredRenderer.h"
 
 #include "rendering/types/DynamicEntity.h"
 #include "rendering/types/StaticEntity.h"
@@ -28,9 +29,10 @@ namespace ht { namespace graphics {
 		maths::mat4 projectionMatrix;
 		Renderer* renderer;
 		Camera* camera;
+		bool deferred = false;
 
 	public:
-		Layer(Camera* camera = nullptr);
+		Layer(Camera* camera = nullptr, bool deferred = false);
 
 		~Layer();
 
@@ -71,7 +73,10 @@ namespace ht { namespace graphics {
 		__forceinline virtual void popLight() { renderer->popLight(); }
 	protected:
 		__forceinline virtual void defaultRenderer() {
-			renderer = htnew ForwardRenderer(camera);
+			if (deferred)
+				renderer = htnew DeferredRenderer(camera);
+			else 
+				renderer = htnew ForwardRenderer(camera);
 		}
 	};
 } }
