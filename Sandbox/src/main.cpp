@@ -36,6 +36,7 @@ public:
 	~Main() {
 
 	}
+
 	void init() override {
 		PushLayer(htnew SponzaTest(window));
 		//PushLayer(htnew Test3D(window));
@@ -44,8 +45,10 @@ public:
 	}
 
 	void update() override {
-		//if (Input::getKey(GLFW_KEY_R))
-		//	compile = true;
+		auto e = Input::Get()->pullEvents();
+		if (e.keys[GLFW_KEY_R])
+			compile = true;
+
 		Application::update();
 	}
 

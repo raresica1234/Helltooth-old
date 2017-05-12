@@ -1,7 +1,8 @@
-R"(#version 330 core
+R"(
+#version 330 core
 
 in DATA {
-	vec4 position;
+	vec3 position;
 	vec2 textureCoords;
 	vec3 normal;
 } fs_in;
@@ -15,7 +16,7 @@ layout (location = 2) out vec4 normals;
 void main() {
 
 	diffuseColor = texture(textures[0], fs_in.textureCoords);
-	position = fs_in.position;
-	normals = vec4(fs_in.normal, 0.0);
+	position = vec4(fs_in.position, 1.0);
+	normals = vec4(fs_in.normal, 1.0);
 }
 )"

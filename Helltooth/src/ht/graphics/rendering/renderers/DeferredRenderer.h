@@ -27,14 +27,14 @@ namespace ht { namespace graphics {
 		static utils::String geometryPassVertex;
 		static utils::String geometryPassFragment;
 		static utils::String basicProgramVert;
-		static utils::String basicProgramFrag;
+		static utils::String directionalLightFrag, pointLightFrag, spotLightFrag;
 
 
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;
 		Window *w;
 
-		ShaderProgram* lightingPass;
+		ShaderProgram *directional, *point, *spot;
 
 		Renderable* quad;
 
@@ -51,6 +51,4 @@ namespace ht { namespace graphics {
 		
 		void reloadTextures() override;
 	};
-
-
 } }

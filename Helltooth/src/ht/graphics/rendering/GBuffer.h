@@ -15,11 +15,10 @@ namespace ht { namespace graphics {
 
 	class GBuffer {
 	private:
-		std::vector<unsigned int> ids;
-
 		GLuint fbo;
 
 		std::vector<Texture*> textures;
+		Texture* depth;
 
 		int width, height;
 
@@ -30,9 +29,16 @@ namespace ht { namespace graphics {
 		void bind();
 		void unbind(const int &width, const int &height);
 
-		Texture* operator[](unsigned int id) { return textures[id]; }
+		Texture* getTexture(unsigned int id) { return textures[id]; }
 		__forceinline Texture* getDepthTexture() { return textures[4]; }
 
-		__forceinline unsigned int getSize() { return textures.size() - 1; }
+		unsigned int getSize() { return textures.size(); }
+
+		__forceinline void bindTextures() {
+			for (int i = 0; i < textures.size(); i++) {
+				glActiveTexture(GL_TEXTURE0 + i);
+				textures[i]->bind();
+			}
+		}
 	};
 } }

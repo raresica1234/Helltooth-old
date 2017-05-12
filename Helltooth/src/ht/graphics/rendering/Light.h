@@ -27,7 +27,7 @@ namespace ht { namespace graphics {
 		__forceinline int getLightType() { return lightType; }
 
 		__forceinline virtual void uniform(utils::String name, ShaderProgram* program) {
-			program->uniform1i((name + ".type").c_str(), (int)lightType);
+			//program->uniform1i((name + ".type").c_str(), (int)lightType);
 			program->uniform3f((name + ".color").c_str(), color);
 		}
 	};

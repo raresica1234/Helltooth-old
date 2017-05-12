@@ -22,7 +22,6 @@ namespace ht { namespace graphics {
 		buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	}
 
-
 	unsigned int BatchRenderer2D::submitTexture(float id) {
 		unsigned int tid = 0;
 		if (id  > 0.5) {
@@ -52,25 +51,25 @@ namespace ht { namespace graphics {
 			tid = (float)submitTexture(e->textureID);
 		maths::vec4 sprite = e->data;
 
-		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y, 1.1f);
 		buffer->uv = e->uvs[0];
 		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y + sprite.w, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x, sprite.y + sprite.w, 1.1f);
 		buffer->uv = e->uvs[1];
 		buffer->textureID = tid;
 		buffer->color = e->color;
 		buffer++;
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y + sprite.w, 1.1f);
 		buffer->uv = e->uvs[2];													 
 		buffer->textureID = tid;
 		buffer->color = e->color;												 
 		buffer++;																 
 		
-		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y, .1f);
+		buffer->position = *transformationBack * maths::vec3(sprite.x + sprite.z, sprite.y, 1.1f);
 		buffer->uv = e->uvs[3];
 		buffer->textureID = tid;
 		buffer->color = e->color;
@@ -109,25 +108,25 @@ namespace ht { namespace graphics {
 				float u1 = glyph->s1;
 				float v1 = glyph->t1;
 
-				buffer->position = *transformationBack * maths::vec3(x0, y0, 0.1f);
+				buffer->position = *transformationBack * maths::vec3(x0, y0, 1.1f);
 				buffer->uv = maths::vec2(u0, v0);
 				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
-				buffer->position = *transformationBack * maths::vec3(x0, y1, 0.1f);
+				buffer->position = *transformationBack * maths::vec3(x0, y1, 1.1f);
 				buffer->uv = maths::vec2(u0, v1);
 				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
-				buffer->position = *transformationBack * maths::vec3(x1, y1, 0.1f);
+				buffer->position = *transformationBack * maths::vec3(x1, y1, 1.1f);
 				buffer->uv = maths::vec2(u1, v1);
 				buffer->textureID = (float)tid;
 				buffer->color = color;
 				buffer++;
 
-				buffer->position = *transformationBack * maths::vec3(x1, y0, 0.1f);
+				buffer->position = *transformationBack * maths::vec3(x1, y0, 1.1f);
 				buffer->uv = maths::vec2(u1, v0);
 				buffer->textureID = (float)tid;
 				buffer->color = color;
@@ -212,6 +211,7 @@ namespace ht { namespace graphics {
 		ibo->unbindIBO();
 
 		vao.unbindVAO();
+		indexCount = 0;
 	}
 
 

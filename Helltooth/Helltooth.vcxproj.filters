@@ -40,8 +40,8 @@
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothCubemap.cpp" />
-    <ClCompile Include="src\ht\graphics\rendering\renderers\DeferredRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\GBuffer.cpp" />
+    <ClCompile Include="src\ht\graphics\rendering\renderers\DeferredRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -111,8 +111,8 @@
     <ClInclude Include="src\ht\graphics\rendering\Light.h" />
     <ClInclude Include="src\ht\graphics\rendering\Skybox.h" />
     <ClInclude Include="src\ht\assets\HelltoothCubemap.h" />
-    <ClInclude Include="src\ht\graphics\rendering\renderers\DeferredRenderer.h" />
     <ClInclude Include="src\ht\graphics\rendering\GBuffer.h" />
+    <ClInclude Include="src\ht\graphics\rendering\renderers\DeferredRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />
@@ -124,8 +124,10 @@
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererPointLight.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererSpotLight.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.vert" />
-    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererGeometryPass.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererGeometryPass.vert" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererDirectionalLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererPointLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererSpotLight.frag" />
   </ItemGroup>
 </Project>

@@ -259,8 +259,10 @@
     <ClCompile Include="src\ht\utils\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererDirectionalLight.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererBasic.vert" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererPointLight.frag" />
+    <None Include="src\ht\graphics\rendering\renderers\shaders\DeferredRendererSpotLight.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererBasic.vert" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererDirectionalLight.frag" />
     <None Include="src\ht\graphics\rendering\renderers\shaders\ForwardRendererPointLight.frag" />

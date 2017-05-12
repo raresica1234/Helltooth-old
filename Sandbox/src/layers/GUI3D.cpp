@@ -58,10 +58,9 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	//
 	//texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
 	//
-	diffuse = createImage((unsigned int)0, 40.f, 40.f, 700.f, 500.f);
-	position = createImage((unsigned int)1, 740.f, 40.f, 700.f, 500.f);
-	//uvs = createImage((unsigned int)2, 40.f, 540.f, 700.f, 500.f);
-	normal = createImage((unsigned int)2, 740.f, 540.f, 700.f, 500.f);
+	diffuse = createImage((unsigned int)0, 0.f, 100.f, 225.f, 175.f);
+	position = createImage((unsigned int)1, 0.f, 275.f, 225.f, 175.f);
+	normal = createImage((unsigned int)2, 0.f, 450.f, 225.f, 175.f);
 }
 
 GUI::~GUI() {

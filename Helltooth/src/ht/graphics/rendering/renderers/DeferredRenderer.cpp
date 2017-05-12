@@ -16,8 +16,16 @@ namespace ht { namespace graphics {
 		#include "shaders/DeferredRendererBasic.vert"
 		;
 
-	String DeferredRenderer::basicProgramFrag =
-		#include "shaders/DeferredRendererBasic.frag"
+	String DeferredRenderer::directionalLightFrag =
+		#include "shaders/DeferredRendererDirectionalLight.frag"
+		;
+
+	String DeferredRenderer::pointLightFrag =
+		#include "shaders/DeferredRendererPointLight.frag"
+		;
+
+	String DeferredRenderer::spotLightFrag =
+		#include "shaders/DeferredRendererSpotLight.frag"
 		;
 
 	DeferredRenderer::DeferredRenderer(Camera* camera) 
@@ -25,14 +33,19 @@ namespace ht { namespace graphics {
 		Window* w = WindowManager::Get()->getWindow(0);
 		gbuffer = htnew GBuffer();
 
-		unsigned int lightingPassID = ShaderManager::Get()->loadProgram(basicProgramVert, basicProgramFrag, false);
-
-		lightingPass = ShaderManager::Get()->getProgram(lightingPassID);
+		unsigned int dirID = ShaderManager::Get()->loadProgram(basicProgramVert, directionalLightFrag, false);
+		unsigned int pointID = ShaderManager::Get()->loadProgram(basicProgramVert, pointLightFrag, false);
+		unsigned int spotID = ShaderManager::Get()->loadProgram(basicProgramVert, spotLightFrag, false);
+		directional = ShaderManager::Get()->getProgram(dirID);
+		point = ShaderManager::Get()->getProgram(pointID);
+		spot = ShaderManager::Get()->getProgram(spotID);
 
 		Quad* quadModel = htnew Quad();
 		quad = htnew Renderable();
 		quad->loadRawModel(quadModel->getModel());
+
 		del quadModel;
+		this->reloadTextures();
 	}
 
 	DeferredRenderer::~DeferredRenderer() {
@@ -58,9 +71,7 @@ namespace ht { namespace graphics {
 	}
 
 	void DeferredRenderer::prepare() {
-		program->start();
-		if (!program->hasProjection())
-			program->setProjection("projectionMatrix", projectionMatrix);
+		//lololololo
 	}
 
 	void DeferredRenderer::render() {
@@ -70,17 +81,22 @@ namespace ht { namespace graphics {
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
 		program->uniformMat4("viewMatrix", cameraMatrix);
-		if (!dynamicEntities.empty())
+
+		if (!program->hasProjection())
+			program->setProjection("projectionMatrix", projectionMatrix);
+
+		if (!dynamicEntities.empty()) {
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
 			for (auto& entry : dynamicEntities) {
 				entry.first->prepare();
 				for (Entity& entity : entry.second) {
 					program->uniformMat4("modelMatrix", entity.getModelMatrix());
-					if (!program->hasProjection())
-						program->setProjection("projectionMatrix", projectionMatrix);
 					entry.first->render();
 				}
-				entry.first->end();
 			}
+			glDisable(GL_CULL_FACE);
+		}
 
 		if (!staticEntities.empty())
 			for (unsigned int i = 0; i < staticEntities.size(); i++) {
@@ -90,26 +106,45 @@ namespace ht { namespace graphics {
 					sEntity->setProjection(projectionMatrix);
 					sEntity->setViewMatrix(cameraMatrix);
 					sEntity->render();
-					sEntity->end();
 				}
 				else {
 					program->uniformMat4("modelMatrix", sEntity->getModelMatrix());
 				}
 			}
-
-		program->stop();
+		
 		gbuffer->unbind(w->getWidth(), w->getHeight());
-
-		//lightingPass->start();
-		//quad->prepare();
-		//for (int i = 0; i < 4; i++) {
-		//	glActiveTexture(GL_TEXTURE0 + i);
-		//	glBindTexture(GL_TEXTURE_2D, (*gbuffer)[i]->getID());
-		//}
-		//
-		//quad->render();
-		//lightingPass->stop();
-		//quad->end();
+		quad->prepare();
+		
+		gbuffer->bindTextures();
+		
+		for (unsigned int i = 0; i < stack->size(); i++) {
+			if (i == 1) {
+				glDepthFunc(GL_EQUAL);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_ONE, GL_ONE);
+			}
+			Light* light = stack->operator[](i);
+			ShaderProgram* curr = nullptr;
+		
+			switch (light->getLightType()) {
+			case LIGHT_TYPE_DIRECTIONAL:
+				curr = directional;
+				break;
+			case LIGHT_TYPE_POINT:
+				curr = point;
+				break;
+			case LIGHT_TYPE_SPOT:
+				curr = spot;
+				break;
+			}
+			curr->start();
+		
+			light->uniform("light", curr);
+			quad->render();
+		}
+		
+		glDisable(GL_BLEND);
+		glDepthFunc(GL_LESS);
 	}
 
 	void DeferredRenderer::cleanUP() {
@@ -123,12 +158,16 @@ namespace ht { namespace graphics {
 	void DeferredRenderer::reloadTextures() {
 		Renderer::reloadTextures();
 		GLint texIDs[] = {
-			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
-			10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-			30, 31
+			0,  1,  2
 		};
-		lightingPass->start();
-		lightingPass->uniform1iv("textures", texIDs, 32);
+
+		directional->start();
+		directional->uniform1iv("textures", texIDs, 3);
+
+		point->start();
+		point->uniform1iv("textures", texIDs, 3);
+
+		spot->start();
+		spot->uniform1iv("textures", texIDs, 3);
 	}
 } }

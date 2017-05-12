@@ -24,6 +24,7 @@
 
 #include "graphics/rendering/renderers/Renderer.h"
 #include "graphics/rendering/renderers/ForwardRenderer.h"
+#include "graphics/rendering/renderers/DeferredRenderer.h"
 
 #include "graphics/rendering/renderers/2D/BatchRenderer2D.h"
 

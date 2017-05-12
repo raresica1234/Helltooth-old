@@ -5,6 +5,11 @@ namespace ht { namespace graphics {
 
 	WindowManager* WindowManager::wManager = nullptr;
 
+	WindowManager::~WindowManager() {
+		for (Window* window : windows)
+			del window;
+	}
+	
 	unsigned int WindowManager::createWindow(String title, const int width, const int height) {
 		windows.push_back(htnew Window(title, width, height));
 		return windows.size() - 1;
@@ -22,9 +27,5 @@ namespace ht { namespace graphics {
 		return windows[id];
 	}
 
-	void WindowManager::cleanUP() {
-		for (Window* window : windows)
-			del window;
-	}
 } }
 

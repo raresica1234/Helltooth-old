@@ -33,10 +33,10 @@ namespace ht { namespace graphics {
 	protected:
 		void init() {
 			data = htnew GLfloat[4 * 3]{
-				-1.0f, -1.0f, 0.0f,
-				 1.0f, -1.0f, 0.0f,
-				 1.0f,  1.0f, 0.0f,
-				-1.0f,  1.0f, 0.0f
+				-1.0f, -1.0f, 0.5f,
+				 1.0f, -1.0f, 0.5f,
+				 1.0f,  1.0f, 0.5f,
+				-1.0f,  1.0f, 0.5f
 			};
 
 			textureCoords = htnew GLfloat[4 * 2]{

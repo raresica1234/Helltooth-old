@@ -47,6 +47,7 @@ namespace ht { namespace graphics {
 		BatchRenderer2D();
 		~BatchRenderer2D();
 
+		
 		void begin();
 		void submit(Sprite* e);
 		void end();

@@ -1,4 +1,5 @@
-R"(#version 330 core
+R"(
+#version 330 core
 
 in vec2 textureCoord;
 in vec4 color;

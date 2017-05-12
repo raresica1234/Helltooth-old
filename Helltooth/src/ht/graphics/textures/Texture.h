@@ -36,6 +36,8 @@ namespace ht { namespace graphics {
 
 		void createAttachment(int width, int height, int type);
 
+		void createGBufferTexture(int width, int height);
+
 		//getting id
 		inline GLuint getID() const { return textureID; }
 

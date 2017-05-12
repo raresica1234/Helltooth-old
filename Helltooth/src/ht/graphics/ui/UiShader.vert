@@ -1,4 +1,5 @@
-R"(#version 330 core
+R"(
+#version 330 core
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 uvs;
@@ -14,7 +15,8 @@ out float texID;
 
 void main() {
 
-	gl_Position = projectionMatrix * vec4(position, 1.0);
+	vec4 pos = projectionMatrix * vec4(position, 1.0);
+	gl_Position = vec4(pos.xy, 0.0, 1.0);
 
 	textureCoord = uvs;
 	color = colors;

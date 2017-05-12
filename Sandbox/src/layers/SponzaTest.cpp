@@ -7,8 +7,6 @@ SponzaTest::SponzaTest(Window* window)
 
 	Layer::setMatrix(mat4::createPerspective(70.0f, 0.1f, 10000.0f, WIDTH / HEIGHT));
 
-	glEnable(GL_DEPTH_TEST);
-
 	String components[] = {
 		String("arch"), String("background"), String("blue_curtains"), String("blue_fabric"),
 		String("bricks"), String("celling"), String("chains"), String("column_a"),
@@ -19,7 +17,7 @@ SponzaTest::SponzaTest(Window* window)
 	};
 
 	String resources[] = {
-		String("model.obj"), String("albedo.tga"), String("normal.tga") , String("metallic.tga"), String("roughness.tga")
+		String("model.obj"), String("albedo.tga")//, String("normal.tga") , String("metallic.tga"), String("roughness.tga")
 	};
 
 	//skybox
