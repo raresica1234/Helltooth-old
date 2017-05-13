@@ -16,6 +16,29 @@ namespace ht { namespace graphics {
 		}
 		programID = compile();
 		projection = false;
+
+		std::vector<char> stringBuffer;
+
+		GLint numUniforms, maxNameLength = 0;
+		glGetProgramiv(programID, GL_ACTIVE_UNIFORMS, &numUniforms);
+		glGetProgramiv(programID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxNameLength);
+
+		stringBuffer.resize(maxNameLength, 0);
+		for (GLint i = 0; i < numUniforms; i++) {
+			GLint nameLength = 0;
+			GLint size = 0; // Used for how many array elements uniform contains
+			GLenum type = 0; // Specifies uniform type. float, int, uint, double, vec2, vec3 etc..
+
+			glGetActiveUniform(programID, i, maxNameLength, &nameLength, &size, &type, (GLchar*)stringBuffer.data());
+			String name = String(&stringBuffer[0]);
+
+			if (name.substring(name.size - 4) == String("[0]")) {
+				name = name.cut(4);
+			}
+
+			int location = glGetUniformLocation(programID, name.c_str());
+			locations[name] = location;
+		}
 	}
 
 	ShaderProgram::~ShaderProgram() {
@@ -89,25 +112,6 @@ namespace ht { namespace graphics {
 	void ShaderProgram::start() const { glUseProgram(programID); }
 	void ShaderProgram::stop() const { glUseProgram(0); }
 
-	GLint ShaderProgram::uniformLocation(const char* location) {
-		return glGetUniformLocation(programID, location);
-	}
-
-	void ShaderProgram::uniformBool(const char* name, const bool& value) { glUniform1f(uniformLocation(name), value); }
-
-	void ShaderProgram::uniform1f(const char *name, const float &value) { glUniform1f(uniformLocation(name), value); }
-	void ShaderProgram::uniform1i(const char *name, const int &value) { glUniform1i(uniformLocation(name), value); }
-	void ShaderProgram::uniform2f(const char *name, const vec2 &value) { glUniform2f(uniformLocation(name), value.x, value.y); }
-	void ShaderProgram::uniform3f(const char *name, const vec3 &value) { glUniform3f(uniformLocation(name), value.x, value.y, value.z); }
-	void ShaderProgram::uniform4f(const char *name, const vec4 &value) { glUniform4f(uniformLocation(name), value.x, value.y, value.z, value.w); }
-	void ShaderProgram::uniformMat4(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); }
-
-	void ShaderProgram::uniform1iv(const char *name, const int* value, const short &count) {
-		glUniform1iv(uniformLocation(name), count, value);
-	}
-
-	void ShaderProgram::setProjection(const char *name, const mat4 &value) { glUniformMatrix4fv(uniformLocation(name), 1, GL_FALSE, value.elements); projection = true; }
-	
 	void ShaderProgram::reCompile() {
 		stop();
 		glDeleteProgram(programID);

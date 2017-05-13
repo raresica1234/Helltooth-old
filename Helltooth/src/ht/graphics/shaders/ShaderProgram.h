@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 #include <math.h>
+#include <unordered_map>
 
 #include "tools/VFS/VFS.h"
 
@@ -26,8 +27,11 @@ namespace ht { namespace graphics {
 		
 		bool projection;
 		bool path;
+
 		//program id
 		GLuint programID;
+
+		std::unordered_map<utils::String, unsigned int> locations;
 
 	public:
 		//Constructor(vertex shader path, fragment shader path)
@@ -36,17 +40,15 @@ namespace ht { namespace graphics {
 
 		//Uniforms
 
-		void uniform1f(const char *name, const float &value);
-		void uniform1i(const char *name, const int &value);
-		void uniformBool(const char *name, const bool &value);
-		void uniform2f(const char *name, const ht::maths::vec2 &value);
-		void uniform3f(const char *name, const ht::maths::vec3 &value);
-		void uniform4f(const char *name, const ht::maths::vec4 &value);
-		void uniformMat4(const char *name, const ht::maths::mat4 &value);
-		void uniform1iv(const char *name, const int* value, const short &count);
-		
-		//Sets the projection matrix
-		void setProjection(const char *name, const ht::maths::mat4 &value);
+		__forceinline void uniformBool(utils::String name, const bool& value) { glUniform1f(locations[name], value); }
+		__forceinline void uniform1f(utils::String name, const float &value) { glUniform1f(locations[name], value); }
+		__forceinline void uniform1i(utils::String name, const int &value) { glUniform1i(locations[name], value); }
+		__forceinline void uniform2f(utils::String name, const maths::vec2 &value) { glUniform2f(locations[name], value.x, value.y); }
+		__forceinline void uniform3f(utils::String name, const maths::vec3 &value) { glUniform3f(locations[name], value.x, value.y, value.z); }
+		__forceinline void uniform4f(utils::String name, const maths::vec4 &value) { glUniform4f(locations[name], value.x, value.y, value.z, value.w); }
+		__forceinline void uniformMat4(utils::String name, const maths::mat4 &value) { glUniformMatrix4fv(locations[name], 1, GL_FALSE, value.elements); }
+		__forceinline void uniform1iv(utils::String name, const int* value, const short &count) { glUniform1iv(locations[name], count, value); }
+		__forceinline void setProjection(utils::String name, const maths::mat4 &value) { glUniformMatrix4fv(locations[name], 1, GL_FALSE, value.elements); projection = true; }
 
 		//Starting the program
 		void start() const;
@@ -62,6 +64,5 @@ namespace ht { namespace graphics {
 
 	protected:
 		int compile();
-		GLint uniformLocation(const char* name);
 	};
 } } 

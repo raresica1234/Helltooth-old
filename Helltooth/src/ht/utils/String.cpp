@@ -10,6 +10,7 @@ namespace ht { namespace utils {
 		size = strlen(str) + 1;
 		data = htnew char[size];
 		memcpy(data, str, size);
+		hash_value = 0;
 	}
 
 	String::String(const String& other) {
@@ -19,6 +20,7 @@ namespace ht { namespace utils {
 		size = other.size;
 		data = htnew char[size];
 		memcpy(data, other.data, size);
+		hash_value = 0;
 	}
 
 
@@ -34,6 +36,7 @@ namespace ht { namespace utils {
 		data = htnew char[size];
 		memcpy(data, temp, size);
 		del[] temp;
+		hash_value = 0;
 	}
 	
 	void String::append(const char str) {
@@ -46,6 +49,7 @@ namespace ht { namespace utils {
 		data = htnew char[size];
 		memcpy(data, temp, size);
 		del[] temp;
+		hash_value = 0;
 	}
 
 	void String::append(const String &other) {
@@ -58,6 +62,7 @@ namespace ht { namespace utils {
 		data = htnew char[size];
 		memcpy(data, temp, size);
 		del[] temp;
+		hash_value = 0;
 	}
 
 	bool String::operator!=(const String& other) {
@@ -113,6 +118,21 @@ namespace ht { namespace utils {
 		return strings;
 	}
 
+	#define STRING_HASH_A 54059
+	#define STRING_HASH_B 76963
+	#define STRING_HASH_C 86969
+	#define STRING_HASH_FIRSTH 37
 
+	unsigned int String::hash() const {
+		if (hash_value == 0) {
+			unsigned h = STRING_HASH_FIRSTH;
+			for (unsigned int i = 0; i < size; i++) {
+				h = (h * STRING_HASH_A) ^ (data[i] * STRING_HASH_B);
+			}
+
+			hash_value = h % STRING_HASH_C;
+		}
+		return hash_value; // or return h % C;
+	}
 } }
 

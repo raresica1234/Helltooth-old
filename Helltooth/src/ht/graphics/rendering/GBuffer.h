@@ -35,7 +35,7 @@ namespace ht { namespace graphics {
 		unsigned int getSize() { return textures.size(); }
 
 		__forceinline void bindTextures() {
-			for (int i = 0; i < textures.size(); i++) {
+			for (unsigned int i = 0; i < textures.size(); i++) {
 				glActiveTexture(GL_TEXTURE0 + i);
 				textures[i]->bind();
 			}

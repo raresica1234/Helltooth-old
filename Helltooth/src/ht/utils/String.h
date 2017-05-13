@@ -14,6 +14,8 @@ namespace ht { namespace utils {
 	protected:
 		char* data = nullptr;
 
+		mutable unsigned int hash_value = 0;
+
 	public:
 		unsigned int size = 0;
 
@@ -40,6 +42,7 @@ namespace ht { namespace utils {
 			data = htnew char[1];
 			data[0] = 0;
 			size = 1;
+			hash_value = 0;
 		}
 
 		__forceinline void operator=(const String& other) {
@@ -50,10 +53,10 @@ namespace ht { namespace utils {
 				String();
 				return;
 			}
-			while (other.data[size] != '\0')
-				size++;
+			size = strlen(other.data);
 			data = htnew char[++size];
 			memcpy(data, other.data, size);
+			hash_value = 0;
 		}
 
 		__forceinline void operator=(const char* str) {
@@ -64,6 +67,7 @@ namespace ht { namespace utils {
 			data = htnew char[size];
 			memcpy(data, str, size);
 			data[size - 1] = 0;
+			hash_value = 0;
 		}
 
 		__forceinline void operator+=(char &other) { append(other); }
@@ -79,25 +83,27 @@ namespace ht { namespace utils {
 		__forceinline String substring(unsigned int pos) const { 
 			char* a = htnew char[size - pos];
 			memcpy(a, data + pos, size - pos);
+			a[size - pos - 1] = 0;
 			return String(a); 
 		}
+
+		__forceinline String cut(unsigned int pos) const {
+			char* a = htnew char[size - pos + 1];
+			memcpy(a, data, size - pos);
+			a[size - pos] = 0;
+			return String(a);
+		}
+
+		unsigned int hash() const;
 	};
 } }
 
-#define STRING_HASH_A 54059
-#define STRING_HASH_B 76963
-#define STRING_HASH_C 86969
-#define STRING_HASH_FIRSTH 37
 
 namespace std {
 	template<>
 	struct hash<ht::utils::String> {
 		size_t operator()(const ht::utils::String &value) const {
-			unsigned h = STRING_HASH_FIRSTH;
-			for (unsigned int i = 0; i < value.size; i++) {
-				h = (h * STRING_HASH_A) ^ (value[i] * STRING_HASH_B);
-			}
-			return h % STRING_HASH_C; // or return h % C;
+			return value.hash();
 		}
 	};
 }
