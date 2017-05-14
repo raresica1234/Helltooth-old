@@ -1,6 +1,6 @@
 # Helltooth
 
-![Helltooth](/logo/logo.jpg?raw=true "Helltooth")
+![Helltooth](/logo/logo.png?raw=true "Helltooth")
 
 [![Build status](https://ci.appveyor.com/api/projects/status/yqes1a5gyu52ggtt?svg=true)](https://ci.appveyor.com/project/raresica1234/helltooth)
 
