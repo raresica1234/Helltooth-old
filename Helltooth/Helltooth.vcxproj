@@ -151,6 +151,7 @@
     <ClInclude Include="src\ht\assets\HelltoothModel.h" />
     <ClInclude Include="src\ht\assets\HelltoothTexture.h" />
     <ClInclude Include="src\ht\assets\ObjLoader.h" />
+    <ClInclude Include="src\ht\assets\ResourceManager.h" />
     <ClInclude Include="src\ht\assets\ResourceStack.h" />
     <ClInclude Include="src\ht\graphics\rendering\2D\Sprite.h" />
     <ClInclude Include="src\ht\graphics\rendering\GBuffer.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\assets\ObjLoader.cpp" />
+    <ClCompile Include="src\ht\assets\ResourceManager.cpp" />
     <ClCompile Include="src\ht\assets\ResourceStack.cpp" />
     <ClCompile Include="src\ht\graphics\API.cpp" />
     <ClCompile Include="src\ht\graphics\Camera.cpp" />
@@ -273,6 +275,7 @@
     <None Include="src\ht\graphics\shaders\default\skybox.vert" />
     <None Include="src\ht\graphics\ui\UiShader.frag" />
     <None Include="src\ht\graphics\ui\UiShader.vert" />
+    <None Include="src\ht\Logo" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

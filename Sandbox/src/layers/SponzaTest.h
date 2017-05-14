@@ -20,7 +20,6 @@ class SponzaTest : public Layer {
 private:
 	std::vector<DynamicEntity*> sponzaScene;
 	Skybox* box;
-	ResourceStack stack;
 
 	bool loaded = false;
 
@@ -36,7 +35,6 @@ public:
 	~SponzaTest();
 
 	void init() override;
-	void load(bool &loaded) override;
 
 	void update(const utils::Event& e) override;
 	void tick() override;

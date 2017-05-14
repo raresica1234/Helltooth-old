@@ -41,9 +41,9 @@ namespace ht { namespace graphics {
 			if (sManager) {
 				del sManager;	
 				sManager = nullptr;
-				return;
-			}
-			HT_ERROR("[ShaderManager] Deletion not possible, ShaderManager not initialized");
+			} 
+			else
+				HT_ERROR("[ShaderManager] Deletion not possible, ShaderManager not initialized!");
 		}
 
 	};

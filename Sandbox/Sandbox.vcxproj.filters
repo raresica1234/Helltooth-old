@@ -12,12 +12,10 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\layers\Test3D.cpp" />
     <ClCompile Include="src\layers\GUI3D.cpp" />
     <ClCompile Include="src\layers\SponzaTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\layers\Test3D.h" />
     <ClInclude Include="src\layers\GUI3D.h" />
     <ClInclude Include="src\layers\SponzaTest.h" />
   </ItemGroup>

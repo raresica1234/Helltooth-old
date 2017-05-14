@@ -32,6 +32,8 @@ namespace ht { namespace assets {
 	public:
 		static const graphics::Texture* loadTextureFromFile(utils::String path);
 
+		static const graphics::Texture* loadTextureFromMemory(unsigned char* array, unsigned int size);
+
 		static TextureData* loadTextureDataFromFile(utils::String path);
 
 		static graphics::RawModel* loadModelFromFile(utils::String path);

@@ -51,6 +51,36 @@ namespace ht { namespace assets {
 		return texture;
 	}
 
+	const graphics::Texture* Asset::loadTextureFromMemory(unsigned char* array, unsigned int size) {
+		FIMEMORY* data = FreeImage_OpenMemory(array, size);
+		FREE_IMAGE_FORMAT format = FreeImage_GetFileTypeFromMemory(data, size);
+
+		FIBITMAP* dib = nullptr;
+		
+		dib = FreeImage_LoadFromMemory(format, data);
+		
+		BYTE* pixels = FreeImage_GetBits(dib);
+
+		GLsizei width = FreeImage_GetWidth(dib);
+		GLsizei height = FreeImage_GetHeight(dib);
+		GLsizei bpp = FreeImage_GetBPP(dib);
+
+		long long bmpsize = width * height * (bpp / 8);
+
+		BYTE* result = htnew BYTE[bmpsize];
+		memcpy(result, pixels, bmpsize);
+
+		FreeImage_Unload(dib);
+		FreeImage_CloseMemory(data);
+
+		const Texture* texture = htnew Texture();
+		texture->loadPixelArray(result, width, height, bpp);
+
+		del[] result;
+		HT_INFO("[Asset] Texture loaded from memory!");
+		return texture;
+	}
+
 	TextureData* Asset::loadTextureDataFromFile(ht::utils::String path) {
 		String fileName = utils::FileUtils::changeExtension(path, "httexture");
 

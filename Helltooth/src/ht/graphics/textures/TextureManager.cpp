@@ -32,5 +32,9 @@ namespace ht { namespace graphics {
 		return textures[id];
 	}
 
-
+	unsigned int TextureManager::createTextureFromMemory(unsigned char* array, long long size) {
+		const Texture* tex = Asset::loadTextureFromMemory(array, size);
+		textures.push_back(tex);
+		return textures.size() - 1;
+	}
 } }

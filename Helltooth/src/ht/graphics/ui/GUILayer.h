@@ -28,7 +28,7 @@ namespace ht { namespace graphics {
 		unsigned int width, height;
 
 	public:
-		GUILayer(const unsigned int &width, const unsigned int &height);
+		GUILayer(const unsigned int width, const unsigned int height);
 		~GUILayer();
 
 		void setMatrix(maths::mat4 &projectionMatrix) override;
@@ -83,8 +83,6 @@ namespace ht { namespace graphics {
 				item->submit(renderer);
 			}
 		}
-
-		__forceinline void load(bool &loaded) override { loaded = true; }
 
 		__forceinline void render() override {
 			renderer->end();

@@ -10,7 +10,7 @@ namespace ht { namespace graphics {
 							#include "UiShader.frag"
 							;
 
-	GUILayer::GUILayer(const unsigned int &width, const unsigned int &height)
+	GUILayer::GUILayer(const unsigned int width, const unsigned int height)
 		: Layer(nullptr), width(width), height(height) {
 		renderer = htnew BatchRenderer2D();
 		unsigned int id = API::createShader(GUILayer::uiShaderVert, GUILayer::uiShaderFrag, false);

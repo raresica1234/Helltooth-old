@@ -1,10 +1,12 @@
 #pragma once
 
+#include "Logo"
 #pragma region Helltooth
 #pragma region assets
 #include "assets/Asset.h"
 #include "assets/ObjLoader.h"
 #include "assets/ResourceStack.h"
+#include "assets/ResourceManager.h"
 
 #include "assets/FileSystem/FileSystem.h"
 #pragma endregion
@@ -78,32 +80,28 @@
 #pragma endregion
 #pragma endregion Engine includes
 
+#pragma region Cool macros
+#define Stack(x) (*stack)[x]
+#pragma endregion
+
 class Application {
-private:
-	ht::graphics::Layer* loadingScreen;
-	ht::graphics::DynamicEntity* e;
-	ht::graphics::ShaderProgram* program;
-	ht::graphics::DynamicShader vertex;
-	ht::graphics::DynamicShader fragment;
-	
 protected:
 	std::vector<ht::graphics::Layer*> layers;
 	ht::graphics::Window* window;
 	ht::utils::FpsCounter *counter;
 
-	bool loaded[50];
-
-	bool loadeds = false;
+	ht::graphics::GUILayer* layer;
+	ht::graphics::ui::Image* logoImage;
 
 public:
 #pragma region Application
-	Application(const char* title, int width, int height, int MAX_UPS = 60)
-		:vertex(330, true), fragment(330, true) {
+	Application(const char* title, int width, int height, int MAX_UPS = 60) {
 		ht::graphics::WindowManager::Init();
 		ht::graphics::TextureManager::Init();
 		ht::graphics::ShaderManager::Init();
-		ht::assets::FileSystem::Init();
 		ht::graphics::FontManager::Init();
+		ht::assets::ResourceManager::Init();
+		ht::assets::FileSystem::Init();
 		ht::utils::Input::Init();
 
 		HT_WARN("%s", std::string(" _   _      _ _ _              _   _     "));
@@ -115,12 +113,14 @@ public:
 		unsigned int wID = ht::graphics::API::createWindow(title, width, height);
 		window = ht::graphics::WindowManager::Get()->getWindow(wID);
 		counter = htnew ht::utils::FpsCounter(MAX_UPS);
+		layer = htnew ht::graphics::GUILayer(1, 1);
+		layer->setMatrix(ht::maths::mat4::createOrthographic(0, 1, 1, 0, 1.1f, -1.1f));
+		unsigned int id = ht::graphics::TextureManager::Get()->createTextureFromMemory(veryfuckinglongnamesoitdoesntconflictwithotherfiles,
+			sizeof(veryfuckinglongnamesoitdoesntconflictwithotherfiles));
+		logoImage = layer->createImage(id, 0, 0, 1, 1);
 	}
 
 	~Application() {
-		del e;
-		del program;
-		del counter;
 		while (!layers.empty()) {
 			del PopLayer();
 		}
@@ -145,59 +145,23 @@ public:
 			window->update();
 		}
 
+		ht::utils::Input::End();
+		ht::assets::FileSystem::End();
+		ht::assets::ResourceManager::End();
 		ht::graphics::FontManager::End();
 		ht::graphics::ShaderManager::End();
 		ht::graphics::TextureManager::End();
 		ht::graphics::WindowManager::End();
-		ht::assets::FileSystem::End();
 	}
 
 	virtual void init() {
-		vertex.addInputVariable("position", ht::graphics::VEC3, ht::graphics::POSITIONS);
-		vertex.addInputVariable("textureCoords", ht::graphics::VEC2, ht::graphics::TEXTURECOORDINATES);
-		vertex.addOutputVariable("textureCoordinates", ht::graphics::VEC2);
-
-		vertex.addVariable("projectionMatrix", ht::graphics::MAT4, ht::graphics::UNIFORM);
-		vertex.addVariable("viewMatrix", ht::graphics::MAT4, ht::graphics::UNIFORM);
-		vertex.addVariable("modelMatrix", ht::graphics::MAT4, ht::graphics::UNIFORM);
-
-		vertex.addMainCode("gl_Position = vec4(position.x *2, position.y *2, position.z, 1.0)");
-		vertex.addMainCode("textureCoordinates.x = textureCoords.x");
-		vertex.addMainCode("textureCoordinates.y = textureCoords.y");
-
-		fragment.addInputVariable("textureCoordinates", ht::graphics::VEC2, ht::graphics::FRAGMENT);
-		fragment.addVariable("textures[32]", ht::graphics::SAMPLER2D, ht::graphics::UNIFORM);
-
-		fragment.addOutputVariable("color", ht::graphics::VEC4);
-
-		fragment.addMainCode("color = texture(textures[0], textureCoordinates)");
-
-		program = htnew ht::graphics::ShaderProgram(vertex.toString(), fragment.toString(), false);
-		
-		loadingScreen = htnew ht::graphics::Layer();
-		loadingScreen->setMatrix(ht::maths::mat4::createOrthographic(-1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f));
-
-		auto r = htnew ht::graphics::Renderable();
-
-		ht::graphics::Cube* cube = htnew ht::graphics::Cube();
-		r->loadRawModel(cube->getModel());
-		r->addTexture(ht::graphics::TextureManager::Get()->createTextureFromFile("../Sandbox/res/textures/logo.jpg"));
-
-		e = htnew ht::graphics::DynamicEntity(r);
-		e->move(ht::maths::vec3(0.0f, 0.0f, 1.0f));
-
-		if (!loaded) {
-			loadingScreen->submit(e);
-			loadingScreen->render();
-			loadingScreen->cleanUP();
-		}
 	}
 
 	virtual void render() {
-		if (!allLoaded()) {
-			loadingScreen->submit(e);
-			loadingScreen->render();
-			loadingScreen->cleanUP();
+		if (!ht::assets::ResourceManager::Get()->isAllLoaded()) {
+			layer->begin();
+			layer->submitGUI();
+			layer->render();
 			return;
 		}
 
@@ -207,10 +171,9 @@ public:
 	}
 
 	virtual void update() {
-		if(!allLoaded())
+		if(!ht::assets::ResourceManager::Get()->isAllLoaded())
 			for (unsigned int i = 0; i < layers.size(); i++)
-				if (loaded[i] != true)
-					layers[i]->load(loaded[i]);		
+					layers[i]->load();
 		
 		const ht::utils::Event& e = ht::utils::Input::Get()->pullEvents();
 
@@ -242,16 +205,5 @@ public:
 				break;
 			}
 	}
-
-	private:
-		bool allLoaded() {
-			if (loadeds)
-				return loadeds;
-
-			loadeds = true;
-			for (unsigned int i = 0; i < layers.size(); i++)
-				loadeds = (loadeds == true && loaded[i] == true) ? true : false;
-			return loadeds;
-		}
 
 };

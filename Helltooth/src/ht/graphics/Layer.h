@@ -2,6 +2,9 @@
 
 #include <vector>
 
+#include "assets/ResourceStack.h"
+#include "assets/ResourceManager.h"
+
 #include "Camera.h"
 
 #include "shaders/ShaderProgram.h"
@@ -31,6 +34,8 @@ namespace ht { namespace graphics {
 		Camera* camera;
 		bool deferred = false;
 
+		assets::ResourceStack* stack = nullptr;
+
 	public:
 		Layer(Camera* camera = nullptr, bool deferred = false);
 
@@ -42,8 +47,16 @@ namespace ht { namespace graphics {
 			renderer->submit(e);
 		}
 
-		virtual void init() {}
-		virtual void load(bool &loaded) { loaded = true; }
+		virtual void init() {
+			if (stack)
+				stack->queueUp();
+		}
+
+		void load() {
+			if (stack && !stack->isLoaded()) {
+				stack->prepareResources();
+			}
+		}
 
 		virtual void render() {
 			renderer->prepare();
@@ -56,21 +69,13 @@ namespace ht { namespace graphics {
 		}
 
 		__forceinline virtual void tick() {}
-
-		__forceinline void cleanUP() {
-			renderer->cleanUP();
-		}
-
-		__forceinline void forceCleanUP() {
-			renderer->forceCleanUP();
-		}
-
-		__forceinline virtual void reloadTextures() {
-			renderer->reloadTextures();
-		}
-
+		__forceinline void cleanUP() { renderer->cleanUP(); }
+		__forceinline void forceCleanUP() { renderer->forceCleanUP(); }
+		__forceinline virtual void reloadTextures() { renderer->reloadTextures(); }
 		__forceinline virtual void pushLight(Light* light) { renderer->addLight(light); }
 		__forceinline virtual void popLight() { renderer->popLight(); }
+		__forceinline void createResourceStack() { stack = assets::ResourceManager::Get()->getStack(assets::ResourceManager::Get()->createStack()); }
+
 	protected:
 		__forceinline virtual void defaultRenderer() {
 			if (deferred)
