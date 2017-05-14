@@ -33,8 +33,7 @@ namespace ht { namespace graphics {
 	private:
 		VAO vao;
 		IBO* ibo;
-		GLuint vbo;
-		GLsizei indexCount;
+		uint32 vbo, indexCount;
 		
 		VertexData* buffer;
 
@@ -42,44 +41,33 @@ namespace ht { namespace graphics {
 
 		maths::mat4* transformationBack = nullptr;
 
-		std::vector<float> tids;
+		std::vector<f32> tids;
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();
-
 		
 		void begin();
 		void submit(Sprite* e);
 		void end();
 		void render();
 
-		void submitText(utils::String text, float x, float y, unsigned int color, maths::vec2 scale);
-		void submitText(utils::String text, float x, float y, maths::vec4 color, maths::vec2 scale);
+		void submitText(utils::String text, f32 x, f32 y, uint32 color, maths::vec2 scale);
+		void submitText(utils::String text, f32 x, f32 y, maths::vec4 color, maths::vec2 scale);
 
 		__forceinline void push(maths::mat4& matrix, bool override = false) {
-			if (override)
-				transformationStack.push_back(matrix);
-			else
-				transformationStack.push_back(transformationStack.back() * matrix);
-
+			if (override) transformationStack.push_back(matrix);
+			else transformationStack.push_back(transformationStack.back() * matrix);
 			transformationBack = &transformationStack.back();
 		}
 
 		__forceinline void pop() {
-			if (transformationStack.size() > 1)
-				transformationStack.pop_back();
-			else
-				HT_WARN("[BatchRenderer2D] Can not pop matrix from transformation stack. Transformation Stack empty.");
-
+			if (transformationStack.size() > 1) transformationStack.pop_back(); 
+			else HT_WARN("[BatchRenderer2D] Can not pop matrix from transformation stack. Transformation Stack empty.");
 			transformationBack = &transformationStack.back();
 		}
 
 	private:
 		void init();
-		unsigned int submitTexture(float id);
+		uint32 submitTexture(f32 id);
 	};
-
-
-
 } }
-

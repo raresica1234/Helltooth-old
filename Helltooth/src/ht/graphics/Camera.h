@@ -12,30 +12,21 @@ namespace ht { namespace graphics {
 	class Camera {
 	
 	private:
-		ht::maths::vec3 position;
-		ht::maths::vec3 rotation;
+		maths::vec3 position,rotation;
+		maths::vec2 mouse, midPoint;
 
-		ht::maths::vec2 mouse;
-
-		float movementSpeedFactor;
-
-		float pitchSensitivity; 
-		float yawSensitivity;
-		ht::maths::vec2 midPoint;
+		f32 movementSpeedFactor, pitchSensitivity, yawSensitivity;
 
 		maths::mat4 viewMatrix;
 
 	public:
-
 		Camera(Window* window);
-
 		~Camera();
 
 		void update(const utils::Event& e);
-
-		ht::maths::mat4 generateViewMatrix() const;
+		maths::mat4 generateViewMatrix() const;
 
 	protected:
-		void handleMouseMove(float mouseX, float mouseY);
+		void handleMouseMove(f32 mouseX, f32 mouseY);
 	};
 } }

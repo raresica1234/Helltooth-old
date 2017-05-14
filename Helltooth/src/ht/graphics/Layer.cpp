@@ -8,6 +8,9 @@ namespace ht { namespace graphics {
 	}
 
 	Layer::~Layer() {
+		if (stack)
+			del stack;
+
 		del renderer;
 		del camera;
 	}

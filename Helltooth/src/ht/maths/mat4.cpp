@@ -25,7 +25,7 @@ namespace ht { namespace maths {
 		elements[3 + 3 * 4] = 1.f;
 	}
 
-	mat4 mat4::createPerspective(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const float &ASPECT_RATIO) {
+	mat4 mat4::createPerspective(const f32 &FOV, const f32 &NEAR_PLANE, const f32 &FAR_PLANE, const f32 &ASPECT_RATIO) {
 
 		mat4 result = mat4();
 
@@ -41,7 +41,7 @@ namespace ht { namespace maths {
 		return result;
 	}
 
-	mat4 mat4::createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &near, const float &far) {
+	mat4 mat4::createOrthographic(const f32 &left, const f32 &right, const f32 &top, const f32 &bottom, const f32 &near, const f32 &far) {
 		mat4 result = mat4();
 
 		result.elements[0 + 0 * 4] = 2.0f / (right - left);
@@ -56,7 +56,7 @@ namespace ht { namespace maths {
 	}
 
 
-	mat4& mat4::translate(const float &x, const float &y, const float &z) {
+	mat4& mat4::translate(const f32 &x, const f32 &y, const f32 &z) {
 		mat4 add = mat4();
 		add[0 + 3 * 4] = x;
 		add[1 + 3 * 4] = y;
@@ -70,7 +70,7 @@ namespace ht { namespace maths {
 	}
 
 
-	mat4& mat4::scale(const float &x, const float &y, const float &z) {
+	mat4& mat4::scale(const f32 &x, const f32 &y, const f32 &z) {
 		mat4 add = mat4();
 		add[0 + 0 * 4] = x;
 		add[1 + 1 * 4] = y;
@@ -84,17 +84,17 @@ namespace ht { namespace maths {
 	}
 
 
-	mat4& mat4::rotate(const float &x, const float &y, const float &z) {
+	mat4& mat4::rotate(const f32 &x, const f32 &y, const f32 &z) {
 		mat4 rotx = mat4();
 		mat4 roty = mat4();
 		mat4 rotz = mat4();
 
-		float xcos = cosf((float)toRadians(x));
-		float xsin = sinf((float)toRadians(x));
-		float ycos = cosf((float)toRadians(y));
-		float ysin = sinf((float)toRadians(y));
-		float zcos = cosf((float)toRadians(z));
-		float zsin = sinf((float)toRadians(z));
+		f32 xcos = cosf((f32)toRadians(x));
+		f32 xsin = sinf((f32)toRadians(x));
+		f32 ycos = cosf((f32)toRadians(y));
+		f32 ysin = sinf((f32)toRadians(y));
+		f32 zcos = cosf((f32)toRadians(z));
+		f32 zsin = sinf((f32)toRadians(z));
 
 		rotx[1 + 1 * 4] = xcos;
 		rotx[1 + 2 * 4] = -xsin;
@@ -210,7 +210,7 @@ namespace ht { namespace maths {
 		return (*this) * other;
 	}
 
-	float& mat4::operator[](unsigned int index) {
+	f32& mat4::operator[](uint32 index) {
 		return elements[index];
 	}
 

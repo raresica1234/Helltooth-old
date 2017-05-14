@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "utils/Internal.h"
 #include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace utils {
@@ -11,19 +12,17 @@ namespace ht { namespace utils {
 #			define MAX_KEYS 65535
 #			define MAX_BUTTONS 16
 
-		float mouseX = -1, mouseY = -1;
+		f32 mouseX = -1, mouseY = -1, scrollOffsetX = 0, scrollOffsetY = 0;
 
-		float scrollOffsetX = 0, scrollOffsetY = 0;
+		bool keys[MAX_KEYS], mouse_buttons[MAX_BUTTONS];
 
-		bool keys[MAX_KEYS];
-		bool mouse_buttons[MAX_BUTTONS];
 		Event() {
 			memset(&keys, 0, MAX_KEYS);
 			memset(&mouse_buttons, 0, MAX_BUTTONS);
 		}
 
-		bool isPressed(int keyCode) const { return keys[keyCode]; }
-		bool isButtonPressed(int button) const { return mouse_buttons[button]; }
+		bool isPressed(int32 keyCode) const { return keys[keyCode]; }
+		bool isButtonPressed(int32 button) const { return mouse_buttons[button]; }
 
 	};
 
@@ -47,20 +46,20 @@ namespace ht { namespace utils {
 			return event;
 		}
 
-		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		friend void key_callback(GLFWwindow* window, int32 key, int32 scancode, int32 action, int32 mods) {
 			event.keys[key] = action == GLFW_RELEASE ? false : true;
 		}
 
-		friend void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+		friend void cursor_position_callback(GLFWwindow* window, f64 xpos, f64 ypos) {
 			event.mouseX = (float)xpos;
 			event.mouseY = (float)ypos;
 		}
 
-		friend void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+		friend void mouse_button_callback(GLFWwindow* window, int32 button, int32 action, int32 mods) {
 			event.mouse_buttons[button] = action == GLFW_RELEASE ? false : true;
 		}
 
-		friend void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+		friend void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset) {
 			printf("%.2f %.2f", xoffset, yoffset);
 		}
 

@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include "utils/String.h"
+#include "utils/Internal.h"
 
 namespace ht { namespace utils {
 
@@ -12,7 +13,6 @@ namespace ht { namespace utils {
 		static std::unordered_map<String, std::vector<String>> mountPoints;
 
 	public:
-		
 		static void mount(const String& virtualPath, const String& physicalPath);
 		static void unmount(const String& path);
 

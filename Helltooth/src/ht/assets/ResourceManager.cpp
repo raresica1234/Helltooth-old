@@ -4,6 +4,10 @@ namespace ht { namespace assets {
 
 	ResourceManager* ResourceManager::instance = nullptr;
 
+	ResourceManager::~ResourceManager() {
+		for (ResourceStack* stack : stacks)
+			del stack;
+	}
 
 	bool ResourceManager::isAllLoaded() {
 		bool loaded = true;

@@ -5,6 +5,8 @@
 
 #include <FreeImage/FreeImage.h>
 
+#include "utils/Internal.h"
+
 namespace ht { namespace graphics {
 
 	#define TEXTURE_COLOR_ATTACHMENT GL_RGB
@@ -13,34 +15,28 @@ namespace ht { namespace graphics {
 	class Texture {
 	private:
 		//texture ID
-		GLuint textureID;
+		uint32 textureID;
 
 	public:
 		//Constructor
 		Texture();
-		Texture(unsigned int width, unsigned int height, unsigned int bpp);
+		Texture(uint16 width, uint16 height, byte bpp);
 
 		//Deconstrucotr
-		inline ~Texture() {
-			glDeleteTextures(1, &textureID);
-		}
+		__forceinline ~Texture() { glDeleteTextures(1, &textureID); }
 
-		//Basic tasks
-		inline void bind() const { glBindTexture(GL_TEXTURE_2D, textureID); }
-		inline void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
-
-		void setPixels(void* pixels, unsigned int width, unsigned int height, unsigned int bpp);
+		void setPixels(void* pixels, uint16 width, uint16 height, byte bpp);
 
 		//loading textures
-		bool loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap = GL_REPEAT, int mipmap = GL_LINEAR_MIPMAP_LINEAR) const;
+		bool loadPixelArray(byte *pixels, uint16 width, uint16 height, byte bpp, int32 wrap = GL_REPEAT, int32 mipmap = GL_LINEAR_MIPMAP_LINEAR) const;
+		void createAttachment(uint16 width, uint16 height, uint16 type);
+		void createGBufferTexture(uint16 width, uint16 height);
 
-		void createAttachment(int width, int height, int type);
-
-		void createGBufferTexture(int width, int height);
+		//Basic tasks
+		__forceinline void bind() const { glBindTexture(GL_TEXTURE_2D, textureID); }
+		__forceinline void unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 
 		//getting id
-		inline GLuint getID() const { return textureID; }
-
+		__forceinline uint32 getID() const { return textureID; }
 	};
-
 } }

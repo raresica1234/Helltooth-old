@@ -2,13 +2,15 @@
 
 #include <iostream>
 
+#include "utils/Internal.h"
+
 namespace ht {	namespace maths {
 
 	struct vec2 {
-		float x, y;
+		f32 x, y;
 
 		vec2();
-		vec2(const float &x, const float &y);
+		vec2(const f32 &x, const f32 &y);
 
 		friend vec2 operator+(vec2 left, vec2& right);
 		friend vec2 operator-(vec2 left, vec2& right);
@@ -17,12 +19,10 @@ namespace ht {	namespace maths {
 		bool operator!=(vec2 other);
 
 		__forceinline bool operator<(const vec2& other) const {
-			float proda = x * y;
-			float prodb = other.x * other.y;
+			f32 proda = x * y;
+			f32 prodb = other.x * other.y;
 			return proda < prodb;
 		}
-
-
 	};
 } }
 

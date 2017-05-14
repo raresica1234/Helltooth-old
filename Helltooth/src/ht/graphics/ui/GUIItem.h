@@ -25,7 +25,7 @@ namespace ht { namespace graphics { namespace ui {
 		void(*f_OnDrag)(const utils::Event&) = [](const utils::Event& e) {};
 
 	public:
-		GUIItem(const float& x, const float& y, const float& width, const float& height) 
+		GUIItem(const f32& x, const f32& y, const f32& width, const f32& height)
 			: size(x, y, width, height) {
 			transformation.translate(x, y, 0);
 		}

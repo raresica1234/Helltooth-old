@@ -2,7 +2,7 @@
 
 namespace ht { namespace assets {
 	using namespace utils;
-
+	
 	HelltoothCubemap::HelltoothCubemap(String path) {
 		Cereal::Buffer buffer = Cereal::Buffer(1);
 		buffer.readFile(path.c_str());
@@ -13,11 +13,12 @@ namespace ht { namespace assets {
 		Cereal::Object* object = database->getObject("faces");
 
 		cubemap = htnew Cubemap();
-		cubemap->bpp = (unsigned int)object->getField("textureBpp")->getValue<int>();
-		cubemap->width = (unsigned int)object->getField("textureWidth")->getValue<int>();
-		cubemap->height = (unsigned int)object->getField("textureHeight")->getValue<int>();
+		cubemap->bpp = (uint32)object->getField("textureBpp")->getValue<int32>();
+		cubemap->width = object->getField("textureWidth")->getValue<int32>();
+		cubemap->height = object->getField("textureHeight")->getValue<int32>();
 
-		unsigned int size = cubemap->width * cubemap->height * cubemap->bpp / 8;
+		uint32 size = (uint32)(cubemap->width * cubemap->height * (cubemap->bpp / 8));
+
 		cubemap->left = htnew byte[size];
 		cubemap->right = htnew byte[size];
 		cubemap->top = htnew byte[size];
@@ -34,5 +35,4 @@ namespace ht { namespace assets {
 
 		del database;
 	}
-
 } }

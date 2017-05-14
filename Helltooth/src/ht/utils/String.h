@@ -5,6 +5,7 @@
 
 #include "Log.h"
 
+#include "utils/Internal.h"
 #include "memory/MemoryManager.h"
 
 namespace ht { namespace utils {
@@ -14,10 +15,10 @@ namespace ht { namespace utils {
 	protected:
 		char* data = nullptr;
 
-		mutable unsigned int hash_value = 0;
+		mutable uint32 hash_value = 0;
 
 	public:
-		unsigned int size = 0;
+		uint32 size = 0;
 
 	public:
 		String() { data = htnew char[1];  data[0] = 0; size = 1; }
@@ -73,21 +74,21 @@ namespace ht { namespace utils {
 		__forceinline void operator+=(char &other) { append(other); }
 		__forceinline void operator+=(String &other) { append(other); }
 
-		__forceinline char operator[](unsigned int index) const {
+		__forceinline char operator[](uint32 index) const {
 			HT_ASSERT(index < size, "Index size %i bigger than string size %i!", index, size);
 			return data[index];
 		}
 
 		__forceinline const char* c_str() const { return data; }
 
-		__forceinline String substring(unsigned int pos) const { 
+		__forceinline String substring(uint32 pos) const {
 			char* a = htnew char[size - pos];
 			memcpy(a, data + pos, size - pos);
 			a[size - pos - 1] = 0;
 			return String(a); 
 		}
 
-		__forceinline String cut(unsigned int pos) const {
+		__forceinline String cut(uint32 pos) const {
 			char* a = htnew char[size - pos + 1];
 			memcpy(a, data, size - pos);
 			a[size - pos] = 0;

@@ -4,10 +4,10 @@ namespace ht { namespace graphics {
 	using namespace utils;
 	using namespace maths;
 
-	utils::String Skybox::skyboxVertex =
+	String Skybox::skyboxVertex =
 		#include "graphics/shaders/default/skybox.vert"
 		;
-	utils::String Skybox::skyboxFragment =
+	String Skybox::skyboxFragment =
 		#include "graphics/shaders/default/skybox.frag"
 		;
 
@@ -15,7 +15,7 @@ namespace ht { namespace graphics {
 		: StaticEntity(nullptr) {
 		hasShader = true;
 
-		unsigned int id = ShaderManager::Get()->loadProgram(skyboxVertex, skyboxFragment, false);
+		uint32 id = ShaderManager::Get()->loadProgram(skyboxVertex, skyboxFragment, false);
 		program = ShaderManager::Get()->getProgram(id);
 
 		//Cube created
@@ -95,5 +95,4 @@ namespace ht { namespace graphics {
 
 		del cubemap;
 	}
-
 } }

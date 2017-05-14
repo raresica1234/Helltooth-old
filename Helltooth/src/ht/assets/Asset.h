@@ -12,18 +12,18 @@
 
 #include "graphics/textures/Texture.h"
 
-#include "utils/memory/MemoryManager.h"
+#include "utils/Internal.h"
 #include "utils/FileUtils.h"
 #include "utils/Log.h"
 #include "utils/String.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace assets {
 
 	struct TextureData {
-		BYTE* pixels;
-		unsigned int width;
-		unsigned int height;
-		unsigned short bpp;
+		byte* pixels;
+		uint16 width, height;
+		byte bpp;
 
 		~TextureData() { del[] pixels; }
 	};
@@ -31,21 +31,13 @@ namespace ht { namespace assets {
 	class Asset {
 	public:
 		static const graphics::Texture* loadTextureFromFile(utils::String path);
-
-		static const graphics::Texture* loadTextureFromMemory(unsigned char* array, unsigned int size);
-
-		static TextureData* loadTextureDataFromFile(utils::String path);
-
+		static const graphics::Texture* loadTextureFromMemory(byte* array, uint32 size);
 		static graphics::RawModel* loadModelFromFile(utils::String path);
 
+		static TextureData* loadTextureDataFromFile(utils::String path);
 		static Cubemap* loadCubemapFromFile(utils::String path);
 
 	protected:
-		inline static bool exists(ht::utils::String path) {
-			struct stat buffer;
-			return (stat(path.c_str(), &buffer) == 0);
-		}
-
+		__forceinline static bool exists(ht::utils::String path) { struct stat buffer; return (stat(path.c_str(), &buffer) == 0); }
 	};
-
 } }

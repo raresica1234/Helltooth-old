@@ -40,7 +40,7 @@ namespace ht { namespace graphics {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void GBuffer::unbind(const int &width, const int &height) {
+	void GBuffer::unbind(const uint32 &width, const uint32 &height) {
 		if (this->width != width || this->height != height) {
 			for (Texture* texture : textures) {
 				texture->bind();
@@ -55,5 +55,4 @@ namespace ht { namespace graphics {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, width, height);
 	}
-
 } }

@@ -21,19 +21,27 @@ namespace ht { namespace graphics {
 
 	public:
 		~WindowManager();
-		unsigned int createWindow(ht::utils::String title, const int width, const int height);
-		void resize(GLFWwindow* glfwwindow, int width, int height);
-		Window* getWindow(unsigned int id);
+		uint32 createWindow(ht::utils::String title, const uint16 width, const uint16 height);
+		void resize(GLFWwindow* glfwwindow, uint16 width, uint16 height);
+		Window* getWindow(uint32 id);
 
 		static void Init() { 
-			if (!wManager)
-				wManager = htnew WindowManager();
-			else
-				HT_WARN("[WindowManager] Reinitialization not possible!");
+			if (wManager) {
+				HT_ERROR("[WindowManager] Reinitialization not possible!"); return;
+			}
+			wManager = htnew WindowManager();
+			
 		}
 
-		static WindowManager* Get() { return wManager; }
+		static WindowManager* Get() {
+			if (!wManager) { Init(); HT_ERROR("[WindowManager] WindowManager not initialized, initialization forced!"); }
+			return wManager;
+		}
 
-		static void End() { del wManager; wManager = nullptr; }
+		static void End() {
+			if (!wManager) { HT_ERROR("[WindowManager] Deletion not possible, WindowManager not initialized!"); return; }
+			del wManager;
+			wManager = nullptr;
+		}
 	};
 } }

@@ -6,6 +6,7 @@
 
 #include "tools/VFS/VFS.h"
 
+#include "utils/Internal.h"
 #include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
 
@@ -20,28 +21,28 @@ namespace ht { namespace graphics {
 		__forceinline TextureManager() {}
 		~TextureManager();
 
-		unsigned int createTextureFromFile(ht::utils::String path);
+		uint32 createTextureFromFile(utils::String path);
 
-		unsigned int createTextureFromData(ht::assets::TextureData* data);
-		unsigned int createTextureFromMemory(unsigned char* array, long long size);
+		uint32 createTextureFromData(assets::TextureData* data);
+		uint32 createTextureFromMemory(byte* array, uint32 size);
 
-		const Texture* getTexture(unsigned int id);
+		const Texture* getTexture(uint32 id);
 
-		inline unsigned int addTexture(const Texture* texture) {
-			textures.push_back(texture);
+		__forceinline uint32 addTexture(const Texture* texture) { textures.push_back(texture); return textures.size() - 1; }
 
-			return textures.size() - 1;
+		__forceinline static void Init() { 
+			if (tManager) { HT_ERROR("[TextureManager] Reinitialization not possible!"); return; }
+			tManager = htnew TextureManager();
+		}
+		__forceinline static TextureManager* Get() {
+			if (!tManager) { Init(); HT_ERROR("[TextureManager] TextureManager not initialized, initialization forced!"); }
+			return tManager; 
 		}
 
-		static TextureManager* Get() { return tManager; }
-
-		static void End() { del tManager; tManager = nullptr; }
-
-		static void Init() { 
-			if (!tManager)
-				tManager = htnew TextureManager();
-			else
-				HT_WARN("[TextureManager] Reinitialization not possible!");
+		__forceinline static void End() {
+			if (!tManager) { HT_ERROR("[TextureManager] Deletion not possible, TextureManager not initialized!"); return; }
+			del tManager;
+			tManager = nullptr; 
 		}
 	};
 } }

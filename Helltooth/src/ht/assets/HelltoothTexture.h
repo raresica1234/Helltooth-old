@@ -3,34 +3,30 @@
 #include <iostream>
 #include <vector>
 
-#include "utils/memory/MemoryManager.h"
 #include "graphics/textures/Texture.h"
 
-#include "utils/String.h"
-
 #include "tools/Cereal/Cereal.h"
+
+#include "utils/String.h"
+#include "utils/Internal.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace assets {
 
 	class HelltoothTexture {
 	private:
-		//friend class Asset;
 		friend struct TextureData;
 
-		ht::graphics::Texture* texture = nullptr;
+		graphics::Texture* texture = nullptr;
 		TextureData* data = nullptr;
 
 	public:
-		HelltoothTexture(ht::utils::String filePath, unsigned int data = 0);
+		HelltoothTexture(utils::String filePath, uint32 data = 0);
 
-		inline ht::graphics::Texture* getTexture() {
-			return texture;
-		}
-		inline ht::assets::TextureData* getData() {
-			return data;
-		}
+		__forceinline graphics::Texture* getTexture() { return texture; }
+		__forceinline TextureData* getData() { return data; }
 
-		static void StoreAsHelltoothTexture(ht::utils::String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize);
+		static void StoreAsHelltoothTexture(utils::String filePath, byte* pixels, uint16 width, uint16 height, byte bpp, uint32 dataSize);
 	};
 
 } }

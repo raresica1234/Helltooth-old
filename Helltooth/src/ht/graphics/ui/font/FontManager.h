@@ -21,13 +21,11 @@ namespace ht { namespace graphics {
 
 	struct Glyph {
 		char unicodeCharacter;
-		maths::vec2 advance;
-		maths::vec2 offset;
-		maths::vec2 bitmapSize;
+		maths::vec2 advance, offset, bitmapSize;
 
-		float u0, v0, u1, v1;
+		f32 u0, v0, u1, v1;
 
-		unsigned char* bitmap = nullptr;
+		byte* bitmap = nullptr;
 	};
 
 	struct Font {
@@ -49,43 +47,31 @@ namespace ht { namespace graphics {
 		
 		static FontManager* manager;
 
-
 	private:
-		FontManager();
+		FontManager() {}
 		~FontManager();
 
 	public:
-		void addFont(utils::String path, utils::String identifier, float size);
-
+		void addFont(utils::String path, utils::String identifier, f32 size);
 		void selectFont(utils::String identifier);
-
 
 		__forceinline Font getFont() { return selected; }
 
-
 		__forceinline static void Init() {
-			if (!manager)
-				manager = htnew FontManager();
-			else
-				HT_WARN("[FontManager] Font Manager already initialized!");
+			if (manager) { HT_ERROR("[FontManager] Reinitialization not possible!"); return; }
+			manager = htnew FontManager();
 		}
 
 		__forceinline static FontManager* Get() {
-			if (!manager)
-				Init();
+			if (!manager) { Init(); HT_ERROR("[FontManager] FontManager not initialized, initialization forced!"); }
 			return manager;
 		}
 
 		__forceinline static void End() {
-			if (manager) {
-				del manager;
-				manager = nullptr;
-			}
-			else
-				HT_WARN("[FontManager] Font Manager not initialized!");
+			if (!manager) { HT_ERROR("[FontManager] Deletion not possible, FontManager not initialized!"); return; }
+			del manager;
+			manager = nullptr;
 		}
 
 	};
-
-
 } }

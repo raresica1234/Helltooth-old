@@ -25,7 +25,7 @@ namespace ht { namespace utils {
 
 
 	void String::append(const char* str) {
-		unsigned int strlen = 0;
+		uint32 strlen = 0;
 		while (str[strlen++] != '\0')
 			;
 		char* temp = htnew char[size + strlen - 1];
@@ -53,7 +53,7 @@ namespace ht { namespace utils {
 	}
 
 	void String::append(const String &other) {
-		unsigned int strlen = other.size;
+		uint32 strlen = other.size;
 		char* temp = htnew char[size + strlen - 1];
 		memcpy(temp, data, size - 1);
 		memcpy(temp + (size - 1), other.data, strlen);
@@ -68,7 +68,7 @@ namespace ht { namespace utils {
 	bool String::operator!=(const String& other) {
 		if (size != other.size)
 			return true;
-		for (unsigned int i = 0; i < size; i++)
+		for (uint32 i = 0; i < size; i++)
 			if (data[i] == other[i])
 				return false;
 		return true;
@@ -78,7 +78,7 @@ namespace ht { namespace utils {
 		if (size != other.size)
 			return false;
 		
-		for (unsigned int i = 0; i < size; i++) {
+		for (uint32 i = 0; i < size; i++) {
 			if (data[i] != other.data[i])
 				return false;
 		}
@@ -106,7 +106,7 @@ namespace ht { namespace utils {
 	std::vector<String> String::split(const char delimiter) const {
 		std::vector<String> strings;
 		String split = "";
-		for (unsigned int i = 0; i < size - 1; i++) {
+		for (uint32 i = 0; i < size - 1; i++) {
 			if (data[i] == delimiter) {
 				strings.push_back(split);
 				split = "";
@@ -123,7 +123,7 @@ namespace ht { namespace utils {
 	#define STRING_HASH_C 86969
 	#define STRING_HASH_FIRSTH 37
 
-	unsigned int String::hash() const {
+	uint32 String::hash() const {
 		if (hash_value == 0) {
 			unsigned h = STRING_HASH_FIRSTH;
 			for (unsigned int i = 0; i < size; i++) {

@@ -5,7 +5,6 @@
     <ClCompile Include="src\ht\graphics\Layer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\FBO.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Renderable.cpp" />
-    <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
@@ -19,8 +18,6 @@
     <ClCompile Include="src\ht\assets\HelltoothModel.cpp" />
     <ClCompile Include="src\ht\assets\HelltoothTexture.cpp" />
     <ClCompile Include="src\ht\graphics\Camera.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\World.cpp" />
     <ClCompile Include="src\ht\utils\String.cpp" />
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\assets\FileSystem\FileSystem.cpp" />
@@ -57,7 +54,6 @@
     <ClInclude Include="src\ht\graphics\rendering\model\Quad.h" />
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
-    <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
@@ -74,8 +70,6 @@
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
     <ClInclude Include="src\ht\tools\VFS\VFS.h" />
     <ClInclude Include="src\ht\tools\VFS\src\Manager.h" />
-    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
-    <ClInclude Include="src\ht\graphics\terrain\World.h" />
     <ClInclude Include="src\ht\utils\String.h" />
     <ClInclude Include="src\ht\graphics\textures\TextureManager.h" />
     <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
@@ -115,6 +109,7 @@
     <ClInclude Include="src\ht\graphics\rendering\GBuffer.h" />
     <ClInclude Include="src\ht\graphics\rendering\renderers\DeferredRenderer.h" />
     <ClInclude Include="src\ht\assets\ResourceManager.h" />
+    <ClInclude Include="src\ht\utils\Internal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

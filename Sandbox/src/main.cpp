@@ -26,7 +26,6 @@ public:
 
 		API::API(API_OPENGL, API_MODE_3D);
 
-		VFS::mount("shaders", "src/shaders");
 		VFS::mount("res", "res/models/");
 		VFS::mount("res", "res/textures/");
 		VFS::mount("res", "res/fonts/");

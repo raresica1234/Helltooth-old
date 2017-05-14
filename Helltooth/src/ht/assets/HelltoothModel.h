@@ -3,21 +3,20 @@
 #include "graphics/rendering/model/RawModel.h"
 #include "tools/Cereal/Cereal.h"
 
+#include "utils/Internal.h"
 #include "utils/String.h"
 
 namespace ht { namespace assets {
-	
 
 	class HelltoothModel {
 	private:
-		ht::graphics::RawModel* model = nullptr;
+		graphics::RawModel* model = nullptr;
 
 	public:
-		HelltoothModel(ht::utils::String path);
+		HelltoothModel(utils::String path);
 
-		inline ht::graphics::RawModel* getRawModel() { return model; }
+		__forceinline graphics::RawModel* getRawModel() { return model; }
 
-		static void StoreAsHelltoothModel(ht::utils::String path, ht::graphics::RawModel* model);
+		static void StoreAsHelltoothModel(utils::String path, graphics::RawModel* model);
 	};
-
 } }

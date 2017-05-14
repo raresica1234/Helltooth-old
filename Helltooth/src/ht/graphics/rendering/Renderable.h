@@ -28,7 +28,7 @@ namespace ht { namespace graphics {
 
 		bool usingIbo;
 
-		unsigned int vboNumber;
+		uint32 vboNumber;
 
 	public:
 		//Construcotr
@@ -39,8 +39,8 @@ namespace ht { namespace graphics {
 		void loadRawModel(const RawModel* model);
 
 		//Store data
-		void storeData(const int usage, const GLfloat *data, const GLsizei &dataSize);
-		void storeData(const GLuint *data, const GLsizei &dataSize);
+		void storeData(const int32 usage, const f32 *data, const uint32 &dataSize);
+		void storeData(const uint32 *data, const uint32 &dataSize);
 
 		//Render
 		void render() const;
@@ -48,15 +48,15 @@ namespace ht { namespace graphics {
 		//Prepare for rendering
 		void prepare() const;
 		//Get vao ID
-		inline GLuint getVaoID() { return vao->getID(); }
+		__forceinline uint32 getVaoID() { return vao->getID(); }
 
 		//Unbind vao
-		inline void end() const { vao->unbindVAO(); }
+		__forceinline void end() const { vao->unbindVAO(); }
 
 		//set texture
-		inline void addTexture(const unsigned int &id) { textures.push_back(TextureManager::Get()->getTexture(id));}
+		__forceinline void addTexture(const uint32 &id) { textures.push_back(TextureManager::Get()->getTexture(id));}
 
-		inline void addTexture(const Texture* texture) { textures.push_back(texture); }
+		__forceinline void addTexture(const Texture* texture) { textures.push_back(texture); }
 
 	};
 

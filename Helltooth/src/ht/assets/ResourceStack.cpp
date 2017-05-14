@@ -32,9 +32,8 @@ namespace ht { namespace assets {
 
 	void ResourceStack::queueUp() {
 		for (Path path : paths) 
-			for (utils::String str : path.paths) 
+			for (String str : path.paths) 
 				FileSystem::Get()->addToQueue(str);
-		
 	}
 
 	void ResourceStack::prepareResources() {
@@ -44,17 +43,17 @@ namespace ht { namespace assets {
 				Renderable* renderable = htnew Renderable();
 				RawModel* model = FileSystem::Get()->getAsModel(FileSystem::Get()->getNextResource());
 				renderable->loadRawModel(model);
-				for (unsigned int i = 1; i < path.paths.size(); i++) {
+				for (uint32 i = 1; i < path.paths.size(); i++) {
 					TextureData* textureData = FileSystem::Get()->getAsTextureData(FileSystem::Get()->getNextResource());
-					unsigned int id = TextureManager::Get()->createTextureFromData(textureData);
+					uint32 id = TextureManager::Get()->createTextureFromData(textureData);
 					renderable->addTexture(TextureManager::Get()->getTexture(id));
 				}
 				resources.push_back((void*)renderable);
 			}
 			else if(path.type == path.TEXTURE) {
-				auto res = FileSystem::Get()->getNextResource();
+				Resource res = FileSystem::Get()->getNextResource();
 				TextureData* textureData = FileSystem::Get()->getAsTextureData(res);
-				unsigned int id = TextureManager::Get()->createTextureFromData(textureData);
+				uint32 id = TextureManager::Get()->createTextureFromData(textureData);
 				const Texture* texture = TextureManager::Get()->getTexture(id);
 				resources.push_back((void*)texture);
 			}
@@ -67,13 +66,4 @@ namespace ht { namespace assets {
 			loaded++;
 		}
 	}
-
-	Path& ResourceStack::operator[](unsigned int id) {
-		if (paths.size() <= id) {
-			paths.resize(id);
-			paths.push_back(Path());
-		}
-		return paths[id];
-	}
-
 } }

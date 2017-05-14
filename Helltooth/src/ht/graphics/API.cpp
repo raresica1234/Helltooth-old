@@ -2,27 +2,28 @@
 
 namespace ht { namespace graphics {
 	using namespace utils;
+	using namespace assets;
 
-	unsigned int API::type;
-	unsigned int API::mode;
+	uint32 API::type;
+	uint32 API::mode;
 
 	API::Fog API::fog;
 
 
 	RawModel* API::loadObjFile(String path) {
 		String resolvedpath;
-		if (utils::VFS::resolvePhysicalPath(path, resolvedpath))
-			return assets::Asset::loadModelFromFile(resolvedpath);
+		if (VFS::resolvePhysicalPath(path, resolvedpath))
+			return Asset::loadModelFromFile(resolvedpath);
 		else {
 			HT_FATAL("[API] Can not load \"%s\"", path.c_str());
 			return nullptr;
 		}
 	}
 
-	assets::Cubemap* API::loadCubemap(utils::String path) {
+	Cubemap* API::loadCubemap(String path) {
 		String resolvedpath;
-		if (utils::VFS::resolvePhysicalPath(path, resolvedpath))
-			return assets::Asset::loadCubemapFromFile(resolvedpath);
+		if (VFS::resolvePhysicalPath(path, resolvedpath))
+			return Asset::loadCubemapFromFile(resolvedpath);
 		else {
 			HT_FATAL("[API] Can not load \"%s\"", path.c_str());
 			return nullptr;
@@ -33,7 +34,7 @@ namespace ht { namespace graphics {
 		return ShaderManager::Get()->loadProgram(VERTEX_PATH, FRAGMENT_PATH, path);
 	}
 
-	unsigned int API::createWindow(String title, const int &width, const int &height) {
+	unsigned int API::createWindow(String title, const uint16 &width, const uint16 &height) {
 		return WindowManager::Get()->createWindow(title, width, height);
 	}
 

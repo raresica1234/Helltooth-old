@@ -22,9 +22,9 @@ namespace ht { namespace graphics {
 
 	ForwardRenderer::ForwardRenderer(Camera* camera)
 		: Renderer(camera, nullptr) {
-		unsigned int directionalID = ShaderManager::Get()->loadProgram(vertexShader, fragmentDirectional, false);
-		unsigned int pointID = ShaderManager::Get()->loadProgram(vertexShader, fragmentPoint, false);
-		unsigned int spotID = ShaderManager::Get()->loadProgram(vertexShader, fragmentSpot, false);
+		uint32 directionalID = ShaderManager::Get()->loadProgram(vertexShader, fragmentDirectional, false);
+		uint32 pointID = ShaderManager::Get()->loadProgram(vertexShader, fragmentPoint, false);
+		uint32 spotID = ShaderManager::Get()->loadProgram(vertexShader, fragmentSpot, false);
 
 		directional = ShaderManager::Get()->getProgram(directionalID);
 		point = ShaderManager::Get()->getProgram(pointID);
@@ -60,7 +60,7 @@ namespace ht { namespace graphics {
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
 
-		for (unsigned int i = 0; i < stack->size(); i++) {
+		for (uint32 i = 0; i < stack->size(); i++) {
 			if (i == 1) {
 				glDepthFunc(GL_EQUAL);
 				glEnable(GL_BLEND);
@@ -99,11 +99,14 @@ namespace ht { namespace graphics {
 					entry.first->end();
 				}
 			if(!staticEntities.empty())
-				for (unsigned int i = 0; i < staticEntities.size(); i++) {
+				for (uint32 i = 0; i < staticEntities.size(); i++) {
 					const StaticEntity* sEntity = staticEntities[i];
 					sEntity->prepare();
-					if (!sEntity->hasOwnShader())
+					if (!sEntity->hasOwnShader()) {
 						curr->uniformMat4("modelMatrix", sEntity->getModelMatrix());
+						sEntity->render();
+						sEntity->end();
+					}
 					
 				}
 		}
@@ -112,7 +115,7 @@ namespace ht { namespace graphics {
 		glDisable(GL_BLEND);
 
 		if (!staticEntities.empty())
-			for (unsigned int i = 0; i < staticEntities.size(); i++) {
+			for (uint32 i = 0; i < staticEntities.size(); i++) {
 				const StaticEntity* sEntity = staticEntities[i];
 				sEntity->prepare();
 				if (sEntity->hasOwnShader()) {
@@ -125,7 +128,7 @@ namespace ht { namespace graphics {
 	}
 
 	void ForwardRenderer::reloadTextures() {
-		GLint texIDs[] = {
+		int32 texIDs[] = {
 			0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
 			10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -149,5 +152,4 @@ namespace ht { namespace graphics {
 	void ForwardRenderer::forceCleanUP() {
 		staticEntities.clear();
 	}
-
 } }

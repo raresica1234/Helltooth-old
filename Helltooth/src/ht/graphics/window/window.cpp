@@ -6,7 +6,7 @@ namespace ht { namespace graphics {
 
 	void windowResize(GLFWwindow *window, int width, int height);
 
-	Window::Window(String title, const int &width, const int &height) {
+	Window::Window(String title, const uint16 &width, const uint16 &height) {
 		this->width = width;
 		this->height = height;
 		this->title = title;

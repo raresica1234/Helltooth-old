@@ -33,7 +33,7 @@ namespace ht { namespace graphics {
 		del model;
 	}
 
-	void Renderable::storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {
+	void Renderable::storeData(const int32 usage, const f32 *data, const uint32 &dataSize) {
 		//Make new vbo and bind vao
 			vao->bindVAO();
 
@@ -60,7 +60,7 @@ namespace ht { namespace graphics {
 			vao->unbindVAO();
 	}
 
-	void Renderable::storeData(const GLuint *data, const GLsizei &dataSize) {
+	void Renderable::storeData(const uint32 *data, const uint32 &dataSize) {
 		vao->bindVAO();
 
 		ibo = htnew IBO();

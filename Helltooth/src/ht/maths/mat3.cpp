@@ -22,7 +22,7 @@ namespace ht { namespace maths {
 		elements[2 + 2 * 3] = 1.f;
 	}
 
-	mat3& mat3::scale(const float &x, const float &y) {
+	mat3& mat3::scale(const f32 &x, const f32 &y) {
 		mat3 add;
 		add[0 + 2 * 3] = x;
 		add[1 + 2 * 3] = y;
@@ -34,9 +34,9 @@ namespace ht { namespace maths {
 		return this->scale(scale.x, scale.y);
 	}
 
-	mat3& mat3::rotate(const float& z) {
+	mat3& mat3::rotate(const f32& z) {
 		mat3 add;
-		float angle = toRadians(z);
+		f32 angle = toRadians(z);
 		add[0 + 0 * 3] = cos(angle); add[0 + 1 * 3] = -sin(angle);// 0
 		add[1 + 0 * 3] = sin(angle); add[1 + 1 * 3] = cos(angle); // 0
 		//0                          0                               1
@@ -74,7 +74,7 @@ namespace ht { namespace maths {
 
 		__m128 res = _mm_mul_ps(vec[0], col[0]);
 
-		for (int i = 1; i < 3; i++)
+		for (int32 i = 1; i < 3; i++)
 			res = _mm_fmadd_ps(vec[i], col[i], res);
 
 		return vec3(res.m128_f32[0], res.m128_f32[1], res.m128_f32[2]);

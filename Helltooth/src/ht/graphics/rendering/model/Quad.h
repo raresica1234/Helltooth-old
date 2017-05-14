@@ -10,43 +10,39 @@
 namespace ht { namespace graphics {
 
 	struct Quad {
-		GLfloat *data;
+		f32 *data, *textureCoords;
 
 		//Indices of the cube model
-		GLuint *indices;
-
-		GLfloat *textureCoords;
-
+		uint32 *indices;
+		
 		RawModel *model;
 
-		inline Quad() {
+		__forceinline Quad() {
 			init();
-			model = htnew RawModel(data, 3 * 4 * sizeof(GLfloat));
-			model->storeData(indices, 3 * 12 * sizeof(GLuint));
-			model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoords, 2 * 4 * 6 * sizeof(GLfloat));
+			model = htnew RawModel(data, 3 * 4 * sizeof(f32));
+			model->storeData(indices, 3 * 12 * sizeof(uint32));
+			model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoords, 2 * 4 * 6 * sizeof(f32));
 		}
-
-		inline ~Quad() {}
 		
-		inline RawModel* getModel() { return model; }
+		__forceinline RawModel* getModel() { return model; }
 
 	protected:
-		void init() {
-			data = htnew GLfloat[4 * 3]{
+		__forceinline void init() {
+			data = htnew f32[4 * 3]{
 				-1.0f, -1.0f, 0.5f,
 				 1.0f, -1.0f, 0.5f,
 				 1.0f,  1.0f, 0.5f,
 				-1.0f,  1.0f, 0.5f
 			};
 
-			textureCoords = htnew GLfloat[4 * 2]{
+			textureCoords = htnew f32[4 * 2]{
 				0.0f, 0.0f,
 				1.0f, 0.0f,
 				1.0f, 1.0f,
 				0.0f, 1.0f
 			};
 
-			indices = htnew GLuint[6]{
+			indices = htnew uint32[6]{
 				0,1,2,
 				0,2,3
 			};

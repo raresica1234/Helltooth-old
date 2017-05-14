@@ -6,7 +6,7 @@ namespace ht { namespace graphics {
 
 	TextureManager* TextureManager::tManager = nullptr;
 
-	unsigned int TextureManager::createTextureFromFile(String path) {
+	uint32 TextureManager::createTextureFromFile(String path) {
 		String output;
 		if (!VFS::resolvePhysicalPath(path, output))
 			HT_FATAL("[TextureManager] Cannot open \"%s\"", path.c_str());
@@ -15,7 +15,7 @@ namespace ht { namespace graphics {
 		return textures.size() - 1;
 	}
 
-	unsigned int TextureManager::createTextureFromData(TextureData* data) {
+	uint32 TextureManager::createTextureFromData(TextureData* data) {
 		Texture* texture = htnew Texture();
 		texture->loadPixelArray(data->pixels, data->width, data->height, data->bpp);
 		del data;
@@ -24,15 +24,15 @@ namespace ht { namespace graphics {
 	}
 
 	TextureManager::~TextureManager() {
-		for (unsigned int i = 0; i < textures.size(); i++)
+		for (uint32 i = 0; i < textures.size(); i++)
 			del textures[i];
 	}
 
-	const Texture* TextureManager::getTexture(unsigned int id) {
+	const Texture* TextureManager::getTexture(uint32 id) {
 		return textures[id];
 	}
 
-	unsigned int TextureManager::createTextureFromMemory(unsigned char* array, long long size) {
+	uint32 TextureManager::createTextureFromMemory(byte* array, uint32 size) {
 		const Texture* tex = Asset::loadTextureFromMemory(array, size);
 		textures.push_back(tex);
 		return textures.size() - 1;

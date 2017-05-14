@@ -10,10 +10,10 @@ namespace ht { namespace graphics {
 							#include "UiShader.frag"
 							;
 
-	GUILayer::GUILayer(const unsigned int width, const unsigned int height)
+	GUILayer::GUILayer(const uint32 width, const uint32 height)
 		: Layer(nullptr), width(width), height(height) {
 		renderer = htnew BatchRenderer2D();
-		unsigned int id = API::createShader(GUILayer::uiShaderVert, GUILayer::uiShaderFrag, false);
+		uint32 id = API::createShader(GUILayer::uiShaderVert, GUILayer::uiShaderFrag, false);
 		shader = ShaderManager::Get()->getProgram(id);
 		shader->start();
 		GLint texIDs[] = {

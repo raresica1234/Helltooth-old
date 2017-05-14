@@ -16,8 +16,8 @@ namespace ht { namespace graphics { namespace ui {
 		Sprite* image = nullptr;
 
 	public:
-		Image(const Texture* texture, const float x, const float y, const float width, const float height);
-		Image(unsigned int textureID, const float x, const float y, const float width, const float height);
+		Image(const Texture* texture, const f32 &x, const f32 &y, const f32 &width, const f32 &height);
+		Image(uint32 &textureID, const f32 &x, const f32 &y, const f32 &width, const f32 &height);
 
 		__forceinline ~Image() { if(image) del image; }
 

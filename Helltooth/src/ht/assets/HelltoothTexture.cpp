@@ -2,11 +2,10 @@
 #include "Asset.h"
 
 namespace ht { namespace assets {
-
 	using namespace utils;
 	using namespace graphics;
 
-	HelltoothTexture::HelltoothTexture(String filePath, unsigned int data) {
+	HelltoothTexture::HelltoothTexture(String filePath, uint32 data) {
 		Cereal::Buffer buffer = Cereal::Buffer(1);
 		buffer.readFile(filePath.c_str());
 
@@ -14,9 +13,9 @@ namespace ht { namespace assets {
 		database->read(buffer);
 
 		Cereal::Object* object = database->getObject("texture");
-		Cereal::Field* field = object->getField("width");
-		int width = field->getValue<int>();
-		int height = object->getField("height")->getValue<int>();
+
+		uint16 width = (uint16)object->getField("width")->getValue<int16>();
+		uint16 height = (uint16)object->getField("height")->getValue<int16>();
 		byte bpp = object->getField("bpp")->getValue<byte>();
 
 		Cereal::Array* pixels = object->getArray("pixels");
@@ -30,7 +29,7 @@ namespace ht { namespace assets {
 		}
 		else {
 			this->data = htnew TextureData();
-			this->data->pixels = htnew BYTE[pixels->getCount()];
+			this->data->pixels = htnew byte[pixels->getCount()];
 			memcpy(this->data->pixels, pdata, pixels->getCount());
 			this->data->width = (unsigned int)width;
 			this->data->height = (unsigned int)height;
@@ -42,9 +41,9 @@ namespace ht { namespace assets {
 		del database;
 	}
 
-	void HelltoothTexture::StoreAsHelltoothTexture(String filePath, byte* pixels, int width, int height, byte bpp, size_t dataSize) {
-		Cereal::Field* field1 = htnew Cereal::Field("width", width);
-		Cereal::Field* field2 = htnew Cereal::Field("height", height);
+	void HelltoothTexture::StoreAsHelltoothTexture(String filePath, byte* pixels, uint16 width, uint16 height, byte bpp, uint32 dataSize) {
+		Cereal::Field* field1 = htnew Cereal::Field("width", (int16)width);
+		Cereal::Field* field2 = htnew Cereal::Field("height", (int16)height);
 		Cereal::Field* field3 = htnew Cereal::Field("bpp", bpp);
 
 		Cereal::Array* array = htnew Cereal::Array("pixels", pixels, dataSize);

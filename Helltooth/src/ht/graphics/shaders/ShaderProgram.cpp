@@ -7,8 +7,8 @@ namespace ht { namespace graphics {
 	ShaderProgram::ShaderProgram(String VERTEX_PATH, String FRAGMENT_PATH, bool path)
 		: path(path){
 		if (path) {
-			utils::VFS::resolvePhysicalPath(VERTEX_PATH, this->VERTEX_PATH);
-			utils::VFS::resolvePhysicalPath(FRAGMENT_PATH, this->FRAGMENT_PATH);
+			VFS::resolvePhysicalPath(VERTEX_PATH, this->VERTEX_PATH);
+			VFS::resolvePhysicalPath(FRAGMENT_PATH, this->FRAGMENT_PATH);
 		}
 		else {
 			this->VERTEX_PATH = VERTEX_PATH;
@@ -19,15 +19,15 @@ namespace ht { namespace graphics {
 
 		std::vector<char> stringBuffer;
 
-		GLint numUniforms, maxNameLength = 0;
+		int32 numUniforms, maxNameLength = 0;
 		glGetProgramiv(programID, GL_ACTIVE_UNIFORMS, &numUniforms);
 		glGetProgramiv(programID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxNameLength);
 
 		stringBuffer.resize(maxNameLength, 0);
-		for (GLint i = 0; i < numUniforms; i++) {
-			GLint nameLength = 0;
-			GLint size = 0; // Used for how many array elements uniform contains
-			GLenum type = 0; // Specifies uniform type. float, int, uint, double, vec2, vec3 etc..
+		for (int32 i = 0; i < numUniforms; i++) {
+			int32 nameLength = 0;
+			int32 size = 0; // Used for how many array elements uniform contains
+			uint32 type = 0; // Specifies uniform type. float, int, uint, double, vec2, vec3 etc..
 
 			glGetActiveUniform(programID, i, maxNameLength, &nameLength, &size, &type, (GLchar*)stringBuffer.data());
 			String name = String(&stringBuffer[0]);
@@ -36,7 +36,7 @@ namespace ht { namespace graphics {
 				name = name.cut(4);
 			}
 
-			int location = glGetUniformLocation(programID, name.c_str());
+			int32 location = glGetUniformLocation(programID, name.c_str());
 			locations[name] = location;
 		}
 	}
@@ -46,18 +46,18 @@ namespace ht { namespace graphics {
 		glDeleteProgram(programID);
 	}
 
-	int ShaderProgram::compile() {
-		GLuint programID = glCreateProgram();
+	uint32 ShaderProgram::compile() {
+		uint32 programID = glCreateProgram();
 
-		GLuint vertexID = glCreateShader(GL_VERTEX_SHADER);
-		GLuint fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
+		uint32 vertexID = glCreateShader(GL_VERTEX_SHADER);
+		uint32 fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 		const char* vertex_Source;
 		const char* fragment_Source;
 		String vertexSource;
 		String fragmentSource;
 		if (path) {
-			vertexSource = utils::FileUtils::read_file(VERTEX_PATH.c_str());
-			fragmentSource = utils::FileUtils::read_file(FRAGMENT_PATH.c_str());
+			vertexSource = FileUtils::read_file(VERTEX_PATH.c_str());
+			fragmentSource = FileUtils::read_file(FRAGMENT_PATH.c_str());
 		
 			vertex_Source = vertexSource.c_str();
 			fragment_Source = fragmentSource.c_str();
@@ -69,11 +69,11 @@ namespace ht { namespace graphics {
 		glShaderSource(vertexID, 1, &vertex_Source, NULL);
 		glCompileShader(vertexID);
 
-		GLint result;
+		int32 result;
 
 		glGetShaderiv(vertexID, GL_COMPILE_STATUS, &result);
 		if (result == GL_FALSE) {
-			GLint length;
+			int32 length;
 			glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vertexID, length, &length, &error[0]);
@@ -88,7 +88,7 @@ namespace ht { namespace graphics {
 		glGetShaderiv(fragmentID, GL_COMPILE_STATUS, &result);
 
 		if (result == GL_FALSE) {
-			GLint length;
+			int32 length;
 			glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(fragmentID, length, &length, &error[0]);

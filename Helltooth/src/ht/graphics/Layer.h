@@ -22,8 +22,9 @@
 
 #include "maths/mat4.h"
 
-#include "utils/memory/MemoryManager.h"
+#include "utils/Internal.h"
 #include "utils/input/Input.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace graphics {
 
@@ -38,7 +39,6 @@ namespace ht { namespace graphics {
 
 	public:
 		Layer(Camera* camera = nullptr, bool deferred = false);
-
 		~Layer();
 
 		virtual void setMatrix(maths::mat4 &projectionMatrix);
@@ -47,18 +47,18 @@ namespace ht { namespace graphics {
 			renderer->submit(e);
 		}
 
-		virtual void init() {
+		__forceinline virtual void init() {
 			if (stack)
 				stack->queueUp();
 		}
 
-		void load() {
+		__forceinline void load() {
 			if (stack && !stack->isLoaded()) {
 				stack->prepareResources();
 			}
 		}
 
-		virtual void render() {
+		__forceinline virtual void render() {
 			renderer->prepare();
 			renderer->render();
 		}
@@ -78,10 +78,8 @@ namespace ht { namespace graphics {
 
 	protected:
 		__forceinline virtual void defaultRenderer() {
-			if (deferred)
-				renderer = htnew DeferredRenderer(camera);
-			else 
-				renderer = htnew ForwardRenderer(camera);
+			if (deferred) renderer = htnew DeferredRenderer(camera);
+			else renderer = htnew ForwardRenderer(camera);
 		}
 	};
 } }

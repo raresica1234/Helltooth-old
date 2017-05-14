@@ -2,11 +2,13 @@
 
 #include <iostream>
 
+#include "utils/Internal.h"
+
 namespace ht { namespace utils {
 
 	class MemoryAllocator {
 	private:
-		static float allocated;
+		static f32 allocated;
 		static bool initialized;
 
 	public:
@@ -14,7 +16,7 @@ namespace ht { namespace utils {
 
 		static void start() { allocated = 0; }
 
-		static void* allocate(size_t size);
+		static void* allocate(uint32 size);
 		static void deallocate(void* memory);
 
 		static float getAllocatedB() { return (allocated * 1024.0f); }

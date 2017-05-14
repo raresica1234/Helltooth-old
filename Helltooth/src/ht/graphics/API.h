@@ -25,25 +25,25 @@ namespace ht { namespace graphics {
 
 	class API {
 	private:
-		static unsigned int type;
-		static unsigned int mode;
+		static uint32 type;
+		static uint32 mode;
 
 		static struct Fog {
-			float density = 0.007f;
-			float gradient = 1.5f;
+			f32 density = 0.007f;
+			f32 gradient = 1.5f;
 		} fog;
 
 	public:
-		API(const unsigned int& type, const unsigned int& mode) {
+		API(const uint32& type, const uint32& mode) {
 			this->type = type;
 			this->mode = mode;
 		}
 
-		static RawModel* loadObjFile(ht::utils::String path);
+		static RawModel* loadObjFile(utils::String path);
 		static assets::Cubemap* loadCubemap(utils::String path);
 
-		static unsigned int createShader(ht::utils::String VERTEX_PATH, ht::utils::String FRAGMENT_PATH, bool path = true);
-		static unsigned int createWindow(ht::utils::String title, const int &width, const int &height);
+		static unsigned int createShader(utils::String VERTEX_PATH, utils::String FRAGMENT_PATH, bool path = true);
+		static unsigned int createWindow(utils::String title, const uint16 &width, const uint16 &height);
 
 		__forceinline static bool is3D() { return mode == API_MODE_3D; }
 		__forceinline static bool is2D() { return mode == API_MODE_2D; }

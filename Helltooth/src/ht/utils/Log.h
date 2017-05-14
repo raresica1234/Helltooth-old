@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "utils/Internal.h"
+
 //Color definitions
 #define HT_LEVEL_FATAL		0x04
 #define HT_LEVEL_ERROR		0x0C
@@ -69,13 +71,13 @@ namespace ht { namespace utils {
 
 	class Log {
 	private:
-		static void setColor(const int logLevel) {
+		static void setColor(const int32 logLevel) {
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), logLevel);
 		}
 		
 	public:
 		template<typename First, typename ... Args>
-		static void log(const int logLevel, bool newline, First arg, Args... message) {
+		static void log(const int32 logLevel, bool newline, First arg, Args... message) {
 			setColor(logLevel);
 
 			printf(arg, std::forward<Args>(message)...);

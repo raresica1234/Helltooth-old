@@ -10,10 +10,6 @@ namespace ht { namespace graphics {
 
 	FontManager* FontManager::manager = nullptr;
 
-
-	FontManager::FontManager() {
-	}
-
 	FontManager::~FontManager() {
 		for (auto entry : fonts) {
 			ftgl::texture_atlas_delete(entry.second.atlas);
@@ -21,11 +17,11 @@ namespace ht { namespace graphics {
 		}
 	}
 
-	void FontManager::selectFont(utils::String identifier) {
+	void FontManager::selectFont(String identifier) {
 		selected = fonts[identifier];
 	}
 
-	void FontManager::addFont(String path, String identifier, float size) {
+	void FontManager::addFont(String path, String identifier, f32 size) {
 		String realPath;
 		VFS::resolvePhysicalPath(path, realPath);
 		

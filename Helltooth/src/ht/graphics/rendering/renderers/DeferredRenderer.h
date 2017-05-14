@@ -14,10 +14,11 @@
 #include "graphics/shaders/ShaderManager.h"
 #include "graphics/shaders/ShaderProgram.h"
 
+#include "maths/mat4.h"
+
+#include "utils/Internal.h"
 #include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
-
-#include "maths/mat4.h"
 
 namespace ht { namespace graphics {
 
@@ -28,7 +29,6 @@ namespace ht { namespace graphics {
 		static utils::String geometryPassFragment;
 		static utils::String basicProgramVert;
 		static utils::String directionalLightFrag, pointLightFrag, spotLightFrag;
-
 
 		std::vector<const StaticEntity*> staticEntities;
 		std::unordered_map<const Renderable*, std::vector<Entity>> dynamicEntities;

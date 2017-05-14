@@ -3,7 +3,7 @@
 SponzaTest::SponzaTest(Window* window)
 	:Layer(htnew Camera(window), false) {
 	
-	VFS::mount("res", "res/Sponza-out");
+	VFS::mount("res", "res/Sponza-out/");
 
 	Layer::setMatrix(mat4::createPerspective(70.0f, 0.1f, 10000.0f, WIDTH / HEIGHT));
 	Layer::createResourceStack();

@@ -20,7 +20,7 @@ namespace ht { namespace graphics {
 		LIGHT_TYPE lightType;
 
 	public:
-		Light(const maths::vec3& color) : color(color), lightType(LIGHT_TYPE_NONE) {}
+		__forceinline Light(const maths::vec3& color) : color(color), lightType(LIGHT_TYPE_NONE) {}
 
 		__forceinline maths::vec3& getColor() { return color; }
 
@@ -37,7 +37,7 @@ namespace ht { namespace graphics {
 		maths::vec3 direction;
 
 	public:
-		DirectionalLight(const maths::vec3& color, const maths::vec3& direction) : Light(color), direction(direction) { lightType = LIGHT_TYPE_DIRECTIONAL; }
+		__forceinline DirectionalLight(const maths::vec3& color, const maths::vec3& direction) : Light(color), direction(direction) { lightType = LIGHT_TYPE_DIRECTIONAL; }
 
 		__forceinline maths::vec3& getDirection() { return direction; }
 
@@ -56,7 +56,7 @@ namespace ht { namespace graphics {
 		maths::vec3 attenuation;
 
 	public:
-		PointLight(const maths::vec3& position, const maths::vec3& color, const maths::vec3& attenuation) 
+		__forceinline PointLight(const maths::vec3& position, const maths::vec3& color, const maths::vec3& attenuation)
 			: Light(color), position(position), attenuation(attenuation) {
 			lightType = LIGHT_TYPE_POINT;
 		}
@@ -80,7 +80,7 @@ namespace ht { namespace graphics {
 		maths::vec2 cutOffExponent;
 
 	public:
-		SpotLight(const maths::vec3& position, const maths::vec3& color, const maths::vec3& direction, const maths::vec3& attenuation, const maths::vec2 cutOffExponent)
+		__forceinline SpotLight(const maths::vec3& position, const maths::vec3& color, const maths::vec3& direction, const maths::vec3& attenuation, const maths::vec2 cutOffExponent)
 			: PointLight(position, color, attenuation), direction(direction) {
 			this->cutOffExponent.x = (float)cosf(maths::toRadians(cutOffExponent.x));
 			this->cutOffExponent.y = cutOffExponent.y;
@@ -111,12 +111,12 @@ namespace ht { namespace graphics {
 			lights.reserve(32);
 		}
 
-		void pushLight(Light* light) { lights.push_back(light); }
+		__forceinline void pushLight(Light* light) { lights.push_back(light); }
 
-		Light* operator[](unsigned int id) { return lights[id]; }
+		__forceinline Light* operator[](uint32 id) { return lights[id]; }
 
 		__forceinline void uniform(utils::String name, ShaderProgram* program) {
-			for (unsigned int i = 0; i < lights.size(); i++) {
+			for (uint32 i = 0; i < lights.size(); i++) {
 				std::string current = std::to_string(i);
 				utils::String currentName = name + "[" + utils::String(current.c_str()) + "]";
 				lights[i]->uniform(currentName, program);
@@ -125,8 +125,7 @@ namespace ht { namespace graphics {
 
 		__forceinline void popLight() { lights.pop_back(); }
 		__forceinline void clear() { lights.clear(); }
-
-		__forceinline unsigned int size() { return lights.size(); }
+		__forceinline uint32 size() { return lights.size(); }
 	};
 
 } }

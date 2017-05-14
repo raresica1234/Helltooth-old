@@ -8,7 +8,7 @@ namespace ht { namespace graphics {
 		HT_INFO("[Texture] Texture created with id %i", textureID);
 	}
 
-	Texture::Texture(unsigned int width, unsigned int height, unsigned int bpp) {
+	Texture::Texture(uint16 width, uint16 height, byte bpp) {
 		glGenTextures(1, &textureID);
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -31,8 +31,7 @@ namespace ht { namespace graphics {
 
 	}
 
-
-	bool Texture::loadPixelArray(BYTE *pixels, GLsizei width, GLsizei height, GLsizei bpp, int wrap, int mipmap) const {
+	bool Texture::loadPixelArray(byte *pixels, uint16 width, uint16 height, byte bpp, int32 wrap, int32 mipmap) const {
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		switch (bpp) {
 		case 24:
@@ -55,7 +54,7 @@ namespace ht { namespace graphics {
 		return true;
 	}
 
-	void Texture::setPixels(void* pixels, unsigned int width, unsigned int height, unsigned int bpp) {
+	void Texture::setPixels(void* pixels, uint16 width, uint16 height, byte bpp) {
 		glBindTexture(GL_TEXTURE_2D, textureID);
 
 		switch (bpp) {
@@ -70,17 +69,16 @@ namespace ht { namespace graphics {
 		}
 	}
 
-	void Texture::createAttachment(int width, int height, int type) {
+	void Texture::createAttachment(uint16 width, uint16 height, uint16 type) {
 		glTexImage2D(GL_TEXTURE_2D, 0, type, width, height, 0, type == GL_RGB ? GL_RGB : GL_DEPTH_COMPONENT,
 			type == GL_RGB ? GL_UNSIGNED_BYTE : GL_FLOAT, nullptr); 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
-	void Texture::createGBufferTexture(int width, int height) {
+	void Texture::createGBufferTexture(uint16 width, uint16 height) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
-
 } }

@@ -9,7 +9,7 @@ namespace ht { namespace maths {
 		w = 0;
 	}
 
-	vec4::vec4(const float &x, const float &y, const float &z, const float &w) {
+	vec4::vec4(const f32 &x, const f32 &y, const f32 &z, const f32 &w) {
 		this->x = x;
 		this->y = y;
 		this->z = z;

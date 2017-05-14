@@ -7,7 +7,7 @@ namespace ht { namespace maths {
 		y = 0;
 	}
 	
-	vec2::vec2(const float &x, const float &y) {
+	vec2::vec2(const f32 &x, const f32 &y) {
 		this->x = x;
 		this->y = y;
 	}

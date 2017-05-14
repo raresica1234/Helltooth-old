@@ -8,9 +8,10 @@
 #include "maths/vec2.h"
 #include "maths/vec3.h"
 
+#include "utils/Internal.h"
 #include "utils/Log.h"
-#include "utils/memory/MemoryManager.h"
 #include "utils/String.h"
+#include "utils/memory/MemoryManager.h"
 
 namespace ht { namespace assets {
 
@@ -19,15 +20,15 @@ namespace ht { namespace assets {
 	struct Vertex {
 	public:
 		maths::vec3 position;
-		GLint textureIndex = NO_INDEX;
-		GLint normalIndex = NO_INDEX;
-		GLuint index;
-		GLfloat length;
+		uint32 textureIndex = NO_INDEX;
+		uint32 normalIndex = NO_INDEX;
+		uint32 index;
+		f32 length;
 
 		Vertex* duplicatedVertex = nullptr;
 
 	public:
-		Vertex(GLuint index, maths::vec3 position)
+		Vertex(uint32 index, maths::vec3 position)
 			: index(index), position(position), length(position.length()) {}
 
 		~Vertex() {
@@ -51,89 +52,23 @@ namespace ht { namespace assets {
 		static graphics::RawModel* LoadObjFile(utils::String& path);
 
 	private:
-		__forceinline static void reserveMemory(std::vector<float> &vector, unsigned int size) {
-			if (vector.size() <= size)
-				vector.resize(size + 1);
+		__forceinline static void reserveMemory(std::vector<f32> &vector, uint32 size) { 
+			if (vector.size() <= size) vector.resize(size + 1);
 		}
 
-		__forceinline static void processVertex(maths::vec3 &vertex, std::vector<Vertex> &vertices, std::vector<GLuint> &indices) {
-			GLuint index = (GLuint)vertex.x - 1;
-			Vertex& currentVertex = vertices[index];
-			GLint textureIndex = (GLint)vertex.y - 1;
-			GLint normalIndex = (GLint)vertex.z - 1;
-			if (!currentVertex.isSet()) {
-				currentVertex.textureIndex = textureIndex;
-				currentVertex.normalIndex = normalIndex;
-				indices.push_back(index);
-			}
-			else {
-				dealWithAlreadyProcessedVertex(currentVertex, textureIndex, normalIndex, indices, vertices);
-			}
-		}
-
-		__forceinline static void dealWithAlreadyProcessedVertex(Vertex &previousVertex, GLint &newTextureIndex,
-			GLint &newNormalIndex, std::vector<GLuint> &indices, std::vector<Vertex> &vertices) {
-			if (previousVertex.hasSameTextureAndNormal(newTextureIndex, newNormalIndex))
-				indices.push_back(previousVertex.index);
-			else 
-				if (previousVertex.duplicatedVertex != nullptr)
-					dealWithAlreadyProcessedVertex(*previousVertex.duplicatedVertex, newTextureIndex, newNormalIndex, indices, vertices);
-				else {
-					Vertex* duplicateVertex = htnew Vertex(vertices.size(), previousVertex.position);
-					duplicateVertex->textureIndex = newTextureIndex;
-					duplicateVertex->normalIndex = newNormalIndex;
-					previousVertex.duplicatedVertex = duplicateVertex;
-					vertices.push_back(*duplicateVertex);
-					indices.push_back(duplicateVertex->index);
-				}
-			
-		}
-
-		__forceinline static void convertDataToArrays(std::vector<Vertex> &vertices, std::vector<maths::vec2> &textures,
-			std::vector<maths::vec3> &normals, float *verticesArray, float *texturesArray, float *normalsArray) {
-			for (GLuint i = 0; i < vertices.size(); i++) {
-				Vertex currentVertex = vertices[i];
-				maths::vec3 position = currentVertex.position;
-				maths::vec2 textureCoord = textures[currentVertex.textureIndex];
-				maths::vec3 normalVector = normals[currentVertex.normalIndex];
-				verticesArray[i * 3] = position.x;
-				verticesArray[i * 3 + 1] = position.y;
-				verticesArray[i * 3 + 2] = position.z;
-				texturesArray[i * 2] = textureCoord.x;
-				texturesArray[i * 2 + 1] = textureCoord.y;
-				normalsArray[i * 3] = normalVector.x;
-				normalsArray[i * 3 + 1] = normalVector.y;
-				normalsArray[i * 3 + 2] = normalVector.z;
-			}
-		}
+		static void processVertex(maths::vec3 &vertex, std::vector<Vertex> &vertices, std::vector<uint32> &indices);
+		static void dealWithAlreadyProcessedVertex(Vertex &previousVertex, uint32 &newTextureIndex,
+			uint32 &newNormalIndex, std::vector<uint32> &indices, std::vector<Vertex> &vertices);
+		static void convertDataToArrays(std::vector<Vertex> &vertices, std::vector<maths::vec2> &textures,
+			std::vector<maths::vec3> &normals, f32 *verticesArray, f32 *texturesArray, f32 *normalsArray);
 
 		__forceinline static void removeUnusedVertices(std::vector<Vertex> &vertices) {
 			for (Vertex& vertex : vertices) {
-				if (!vertex.isSet()) {
-					vertex.textureIndex = 0;
-					vertex.normalIndex = 0;
-				}
+				if (!vertex.isSet()) { vertex.textureIndex = 0; vertex.normalIndex = 0; }
 			}
 		}
 
-		static void readLine(FILE* file, char* buffer, unsigned int bufferLen = 256) {
-			char c;
-			unsigned int bufferIndex = 0;
-			c = fgetc(file);
-			while (!feof(file) && c != '\n' && bufferIndex < bufferLen) {
-				buffer[bufferIndex++] = c;
-				c = fgetc(file);
-			}
-			if (bufferIndex < bufferLen)
-				buffer[bufferIndex] = '\0';
-		}
-
-		static char* skipWhitespaces(char* text) {
-			char* ptr = text;
-			while (*text == ' ' || *text == '\t' || *text == '\v')
-				ptr++;
-			return ptr;
-		}
-
+		static void readLine(FILE* file, char* buffer, uint32 bufferLen = 256);
+		static sbyte* skipWhitespaces(sbyte* text);
 	};
 } }

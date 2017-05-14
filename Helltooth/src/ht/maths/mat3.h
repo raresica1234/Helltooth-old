@@ -4,6 +4,8 @@
 #include "vec3.h"
 #include "maths.h"
 
+#include "utils/Internal.h"
+
 namespace ht { namespace maths {
 
 	struct mat3 {
@@ -11,7 +13,7 @@ namespace ht { namespace maths {
 		typedef __m128 m128;
 
 		union {
-			float elements[9];
+			f32 elements[9];
 
 			vec3 columns[3];
 		};
@@ -19,14 +21,14 @@ namespace ht { namespace maths {
 	private:
 		void loadRows(m128* xmm) const;
 		void loadColumns(m128* xmm) const;
-	public:
 
+	public:
 		mat3();
 
-		mat3& scale(const float &x, const float &y);
+		mat3& scale(const f32 &x, const f32 &y);
 		mat3& scale(const vec2 &scale);
 
-		mat3& rotate(const float& z);
+		mat3& rotate(const f32& z);
 
 		friend mat3 operator*(mat3 left, const mat3 &right);
 		friend vec3 operator*(mat3 left, const vec3 &right);
@@ -36,7 +38,7 @@ namespace ht { namespace maths {
 		vec3 operator*=(const vec3 &other);
 		vec2 operator*=(const vec2 &other);
 
-		float& operator[](unsigned int index);
+		float& operator[](uint32 index);
 	};
 
 

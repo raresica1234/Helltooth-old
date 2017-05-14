@@ -6,12 +6,11 @@ namespace ht { namespace utils {
 
 	void VFS::mount(const String& virtualPath, const String& physicalPath) {
 		String path = String();
-		if (physicalPath[physicalPath.size - 1] == '/') {
-			HT_WARN("[VFS] Physical path ends in forward slash! Path will be adjusted.");
-			for (unsigned int i = 0; i < physicalPath.size - 1; i++)
-				path += physicalPath[i];
+		path = physicalPath;
+		if (path[path.size - 2] != '/') {
+			HT_WARN("[VFS] Path \"%s\" does not end in forward slash! Path will be adjusted!", physicalPath);
+			path += "/";
 		}
-		else path = const_cast<String&>(physicalPath);
 		mountPoints[virtualPath].push_back(path);
 	}
 
@@ -31,12 +30,13 @@ namespace ht { namespace utils {
 			return false;
 
 		String physicalPart;
-		for (unsigned int i = 1; i < dividedPath.size(); i++) {
-			physicalPart += '/';
+		for (uint32 i = 1; i < dividedPath.size(); i++) {
+			if(i > 1)
+				physicalPart += '/';
 			physicalPart += dividedPath[i];
 		}
 		
-		for (unsigned int i = 0; i < mountPoints[dividedPath[0]].size();i ++) {
+		for (uint32 i = 0; i < mountPoints[dividedPath[0]].size();i ++) {
 			String physicalPath = mountPoints[dividedPath[0]][i];
 			String path = physicalPath + physicalPart;
 			if (VFS::exists(path)) {

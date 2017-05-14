@@ -5,7 +5,7 @@ namespace ht { namespace graphics {
 
 	ShaderManager* ShaderManager::sManager= nullptr;
 
-	unsigned int ShaderManager::loadProgram(String vertexPath, String fragmentPath, bool path) {
+	uint32 ShaderManager::loadProgram(String vertexPath, String fragmentPath, bool path) {
 		ShaderProgram* program = htnew ShaderProgram(vertexPath.c_str(), fragmentPath.c_str(), path);
 		shaders.push_back(program);
 		HT_INFO("[ShaderManager] Program with id %i loaded!", shaders.size() - 1);
@@ -13,7 +13,7 @@ namespace ht { namespace graphics {
 	}
 
 
-	ShaderProgram* ShaderManager::getProgram(unsigned int &id) {
+	ShaderProgram* ShaderManager::getProgram(uint32 &id) {
 		if (id < shaders.size())
 			return shaders[id];
 		return nullptr;

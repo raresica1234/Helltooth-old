@@ -3,7 +3,8 @@
 
 #include "MemoryAllocator.h"
 
-#include "../Log.h"
+#include "utils/Log.h"
+#include "utils/Internal.h"
 
 #ifndef htnew
 #	define htnew	new(__FILE__, __LINE__)
@@ -18,7 +19,7 @@
 
 #define MB 1024 * 1024
 
-inline void* operator new(size_t count) noexcept {
+inline void* operator new(ht::uint32 count) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);
@@ -26,7 +27,7 @@ inline void* operator new(size_t count) noexcept {
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new[](size_t count) noexcept {
+inline void* operator new[](ht::uint32 count) noexcept {
 	if (count > MB) {
 		float size = (float) count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB", size);
@@ -34,7 +35,7 @@ inline void* operator new[](size_t count) noexcept {
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new(size_t count, const char* file, unsigned int line) noexcept {
+inline void* operator new(ht::uint32 count, const char* file, ht::uint32 line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB %s", size, file);
@@ -42,7 +43,7 @@ inline void* operator new(size_t count, const char* file, unsigned int line) noe
 	return ht::utils::MemoryAllocator::allocate(count);
 }
 
-inline void* operator new[](size_t count, const char* file, unsigned int line) noexcept {
+inline void* operator new[](ht::uint32 count, const char* file, ht::uint32 line) noexcept {
 	if (count > MB) {
 		float size = (float)count / (MB);
 		HT_WARN("Large allocation, size: %.2f MB %s", size, file);
@@ -58,10 +59,10 @@ inline void operator delete[](void* ptr) noexcept {
 	ht::utils::MemoryAllocator::deallocate(ptr);
 }
 
-inline void operator delete(void* ptr, const char* file, unsigned int line) noexcept {
+inline void operator delete(void* ptr, const char* file, ht::uint32 line) noexcept {
 	ht::utils::MemoryAllocator::deallocate(ptr);
 }
 
-inline void operator delete[](void* ptr, const char* file, unsigned int line) noexcept {
+inline void operator delete[](void* ptr, const char* file, ht::uint32 line) noexcept {
 	ht::utils::MemoryAllocator::deallocate(ptr);
 }

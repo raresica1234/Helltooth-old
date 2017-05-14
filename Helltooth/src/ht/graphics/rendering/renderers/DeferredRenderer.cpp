@@ -33,9 +33,9 @@ namespace ht { namespace graphics {
 		Window* w = WindowManager::Get()->getWindow(0);
 		gbuffer = htnew GBuffer();
 
-		unsigned int dirID = ShaderManager::Get()->loadProgram(basicProgramVert, directionalLightFrag, false);
-		unsigned int pointID = ShaderManager::Get()->loadProgram(basicProgramVert, pointLightFrag, false);
-		unsigned int spotID = ShaderManager::Get()->loadProgram(basicProgramVert, spotLightFrag, false);
+		uint32 dirID = ShaderManager::Get()->loadProgram(basicProgramVert, directionalLightFrag, false);
+		uint32 pointID = ShaderManager::Get()->loadProgram(basicProgramVert, pointLightFrag, false);
+		uint32 spotID = ShaderManager::Get()->loadProgram(basicProgramVert, spotLightFrag, false);
 		directional = ShaderManager::Get()->getProgram(dirID);
 		point = ShaderManager::Get()->getProgram(pointID);
 		spot = ShaderManager::Get()->getProgram(spotID);
@@ -99,7 +99,7 @@ namespace ht { namespace graphics {
 		}
 
 		if (!staticEntities.empty())
-			for (unsigned int i = 0; i < staticEntities.size(); i++) {
+			for (uint32 i = 0; i < staticEntities.size(); i++) {
 				const StaticEntity* sEntity = staticEntities[i];
 				sEntity->prepare();
 				if (sEntity->hasOwnShader()) {
@@ -117,7 +117,7 @@ namespace ht { namespace graphics {
 		
 		gbuffer->bindTextures();
 		
-		for (unsigned int i = 0; i < stack->size(); i++) {
+		for (uint32 i = 0; i < stack->size(); i++) {
 			if (i == 1) {
 				glDepthFunc(GL_EQUAL);
 				glEnable(GL_BLEND);
@@ -157,7 +157,7 @@ namespace ht { namespace graphics {
 
 	void DeferredRenderer::reloadTextures() {
 		Renderer::reloadTextures();
-		GLint texIDs[] = {
+		int32 texIDs[] = {
 			0,  1,  2
 		};
 

@@ -7,6 +7,7 @@
 
 #include "../../Camera.h"
 
+#include "utils/Internal.h"
 #include "utils/memory/MemoryManager.h"
 /*
 StaticRenderable component:
@@ -30,7 +31,7 @@ namespace ht { namespace graphics {
 		StaticEntity(Renderable* renderable, maths::vec3 position)
 			: renderable(renderable), Entity(position) { this->type = STATIC_ENTITY; }
 
-		StaticEntity(Renderable* renderable, float x, float y, float z)
+		StaticEntity(Renderable* renderable, f32 x, f32 y, f32 z)
 			: renderable(renderable), Entity(x, y, z) { this->type = STATIC_ENTITY; }
 
 		virtual void prepare() const {

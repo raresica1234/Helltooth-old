@@ -1,7 +1,6 @@
 #include "HelltoothModel.h"
 
 namespace ht { namespace assets {
-
 	using namespace utils;
 	using namespace graphics;
 
@@ -16,29 +15,30 @@ namespace ht { namespace assets {
 
 		Cereal::Object* object = db->getObject("model");
 		Cereal::Array* array = object->getArray("positions");
-		GLfloat* positions = htnew GLfloat[array->getCount()];
-		array->getRawArray<GLfloat>(positions);
-		this->model = htnew RawModel(positions, array->getCount() * sizeof(GLfloat));
+
+		f32* positions = htnew f32[array->getCount()];
+		array->getRawArray<f32>(positions);
+		this->model = htnew RawModel(positions, array->getCount() * sizeof(f32));
 
 		Cereal::Array* indices = object->getArray("indices");
 		if (indices) {
-			GLuint* indicesArray = htnew GLuint[indices->getCount()];
-			indices->getRawArray<GLint>((GLint*)indicesArray);
-			model->storeData(indicesArray, indices->getCount() * sizeof(GLuint));
+			uint32* indicesArray = htnew uint32[indices->getCount()];
+			indices->getRawArray<int32>((int32*)indicesArray);
+			model->storeData(indicesArray, indices->getCount() * sizeof(uint32));
 		}
 
 		Cereal::Array* textureCoords = object->getArray("textureCoords");
 		if (textureCoords) {
-			GLfloat* textureCoordsArray = htnew GLfloat[textureCoords->getCount()];
-			textureCoords->getRawArray<GLfloat>(textureCoordsArray);
-			model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoordsArray, textureCoords->getCount() * sizeof(GLfloat));
+			f32* textureCoordsArray = htnew f32[textureCoords->getCount()];
+			textureCoords->getRawArray<f32>(textureCoordsArray);
+			model->storeData(RAWMODEL_TEXTURE_COORDS, textureCoordsArray, textureCoords->getCount() * sizeof(f32));
 		}
 
 		Cereal::Array* normals = object->getArray("normals");
 		if (normals) {
-			GLfloat* normalsArray = htnew GLfloat[normals->getCount()];
-			normals->getRawArray<GLfloat>(normalsArray);
-			model->storeData(RAWMODEL_NORMALS, normalsArray, normals->getCount() * sizeof(GLfloat));
+			f32* normalsArray = htnew f32[normals->getCount()];
+			normals->getRawArray<f32>(normalsArray);
+			model->storeData(RAWMODEL_NORMALS, normalsArray, normals->getCount() * sizeof(f32));
 		}
 		del db;
 	}
@@ -51,29 +51,29 @@ namespace ht { namespace assets {
 		Cereal::Array* textureCoordArray = nullptr;
 		Cereal::Array* normalsArray = nullptr;
 
-		GLfloat* positions = htnew GLfloat[model->getPositionSize() / sizeof(GLfloat)];
+		f32* positions = htnew f32[model->getPositionSize() / sizeof(f32)];
 		memcpy(positions, model->getPositions(), model->getPositionSize());
-		array = htnew Cereal::Array("positions", positions, model->getPositionSize() / sizeof(GLfloat));
+		array = htnew Cereal::Array("positions", positions, model->getPositionSize() / sizeof(f32));
 		del[] positions;
 
 		if (model->getIndexSize() > 0) {
-			GLint* indices = htnew GLint[model->getIndexSize() / sizeof(GLuint)];
+			int32* indices = htnew int32[model->getIndexSize() / sizeof(GLuint)];
 			memcpy(indices, model->getIndices(), model->getIndexSize());
-			indexArray = htnew Cereal::Array("indices", indices, model->getIndexSize() / sizeof(GLint));
+			indexArray = htnew Cereal::Array("indices", indices, model->getIndexSize() / sizeof(int32));
 			del[] indices;
 		}
 
 		if (model->getTextureCoordsSize() > 0) {
-			GLfloat* textureCoords = htnew GLfloat[model->getTextureCoordsSize() / sizeof(GLfloat)];
+			f32* textureCoords = htnew f32[model->getTextureCoordsSize() / sizeof(f32)];
 			memcpy(textureCoords, model->getTextureCoords(), model->getTextureCoordsSize());
-			textureCoordArray = htnew Cereal::Array("textureCoords", textureCoords, model->getTextureCoordsSize() / sizeof(GLfloat));
+			textureCoordArray = htnew Cereal::Array("textureCoords", textureCoords, model->getTextureCoordsSize() / sizeof(f32));
 			del[] textureCoords;
 		}
 
 		if (model->getNormalSize() > 0) {
-			GLfloat* normals = htnew GLfloat[model->getNormalSize() / sizeof(GLfloat)];
+			f32* normals = htnew f32[model->getNormalSize() / sizeof(f32)];
 			memcpy(normals, model->getNormals(), model->getNormalSize());
-			normalsArray = htnew Cereal::Array("normals", normals, model->getNormalSize() / sizeof(GLfloat));
+			normalsArray = htnew Cereal::Array("normals", normals, model->getNormalSize() / sizeof(f32));
 			del[] normals;
 		}
 
@@ -97,5 +97,4 @@ namespace ht { namespace assets {
 		buffer.writeFile(path.c_str());
 		del database;
 	}
-
 } }

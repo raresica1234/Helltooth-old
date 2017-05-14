@@ -7,7 +7,7 @@ namespace ht {	namespace maths {
 			z = 0;
 		}
 
-		vec3::vec3(const float &x, const float &y, const float &z) {
+		vec3::vec3(const f32 &x, const f32 &y, const f32 &z) {
 			this->x = x;
 			this->y = y;
 			this->z = z;
@@ -33,11 +33,11 @@ namespace ht {	namespace maths {
 			return left;
 		}
 
-		bool vec3::operator==(vec3 other) {
+		bool vec3::operator==(const vec3 other) const {
 			return (x == other.x) && (y == other.y) && (z == other.z);
 		}
 
-		bool vec3::operator!=(vec3 other) {
+		bool vec3::operator!=(const vec3 other) const {
 			if (x != other.x)
 				return true;
 			if (y != other.y)

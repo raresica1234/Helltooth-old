@@ -10,8 +10,8 @@ namespace ht { namespace graphics {
 
 		pitchSensitivity = 0.2f; // How sensitive mouse movements affect looking up and down
 		yawSensitivity = 0.2f; // How sensitive mouse movements affect looking left and right
-		midPoint.x = (float)window->getWidth() / 2;
-		midPoint.y = (float)window->getHeight() / 2;
+		midPoint.x = (f32)window->getWidth() / 2;
+		midPoint.y = (f32)window->getHeight() / 2;
 	}
 
 	Camera::~Camera() {}
@@ -27,11 +27,11 @@ namespace ht { namespace graphics {
 
 		vec3 movement;
 
-		float sinXRot = sin(toRadians(rotation.x));
-		float cosXRot = cos(toRadians(rotation.x));
+		f32 sinXRot = sin(toRadians(rotation.x));
+		f32 cosXRot = cos(toRadians(rotation.x));
 
-		float sinYRot = sin(toRadians(rotation.y));
-		float cosYRot = cos(toRadians(rotation.y));
+		f32 sinYRot = sin(toRadians(rotation.y));
+		f32 cosYRot = cos(toRadians(rotation.y));
 
 		if (e.isPressed(GLFW_KEY_W)) {
 			movement.x += sinYRot * cosXRot;
@@ -71,7 +71,7 @@ namespace ht { namespace graphics {
 		return viewMatrix;
 	}
 
-	void Camera::handleMouseMove(float mouseX, float mouseY) {
+	void Camera::handleMouseMove(f32 mouseX, f32 mouseY) {
 		// Calculate our horizontal and vertical mouse movement from middle of the window
 		float horizMovement = (mouseX - midPoint.x) * yawSensitivity;
 		float vertMovement = (mouseY - midPoint.y) * pitchSensitivity;

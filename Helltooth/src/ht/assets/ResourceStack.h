@@ -8,6 +8,7 @@
 #include "graphics/textures/Texture.h"
 #include "graphics/rendering/Skybox.h"
 
+#include "utils/Internal.h"
 #include "utils/String.h"
 #include "utils/memory/MemoryManager.h"
 
@@ -35,53 +36,36 @@ namespace ht { namespace assets {
 		std::vector<Path> paths;
 		std::vector<void*> resources;
 
+		uint16 loaded = 0;
 
-		unsigned int loaded = 0;
 	public:
 		ResourceStack() {}
 		~ResourceStack();
-
-		__forceinline graphics::Renderable* getAsModel(unsigned int id) {
-			Path p = paths[id];
-			if (p.type != p.MODEL) {
-				HT_ERROR("[ResourceStack] Type is not compatible!");
-				return nullptr;
-			}
-
-			return (graphics::Renderable*)resources[id];
-		}
-
-		__forceinline graphics::Texture* getAsTexture(unsigned int id) {
-			Path p = paths[id];
-			if (p.type != p.TEXTURE) {
-				HT_ERROR("[ResourceStack] Type is not compatible!");
-				return nullptr;
-			}
-
-			return (graphics::Texture*)resources[id];
-		}
-
-		__forceinline graphics::Skybox* getAsSkybox(unsigned int id) {
-			Path p = paths[id];
-			if (p.type != p.CUBEMAP) {
-				HT_ERROR("[ResourceStack] Type is not compatible!");
-				return nullptr;
-			}
-
-			return (graphics::Skybox*)resources[id];
-		}
 
 		void queueUp();
 		void prepareResources();
 		bool isLoaded() { return loaded == paths.size(); }
 
-		Path& operator[](unsigned int id);
+		__forceinline Path& operator[](uint32 id) {
+			if (paths.size() <= id) { paths.resize(id); paths.push_back(Path()); }
+			return paths[id];
+		}
 
+		__forceinline graphics::Renderable* getAsModel(uint32 id) {
+			if (paths[id].type != Path::MODEL) { HT_ERROR("[ResourceStack] Type is not compatible!"); return nullptr; }
+			return (graphics::Renderable*)resources[id];
+		}
+
+		__forceinline graphics::Texture* getAsTexture(uint32 id) {
+			if (paths[id].type != Path::TEXTURE) { HT_ERROR("[ResourceStack] Type is not compatible!"); return nullptr; }
+			return (graphics::Texture*)resources[id];
+		}
+
+		__forceinline graphics::Skybox* getAsSkybox(uint32 id) {
+			if (paths[id].type != Path::CUBEMAP) { HT_ERROR("[ResourceStack] Type is not compatible!"); return nullptr; }
+			return (graphics::Skybox*)resources[id];
+		}
 		__forceinline unsigned int getSize() { return paths.size(); }
 
 	};
-
-
-
 } }
-

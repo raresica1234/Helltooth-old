@@ -9,6 +9,8 @@
 #include "vec4.h"
 #include "maths.h"
 
+#include "utils/Internal.h"
+
 namespace ht { namespace maths {
 
 	struct mat4 {
@@ -17,7 +19,7 @@ namespace ht { namespace maths {
 
 	public:
 		union {
-			GLfloat elements[4 * 4];
+			f32 elements[4 * 4];
 			vec4 columns[4];
 		};
 		
@@ -28,16 +30,16 @@ namespace ht { namespace maths {
 		void loadColumns(m128* xmm) const;
 
 	public:
-		static mat4 createPerspective(const float &FOV, const float &NEAR_PLANE, const float &FAR_PLANE, const float &ASPECT_RATIO);
-		static mat4 createOrthographic(const float &left, const float &right, const float &top, const float &bottom, const float &near, const float &far);
+		static mat4 createPerspective(const f32 &FOV, const f32 &NEAR_PLANE, const f32 &FAR_PLANE, const f32 &ASPECT_RATIO);
+		static mat4 createOrthographic(const f32 &left, const f32 &right, const f32 &top, const f32 &bottom, const f32 &near, const f32 &far);
 		
-		mat4& translate(const float &x, const float &y, const float &z);
+		mat4& translate(const f32 &x, const f32 &y, const f32 &z);
 		mat4& translate(const vec3 &translation);
 
-		mat4& scale(const float &x, const float &y, const float &z);
+		mat4& scale(const f32 &x, const f32 &y, const f32 &z);
 		mat4& scale(const vec3 &scale);
 
-		mat4& rotate(const float &x, const float &y, const float &z);
+		mat4& rotate(const f32 &x, const f32 &y, const f32 &z);
 		mat4& rotate(const vec3 &axis);
 
 		friend mat4 operator*(mat4 left, const mat4 &right);
@@ -50,6 +52,6 @@ namespace ht { namespace maths {
 		vec3 operator*=(const vec3 &other);
 		vec2 operator*=(const vec2 &other);
 
-		float& operator[](unsigned int index);
+		f32& operator[](uint32 index);
 	};
 } }

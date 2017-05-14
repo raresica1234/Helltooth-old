@@ -53,15 +53,13 @@ namespace ht { namespace graphics {
 				return;
 
 			program->start();
-			GLint texIDs[] = {
+			int32 texIDs[] = {
 				0,  1,  2,  3,  4,  5,  6,  7,  8,  9,
 				10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 				20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
 				30, 31
 			};
 			program->uniform1iv("textures", texIDs, 32);
-			program->uniform1f("density", API::getFog().density);
-			program->uniform1f("gradient", API::getFog().gradient);
 			program->uniform4f("skyColor", maths::vec4(.3f, .4f, .7f, 1.f));
 		}
 
@@ -73,7 +71,5 @@ namespace ht { namespace graphics {
 			stack->clear();
 		}
 	};
-
-
 } }
 

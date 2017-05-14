@@ -2,11 +2,13 @@
 
 #include <GL/glew.h>
 
+#include "utils/Internal.h"
+
 namespace ht { namespace graphics {
 
 	class VAO {
 	private:
-		GLuint id; //VAO id
+		uint32 id; //VAO id
 
 	public:
 		//Create a new VAO
@@ -22,14 +24,14 @@ namespace ht { namespace graphics {
 		inline void bindVAO() { glBindVertexArray(id); }
 
 		//Returns id
-		inline GLuint getID() { return id; }
+		inline uint32 getID() { return id; }
 	};
 
 	class VBO {
 	private:
-		GLuint id; //VAO id
-		GLsizei floatCount; //This will be stored in floats, not bytes.
-		GLsizei count; //The actual count of the vertices's components
+		uint32 id; //VAO id
+		uint32 floatCount; //This will be stored in floats, not bytes.
+		uint32 count; //The actual count of the vertices's components
 
 	public:
 		//Create new VBO
@@ -40,15 +42,15 @@ namespace ht { namespace graphics {
 
 		//Store data
 		//Usage: storeDataInAttribList(number of the attribute list, count of the vertex size, dataSize in bytes, data);
-		void storeDataInAttribList(const GLsizei &number, const GLsizei &count, const GLsizei &dataSize, const GLfloat *data) {
-			this->floatCount = dataSize / sizeof(GLfloat);
+		void storeDataInAttribList(const uint32 &number, const uint32 &count, const uint32 &dataSize, const f32 *data) {
+			this->floatCount = dataSize / sizeof(f32);
 			this->count = count;
 
 			bindVBO();
 			glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
 			glEnableVertexAttribArray(number);
-			glVertexAttribPointer(number, count, GL_FLOAT, GL_FALSE, count * sizeof(GLfloat), 0);
+			glVertexAttribPointer(number, count, GL_FLOAT, GL_FALSE, count * sizeof(f32), 0);
 		}
 
 		//Bind vbo
@@ -60,8 +62,8 @@ namespace ht { namespace graphics {
 
 	class IBO {
 	private:
-		GLuint id;
-		GLsizei indicesCount;
+		uint32 id;
+		uint32 indicesCount;
 
 	public:
 		//Create new IBO ( Indices Buffer Object )
@@ -72,18 +74,18 @@ namespace ht { namespace graphics {
 
 		//Store indices
 		//Usage: storeIndices(data in GLint, dataSize in bytes)
-		void storeIndices(const GLuint *data, const GLsizei &dataSize) {
+		void storeIndices(const uint32 *data, const uint32 &dataSize) {
 			bindIBO();
-			this->indicesCount = dataSize / sizeof(GLuint);
+			this->indicesCount = dataSize / sizeof(uint32);
 
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 		}
 
-		void storeIndices(const GLushort *data, const GLsizei count) {
+		void storeIndices(const uint16 *data, const uint32 count) {
 			bindIBO();
 			this->indicesCount = count;
 
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLushort), data, GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint16), data, GL_STATIC_DRAW);
 		}
 
 		//Bind IBO
@@ -92,7 +94,7 @@ namespace ht { namespace graphics {
 		//Unbind IBO
 		inline void unbindIBO() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
-		inline GLsizei getCount() { return indicesCount; }
+		inline uint32 getCount() { return indicesCount; }
 	};
 
 } }

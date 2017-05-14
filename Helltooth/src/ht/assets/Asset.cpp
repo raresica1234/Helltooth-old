@@ -1,12 +1,11 @@
 #include "Asset.h"
 
-
 namespace ht { namespace assets {
 	using namespace graphics;
 	using namespace utils;
 
 	const Texture* Asset::loadTextureFromFile(String path) {
-		String fileName = utils::FileUtils::changeExtension(path, "httexture");
+		String fileName = FileUtils::changeExtension(path, "httexture");
 
 		if (exists(fileName)) {
 			HelltoothTexture texture(fileName.c_str());
@@ -28,15 +27,15 @@ namespace ht { namespace assets {
 
 		FreeImage_FlipVertical(dib);
 
-		BYTE* pixels = FreeImage_GetBits(dib);
+		byte* pixels = FreeImage_GetBits(dib);
 
-		GLsizei width = FreeImage_GetWidth(dib);
-		GLsizei height = FreeImage_GetHeight(dib);
-		GLsizei bpp = FreeImage_GetBPP(dib);
+		uint16 width = (uint16)FreeImage_GetWidth(dib);
+		uint16 height = (uint16)FreeImage_GetHeight(dib);
+		byte bpp = (byte)FreeImage_GetBPP(dib);
 
-		unsigned int size = width * height * (bpp / 8);
+		uint32 size = (uint32)(width * height * (bpp / 8));
 
-		BYTE* result = htnew BYTE[size];
+		byte* result = htnew byte[size];
 		memcpy(result, pixels, size);
 
 		FreeImage_Unload(dib);
@@ -51,7 +50,7 @@ namespace ht { namespace assets {
 		return texture;
 	}
 
-	const graphics::Texture* Asset::loadTextureFromMemory(unsigned char* array, unsigned int size) {
+	const Texture* Asset::loadTextureFromMemory(byte* array, uint32 size) {
 		FIMEMORY* data = FreeImage_OpenMemory(array, size);
 		FREE_IMAGE_FORMAT format = FreeImage_GetFileTypeFromMemory(data, size);
 
@@ -59,15 +58,15 @@ namespace ht { namespace assets {
 		
 		dib = FreeImage_LoadFromMemory(format, data);
 		
-		BYTE* pixels = FreeImage_GetBits(dib);
+		byte* pixels = FreeImage_GetBits(dib);
 
-		GLsizei width = FreeImage_GetWidth(dib);
-		GLsizei height = FreeImage_GetHeight(dib);
-		GLsizei bpp = FreeImage_GetBPP(dib);
+		uint16 width = (uint16)FreeImage_GetWidth(dib);
+		uint16 height = (uint16)FreeImage_GetHeight(dib);
+		byte bpp = (byte)FreeImage_GetBPP(dib);
 
-		long long bmpsize = width * height * (bpp / 8);
+		uint32 bmpsize = width * height * (bpp / 8);
 
-		BYTE* result = htnew BYTE[bmpsize];
+		byte* result = htnew byte[bmpsize];
 		memcpy(result, pixels, bmpsize);
 
 		FreeImage_Unload(dib);
@@ -81,8 +80,8 @@ namespace ht { namespace assets {
 		return texture;
 	}
 
-	TextureData* Asset::loadTextureDataFromFile(ht::utils::String path) {
-		String fileName = utils::FileUtils::changeExtension(path, "httexture");
+	TextureData* Asset::loadTextureDataFromFile(String path) {
+		String fileName = FileUtils::changeExtension(path, "httexture");
 
 		if (exists(fileName)) {
 			HelltoothTexture texture(fileName.c_str(), 1);
@@ -102,15 +101,15 @@ namespace ht { namespace assets {
 
 		if (FreeImage_FIFSupportsReading(fif)) dib = FreeImage_Load(fif, file);
 
-		BYTE* pixels = FreeImage_GetBits(dib);
+		byte* pixels = FreeImage_GetBits(dib);
 
-		GLsizei width = FreeImage_GetWidth(dib);
-		GLsizei height = FreeImage_GetHeight(dib);
-		GLsizei bpp = FreeImage_GetBPP(dib);
+		uint16 width = (uint16)FreeImage_GetWidth(dib);
+		uint16 height = (uint16)FreeImage_GetHeight(dib);
+		byte bpp = (byte)FreeImage_GetBPP(dib);
 
-		unsigned int size = width * height * (bpp / 8);
+		uint32 size = (uint32)(width * height * (bpp / 8));
 
-		BYTE* result = htnew BYTE[size];
+		byte* result = htnew byte[size];
 		memcpy(result, pixels, size);
 
 		FreeImage_Unload(dib);
@@ -126,18 +125,18 @@ namespace ht { namespace assets {
 		return data;
 	}
 
-	Cubemap* Asset::loadCubemapFromFile(utils::String path) {
+	Cubemap* Asset::loadCubemapFromFile(String path) {
 		if (exists(path)) {
 			HelltoothCubemap cubemap(path);
 			HT_INFO("[Asset] Cubemap \"%s\" loaded!", path);
 			return cubemap.getCubemap();
 		}
-		else
-			HT_ERROR("[Asset] Cubemap \"%s\" not found", path);
+		HT_ERROR("[Asset] Cubemap \"%s\" not found", path);
+		return nullptr;
 	}
 
 	RawModel* Asset::loadModelFromFile(String path) {
-		String fileName = utils::FileUtils::changeExtension(path, "htmodel");
+		String fileName = FileUtils::changeExtension(path, "htmodel");
 
 		if (exists(fileName)) {
 			HelltoothModel model(fileName);
@@ -152,5 +151,4 @@ namespace ht { namespace assets {
 		HT_INFO("[Asset] Model \"%s\" loaded!", fileName);
 		return rawModel;
 	}
-
 } }

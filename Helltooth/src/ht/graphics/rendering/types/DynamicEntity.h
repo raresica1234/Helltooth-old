@@ -29,7 +29,7 @@ namespace ht { namespace graphics {
 		DynamicEntity(Renderable* renderable, ht::maths::vec3 position)
 			: renderable(renderable), Entity(position) { this->type = DYNAMIC_ENTITY; }
 
-		DynamicEntity(Renderable* renderable, float x, float y, float z)
+		DynamicEntity(Renderable* renderable, f32 x, f32 y, f32 z)
 			: renderable(renderable), Entity(x, y, z) { this->type = DYNAMIC_ENTITY; }
 
 		~DynamicEntity() {

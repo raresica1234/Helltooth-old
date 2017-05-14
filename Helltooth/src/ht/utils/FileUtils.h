@@ -19,7 +19,7 @@ namespace ht { namespace utils {
 				return nullptr;
 			}
 			fseek(file, 0, SEEK_END);
-			unsigned long length = ftell(file);
+			uint32 length = ftell(file);
 			char* data = htnew char[length + 1];
 			memset(data, 0, length + 1);
 			fseek(file, 0, SEEK_SET);
@@ -30,7 +30,7 @@ namespace ht { namespace utils {
 			return temp;
 		}
 
-		static void write_file(const char* path, const void* data, const int dataSize) {
+		static void write_file(const char* path, const void* data, const int32 dataSize) {
 			FILE* file = fopen(path, "w");
 			fwrite(data, 1, dataSize, file);
 			fclose(file);
@@ -45,7 +45,7 @@ namespace ht { namespace utils {
 			}
 			else {
 				String aux;
-				for (unsigned int i = 0; i < strings.size() - 1; i++)
+				for (uint32 i = 0; i < strings.size() - 1; i++)
 					aux += strings[i];
 				result = aux + "." + newExtension;
 			}

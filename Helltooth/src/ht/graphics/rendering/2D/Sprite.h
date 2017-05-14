@@ -13,8 +13,8 @@ namespace ht { namespace graphics {
 	struct VertexData {
 		maths::vec3 position;
 		maths::vec2 uv;
-		float textureID;
-		unsigned int color;
+		f32 textureID;
+		uint32 color;
 	};
 
 	struct Sprite {
@@ -22,17 +22,13 @@ namespace ht { namespace graphics {
 		maths::vec2 uvs[4];
 
 		union {
-			struct {
-				float textureID;
-			};
-			struct {
-				unsigned int color;
-			};
+			f32 textureID;
+			uint32 color;
 		};
 
 		bool hasTexture = false;
 
-		Sprite(float x, float y, float width, float height) {
+		Sprite(f32 x, f32 y, f32 width, f32 height) {
 			data = maths::vec4(x, y, width, height);
 
 			uvs[0] = maths::vec2(0, 0);
@@ -42,26 +38,17 @@ namespace ht { namespace graphics {
 		}
 
 		Sprite* setColor(maths::vec4 color) {
-			int r = (int)(color.x * 255.0f);
-			int g = (int)(color.y * 255.0f);
-			int b = (int)(color.z * 255.0f);
-			int a = (int)(color.w * 255.0f);
+			int32 r = (int32)(color.x * 255.0f);
+			int32 g = (int32)(color.y * 255.0f);
+			int32 b = (int32)(color.z * 255.0f);
+			int32 a = (int32)(color.w * 255.0f);
 
-			unsigned int col = a << 24 | b << 16 | g << 8 | r;
+			uint32 col = a << 24 | b << 16 | g << 8 | r;
 			setColor(col);
 			return this;
 		}
 		
-		Sprite* setColor(unsigned int color) {
-			this->color = color;
-			hasTexture = false;
-			return this;
-		}
-
-		Sprite* setTexture(const Texture* texture) {
-			textureID = texture->getID();
-			hasTexture = true;
-			return this;
-		}
+		__forceinline Sprite* setColor(uint32 color) { this->color = color; hasTexture = false; return this; }
+		__forceinline Sprite* setTexture(const Texture* texture) { textureID = texture->getID(); hasTexture = true; return this; }
 	};
 } }

@@ -19,10 +19,10 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	Font& f = FontManager::Get()->getFont();
 
 	sprite = htnew Sprite(100, 100, 200, 300);
-	sprite->setColor(vec4(0.3, 0.4, 0.7, 1.0));
+	sprite->setColor(vec4(0.3f, 0.4f, 0.7f, 1.0f));
 
 	label = createLabel("Don't look", 20, 10, 400, 40, "Arial", vec2(10, 2));
-	label->setBackgroundColor(vec4(0.3, 0.4, 0.7, 1.f));
+	label->setBackgroundColor(vec4(0.3f, 0.4f, 0.7f, 1.f));
 
 	color.w = 1.0f;
 	utils::String s = String("GLVersion: ") + (const char*)glGetString(GL_VERSION);

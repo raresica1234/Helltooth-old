@@ -41,6 +41,4 @@ namespace ht { namespace graphics {
 		void forceCleanUP() override;
 		void reloadTextures() override;
 	};
-
-
 } }

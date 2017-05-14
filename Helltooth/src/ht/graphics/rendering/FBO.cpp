@@ -2,7 +2,7 @@
 
 namespace ht { namespace graphics {
 
-	FBO::FBO(GLuint width, GLuint height)
+	FBO::FBO(uint32 width, uint32 height)
 		: width(width), height(height) {
 		glGenFramebuffers(1, &id);
 		glBindFramebuffer(GL_FRAMEBUFFER, id);
@@ -44,7 +44,7 @@ namespace ht { namespace graphics {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void FBO::unbind(int width, int height) {
+	void FBO::unbind(uint32 width, uint32 height) {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, width, height);
 	}

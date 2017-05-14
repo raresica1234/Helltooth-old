@@ -11,35 +11,22 @@ namespace ht { namespace graphics { namespace ui {
 
 	class Label : public GUIItem {
 	private:
-		utils::String text;
-		maths::vec2 textPosition;
+		utils::String text, font;
+		maths::vec2 textPosition, scale = maths::vec2(1.f, 1.f), space;
 
-		maths::vec2 scale = maths::vec2(1.f, 1.f);
+		enum TextAttrib { FILL = 0 } attrib = FILL;
 
-		maths::vec2 space;
+		enum Align { CENTER, LEFT, RIGHT } align = CENTER;
 
-		utils::String font;
-
-		enum TextAttrib {
-			FILL = 0
-		} attrib = FILL;
-
-		enum Align {
-			CENTER,
-			LEFT,
-			RIGHT
-		} align = CENTER;
-
-		unsigned int foreColor = 0x000000FF;
+		uint32 foreColor = 0x000000FF;
 
 		Sprite* background = nullptr;
 
 	public:
-
-		Label(utils::String text, float x, float y, float width, float height, utils::String font, maths::vec2 space = maths::vec2(0.f, 0.f));
+		Label(utils::String text, f32 x, f32 y, f32 width, f32 height, utils::String font, maths::vec2 space = maths::vec2(0.f, 0.f));
 		~Label() { if (background) del background; }
 
-		__forceinline void setBackgroundColor(unsigned int color) {
+		__forceinline void setBackgroundColor(uint32 color) {
 			if (!background) {
 				background = htnew Sprite(0, 0, size.z, size.w);
 				sprites.push_back(background);
@@ -64,12 +51,12 @@ namespace ht { namespace graphics { namespace ui {
 		}
 
 		__forceinline void setBackgroundColor(maths::vec4 color) {
-			int r = (int)(color.x * 255.0f);
-			int g = (int)(color.y * 255.0f);
-			int b = (int)(color.z * 255.0f);
-			int a = (int)(color.w * 255.0f);
+			byte r = (byte)(color.x * 255.0f);
+			byte g = (byte)(color.y * 255.0f);
+			byte b = (byte)(color.z * 255.0f);
+			byte a = (byte)(color.w * 255.0f);
 
-			unsigned int col = a << 24 | b << 16 | g << 8 | r;
+			uint32 col = a << 24 | b << 16 | g << 8 | r;
 			setBackgroundColor(col);
 		}
 

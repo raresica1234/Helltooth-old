@@ -173,11 +173,8 @@
     <ClInclude Include="src\ht\graphics\rendering\model\RawModel.h" />
     <ClInclude Include="src\ht\graphics\rendering\Renderable.h" />
     <ClInclude Include="src\ht\graphics\rendering\Vertex.h" />
-    <ClInclude Include="src\ht\graphics\shaders\DynamicShader.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="src\ht\graphics\shaders\ShaderProgram.h" />
-    <ClInclude Include="src\ht\graphics\terrain\TerrainShader.h" />
-    <ClInclude Include="src\ht\graphics\terrain\World.h" />
     <ClInclude Include="src\ht\graphics\textures\Texture.h" />
     <ClInclude Include="src\ht\graphics\textures\TextureManager.h" />
     <ClInclude Include="src\ht\graphics\ui\font\FontManager.h" />
@@ -210,6 +207,7 @@
     <ClInclude Include="src\ht\utils\FileUtils.h" />
     <ClInclude Include="src\ht\utils\FpsCounter.h" />
     <ClInclude Include="src\ht\utils\input\Input.h" />
+    <ClInclude Include="src\ht\utils\Internal.h" />
     <ClInclude Include="src\ht\utils\Log.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryAllocator.h" />
     <ClInclude Include="src\ht\utils\memory\MemoryManager.h" />
@@ -236,11 +234,8 @@
     <ClCompile Include="src\ht\graphics\rendering\renderers\DeferredRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\renderers\ForwardRenderer.cpp" />
     <ClCompile Include="src\ht\graphics\rendering\Skybox.cpp" />
-    <ClCompile Include="src\ht\graphics\shaders\DynamicShader.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="src\ht\graphics\shaders\ShaderProgram.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\TerrainShader.cpp" />
-    <ClCompile Include="src\ht\graphics\terrain\World.cpp" />
     <ClCompile Include="src\ht\graphics\textures\Texture.cpp" />
     <ClCompile Include="src\ht\graphics\textures\TextureManager.cpp" />
     <ClCompile Include="src\ht\graphics\ui\font\FontManager.cpp" />

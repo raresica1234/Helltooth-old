@@ -16,21 +16,21 @@ namespace ht { namespace graphics {
 		bool usingColor;
 
 		//Size of arrays
-		GLsizei positionSize;
-		GLsizei textureCoordSize;
-		GLsizei normalSize;;
-		GLsizei indexSize;
+		uint32 positionSize;
+		uint32 textureCoordSize;
+		uint32 normalSize;;
+		uint32 indexSize;
 
 		//Arrays of data for model
-		const GLfloat *positions;
-		const GLfloat *textureCoords;
-		const GLfloat *normals;
-		const GLuint *indices;
+		const f32 *positions;
+		const f32 *textureCoords;
+		const f32 *normals;
+		const uint32 *indices;
 
 	public:
 
 		//RawModel(GLFloat array of positions, GLsizei positionSize in bytes)
-		inline RawModel(GLfloat *positions, const GLsizei positionSize)
+		__forceinline RawModel(f32 *positions, const uint32 positionSize)
 			: positionSize(positionSize), textureCoordSize(0), normalSize(0), indexSize(0) {
 			this->textureCoords = nullptr;
 			this->normals = nullptr;
@@ -40,7 +40,7 @@ namespace ht { namespace graphics {
 		}
 
 		//Deconstructor
-		inline ~RawModel() {
+		__forceinline ~RawModel() {
 			del[] positions;
 			if(textureCoords != nullptr)
 				del[] textureCoords;
@@ -51,7 +51,7 @@ namespace ht { namespace graphics {
 		}
 
 		//storeData(int usage, GLfloat *data, Glsizei dataSize in bytes)
-		inline void storeData(const int usage, const GLfloat *data, const GLsizei &dataSize) {
+		__forceinline void storeData(const int32 usage, const f32 *data, const uint32 &dataSize) {
 			switch (usage) {
 			case RAWMODEL_COORDS:
 				positions = data;
@@ -75,24 +75,23 @@ namespace ht { namespace graphics {
 		}
 
 		//storeData(Gluint *data, const GLsizei dataSize in bytes) for indices
-		inline void storeData(const GLuint *data, const GLsizei &dataSize) {
+		__forceinline void storeData(const uint32 *data, const uint32 &dataSize) {
 			indices = data;
 			indexSize = dataSize;
 		}
 
 		//some getters
+		__forceinline uint32 getPositionSize() const { return positionSize; }
+		__forceinline uint32 getTextureCoordsSize() const { return textureCoordSize; }
+		__forceinline uint32 getNormalSize() const { return normalSize; }
+		__forceinline uint32 getIndexSize() const { return indexSize; }
 
-		inline GLsizei getPositionSize() const { return positionSize; }
-		inline GLsizei getTextureCoordsSize() const { return textureCoordSize; }
-		inline GLsizei getNormalSize() const { return normalSize; }
-		inline GLsizei getIndexSize() const { return indexSize; }
+		__forceinline const f32* getPositions() const { return positions; }
+		__forceinline const f32* getTextureCoords() const { return textureCoords; }
+		__forceinline const f32* getNormals() const { return normals; }
+		__forceinline const uint32* getIndices() const { return indices; }
 
-		inline const GLfloat* getPositions() const { return positions; }
-		inline const GLfloat* getTextureCoords() const { return textureCoords; }
-		inline const GLfloat* getNormals() const { return normals; }
-		inline const GLuint* getIndices() const { return indices; }
-
-		inline bool usingColors() const { return usingColor; }
+		__forceinline bool usingColors() const { return usingColor; }
 	};
 
 } }

@@ -13,21 +13,20 @@ namespace ht { namespace graphics {
 
 	class FBO {
 	private:
-		GLuint id;
-		GLuint width, height;
-		std::vector<unsigned int> textures;
+		uint32 id, width, height, depthBuffer;
+
+		std::vector<uint32> textures;
 		bool hasDepthBuffer = false;
-		GLuint depthBuffer;
 
 	public:
-		FBO(GLuint width, GLuint height);
+		FBO(uint32 width, uint32 height);
 		~FBO();
 
 		void createColorTexture();
 		void createDepthTexture(bool texture);
 
 		void bind();
-		void unbind(int width, int height);
+		void unbind(uint32 width, uint32 height);
 
 		inline GLuint getColorTexID() { return TextureManager::Get()->getTexture(textures[0])->getID(); }
 		inline unsigned int getColorTexture() { return textures[0]; }

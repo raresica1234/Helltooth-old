@@ -17,8 +17,7 @@ namespace ht { namespace graphics {
 		static utils::String skyboxVertex;
 		static utils::String skyboxFragment;
 
-
-		GLuint textureID;
+		uint32 textureID;
 
 		ShaderProgram* program;
 
@@ -34,5 +33,4 @@ namespace ht { namespace graphics {
 
 		void addCubemap(assets::Cubemap* cubemap);
 	};
-
 } } 

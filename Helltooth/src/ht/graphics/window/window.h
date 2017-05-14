@@ -4,28 +4,28 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "utils/Internal.h"
 #include "utils/Log.h"
-#include "utils/input/Input.h"
 #include "utils/String.h"
+#include "utils/input/Input.h"
 
 namespace ht { namespace graphics {
 
 	class Window {
 	private:
-		ht::utils::String title;
-		int width;
-		int height;
+		utils::String title;
+		uint16 width, height;
 		GLFWwindow *window;
 
 	public:
-		Window(ht::utils::String title, const int &width, const int &height);
+		Window(utils::String title, const uint16 &width, const uint16 &height);
 		~Window();
 		bool closed() const;
 		void update();
 		void clear() const;
 
-		inline int getWidth() const { return width; }
-		inline int getHeight() const { return height; }
+		inline uint16 getWidth() const { return width; }
+		inline uint16 getHeight() const { return height; }
 
 		inline GLFWwindow* getWindow() const { return window; }
 
@@ -33,7 +33,7 @@ namespace ht { namespace graphics {
 			return this->window == window;
 		}
 
-		inline void resize(int width, int height) {
+		inline void resize(uint16 width, uint16 height) {
 			this->width = width;
 			this->height = height;
 		}

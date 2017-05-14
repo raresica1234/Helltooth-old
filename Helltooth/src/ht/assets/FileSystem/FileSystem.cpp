@@ -17,7 +17,7 @@ namespace ht { namespace assets {
 		back.store(nullptr);
 	}
 
-	void FileSystem::addToQueue(utils::String path) {
+	void FileSystem::addToQueue(String path) {
 		Node *newNode = htnew Node(path);
 		if (front.load() == nullptr)
 			front.store(newNode);
@@ -32,13 +32,11 @@ namespace ht { namespace assets {
 		while (current != nullptr || current != back.load()) {
 			if (current->resource.res == nullptr)
 				break;
-
 			current = current->next;
 		}
 
 		if (current->resource.res != nullptr)
 			return;
-
 
 		String path = current->path;
 
@@ -64,7 +62,6 @@ namespace ht { namespace assets {
 
 		FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(file);
 
-
 		if (fif == FIF_UNKNOWN)
 			fif = FreeImage_GetFIFFromFilename(file);
 
@@ -84,4 +81,76 @@ namespace ht { namespace assets {
 		frontLoaded.store(l + 1);
 	}
 
+	void FileSystem::start(FileSystem* fs) {
+		if (fs->running.load())
+			return;
+
+		if (!(fs->running.load()))
+			fs->running.store(true);
+
+		while (fs->running.load()) {
+			if (fs->isNextLoadingAvaliable())
+				fs->loadNext();
+			else
+				Sleep(10);
+		}
+	}
+
+	bool FileSystem::isNextLoadingAvaliable() {
+		while (dequeing.load())
+			Sleep(10);
+
+		if (!front.load()) {
+			return false;
+		}
+
+		Node* current = front.load();
+
+		if (current->resource.res == nullptr) {
+			return true;
+		}
+
+		while (current != back.load()) {
+			if (current->resource.res == nullptr) {
+				return true;
+			}
+
+			current = current->next;
+		}
+
+		if (back.load()->resource.res == nullptr) {
+			return true;
+		}
+
+		return false;
+	}
+
+	Resource FileSystem::dequeue() {
+		dequeing.store(true);
+		if (!front.load()) {
+			frontLoaded.store(0);
+			HT_ERROR("[FileSystem] No resource loaded!");
+			dequeing.store(false);
+			return Resource();
+		}
+		uint16 current = frontLoaded.load();
+		frontLoaded.store(current - 1);
+
+		Node* temp = front.load();
+		Resource r = temp->resource;
+		front.store(temp->next);
+		bool dele = false;
+		if (temp == back.load() && frontLoaded.load() == 0) {
+			dele = true;
+		}
+		del temp;
+
+		if (dele) {
+			front.store(nullptr);
+			back.store(nullptr);
+		}
+
+		dequeing.store(false);
+		return r;
+	}
 } }
