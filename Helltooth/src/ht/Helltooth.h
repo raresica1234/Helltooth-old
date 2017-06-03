@@ -51,6 +51,9 @@
 #include "graphics/ui/GUIItem.h"
 
 #include "graphics/ui/items/Label.h"
+#include "graphics/ui/items/Button.h"
+#include "graphics/ui/items/Image.h"
+#include "graphics/ui/items/Slider.h"
 
 #include "graphics/window/Window.h"
 #include "graphics/window/WindowManager.h"

@@ -23,13 +23,14 @@ namespace ht {	namespace maths {
 			return sqrt(x * x + y * y + z * z);
 		}
 
-		inline void normalize() {
+		inline vec3& normalize() {
 			f32 length = this->length();
 			if (length != 0) {
 				this->x = x / length;
 				this->y = y / length;
 				this->z = z / length;
 			}
+			return *this;
 		}
 	};
 } }

@@ -72,6 +72,5 @@ namespace ht { namespace graphics {
 			del manager;
 			manager = nullptr;
 		}
-
 	};
 } }

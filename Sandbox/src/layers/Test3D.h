@@ -18,7 +18,6 @@ using namespace utils;
 class Test3D : public Layer {
 private:
 	Quad *quad;
-	World* world;
 	StaticEntity* sentity;
 	DynamicEntity* dentity;
 	Skybox* box;
@@ -40,7 +39,6 @@ public:
 	void init() override {
 		dentity->scale(5, 5, 5);
 
-		submit(world);
 
 		stack.queueUp();
 	}

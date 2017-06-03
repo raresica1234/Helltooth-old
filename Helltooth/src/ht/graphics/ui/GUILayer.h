@@ -8,6 +8,7 @@
 #include "items/Label.h"
 #include "items/Button.h"
 #include "items/Image.h"
+#include "items/Slider.h"
 
 #include "../../utils/String.h"
 
@@ -64,6 +65,12 @@ namespace ht { namespace graphics {
 			ui::Image* image = htnew ui::Image(textureID, x, this->height - y - height, width, height);
 			items.push_back(image);
 			return image;
+		}
+
+		__forceinline ui::Slider* createSlider(f32 x, f32 y, f32 width, f32 height, uint32 steps, bool horizontal = true) {
+			ui::Slider* slider = htnew ui::Slider(x, this->height - y - height, width, height, steps, horizontal);
+			items.push_back(slider);
+			return slider;
 		}
 
 		__forceinline void submit(Sprite* sprite) {

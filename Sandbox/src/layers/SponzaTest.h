@@ -26,6 +26,8 @@ private:
 	PointLight* lamp;
 	PointLight* lamp2;
 
+	SpotLight* lantern;
+
 	DirectionalLight* sun;
 	DirectionalLight* sun2;
 

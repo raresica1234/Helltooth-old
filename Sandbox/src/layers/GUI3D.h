@@ -29,6 +29,8 @@ class GUI : public GUILayer {
 	Image* uvs;
 	Image* normal;
 
+	Slider* slider;
+
 	String fpsDisplay;
 
 	int save = 0;

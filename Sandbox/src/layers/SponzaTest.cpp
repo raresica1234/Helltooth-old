@@ -43,6 +43,7 @@ SponzaTest::SponzaTest(Window* window)
 	lamp2 = htnew PointLight(vec3(-500, 10.f, 0), vec3(1, 0, 0), vec3(0.23, .0025f, 0.f));
 	sun = htnew DirectionalLight(vec3(1, 1, 1), vec3(-0.25, -1, -0.25));
 	sun2 = htnew DirectionalLight(vec3(1, 1, 1), vec3(0.25, -1, 0.25));
+	lantern = htnew SpotLight(camera->getPosition(), vec3(1.f, 1.f, 1.f), camera->getDirection(), vec3(0.23, 0.0025, 0.f), vec2(25,3));
 }
 
 SponzaTest::~SponzaTest() {
@@ -57,6 +58,7 @@ void SponzaTest::init() {
 	Layer::init();
 	pushLight(lamp);
 	pushLight(lamp2);
+	//pushLight(lantern);
 	//pushLight(sun);
 	//pushLight(sun2);
 }
@@ -74,6 +76,8 @@ void SponzaTest::update(const utils::Event& e)  {
 		loaded = true;
 	}
 
+	lantern->setDirection(camera->getDirection());
+	lantern->setPosition(camera->getPosition());
 	Layer::update(e);
 }
 void SponzaTest::render() {

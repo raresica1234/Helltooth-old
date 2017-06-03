@@ -47,6 +47,12 @@ GUI::GUI(Window* window, FpsCounter *counter)
 		}
 	});
 
+	//slider = createSlider(900, 100, 70, 800, 20, true);
+	//slider->setBorderSize(10);
+	//slider->setBorderColor(vec4(0.3, 0.4, 0.7, 1.0));
+	//slider->setSliderColor(vec4(0.0, 0.7, 0.3, 1.0));
+	//slider->setBackgroundColor(vec4(0.6, 0.6, 0.6, 0.8));
+
 	//button = createButton("Don't press me!", 700, 800, 600, 150, "Verdana", vec2(100, 40));
 	//button->setBackgroundColor(0xFF0000db);
 	//button->setPressedColor(0xFF03db00);

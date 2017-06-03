@@ -32,7 +32,6 @@ namespace ht { namespace graphics { namespace ui {
 
 		__forceinline void setPressedColor(uint32 color) { if (!pressedcolor) { pressedcolor = htnew Sprite(0, 0, size.z, size.w); } pressedcolor->setColor(color); }
 
-
 		void update(const utils::Event &e) override;
 		void setText(utils::String &text);
 		void submit(BatchRenderer2D* renderer) override;

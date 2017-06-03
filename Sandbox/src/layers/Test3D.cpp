@@ -4,7 +4,6 @@ Test3D::Test3D(Window* window)
 	: Layer(htnew Camera(window)){
 	//renderer = htnew ForwardRenderer(camera);
 	setMatrix(mat4::createPerspective(70, 0.1f, 500.0f, WIDTH / HEIGHT));
-	world = htnew World(32, vec4(1, 1, -1, -1));
 
 	stack[0].addTexturePath("/res/grass.jpg");
 
@@ -37,7 +36,6 @@ void Test3D::update(const Event& e) {
 		return;
 
 	if (loaded == false && stack.isLoaded()) {
-		world->addTexture(stack.getAsTexture(0));
 		dentity->renderable = stack.getAsModel(1);
 		Texture* texture = stack.getAsTexture(2);
 		box = stack.getAsSkybox(3);
@@ -50,8 +48,6 @@ void Test3D::update(const Event& e) {
 	}
 
 	for (unsigned int i = 0; i < dentities.size(); i++) {
-		if (world->isUnderTerrain(dentities[i]->getPosition()))
-			dentities[i]->move(maths::vec3(.0f, .1f, .0f));
 		dentities[i]->rotate(maths::vec3(0, 1.0f, 0));
 	}
 
@@ -83,7 +79,6 @@ Test3D::~Test3D() {
 	for (DynamicEntity* e : dentities)
 		del e;
 	del sentity;
-	del world;
 	del dentity;
 	del box;
 }

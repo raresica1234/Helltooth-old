@@ -72,6 +72,7 @@ namespace ht { namespace graphics {
 		}
 
 		__forceinline void setAttenuation(maths::vec3 &attenuation) { this->attenuation = attenuation; }
+		__forceinline void setPosition(maths::vec3 &position) { this->position = position; }
 	};
 
 	class SpotLight : public PointLight {
