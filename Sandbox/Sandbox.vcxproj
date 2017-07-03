@@ -77,15 +77,15 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(SolutionDir)Dependencies\OpenAL\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(SolutionDir)Dependencies\OpenAL\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)Intermidiates\Sandbox\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\Release\</OutDir>
-    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(SolutionDir)Dependencies\OpenAL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(SolutionDir)Dependencies\OpenAL\libs;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)Intermidiates\Sandbox\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,10 +94,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Helltooth\;$(SolutionDir)Helltooth\ht\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;TINYOBJLOADER_IMPLEMENTATION;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AL_LIBTYPE_STATIC;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;TINYOBJLOADER_IMPLEMENTATION;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;FreeType-GL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;FreeType-GL.lib;OpenAL32.lib;libOpenAL32.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,7 +118,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_ENABLE_ATOMIC_ALIGNMENT_FIX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AL_LIBTYPE_STATIC;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_ENABLE_ATOMIC_ALIGNMENT_FIX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Helltooth\;$(SolutionDir)Helltooth\ht\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -128,7 +128,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;FreeType-GL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Helltooth.lib;glew32s.lib;glfw3.lib;opengl32.lib;FreeImage.lib;FreeType.lib;FreeType-GL.lib;OpenAL32.lib;libOpenAL32.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -9,10 +9,11 @@
 #include "layers/GUI3D.h"
 #include "layers/SponzaTest.h"
 
-using namespace ht;
-using namespace graphics;
-using namespace maths;
+using namespace audio;
 using namespace assets;
+using namespace graphics;
+using namespace ht;
+using namespace maths;
 using namespace utils;
 
 class Main : public Application {
@@ -30,6 +31,12 @@ public:
 		VFS::mount("res", "res/textures/");
 		VFS::mount("res", "res/fonts/");
 		VFS::mount("res", "res/skybox/");
+		VFS::mount("res", "res/audio/");
+
+		uint32 id = AudioManager::Get()->createAudioFromFile("/res/bloop.wav");
+		Source* source = htnew Source(id);
+		source->loop(true);
+		source->play();
 	}
 
 	~Main() {

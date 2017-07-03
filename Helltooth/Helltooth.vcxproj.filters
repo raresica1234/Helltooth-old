@@ -41,6 +41,9 @@
     <ClCompile Include="src\ht\graphics\rendering\renderers\DeferredRenderer.cpp" />
     <ClCompile Include="src\ht\assets\ResourceManager.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Slider.cpp" />
+    <ClCompile Include="src\ht\audio\Audio.cpp" />
+    <ClCompile Include="src\ht\audio\AudioManager.cpp" />
+    <ClCompile Include="src\ht\audio\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -112,6 +115,9 @@
     <ClInclude Include="src\ht\assets\ResourceManager.h" />
     <ClInclude Include="src\ht\utils\Internal.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Slider.h" />
+    <ClInclude Include="src\ht\audio\Audio.h" />
+    <ClInclude Include="src\ht\audio\AudioManager.h" />
+    <ClInclude Include="src\ht\audio\Source.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

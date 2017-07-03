@@ -11,6 +11,12 @@
 #include "assets/FileSystem/FileSystem.h"
 #pragma endregion
 
+#pragma region audio
+#include "audio/Audio.h"
+#include "audio/AudioManager.h"
+#include "audio/Source.h"
+#pragma endregion
+
 #pragma region graphics
 #include "graphics/API.h"
 #include "graphics/Camera.h"
@@ -101,6 +107,7 @@ public:
 	Application(const char* title, int width, int height, int MAX_UPS = 60) {
 		FreeImage_Initialise();
 		ht::graphics::WindowManager::Init();
+		ht::audio::AudioManager::Init();
 		ht::graphics::TextureManager::Init();
 		ht::graphics::ShaderManager::Init();
 		ht::graphics::FontManager::Init();
@@ -150,6 +157,7 @@ public:
 			window->update();
 		}
 
+		ht::audio::AudioManager::End();
 		ht::utils::Input::End();
 		ht::assets::FileSystem::End();
 		ht::assets::ResourceManager::End();
