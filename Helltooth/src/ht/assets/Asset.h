@@ -2,7 +2,8 @@
 
 #include <Windows.h>
 
-#include <FreeImage/FreeImage.h>
+#include <FreeImage.h>
+
 #include <GL/glew.h>
 
 #include "ObjLoader.h"

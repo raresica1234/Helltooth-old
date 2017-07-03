@@ -28,6 +28,9 @@ namespace ht { namespace graphics { namespace ui {
 	}
 
 	void Slider::update(const utils::Event &e) {
+		if (e.handled)
+			return;
+
 		f32 mx = e.mouseX;
 		f32 my = e.mouseY;
 
@@ -40,7 +43,7 @@ namespace ht { namespace graphics { namespace ui {
 					f_OnDrag(e);
 					updateSlider(mx, my);
 				}
-
+			e.handled = true;
 			if (!e.mouse_buttons[0]) firstClick = true;
 		}
 	}

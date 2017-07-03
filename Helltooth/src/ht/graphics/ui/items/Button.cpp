@@ -18,6 +18,9 @@ namespace ht { namespace graphics { namespace ui {
 	}
 
 	void Button::update(const Event &e) {
+		if (e.handled)
+			return;
+
 		f32 mx = e.mouseX;
 		f32 my = e.mouseY;
 
@@ -29,6 +32,7 @@ namespace ht { namespace graphics { namespace ui {
 					f_OnClick(e);
 					f_OnDrag(e);
 				}
+			e.handled = true;
 		}
 	}
 

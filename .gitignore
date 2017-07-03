@@ -27,3 +27,6 @@ bin/Release/.httexture
 .vs/
 *.httexture
 *.htmodel
+Dependencies/FreeType/lib
+Dependencies/FreeType-GL/lib
+Dependencies/FreeImage/lib

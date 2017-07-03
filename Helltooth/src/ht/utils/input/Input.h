@@ -16,6 +16,8 @@ namespace ht { namespace utils {
 
 		bool keys[MAX_KEYS], mouse_buttons[MAX_BUTTONS];
 
+		mutable bool handled = false;
+
 		Event() {
 			memset(&keys, 0, MAX_KEYS);
 			memset(&mouse_buttons, 0, MAX_BUTTONS);
@@ -43,6 +45,7 @@ namespace ht { namespace utils {
 		void addCallbacks();
 
 		const Event& pullEvents() {
+			event.handled = false;
 			return event;
 		}
 

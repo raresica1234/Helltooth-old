@@ -82,13 +82,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.lib</TargetExt>
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Dependencies\Helltooth\</OutDir>
     <IntDir>$(SolutionDir)Intermidiates\Helltooth\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration)\;$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Dependencies\Helltooth\</OutDir>
     <IntDir>$(SolutionDir)Intermidiates\Helltooth\$(Configuration)\</IntDir>
   </PropertyGroup>

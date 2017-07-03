@@ -24,7 +24,6 @@ SponzaTest::SponzaTest(Window* window)
 	//skybox
 	Stack(0).addSkyboxPath("/res/violentdays.htcubemap");
 
-
 	for (int i = 0; i < sizeof(components) / sizeof(String); i++) {
 		String data = String("/res/") + components[i] + "/" + resources[0];
 		Stack(i + 1).addModelPath(data);

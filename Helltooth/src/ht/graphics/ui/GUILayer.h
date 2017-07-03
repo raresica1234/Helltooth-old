@@ -104,8 +104,11 @@ namespace ht { namespace graphics {
 			utils::Event event = e;
 			event.mouseY = height - e.mouseY / w->getHeight() * height;
 			event.mouseX = e.mouseX / w->getWidth() * width;
-			for (ui::GUIItem* item : items)
+			for (ui::GUIItem* item : items) {
 				item->update(event);
+				if (event.handled)
+					e.handled = true;
+			}
 		}
 
 		 __forceinline void reloadTextures() override {

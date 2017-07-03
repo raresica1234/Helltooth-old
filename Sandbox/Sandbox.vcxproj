@@ -77,7 +77,7 @@
     <LibraryPath>$(SolutionDir)Dependencies\GLFW\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)Intermidiates\Sandbox\$(Configuration)\</IntDir>
@@ -85,7 +85,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\Release\</OutDir>
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeType-GL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\libs;$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\Helltooth;$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\libs;$(SolutionDir)Dependencies\FreeImage\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType\lib\$(Configuration);$(SolutionDir)Dependencies\FreeType-GL\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)Intermidiates\Sandbox\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

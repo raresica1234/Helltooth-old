@@ -99,6 +99,7 @@ protected:
 public:
 #pragma region Application
 	Application(const char* title, int width, int height, int MAX_UPS = 60) {
+		FreeImage_Initialise();
 		ht::graphics::WindowManager::Init();
 		ht::graphics::TextureManager::Init();
 		ht::graphics::ShaderManager::Init();
@@ -127,6 +128,7 @@ public:
 		while (!layers.empty()) {
 			del PopLayer();
 		}
+		FreeImage_DeInitialise();
 	}
 #pragma endregion Constructor - Deconstructor
 public:
@@ -180,8 +182,8 @@ public:
 		
 		const ht::utils::Event& e = ht::utils::Input::Get()->pullEvents();
 
-		for (ht::graphics::Layer* layer : layers)
-			layer->update(e);
+		for (unsigned int i = layers.size(); i > 0; i--)
+			layers[i - 1]->update(e);
 	}
 
 	virtual void tick() {

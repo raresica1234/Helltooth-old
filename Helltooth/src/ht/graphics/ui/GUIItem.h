@@ -47,6 +47,9 @@ namespace ht { namespace graphics { namespace ui {
 		}
 
 		virtual void update(const utils::Event &e) {
+			if (e.handled)
+				return;
+
 			float my = e.mouseY;
 			float mx = e.mouseX;
 
@@ -57,6 +60,7 @@ namespace ht { namespace graphics { namespace ui {
 						f_OnClick(e);
 						f_OnDrag(e);
 					}
+				e.handled = true;
 			}
 		}
 		

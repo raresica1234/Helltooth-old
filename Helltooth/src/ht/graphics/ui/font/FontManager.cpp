@@ -1,6 +1,6 @@
 #include "FontManager.h"
 
-#include <FreeImage/FreeImage.h>
+#include <FreeImage.h>
 
 #define FONT_TEXTURE_SIZE 512
 

@@ -17,6 +17,9 @@ namespace ht { namespace graphics {
 	Camera::~Camera() {}
 
 	void Camera::update(const Event& e) {
+		if (e.handled)
+			return;
+
 		mouse = vec2(e.mouseX, e.mouseY);
 
 		if (e.isButtonPressed(GLFW_MOUSE_BUTTON_2))

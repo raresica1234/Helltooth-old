@@ -1,5 +1,5 @@
 #include "FileSystem.h"
-#include <FreeImage/FreeImage.h>
+#include <FreeImage.h>
 
 namespace ht { namespace assets {
 	using namespace utils;

@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include "utils/memory/MemoryManager.h"
 
-#include <FreeImage/FreeImage.h>
+#include <FreeImage.h>
 
 #include "utils/Internal.h"
 

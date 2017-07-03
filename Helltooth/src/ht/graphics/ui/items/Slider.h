@@ -56,11 +56,6 @@ namespace ht { namespace graphics { namespace ui {
 		__forceinline void setSliderColor(maths::vec4 color) { slider->setColor(color); }
 		__forceinline void setSliderColor(uint32 color) { slider->setColor(color); }
 
-		__forceinline f32 getSliderStep() {
-			if(vertical)
-
-		}
-
 	protected:
 		void updateSlider(f32 &mx, f32 &my);
 
