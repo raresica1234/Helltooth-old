@@ -23,7 +23,7 @@ namespace ht { namespace audio {
 
 		__forceinline void play() { alSourcePlay(sourceID); }
 		__forceinline void pause() { alSourcePause(sourceID); }
-		__forceinline void loop(bool looping) { alSourcei(sourceID, AL_LOOPING, looping); }
+		__forceinline void loop(bool looping) { alSourcei(sourceID, AL_LOOPING, looping == true ? AL_TRUE : AL_FALSE); }
 		__forceinline void stop() { alSourceStop(sourceID); }
 	};
 

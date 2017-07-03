@@ -8,6 +8,7 @@
 #include "Audio.h"
 
 #include "maths/vec3.h"
+#include "maths/mat4.h"
 
 #include "tools/VFS/VFS.h"
 
@@ -37,8 +38,17 @@ namespace ht { namespace audio {
 		__forceinline void setListenerPosition(maths::vec3 pos) { alListener3f(AL_POSITION, pos.x, pos.y, pos.z); }
 		__forceinline void setListenerPosition(float x, float y, float z) { alListener3f(AL_POSITION, x, y, z); }
 
-		__forceinline void setListenerDirection(maths::vec3 dir) { alListener3f(AL_DIRECTION, dir.x, dir.y, dir.z); }
-		__forceinline void setListenerDirection(float x, float y, float z) { alListener3f(AL_DIRECTION, x, y, z); }
+		__forceinline void setListenerDirection(maths::mat4 view) {
+			f32 data[6];
+			data[0] = -view[2 + 0 * 4];
+			data[1] = -view[2 + 1 * 4];
+			data[2] = -view[2 + 2 * 4];
+			data[3] = view[1 + 0 * 4];
+			data[4] = view[1 + 1 * 4];
+			data[5] = view[1 + 2 * 4];
+			alListenerfv(AL_ORIENTATION, data); 
+		}
+		__forceinline void setListenerDirection(float x, float y, float z) { alListener3f(AL_ORIENTATION, x, y, z); }
 
 		__forceinline void setListenerVelocity(maths::vec3 vel) { alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z); }
 		__forceinline void setListenerVelocity(float x, float y, float z) { alListener3f(AL_VELOCITY, x, y, z); }

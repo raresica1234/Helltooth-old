@@ -24,7 +24,7 @@ namespace ht { namespace audio {
 
 	struct DataHeader {
 		char data[4];
-		uint16 dataSize;
+		uint32 dataSize;
 	};
 
 	struct WaveHeader {

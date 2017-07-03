@@ -1,8 +1,9 @@
 #include "Camera.h"
 
 namespace ht { namespace graphics {
-	using namespace utils;
+	using namespace audio;
 	using namespace maths;
+	using namespace utils;
 
 	Camera::Camera(Window* window)
 		: position(0.0, -5.0, 0.0), rotation() {
@@ -68,6 +69,7 @@ namespace ht { namespace graphics {
 		position.z += movement.z;
 
 		viewMatrix = mat4().rotate(rotation).translate(position);
+
 	}
 
 	mat4 Camera::generateViewMatrix() const {

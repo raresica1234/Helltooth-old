@@ -1,5 +1,7 @@
 #pragma once
 
+#include "audio/AudioManager.h"
+
 #include "maths/mat4.h"
 #include "utils/input/Input.h"
 
@@ -27,8 +29,8 @@ namespace ht { namespace graphics {
 		maths::mat4 generateViewMatrix() const;
 
 		__forceinline maths::vec3 getDirection() {
-			maths::mat4 rot = maths::mat4().rotate(maths::vec3(-rotation.x, rotation.y, -rotation.z));
-			return rot * maths::vec3(1, 1, 1);
+			maths::mat4 rot = maths::mat4().rotate(rotation);
+			return maths::vec3(-rot[2 + 0 * 4], -rot[2 + 1 * 4], -rot[2 + 2 * 4]);
 		}
 
 		__forceinline maths::vec3 getPosition() { return maths::vec3(-position.x, -position.y, -position.z); }

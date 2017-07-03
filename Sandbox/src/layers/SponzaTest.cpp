@@ -1,7 +1,7 @@
 #include "SponzaTest.h"
 
 SponzaTest::SponzaTest(Window* window)
-	:Layer(htnew Camera(window), false) {
+	: Layer(htnew Camera(window), false) {
 	
 	VFS::mount("res", "res/Sponza-out/");
 
@@ -43,6 +43,15 @@ SponzaTest::SponzaTest(Window* window)
 	sun = htnew DirectionalLight(vec3(1, 1, 1), vec3(-0.25, -1, -0.25));
 	sun2 = htnew DirectionalLight(vec3(1, 1, 1), vec3(0.25, -1, 0.25));
 	lantern = htnew SpotLight(camera->getPosition(), vec3(1.f, 1.f, 1.f), camera->getDirection(), vec3(0.23, 0.0025, 0.f), vec2(25,3));
+
+	Renderable* renderable = htnew Renderable();
+	renderable->loadRawModel(API::loadObjFile("/res/cube.obj"));
+	cube = htnew DynamicEntity(renderable, vec3(1293, 89, -538));
+	cube->scale(3, 3, 3);
+
+	uint32 id = AudioManager::Get()->createAudioFromFile("/res/bloop.wav");
+	source = htnew Source(id);
+	source->setPosition(cube->getPosition());
 }
 
 SponzaTest::~SponzaTest() {
@@ -57,8 +66,8 @@ void SponzaTest::init() {
 	Layer::init();
 	pushLight(lamp);
 	pushLight(lamp2);
-	//pushLight(lantern);
-	//pushLight(sun);
+	pushLight(lantern);
+	pushLight(sun);
 	//pushLight(sun2);
 }
 
@@ -77,6 +86,16 @@ void SponzaTest::update(const utils::Event& e)  {
 
 	lantern->setDirection(camera->getDirection());
 	lantern->setPosition(camera->getPosition());
+
+	AudioManager::Get()->setListenerPosition(camera->getPosition());
+	AudioManager::Get()->setListenerDirection(camera->generateViewMatrix());
+
+	if (e.isPressed(GLFW_KEY_P)) {
+		if (play) source->pause();
+		else source->play();
+
+		play = !play;
+	}
 	Layer::update(e);
 }
 void SponzaTest::render() {
@@ -85,6 +104,8 @@ void SponzaTest::render() {
 
 	for (unsigned int i = 0; i < sponzaScene.size(); i++)
 		submit(sponzaScene[i]);
+
+	submit(cube);
 
 	Layer::render();
 	cleanUP();

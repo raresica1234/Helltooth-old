@@ -8,9 +8,11 @@
 #include <vector>
 
 using namespace ht;
+
+using namespace audio;
+using namespace assets;
 using namespace graphics;
 using namespace maths;
-using namespace assets;
 using namespace utils;
 
 #define WIDTH (float)1280
@@ -31,7 +33,13 @@ private:
 	DirectionalLight* sun;
 	DirectionalLight* sun2;
 
+	DynamicEntity *cube;
+	Source *source;
+
+	bool loop = false, play = false;
+
 	maths::vec3 direction = vec3(1,0,0);
+
 public:
 	SponzaTest(Window* window);
 	~SponzaTest();
@@ -41,6 +49,4 @@ public:
 	void update(const utils::Event& e) override;
 	void tick() override;
 	void render() override;
-
-	//void defaultRenderer() override { /*no renderer -> otherwise memory leak*/ }
 };
