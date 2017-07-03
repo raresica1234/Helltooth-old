@@ -5,8 +5,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 uv;
 layout (location = 2) in vec3 normal;
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 projectionViewMatrix;
 uniform mat4 modelMatrix;
 
 out DATA {
@@ -17,7 +16,7 @@ out DATA {
 
 void main() {
 	vec4 transform = modelMatrix * vec4(position, 1.0);
-	gl_Position = projectionMatrix * viewMatrix * transform;
+	gl_Position = projectionViewMatrix * transform;
 
 	vs_out.position = transform.xyz;
 	vs_out.normal = (modelMatrix * vec4(normal, 0.0)).xyz;

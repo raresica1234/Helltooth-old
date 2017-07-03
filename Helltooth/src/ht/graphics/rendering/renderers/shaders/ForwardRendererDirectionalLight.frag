@@ -21,6 +21,7 @@ uniform float minimumBrightness = 0.0;
 layout(location = 0) out vec4 color;
 
 void main() {
+
 	vec3 diffuse =	(texture(textures[0], fs_in.textureCoords)).xyz;
 
 	float brightness = dot(-light.direction, fs_in.normal);

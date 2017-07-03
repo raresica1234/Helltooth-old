@@ -46,12 +46,13 @@ SponzaTest::SponzaTest(Window* window)
 
 	Renderable* renderable = htnew Renderable();
 	renderable->loadRawModel(API::loadObjFile("/res/cube.obj"));
-	cube = htnew DynamicEntity(renderable, vec3(1293, 89, -538));
+	cube = htnew DynamicEntity(renderable, vec3(0, 50, 0));
 	cube->scale(3, 3, 3);
 
 	uint32 id = AudioManager::Get()->createAudioFromFile("/res/bloop.wav");
 	source = htnew Source(id);
 	source->setPosition(cube->getPosition());
+	source->loop(true);
 }
 
 SponzaTest::~SponzaTest() {
@@ -75,18 +76,6 @@ void SponzaTest::update(const utils::Event& e)  {
 	if (!stack->isLoaded())
 		return;
 
-	if (loaded == false && stack->isLoaded()) {
-		for (int i = 0; i < stack->getSize() - 1; i++) {
-			sponzaScene[i]->renderable = stack->getAsModel(i + 1);
-		}
-		box = stack->getAsSkybox(0);
-		submit(box);
-		loaded = true;
-	}
-
-	lantern->setDirection(camera->getDirection());
-	lantern->setPosition(camera->getPosition());
-
 	AudioManager::Get()->setListenerPosition(camera->getPosition());
 	AudioManager::Get()->setListenerDirection(camera->generateViewMatrix());
 
@@ -102,6 +91,9 @@ void SponzaTest::render() {
 	if (!loaded)
 		return;
 
+	lantern->setDirection(camera->getDirection());
+	lantern->setPosition(camera->getPosition());
+
 	for (unsigned int i = 0; i < sponzaScene.size(); i++)
 		submit(sponzaScene[i]);
 
@@ -112,7 +104,14 @@ void SponzaTest::render() {
 }
 
 void SponzaTest::tick() {
-
+	if (loaded == false && stack->isLoaded()) {
+		for (int i = 0; i < stack->getSize() - 1; i++) {
+			sponzaScene[i]->renderable = stack->getAsModel(i + 1);
+		}
+		box = stack->getAsSkybox(0);
+		submit(box);
+		loaded = true;
+	}
 }
 
 

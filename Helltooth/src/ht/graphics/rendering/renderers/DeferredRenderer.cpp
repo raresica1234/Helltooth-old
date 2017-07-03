@@ -75,6 +75,8 @@ namespace ht { namespace graphics {
 	}
 
 	void DeferredRenderer::render() {
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 		gbuffer->bind();
 		program->start();
 		mat4 cameraMatrix = mat4();
@@ -82,12 +84,11 @@ namespace ht { namespace graphics {
 			cameraMatrix = camera->generateViewMatrix();
 		program->uniformMat4("viewMatrix", cameraMatrix);
 
-		if (!program->hasProjection())
-			program->setProjection("projectionMatrix", projectionMatrix);
+		mat4 pv = projectionMatrix * cameraMatrix;
+
+		program->setProjection("projectionViewMatrix", pv);
 
 		if (!dynamicEntities.empty()) {
-			glEnable(GL_CULL_FACE);
-			glCullFace(GL_BACK);
 			for (auto& entry : dynamicEntities) {
 				entry.first->prepare();
 				for (Entity& entity : entry.second) {
@@ -95,7 +96,7 @@ namespace ht { namespace graphics {
 					entry.first->render();
 				}
 			}
-			glDisable(GL_CULL_FACE);
+			
 		}
 
 		if (!staticEntities.empty())
@@ -145,6 +146,7 @@ namespace ht { namespace graphics {
 		
 		glDisable(GL_BLEND);
 		glDepthFunc(GL_LESS);
+		glDisable(GL_CULL_FACE);
 	}
 
 	void DeferredRenderer::cleanUP() {

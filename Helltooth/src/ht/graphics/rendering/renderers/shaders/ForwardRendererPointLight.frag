@@ -22,6 +22,7 @@ uniform float minimumBrightness = 0.0;
 layout(location = 0) out vec4 color;
 
 void main() {
+
 	vec3 diffuse = texture(textures[0], fs_in.textureCoords).xyz;
 
 	vec3 dir = light.position - fs_in.position;

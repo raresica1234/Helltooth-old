@@ -23,11 +23,12 @@ namespace ht { namespace graphics {
 		renderable = htnew Renderable();
 		renderable->loadRawModel(cube->getModel());
 		del cube;
-
+		
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -54,6 +55,7 @@ namespace ht { namespace graphics {
 	}
 
 	void Skybox::prepare() const {
+		glDisable(GL_CULL_FACE);
 		program->start();
 	}
 
@@ -70,6 +72,7 @@ namespace ht { namespace graphics {
 		renderable->render();
 		renderable->end();
 		program->stop();
+		glEnable(GL_CULL_FACE);
 	}
 
 	void Skybox::addCubemap(assets::Cubemap* cubemap) {

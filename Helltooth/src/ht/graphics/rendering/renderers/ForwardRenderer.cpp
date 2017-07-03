@@ -56,10 +56,13 @@ namespace ht { namespace graphics {
 	}
 
 	void ForwardRenderer::render() {
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 		mat4 cameraMatrix = mat4();
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
 
+		mat4 pv = projectionMatrix * cameraMatrix;
 		for (uint32 i = 0; i < stack->size(); i++) {
 			if (i == 1) {
 				glDepthFunc(GL_EQUAL);
@@ -84,10 +87,7 @@ namespace ht { namespace graphics {
 			curr->start();
 			light->uniform("light", curr);
 
-			curr->uniformMat4("viewMatrix", cameraMatrix);
-
-			if (!curr->hasProjection())
-				curr->setProjection("projectionMatrix", projectionMatrix);
+			curr->setProjection("projectionViewMatrix", pv);
 
 			if (!dynamicEntities.empty())
 				for (auto& entry : dynamicEntities) {
@@ -98,6 +98,7 @@ namespace ht { namespace graphics {
 					}
 					entry.first->end();
 				}
+
 			if(!staticEntities.empty())
 				for (uint32 i = 0; i < staticEntities.size(); i++) {
 					const StaticEntity* sEntity = staticEntities[i];
@@ -125,6 +126,7 @@ namespace ht { namespace graphics {
 					sEntity->end();
 				}
 			}
+		glDisable(GL_CULL_FACE);
 	}
 
 	void ForwardRenderer::reloadTextures() {

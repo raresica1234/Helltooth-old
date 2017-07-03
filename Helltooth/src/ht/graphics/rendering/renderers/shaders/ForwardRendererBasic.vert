@@ -5,8 +5,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 textureCoords;
 layout (location = 2) in vec3 normals;
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 projectionViewMatrix;
 uniform mat4 modelMatrix;
 
 uniform float density;
@@ -20,7 +19,8 @@ out DATA {
 
 void main() {
 	vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-	gl_Position = projectionMatrix * viewMatrix * worldPosition;
+	vec4 pos = projectionViewMatrix * worldPosition;
+	gl_Position = pos;
 
 	vs_out.textureCoords = textureCoords;
 	vs_out.position = worldPosition.xyz;
