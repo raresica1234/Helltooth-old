@@ -14,11 +14,16 @@ namespace ht { namespace graphics { namespace ui {
 		utils::String text, font;
 		maths::vec2 textPosition, scale = maths::vec2(1.f, 1.f), space;
 
-		enum TextAttrib { FILL = 0 } attrib = FILL;
+		uint32 fontSize;
+
+		enum TextAttrib {
+			FILL = 0,
+			SCALE = 1
+		} attrib = FILL;
 
 		enum Align { CENTER, LEFT, RIGHT } align = CENTER;
 
-		uint32 foreColor = 0x000000FF;
+		uint32 foreColor = 0xFF000000;
 
 		Sprite* background = nullptr;
 
@@ -29,9 +34,15 @@ namespace ht { namespace graphics { namespace ui {
 		void submit(BatchRenderer2D* renderer) override;
 
 		void setText(utils::String &text);
-		
+
 		void setBackgroundColor(uint32 color);
 		void setBackgroundColor(maths::vec4 color);
+
+		__forceinline void setTextColor(uint32 color) {
+			foreColor = color;
+		}
+
+		void setTextColor(maths::vec4 color);
 
 	protected:
 		maths::vec3 getSize();

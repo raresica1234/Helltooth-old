@@ -123,7 +123,14 @@ namespace ht { namespace graphics {
 				lights[i]->uniform(currentName, program);
 			}
 		}
-
+		__forceinline void popLight(Light* light) {
+			for (int i = 0; i < lights.size(); i++) {
+				if (lights[i] == light) {
+					lights.erase(lights.begin() + i);
+					return;
+				}
+			}
+		}
 		__forceinline void popLight() { lights.pop_back(); }
 		__forceinline void clear() { lights.clear(); }
 		__forceinline uint32 size() { return lights.size(); }

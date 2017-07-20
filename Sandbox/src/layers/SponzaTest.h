@@ -23,7 +23,7 @@ private:
 	std::vector<DynamicEntity*> sponzaScene;
 	Skybox* box;
 
-	bool loaded = false;
+	bool loaded = false, flashLight = true;
 
 	PointLight* lamp;
 	PointLight* lamp2;

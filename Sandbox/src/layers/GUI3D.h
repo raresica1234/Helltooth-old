@@ -22,12 +22,16 @@ class GUI : public GUILayer {
 
 	Label* label;
 	Label* label2;
+	Label* fuckyou;
+
 	Button* button;
 
 	Image* diffuse;
 	Image* position;
 	Image* uvs;
 	Image* normal;
+
+	Textbox* box;
 
 	Slider* slider;
 

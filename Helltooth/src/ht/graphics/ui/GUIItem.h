@@ -20,9 +20,9 @@ namespace ht { namespace graphics { namespace ui {
 
 		bool visible = true;
 
-		void(*f_OnClick)(const utils::Event&) = [](const utils::Event& e) {};
-		void(*f_OnHover)(const utils::Event&) = [](const utils::Event& e) {};
-		void(*f_OnDrag)(const utils::Event&) = [](const utils::Event& e) {};
+		void(*f_OnClick)(const utils::Event&, GUIItem* item) = [](const utils::Event& e, GUIItem* item) {};
+		void(*f_OnHover)(const utils::Event&, GUIItem* item) = [](const utils::Event& e, GUIItem* item) {};
+		void(*f_OnDrag)(const utils::Event&, GUIItem* item) = [](const utils::Event& e, GUIItem* item) {};
 
 	public:
 		GUIItem(const f32& x, const f32& y, const f32& width, const f32& height)
@@ -54,25 +54,25 @@ namespace ht { namespace graphics { namespace ui {
 			float mx = e.mouseX;
 
 			if (mx >= size.x && mx <= (size.x +size.z) && my >= size.y && my <= (size.y + size.w)) {
-				f_OnHover(e);
+				f_OnHover(e, this);
 				for (unsigned int i = 0; i < MAX_BUTTONS; i++)
 					if (e.mouse_buttons[i]) {
-						f_OnClick(e);
-						f_OnDrag(e);
+						f_OnClick(e, this);
+						f_OnDrag(e, this);
 					}
 				e.handled = true;
 			}
 		}
 		
-		__forceinline void onClick(void(*f_onClick)(const utils::Event&)) {
+		__forceinline void onClick(void(*f_onClick)(const utils::Event&, GUIItem* item)) {
 			this->f_OnClick = f_onClick;
 		}
 
-		__forceinline void onHover(void(*f_onHover)(const utils::Event&)) {
+		__forceinline void onHover(void(*f_onHover)(const utils::Event&, GUIItem* item)) {
 			this->f_OnHover = f_onHover;
 		}
 
-		__forceinline void onDrag(void(*f_onDrag)(const utils::Event&)) {
+		__forceinline void onDrag(void(*f_onDrag)(const utils::Event&, GUIItem* item)) {
 			this->f_OnDrag = f_onDrag;
 		}
 

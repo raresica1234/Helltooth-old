@@ -64,6 +64,16 @@ namespace ht { namespace graphics { namespace ui {
 		textPosition.y = space.y - (textSize.z / scale.y);
 	}
 
+	void Label::setTextColor(maths::vec4 color) {
+		byte r = (byte)(color.x * 255.0f);
+		byte g = (byte)(color.y * 255.0f);
+		byte b = (byte)(color.z * 255.0f);
+		byte a = (byte)(color.w * 255.0f);
+
+		uint32 col = a << 24 | b << 16 | g << 8 | r;
+		setTextColor(col);
+	}
+
 	vec3 Label::getSize() {
 		Font f = FontManager::Get()->getFont();
 

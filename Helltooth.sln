@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Helltooth", "Helltooth\Helltooth.vcxproj", "{6085A733-EC7E-402A-88C5-D841C601CC88}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,6 +24,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FreeType-GL", "Dependencies
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FreeImage", "Dependencies\FreeImage\FreeImage.vcxproj", "{6F2FF135-E343-4138-A6FB-2D1F2540A3F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4AFAB58C-31C0-4840-8675-16E9F775C30D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Skybox Splitter", "Tools\Skybox Splitter\Skybox Splitter.vcxproj", "{4BB489B2-00B9-47D4-A23C-FA1A99B85221}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6F2FF135-E343-4138-A6FB-2D1F2540A3F8} = {6F2FF135-E343-4138-A6FB-2D1F2540A3F8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +80,14 @@ Global
 		{6F2FF135-E343-4138-A6FB-2D1F2540A3F8}.Release|x64.Build.0 = Release|x64
 		{6F2FF135-E343-4138-A6FB-2D1F2540A3F8}.Release|x86.ActiveCfg = Release|Win32
 		{6F2FF135-E343-4138-A6FB-2D1F2540A3F8}.Release|x86.Build.0 = Release|Win32
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Debug|x64.ActiveCfg = Debug|x64
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Debug|x64.Build.0 = Debug|x64
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Debug|x86.ActiveCfg = Debug|Win32
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Debug|x86.Build.0 = Debug|Win32
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Release|x64.ActiveCfg = Release|x64
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Release|x64.Build.0 = Release|x64
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Release|x86.ActiveCfg = Release|Win32
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +96,6 @@ Global
 		{567204D9-06C3-4D14-8722-759E9BE9C88D} = {05115E05-39A0-4176-917A-CE0B0AA9305B}
 		{468ABB35-7D5A-4ADF-8F64-99BA986A327E} = {05115E05-39A0-4176-917A-CE0B0AA9305B}
 		{6F2FF135-E343-4138-A6FB-2D1F2540A3F8} = {05115E05-39A0-4176-917A-CE0B0AA9305B}
+		{4BB489B2-00B9-47D4-A23C-FA1A99B85221} = {4AFAB58C-31C0-4840-8675-16E9F775C30D}
 	EndGlobalSection
 EndGlobal

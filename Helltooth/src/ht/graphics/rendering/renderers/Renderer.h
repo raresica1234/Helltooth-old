@@ -63,6 +63,10 @@ namespace ht { namespace graphics {
 			program->uniform4f("skyColor", maths::vec4(.3f, .4f, .7f, 1.f));
 		}
 
+		virtual void popLight(Light* light) {
+			stack->popLight(light);
+		}
+
 		virtual void popLight() {
 			stack->popLight();
 		}

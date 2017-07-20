@@ -37,27 +37,35 @@ namespace ht { namespace graphics {
 		f32 sinYRot = sin(toRadians(rotation.y));
 		f32 cosYRot = cos(toRadians(rotation.y));
 
-		if (e.isPressed(GLFW_KEY_W)) {
+		if (e.isHold(GLFW_KEY_W)) {
 			movement.x += sinYRot * cosXRot;
 			movement.y += sinXRot;
 			movement.z += cosYRot * cosXRot;
 		}
 
-		if (e.isPressed(GLFW_KEY_S)) {
+		if (e.isHold(GLFW_KEY_S)) {
 			movement.x += -sinYRot * cosXRot;
 			movement.y += -sinXRot;
 			movement.z += -cosYRot * cosXRot;
 		}
 
 
-		if (e.isPressed(GLFW_KEY_A)) {
+		if (e.isHold(GLFW_KEY_A)) {
 			movement.x += cosYRot;
 			movement.z += -sinYRot;
 		}
 
-		if (e.isPressed(GLFW_KEY_D)) {
+		if (e.isHold(GLFW_KEY_D)) {
 			movement.x += -cosYRot;
 			movement.z += sinYRot;
+		}
+
+		if (e.isHold(GLFW_KEY_Q)) {
+			movement.y += .5f;
+		}
+
+		if (e.isHold(GLFW_KEY_E)) {
+			movement.y -= .5f;
 		}
 
 		movement.normalize();

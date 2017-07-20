@@ -9,6 +9,7 @@
 #include "items/Button.h"
 #include "items/Image.h"
 #include "items/Slider.h"
+#include "items/Textbox.h"
 
 #include "../../utils/String.h"
 
@@ -41,6 +42,7 @@ namespace ht { namespace graphics {
 			shader->start();
 		}
 
+
 		__forceinline ui::Label* createLabel(utils::String text, f32 x, f32 y, f32 width,
 			f32 height, utils::String font, maths::vec2 space = maths::vec2(0.0f, 0.0f)) {
 			ui::Label* label = htnew ui::Label(text, x, this->height - y - height, width, height, font, space);
@@ -71,6 +73,13 @@ namespace ht { namespace graphics {
 			ui::Slider* slider = htnew ui::Slider(x, this->height - y - height, width, height, steps, horizontal);
 			items.push_back(slider);
 			return slider;
+		}
+
+		__forceinline ui::Textbox* createTextbox(f32 x, f32 y, f32 width, f32 height, utils::String font, uint16 fontSize,
+			maths::vec2 space = maths::vec2(0.f, 0.f), uint16 maxCharCount = 0) {
+			ui::Textbox* textbox = htnew ui::Textbox(x, this->height - y - height, width, height, font, fontSize, space, maxCharCount);
+			items.push_back(textbox);
+			return textbox;
 		}
 
 		__forceinline void submit(Sprite* sprite) {
@@ -108,6 +117,9 @@ namespace ht { namespace graphics {
 				item->update(event);
 				if (event.handled)
 					e.handled = true;
+
+				memcpy(e.previously_pressed, event.previously_pressed, MAX_KEYS);
+				memcpy(e.keys, event.keys, MAX_KEYS);
 			}
 		}
 

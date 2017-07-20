@@ -35,12 +35,12 @@ namespace ht { namespace graphics { namespace ui {
 		f32 my = e.mouseY;
 
 		if (mx >= size.x && mx <= (size.x + size.z) && my >= size.y && my <= (size.y + size.w)) {
-			f_OnHover(e);
+			f_OnHover(e, this);
 			
 			for (unsigned int i = 0; i < MAX_BUTTONS; i++)
 				if (e.mouse_buttons[i]) {
-					f_OnClick(e);
-					f_OnDrag(e);
+					f_OnClick(e, this);
+					f_OnDrag(e, this);
 					updateSlider(mx, my);
 				}
 			e.handled = true;

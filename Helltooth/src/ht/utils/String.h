@@ -24,81 +24,49 @@ namespace ht { namespace utils {
 		String() { data = htnew char[1];  data[0] = 0; size = 1; }
 		String(const char* str);
 		String(const String& other);
+		__forceinline ~String() {
+			if (data) del[] data;
+		}
+
+		void operator=(const String& other);
+		void operator=(const char* str);
 
 		void append(const char* str);
 		void append(const String &other);
 		void append(const char str);
-		std::vector<String> split(const char delimiter) const;
 
 		bool operator!=(const String& other);
 		bool operator==(const String& other) const;
-		friend String operator+(String left, const String& right);
-		friend String operator+(String left, const char* right);
-		void operator+=(const String &other);
-		void operator+=(const char &other);
 
-		__forceinline void clear() {
-			if (data)
-				del[] data;
-			data = htnew char[1];
-			data[0] = 0;
-			size = 1;
-			hash_value = 0;
-		}
-
-		__forceinline void operator=(const String& other) {
-			if (data != nullptr)
-				del[] data;
-
-			if (other.data == nullptr) {
-				String();
-				return;
-			}
-			size = strlen(other.data);
-			data = htnew char[++size];
-			memcpy(data, other.data, size);
-			hash_value = 0;
-		}
-
-		__forceinline void operator=(const char* str) {
-			if(data)
-				del[] data;
-
-			size = strlen(str) + 1;
-			data = htnew char[size];
-			memcpy(data, str, size);
-			data[size - 1] = 0;
-			hash_value = 0;
-		}
+		__forceinline friend String operator+(String left, const String& right) { left.append(right); return left; }
+		__forceinline friend String operator+(String left, const char* right) { left.append(right); return left; }
 
 		__forceinline void operator+=(char &other) { append(other); }
 		__forceinline void operator+=(String &other) { append(other); }
 
-		__forceinline char operator[](uint32 index) const {
-			HT_ASSERT(index < size, "Index size %i bigger than string size %i!", index, size);
-			return data[index];
-		}
+		__forceinline void operator+=(const String &other) { append(other); }
+		__forceinline void operator+=(const char &other) { append(other); }
 
-		__forceinline const char* c_str() const { return data; }
+		String operator--(int shit);
 
-		__forceinline String substring(uint32 pos) const {
-			char* a = htnew char[size - pos];
-			memcpy(a, data + pos, size - pos);
-			a[size - pos - 1] = 0;
-			return String(a); 
-		}
+		std::vector<String> split(const char delimiter) const;
 
-		__forceinline String cut(uint32 pos) const {
-			char* a = htnew char[size - pos + 1];
-			memcpy(a, data, size - pos);
-			a[size - pos] = 0;
-			return String(a);
-		}
+		String substring(uint32 pos) const;
 
+		String cut(uint32 pos) const;
+		
 		unsigned int hash() const;
+
+		__forceinline char operator[](uint32 index) const { HT_ASSERT(index < size, "Index size %i bigger than string size %i!", index, size); return data[index]; }
+		__forceinline const char* c_str() const { return data; }
+		
+		__forceinline void clear() {
+			if (data) del[] data;
+			data = htnew char[1]; data[0] = 0;
+			size = 1; hash_value = 0;
+		}
 	};
 } }
-
 
 namespace std {
 	template<>

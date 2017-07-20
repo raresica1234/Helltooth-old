@@ -5,10 +5,13 @@
 
 #include "utils/Log.h"
 #include "utils/Internal.h"
-
+#ifdef htnew
+#	error htnew already defined.
+#endif
 #ifndef htnew
 #	define htnew	new(__FILE__, __LINE__)
 #endif
+
 #ifdef del
 #	undef del
 #endif

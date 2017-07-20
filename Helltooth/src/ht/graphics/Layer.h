@@ -73,6 +73,7 @@ namespace ht { namespace graphics {
 		__forceinline void forceCleanUP() { renderer->forceCleanUP(); }
 		__forceinline virtual void reloadTextures() { renderer->reloadTextures(); }
 		__forceinline virtual void pushLight(Light* light) { renderer->addLight(light); }
+		__forceinline virtual void popLight(Light* light) { renderer->popLight(light); }
 		__forceinline virtual void popLight() { renderer->popLight(); }
 		__forceinline void createResourceStack() { stack = assets::ResourceManager::Get()->getStack(assets::ResourceManager::Get()->createStack()); }
 

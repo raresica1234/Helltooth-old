@@ -44,6 +44,10 @@
     <ClCompile Include="src\ht\audio\Audio.cpp" />
     <ClCompile Include="src\ht\audio\AudioManager.cpp" />
     <ClCompile Include="src\ht\audio\Source.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Textbox.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui_demo.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui_draw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ht\assets\Asset.h" />
@@ -118,6 +122,13 @@
     <ClInclude Include="src\ht\audio\Audio.h" />
     <ClInclude Include="src\ht\audio\AudioManager.h" />
     <ClInclude Include="src\ht\audio\Source.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Textbox.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_truetype.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_rect_pack.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_textedit.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imconfig.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imgui.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imgui_internal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ht\graphics\ui\UiShader.vert" />

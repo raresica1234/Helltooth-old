@@ -23,7 +23,6 @@ namespace ht { namespace utils {
 		hash_value = 0;
 	}
 
-
 	void String::append(const char* str) {
 		uint32 strlen = 0;
 		while (str[strlen++] != '\0')
@@ -85,22 +84,52 @@ namespace ht { namespace utils {
 		return true;
 	}
 
-	String operator+(String left, const String& right) {
-		left.append(right);
-		return left;
+	void String::operator=(const String& other) {
+		if (data != nullptr)
+			del[] data;
+
+		if (other.data == nullptr) {
+			String();
+			return;
+		}
+		size = strlen(other.data);
+		data = htnew char[++size];
+		memcpy(data, other.data, size);
+		hash_value = 0;
 	}
 
-	String operator+(String left, const char* right) {
-		 left.append(right);
-		 return left;
+	String String::operator--(int shit) {
+		char* temp = htnew char[--size];
+		memcpy(temp, data, size);
+		temp[size - 1] = 0;
+		del[] data;
+		data = temp;
+		return *this;
 	}
 
-	void String::operator+=(const String &other){
-		append(other);
+	void String::operator=(const char* str) {
+		if (data)
+			del[] data;
+
+		size = strlen(str) + 1;
+		data = htnew char[size];
+		memcpy(data, str, size);
+		data[size - 1] = 0;
+		hash_value = 0;
 	}
 
-	void String::operator+=(const char &other) {
-		append(other);
+	String String::cut(uint32 pos) const {
+		char* a = htnew char[size - pos + 1];
+		memcpy(a, data, size - pos);
+		a[size - pos] = 0;
+		return String(a);
+	}
+
+	String String::substring(uint32 pos) const {
+		char* a = htnew char[size - pos];
+		memcpy(a, data + pos, size - pos);
+		a[size - pos - 1] = 0;
+		return String(a);
 	}
 
 	std::vector<String> String::split(const char delimiter) const {
@@ -134,5 +163,5 @@ namespace ht { namespace utils {
 		}
 		return hash_value; // or return h % C;
 	}
-} }
 
+} }

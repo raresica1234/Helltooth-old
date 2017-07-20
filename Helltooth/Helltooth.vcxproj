@@ -187,6 +187,7 @@
     <ClInclude Include="src\ht\graphics\ui\items\Image.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Label.h" />
     <ClInclude Include="src\ht\graphics\ui\items\Slider.h" />
+    <ClInclude Include="src\ht\graphics\ui\items\Textbox.h" />
     <ClInclude Include="src\ht\graphics\window\Window.h" />
     <ClInclude Include="src\ht\graphics\window\WindowManager.h" />
     <ClInclude Include="src\ht\Helltooth.h" />
@@ -206,6 +207,12 @@
     <ClInclude Include="src\ht\tools\Cereal\src\Object.h" />
     <ClInclude Include="src\ht\tools\Cereal\src\Reader.h" />
     <ClInclude Include="src\ht\tools\Cereal\src\Writer.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imconfig.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imgui.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\imgui_internal.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_rect_pack.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_textedit.h" />
+    <ClInclude Include="src\ht\tools\ImGUI\src\stb_truetype.h" />
     <ClInclude Include="src\ht\tools\VFS\src\Manager.h" />
     <ClInclude Include="src\ht\tools\VFS\VFS.h" />
     <ClInclude Include="src\ht\utils\FileUtils.h" />
@@ -251,6 +258,7 @@
     <ClCompile Include="src\ht\graphics\ui\items\Image.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Label.cpp" />
     <ClCompile Include="src\ht\graphics\ui\items\Slider.cpp" />
+    <ClCompile Include="src\ht\graphics\ui\items\Textbox.cpp" />
     <ClCompile Include="src\ht\graphics\window\Window.cpp" />
     <ClCompile Include="src\ht\graphics\window\WindowManager.cpp" />
     <ClCompile Include="src\ht\maths\mat3.cpp" />
@@ -258,6 +266,9 @@
     <ClCompile Include="src\ht\maths\vec2.cpp" />
     <ClCompile Include="src\ht\maths\vec3.cpp" />
     <ClCompile Include="src\ht\maths\vec4.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui_demo.cpp" />
+    <ClCompile Include="src\ht\tools\ImGUI\src\imgui_draw.cpp" />
     <ClCompile Include="src\ht\tools\VFS\src\Manager.cpp" />
     <ClCompile Include="src\ht\utils\input\Input.cpp" />
     <ClCompile Include="src\ht\utils\memory\MemoryAllocator.cpp" />

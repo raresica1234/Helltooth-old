@@ -14,9 +14,7 @@ void main() {
 		highp int tex = int(texID);
 		out_color = color;
 		vec4 text = texture(textures[tex - 1], textureCoord);
-		if(text.a > 0.5)
-			out_color = text;
-		else
+		if(text.a < 0.5)
 			discard;
 
 	} else {

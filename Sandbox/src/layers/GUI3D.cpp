@@ -18,18 +18,18 @@ GUI::GUI(Window* window, FpsCounter *counter)
 	FontManager::Get()->addFont("/res/consola.ttf", "Jenna", 24);
 	Font& f = FontManager::Get()->getFont();
 
-	sprite = htnew Sprite(100, 100, 200, 300);
+	sprite = htnew Sprite(100, 100, 250, 300);
 	sprite->setColor(vec4(0.3f, 0.4f, 0.7f, 1.0f));
 
-	label = createLabel("Don't look", 20, 10, 400, 40, "Arial", vec2(10, 2));
+	label = createLabel("Don't look", 20, 10, 200, 30, "Arial", vec2(10, 2));
 	label->setBackgroundColor(vec4(0.3f, 0.4f, 0.7f, 1.f));
-
+	label->setTextColor(vec4(0.7, 0.3, 0.3, 1.0));
 	color.w = 1.0f;
 	utils::String s = String("GLVersion: ") + (const char*)glGetString(GL_VERSION);
 
-	label2 = createLabel(s, 20, 50, 1800, 40, "Jenna", vec2(10, 2));
+	label2 = createLabel(s, 20, 40, s.size * 15, 30, "Jenna", vec2(10, 2));
 	label2->setBackgroundColor(vec4(0.3, 0.4, 0.7, 1.f));
-	label2->onHover([](const Event &e) {
+	label2->onHover([](const Event &e, GUIItem* item) {
 		color.z += 0.01f;
 
 		if (color.z > 1.0f) {
@@ -45,28 +45,13 @@ GUI::GUI(Window* window, FpsCounter *counter)
 		if (color.x > 1.0f) {
 			color.x = 0.0f;
 		}
+		Label* label = (Label*)item;
+		label->setBackgroundColor(color);
 	});
 
-	//slider = createSlider(900, 100, 70, 800, 20, true);
-	//slider->setBorderSize(10);
-	//slider->setBorderColor(vec4(0.3, 0.4, 0.7, 1.0));
-	//slider->setSliderColor(vec4(0.0, 0.7, 0.3, 1.0));
-	//slider->setBackgroundColor(vec4(0.6, 0.6, 0.6, 0.8));
-
-	//button = createButton("Don't press me!", 700, 800, 600, 150, "Verdana", vec2(100, 40));
-	//button->setBackgroundColor(0xFF0000db);
-	//button->setPressedColor(0xFF03db00);
-	//button->onClick([](const Event& e) {
-	//	unsigned int i = 0;
-	//	if (e.mouse_buttons[0])
-	//		glfwSetWindowShouldClose(WindowManager::Get()->getWindow(i)->getWindow(), 1);
-	//});
-	//
-	//texture = TextureManager::Get()->getTexture(TextureManager::Get()->createTextureFromFile("/res/logo.jpg"));
-	//
-	//diffuse = createImage((unsigned int)0, 0.f, 100.f, 225.f, 175.f);
-	//position = createImage((unsigned int)1, 0.f, 275.f, 225.f, 175.f);
-	//normal = createImage((unsigned int)2, 0.f, 450.f, 225.f, 175.f);
+	box = createTextbox(50, 50, 1000, 100, "Arial", 13, vec2(5, 5));
+	box->setBackgroundColor(vec4(0.7, 0.5, 0.6, 1.0));
+	box->setTextColor(vec4(0.5, 0.5, 0.5, 1.0));
 }
 
 GUI::~GUI() {
@@ -89,6 +74,5 @@ void GUI::tick() {
 }
 
 void GUI::update(const Event &e) {
-	label2->setBackgroundColor(color);
 	GUILayer::update(e);
 }

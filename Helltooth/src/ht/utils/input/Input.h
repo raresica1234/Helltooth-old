@@ -14,18 +14,32 @@ namespace ht { namespace utils {
 
 		f32 mouseX = -1, mouseY = -1, scrollOffsetX = 0, scrollOffsetY = 0;
 
-		bool keys[MAX_KEYS], mouse_buttons[MAX_BUTTONS];
+		mutable bool previously_pressed[MAX_KEYS], keys[MAX_KEYS], mouse_buttons[MAX_BUTTONS];
 
 		mutable bool handled = false;
 
 		Event() {
 			memset(&keys, 0, MAX_KEYS);
+			memset(&previously_pressed, 0, MAX_KEYS);
 			memset(&mouse_buttons, 0, MAX_BUTTONS);
 		}
 
-		bool isPressed(int32 keyCode) const { return keys[keyCode]; }
-		bool isButtonPressed(int32 button) const { return mouse_buttons[button]; }
+		bool isHold(uint16 key) const { return previously_pressed[key] || keys[key]; }
+		bool isPressed(uint16 key) const {
+			if (!previously_pressed[key] && keys[key]) {
+				printf("Why %s tho %s\n", previously_pressed[key] == false ? "false" : "true", keys[key] == false ? "false" : "true");
+				previously_pressed[key] = true;
+				keys[key] = false;
+				return true;
+			}
+			return keys[key];
+		}
 
+		static char toChar(uint32 glfwKey) {
+			return glfwGetKeyName(glfwKey, 0)[0];
+		}
+
+		bool isButtonPressed(int32 button) const { return mouse_buttons[button]; }
 	};
 
 	class Input {
@@ -50,7 +64,15 @@ namespace ht { namespace utils {
 		}
 
 		friend void key_callback(GLFWwindow* window, int32 key, int32 scancode, int32 action, int32 mods) {
-			event.keys[key] = action == GLFW_RELEASE ? false : true;
+			if (action == GLFW_RELEASE) {
+				event.keys[key] = false;
+				event.previously_pressed[key] = false;
+			}
+			else {
+				if (!event.previously_pressed[key] && !event.keys[key]) {
+					event.keys[key] = true;
+				}
+			}
 		}
 
 		friend void cursor_position_callback(GLFWwindow* window, f64 xpos, f64 ypos) {

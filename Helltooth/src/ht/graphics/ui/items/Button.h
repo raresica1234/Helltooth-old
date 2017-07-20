@@ -15,7 +15,7 @@ namespace ht { namespace graphics { namespace ui {
 		utils::String text, font;
 		maths::vec2 textPosition, scale = maths::vec2(1.f, 1.f), space;
 
-		uint32 foreColor = 0x000000FF;
+		uint32 foreColor = 0xFF000000;
 
 		Sprite *background = nullptr, *pressedcolor = nullptr;
 
@@ -26,6 +26,11 @@ namespace ht { namespace graphics { namespace ui {
 		~Button() { if (background) del background; }
 
 		__forceinline void setBackgroundColor(uint32 color) {
+			if (!background) { background = htnew Sprite(0, 0, size.z, size.w); sprites.push_back(background); }
+			background->setColor(color);
+		}
+
+		__forceinline void setBackgroundColor(maths::vec4 color) {
 			if (!background) { background = htnew Sprite(0, 0, size.z, size.w); sprites.push_back(background); }
 			background->setColor(color);
 		}
