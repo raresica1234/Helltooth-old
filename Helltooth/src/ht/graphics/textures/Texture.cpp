@@ -28,7 +28,6 @@ namespace ht { namespace graphics {
 		case 32:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL); break;
 		}
-
 	}
 
 	bool Texture::loadPixelArray(byte *pixels, uint16 width, uint16 height, byte bpp, int32 wrap, int32 mipmap) const {

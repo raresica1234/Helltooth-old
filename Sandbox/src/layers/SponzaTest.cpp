@@ -37,7 +37,7 @@ SponzaTest::SponzaTest(Window* window)
 	//Stack size - skybox (1)
 	for (int i = 0; i < stack->getSize() - 1; i++) {
 		sponzaScene.push_back(htnew DynamicEntity(nullptr, 0.f, 0.f, 0.f));
-		//sponzaScene[i]->scale(0.000005f, 0.000005f, 0.000005f);
+		sponzaScene[i]->scale(0.000005f, 0.000005f, 0.000005f);
 	}
 	lamp = htnew PointLight(vec3(500, 10.f, 0), vec3(0, 0, 1), vec3(0.23, .0025f, 0.f));
 	lamp2 = htnew PointLight(vec3(-500, 10.f, 0), vec3(1, 0, 0), vec3(0.23, .0025f, 0.f));

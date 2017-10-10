@@ -56,8 +56,9 @@ namespace ht { namespace graphics {
 	}
 
 	void ForwardRenderer::render() {
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
 		mat4 cameraMatrix = mat4();
 		if (camera)
 			cameraMatrix = camera->generateViewMatrix();
@@ -126,7 +127,7 @@ namespace ht { namespace graphics {
 					sEntity->end();
 				}
 			}
-		glDisable(GL_CULL_FACE);
+		glDisable(GL_DEPTH_TEST);
 	}
 
 	void ForwardRenderer::reloadTextures() {

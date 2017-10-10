@@ -435,7 +435,6 @@ void newFrame() {
 	io.MouseWheel = _mouseWheel;
 	_mouseWheel = 0.0f;
 
-
 	glfwSetInputMode(_window, GLFW_CURSOR, io.MouseDrawCursor ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 
 	NewFrame();

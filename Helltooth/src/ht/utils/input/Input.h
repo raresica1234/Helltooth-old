@@ -27,7 +27,6 @@ namespace ht { namespace utils {
 		bool isHold(uint16 key) const { return previously_pressed[key] || keys[key]; }
 		bool isPressed(uint16 key) const {
 			if (!previously_pressed[key] && keys[key]) {
-				printf("Why %s tho %s\n", previously_pressed[key] == false ? "false" : "true", keys[key] == false ? "false" : "true");
 				previously_pressed[key] = true;
 				keys[key] = false;
 				return true;
